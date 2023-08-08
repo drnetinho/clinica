@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'app/pages/landing/landing_page.dart';
 import 'firebase/prod/firebase_options.dart' as prd;
 import 'firebase/dev/firebase_options.dart' as dev;
 
@@ -13,25 +14,20 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: dimension != Flavor.prd.name
-        ? dev.DefaultFirebaseOptions.currentPlatform
-        : prd.DefaultFirebaseOptions.currentPlatform,
+    options: dimension != Flavor.prd.name ? dev.DefaultFirebaseOptions.currentPlatform : prd.DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MainApp());
+  runApp(const ClispApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class ClispApp extends StatelessWidget {
+  const ClispApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello Worldd!'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: LandingPage(),
     );
   }
 }

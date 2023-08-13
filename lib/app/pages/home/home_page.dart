@@ -12,7 +12,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text(HomePage.routeName),),
+      body: Center(
+        child: Text(HomePage.routeName),
+      ),
     );
   }
 }

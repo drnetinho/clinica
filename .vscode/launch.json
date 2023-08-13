@@ -5,21 +5,32 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "clinica",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "clinica (profile mode)",
+            "name": "clinica DEV",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "args": [
+                "--dart-define",
+                "dimension=dev",
+            ]
         },
         {
-            "name": "clinica (release mode)",
+            "name": "clinica STG",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "args": [
+                "--dart-define",
+                "dimension=stg",
+            ]
+        },
+        {
+            "name": "clinica PRD",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define",
+                "dimension=prd",
+            ]
         }
     ]
 }

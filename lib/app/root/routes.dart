@@ -12,9 +12,9 @@ final _firstNestedNavKey = GlobalKey<NavigatorState>();
 final _secondNestedNavKey = GlobalKey<NavigatorState>();
 final _thirdNestedNavKey = GlobalKey<NavigatorState>();
 
-final router = GoRouter(
+final goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: HomePage.routeName,
+  initialLocation: LandingPage.routeName,
   routes: <RouteBase>[
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -31,7 +31,6 @@ final router = GoRouter(
             GoRoute(
               path: HomePage.routeName,
               builder: (context, state) => const HomePage(),
-              routes: const [],
             ),
           ],
         ),
@@ -42,6 +41,7 @@ final router = GoRouter(
             GoRoute(
               path: ProfilePage.routeName,
               builder: (context, state) => const ProfilePage(),
+              routes: const [],
             ),
           ],
         ),
@@ -52,6 +52,7 @@ final router = GoRouter(
             GoRoute(
               path: SettingsPage.routeName,
               builder: (context, state) => const SettingsPage(),
+              routes: const [],
             ),
           ],
         ),

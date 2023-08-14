@@ -19,7 +19,7 @@ void main() async {
         ? dev.DefaultFirebaseOptions.currentPlatform
         : prd.DefaultFirebaseOptions.currentPlatform,
   );
-  await   configureDependencies();
+  await configureDependencies();
 
   runApp(const ClispApp());
 }
@@ -31,9 +31,10 @@ class ClispApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerDelegate: router.routerDelegate,
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
+      routerDelegate: goRouter.routerDelegate,
+      routeInformationProvider: goRouter.routeInformationProvider,
+      routeInformationParser: goRouter.routeInformationParser,
+      // TODO Ver depois
       theme: ThemeData(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.blueGrey,

@@ -31,6 +31,7 @@ class _RootNavigatorState extends State<RootNavigator> {
       extendBody: true,
       body: Row(
         children: [
+          // TODO Fazer a barra de navegação com os icones etc
           Container(
             width: 60,
             height: double.infinity,

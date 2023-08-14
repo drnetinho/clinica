@@ -87,3 +87,11 @@ flutter:
         - asset: assets/fonts/Poppins-ThinItalic.ttf
           weight: 100
           style: italic
+
+scripts:
+  brb: "flutter pub run build_runner build --delete-conflicting-outputs"
+  brw: "flutter pub run build_runner watch --delete-conflicting-outputs"
+  brb_src: "flutter pub run build_runner build --delete-conflicting-outputs --build-filter='lib/src/**.dart'"
+
+ # To run build runner in a specific folder and reduce processing time, use:
+ # flutter pub run build_runner build --delete-conflicting-outputs --build-filter='lib/src/<folder_namer>**.dart 

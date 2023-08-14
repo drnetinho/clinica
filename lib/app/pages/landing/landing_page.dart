@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:netinhoappclinica/app/pages/landing/test_page.dart';
 import 'package:netinhoappclinica/app/pages/landing/widgets/app_bar_landing_page.dart';
 import 'package:netinhoappclinica/app/pages/landing/widgets/go_login_admin.dart';
 import '../../core/components/consult_file_widget.dart';
 import '../../core/components/medical_scale_card_widget.dart';
+import '../../root/routes.dart';
 
 class LandingPage extends StatefulWidget {
   static const String routeName = '/landing';
@@ -14,6 +16,18 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   final cpfControlller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        Future.delayed(const Duration(seconds: 2)).then(
+          (value) => goRouter.pushNamed(TestePage.routeName),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

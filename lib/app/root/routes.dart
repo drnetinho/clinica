@@ -6,6 +6,7 @@ import 'package:netinhoappclinica/app/pages/settings/settings_page.dart';
 import 'package:netinhoappclinica/app/root/root_navigator.dart';
 
 import '../pages/landing/landing_page.dart';
+import '../pages/landing/test_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _firstNestedNavKey = GlobalKey<NavigatorState>();
@@ -61,6 +62,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: LandingPage.routeName,
       builder: (context, state) => const LandingPage(),
+    ),
+    GoRoute(
+      path: TestePage.routeName,
+      builder: (context, state) => const TestePage(),
     ),
   ],
 );

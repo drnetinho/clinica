@@ -55,9 +55,12 @@ class ConsultFileWidget extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          child: Image.asset('assets/images/Group.png'),
+        Padding(
+          padding: const EdgeInsets.only(right: 100),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Image.asset('assets/images/Group.png'),
+          ),
         )
       ],
     );

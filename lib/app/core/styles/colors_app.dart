@@ -17,9 +17,11 @@ class ColorsApp {
   Color get greyColor => const Color(0xFFB4B4B4);
   Color get greyColor2 => const Color(0xFF616161);
   Color get transparentColor => const Color(0x00000000);
+  Color get textCardColor => const Color(0xFF616161);
+  Color get bottonBarColor => const Color(0xFFDDDBDB);
+  Color get backgroundCardColor => const Color(0xFFF8F8F8);
 }
 
 extension ColorsAppExtension on BuildContext {
   ColorsApp get colorsApp => ColorsApp.instance;
 }
-

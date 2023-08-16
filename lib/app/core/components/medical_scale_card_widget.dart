@@ -42,8 +42,9 @@ class MedicalScaleCardWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: 500 * unitHeight,
+                    height: 100 * unitHeight, 
+                    // height: MediaQuery.of(context).size.height * 0.1,
                     decoration: BoxDecoration(
                       color: context.colorsApp.greyColor,
                       borderRadius: BorderRadius.circular(10),

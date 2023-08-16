@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'app/core/styles/colors_app.dart';
 import 'app/di/get_it.dart';
 import 'app/root/routes.dart';
 import 'firebase/prod/firebase_options.dart' as prd;
@@ -15,9 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: dimension != Flavor.prd.name
-        ? dev.DefaultFirebaseOptions.currentPlatform
-        : prd.DefaultFirebaseOptions.currentPlatform,
+    options: dimension != Flavor.prd.name ? dev.DefaultFirebaseOptions.currentPlatform : prd.DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
 
@@ -36,6 +35,15 @@ class ClispApp extends StatelessWidget {
       routeInformationParser: goRouter.routeInformationParser,
       // TODO Ver depois
       theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            foregroundColor:ColorsApp.instance.whiteColor,
+            backgroundColor: ColorsApp.instance.primaryColorGrean,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.blueGrey,
           selectedIconTheme: IconThemeData(

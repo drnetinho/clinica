@@ -19,6 +19,7 @@ class CardCategoriasWidget extends StatelessWidget {
       color: ColorsApp.instance.backgroundCardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       margin: const EdgeInsets.all(10),
+      elevation: 10,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

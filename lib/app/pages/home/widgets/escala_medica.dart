@@ -14,6 +14,7 @@ class EscalaMedica extends StatelessWidget {
         color: ColorsApp.instance.backgroundCardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         margin: const EdgeInsets.all(10),
+        elevation: 10,
         child: Column(
           children: [
             Padding(

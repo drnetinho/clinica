@@ -21,25 +21,26 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
-            child: Container(
-              color: Colors.red,
+      body: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 100),
+              child: Container(
+                color: Colors.red,
+              ),
             ),
           ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-            child: GrupoFamiliarWidget(grupoFamiliar: grupoFamiliar),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              child: GrupoFamiliarWidget(grupoFamiliar: grupoFamiliar),
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 }

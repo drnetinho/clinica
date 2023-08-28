@@ -20,6 +20,7 @@ class ColorsApp {
   Color get textCardColor => const Color(0xFF616161);
   Color get bottonBarColor => const Color(0xFFDDDBDB);
   Color get backgroundCardColor => const Color(0xFFF8F8F8);
+  Color get backgroundExluirButton => const Color(0xFFFF1313);
 }
 
 extension ColorsAppExtension on BuildContext {

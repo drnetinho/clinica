@@ -11,7 +11,7 @@ import 'package:netinhoappclinica/app/pages/relatorios/relatorios_page.dart';
 
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';
-import '../../gerenciar/gerenciar_pacientes_page.dart';
+import '../../gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../../historico/historico_page.dart';
 
 class HomePage extends StatefulWidget {

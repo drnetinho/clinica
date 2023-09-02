@@ -7,12 +7,12 @@ import 'package:netinhoappclinica/app/root/root_navigator.dart';
 
 import '../pages/avaliacoes/avaliacoes_page.dart';
 import '../pages/formas_pagamento/formas_de_pagamento_page.dart';
-import '../pages/gerenciar/gerenciar_pacientes_page.dart';
+import '../pages/gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../pages/grupo_familiar/grupo_familiar_page.dart';
 import '../pages/historico/historico_page.dart';
 import '../pages/landing/landing_page.dart';
 import '../pages/relatorios/relatorios_page.dart';
-import '../pages/sign/sign_page.dart';
+import '../pages/sigin/sign_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _firstNestedNavKey = GlobalKey<NavigatorState>();

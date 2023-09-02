@@ -13,7 +13,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i7;
 
-import '../app/pages/home/data/repository/get_cities_repository.dart' as _i5;
+import '../app/pages/gerenciar_pacientes/data/repository/get_cities_repository.dart'
+    as _i5;
 import '../app/root/router_controller.dart' as _i6;
 import '../core/services/auth/auth_service.dart' as _i3;
 import '../core/services/firestore/firestore_service.dart' as _i4;

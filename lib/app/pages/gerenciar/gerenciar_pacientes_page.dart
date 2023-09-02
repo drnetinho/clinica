@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/app/core/styles/text_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar/widgets/excluir_buttons.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar/widgets/ficha_medica_widget.dart';

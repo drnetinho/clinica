@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/app/core/styles/text_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class FichaMedicaWidget extends StatelessWidget {
   const FichaMedicaWidget({

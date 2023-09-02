@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/pages/home/home_page.dart';
+import 'package:netinhoappclinica/app/pages/home/view/home_page.dart';
 import 'package:netinhoappclinica/app/pages/profile/profile_page.dart';
 import 'package:netinhoappclinica/app/pages/settings/settings_page.dart';
 import 'package:netinhoappclinica/app/root/root_navigator.dart';

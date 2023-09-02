@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/app/pages/landing/widgets/app_bar_landing_page.dart';
 import 'package:netinhoappclinica/app/pages/landing/widgets/go_login_admin.dart';
-import '../../core/components/consult_file_widget.dart';
-import '../../core/components/medical_scale_card_widget.dart';
+import '../../../core/components/consult_file_widget.dart';
+import '../../../core/components/medical_scale_card_widget.dart';
 
 class LandingPage extends StatefulWidget {
   static const String routeName = '/landing';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
 class RootNavigator extends StatefulWidget {
   final StatefulNavigationShell navigationShell;

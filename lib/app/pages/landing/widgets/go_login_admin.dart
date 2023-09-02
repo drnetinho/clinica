@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/app/core/styles/text_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/app/pages/sign/sign_page.dart';
 
 class GoLoginAdmin extends StatelessWidget {

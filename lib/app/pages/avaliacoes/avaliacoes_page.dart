@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/core/styles/text_app.dart';
-import '../../core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
+import '../../../core/styles/colors_app.dart';
 
 class AvaliacoesPage extends StatefulWidget {
   static const String routeName = 'avaliacoes';
@@ -33,7 +33,8 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                   const SizedBox(height: 50),
                   Text(
                     'Escolher Paciente',
-                    style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                    style: context.textStyles.textPoppinsSemiBold
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
                   ),
                   const SizedBox(height: 10),
                   Container(
@@ -51,14 +52,16 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                       children: [
                         const Icon(Icons.person_add),
                         Text('Selecionar Paciente',
-                            style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 12, color: ColorsApp.instance.greyColor2)),
+                            style: context.textStyles.textPoppinsMedium
+                                .copyWith(fontSize: 12, color: ColorsApp.instance.greyColor2)),
                       ],
                     ),
                   ),
                   const SizedBox(height: 50),
                   Text(
                     'Anexar Relatório da consulta',
-                    style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                    style: context.textStyles.textPoppinsSemiBold
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
                   ),
                   const SizedBox(height: 10),
                   Container(
@@ -77,11 +80,13 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                         const Icon(Icons.upload_file_rounded),
                         Text(
                           'Arraste o arquivo aqui',
-                          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.primaryColorGrean),
+                          style: context.textStyles.textPoppinsMedium
+                              .copyWith(fontSize: 16, color: ColorsApp.instance.primaryColorGrean),
                         ),
                         Text(
                           'Ou clique para selecionar',
-                          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 12, color: ColorsApp.instance.greyColor2),
+                          style: context.textStyles.textPoppinsMedium
+                              .copyWith(fontSize: 12, color: ColorsApp.instance.greyColor2),
                         ),
                       ],
                     ),
@@ -99,7 +104,8 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                 children: [
                   Text(
                     'Avaliações',
-                    style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                    style: context.textStyles.textPoppinsSemiBold
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
                   ),
                   const SizedBox(height: 10),
                   Expanded(

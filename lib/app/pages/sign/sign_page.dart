@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/core/styles/text_app.dart';
-import 'package:netinhoappclinica/app/pages/home/home_page.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 
-import '../../core/components/input_field.dart';
+import '../../../core/components/input_field.dart';
+import '../home/view/home_page.dart';
 
 class SignPage extends StatelessWidget {
   static const String routeName = '/sign';

@@ -1,17 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/core/services/firestore/firestore_collections.dart';
+import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
 
-import '../../../../../core/error/app_error.dart';
+import '../../../../../common/either/either.dart';
+import '../../../../../common/error/app_error.dart';
 import '../../../../../core/helps/map_utils.dart';
-import '../../../../../core/services/firestore/firestore_service.dart';
+import '../../../../../common/services/firestore/firestore_service.dart';
 
-import '../../../../../core/services/logger.dart';
+import '../../../../../common/services/logger.dart';
 import '../../domain/model/patient_model.dart';
 import '../types/home_types.dart';
 
 abstract class GetPatientsRepository {
   GetPatientsOrError getPatients();
+  DeletePatientOrError deletePatient({required String id});
+  AddPatientOrError addPatient({required PatientModel patient});
 }
 
 @Injectable(as: GetPatientsRepository)
@@ -35,6 +38,28 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);
+    }
+  }
+
+  @override
+  DeletePatientOrError deletePatient({required String id}) async {
+    try {
+      await FirestoreService.fire.collection(FirestoreCollections.patients).doc(id).delete();
+      Logger.prettyPrint(id, Logger.redColor);
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    }
+  }
+
+  @override
+  AddPatientOrError addPatient({required PatientModel patient}) async {
+    try {
+      await FirestoreService.fire.collection(FirestoreCollections.patients).add(patient.toJson());
+      Logger.prettyPrint(patient, Logger.cyanColor);
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
     }
   }
 }

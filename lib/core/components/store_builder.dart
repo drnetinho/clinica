@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/patients_state.dart';
+import 'package:netinhoappclinica/common/state/app_state.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 
 // T é o tipo de dado de sucesso

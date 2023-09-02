@@ -38,10 +38,11 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
     return Scaffold(
       body: Row(
         children: [
-          Expanded(
-            flex: 1,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .9,
+            width: MediaQuery.of(context).size.height * .7,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 20, 30, 10),
+              padding: const EdgeInsets.fromLTRB(50, 20, 30, 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -67,7 +68,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(Icons.search, size: 30, color: ColorsApp.instance.primaryColorGrean),
+                                      Icon(Icons.search, size: 30, color: ColorsApp.instance.success),
                                       const SizedBox(width: 10),
                                       Expanded(
                                         flex: 1,
@@ -92,7 +93,11 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                         child: SizedBox(
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (patientSelected.exists) {
+                                patientsStore.addPatient(patient: patientSelected.value!);
+                              }
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -109,37 +114,40 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                   ),
                   const SizedBox(height: 20),
                   Expanded(
-                    child: StoreBuilder<List<PatientModel>>(
-                      store: patientsStore,
-                      validateEmptyList: true,
-                      builder: (context, value, child) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: context.colorsApp.backgroundCardColor,
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: ColorsApp.instance.greyColor),
-                          ),
-                          child: ListView.builder(
-                            padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
-                            shrinkWrap: true,
-                            itemCount: value.length,
-                            itemBuilder: (context, index) {
-                              final patient = value[index];
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.height * .7,
+                      child: StoreBuilder<List<PatientModel>>(
+                        store: patientsStore,
+                        validateEmptyList: true,
+                        builder: (context, value, child) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: context.colorsApp.backgroundCardColor,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: ColorsApp.instance.greyColor),
+                            ),
+                            child: ListView.builder(
+                              padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
+                              shrinkWrap: true,
+                              itemCount: value.length,
+                              itemBuilder: (context, index) {
+                                final patient = value[index];
 
-                              return GestureDetector(
-                                onTap: () => patientSelected.value = patient,
-                                child: AnimatedBuilder(
-                                  animation: patientSelected,
-                                  builder: (context, child) => PatientCard(
-                                    patient: patient,
-                                    isSelected: patient == patientSelected.value,
+                                return GestureDetector(
+                                  onTap: () => patientSelected.value = patient,
+                                  child: AnimatedBuilder(
+                                    animation: patientSelected,
+                                    builder: (context, child) => PatientCard(
+                                      patient: patient,
+                                      isSelected: patient == patientSelected.value,
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      },
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -148,14 +156,15 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
           ),
 
           //ficha medica
-          Expanded(
-            flex: 1,
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .9,
+            width: MediaQuery.of(context).size.height * .7,
             child: AnimatedBuilder(
                 animation: patientSelected,
                 builder: (context, child) {
                   if (patientSelected.exists) {
                     return Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 90, 30, 10),
+                      padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
                       child: Card(
                         color: context.colorsApp.backgroundCardColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

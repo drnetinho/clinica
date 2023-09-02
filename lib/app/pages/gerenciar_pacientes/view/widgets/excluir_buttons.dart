@@ -3,15 +3,16 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class ExcluirButton extends StatelessWidget {
-   final void Function()? onPressed;
+  final void Function()? onPressed;
   const ExcluirButton({
-    super.key, this.onPressed,
+    super.key,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: context.colorsApp.backgroundExluirButton),
+      style: ElevatedButton.styleFrom(backgroundColor: context.colorsApp.danger),
       onPressed: onPressed,
       child: Row(
         children: [

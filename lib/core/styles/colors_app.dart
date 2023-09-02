@@ -11,6 +11,7 @@ class ColorsApp {
   }
 
   Color get primaryColorGrean => const Color(0xFF77A755);
+  Color get success => const Color(0xFF77A755);
   Color get secondaryColorRed => const Color(0xFFBE0202);
   Color get blackColor => const Color(0xFF000000);
   Color get whiteColor => const Color(0xFFFFFFFF);
@@ -20,7 +21,7 @@ class ColorsApp {
   Color get textCardColor => const Color(0xFF616161);
   Color get bottonBarColor => const Color(0xFFDDDBDB);
   Color get backgroundCardColor => const Color(0xFFF8F8F8);
-  Color get backgroundExluirButton => const Color(0xFFFF1313);
+  Color get danger => const Color(0xFFFF1313);
 }
 
 extension ColorsAppExtension on BuildContext {

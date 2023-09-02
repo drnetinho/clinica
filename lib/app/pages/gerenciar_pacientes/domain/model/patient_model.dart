@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../../common/model/address_model.dart';
@@ -5,7 +6,7 @@ import '../../../../../common/model/address_model.dart';
 part 'patient_model.g.dart';
 
 @JsonSerializable()
-class PatientModel {
+class PatientModel extends Equatable {
   final String name;
   final String gender;
   final String familyGroup;
@@ -13,8 +14,9 @@ class PatientModel {
   final String age;
   final String phone;
   final List<String> previousIlnesses;
+  final String id;
 
-  PatientModel(
+  const PatientModel(
     this.name,
     this.gender,
     this.familyGroup,
@@ -22,9 +24,20 @@ class PatientModel {
     this.age,
     this.phone,
     this.previousIlnesses,
+    this.id,
   );
 
-  factory PatientModel.fromJson(Map<String, dynamic> json) =>
-      _$PatientModelFromJson(json);
+  factory PatientModel.fromJson(Map<String, dynamic> json) => _$PatientModelFromJson(json);
   Map<String, dynamic> toJson() => _$PatientModelToJson(this);
+
+  @override
+  List<Object?> get props => [
+        name,
+        gender,
+        familyGroup,
+        address,
+        age,
+        phone,
+        previousIlnesses,
+      ];
 }

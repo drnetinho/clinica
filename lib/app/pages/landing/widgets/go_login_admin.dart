@@ -22,24 +22,28 @@ class GoLoginAdmin extends StatelessWidget {
               fit: BoxFit.contain,
               child: Text(
                 'Sistema de Gerenciamento\nde cadastros',
-                style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor, fontSize: 50 * unitHeight),
+                style: context.textStyles.textPoppinsSemiBold
+                    .copyWith(color: context.colorsApp.blackColor, fontSize: 50 * unitHeight),
               ),
             ),
             Text(
               'Acompanhe os relatórios atualizados, gerencie\ncadastros, monetização e muito mais.',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.greyColor, fontSize: 24 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.greyColor, fontSize: 24 * unitHeight),
             ),
             const SizedBox(height: 60),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.colorsApp.whiteColor,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),side: BorderSide(color: ColorsApp.instance.primaryColorGrean)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10), side: BorderSide(color: ColorsApp.instance.success)),
                 ),
                 onPressed: () {
                   context.go(SignPage.routeName);
                 },
                 child: Text('Entrar',
-                    style: context.textStyles.textPoppinsSemiBold.copyWith(color: ColorsApp.instance.primaryColorGrean, fontSize: 24 * unitHeight))),
+                    style: context.textStyles.textPoppinsSemiBold
+                        .copyWith(color: ColorsApp.instance.success, fontSize: 24 * unitHeight))),
           ],
         ),
         Padding(

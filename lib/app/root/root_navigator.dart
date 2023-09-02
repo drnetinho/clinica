@@ -45,7 +45,9 @@ class _RootNavigatorState extends State<RootNavigator> {
                   },
                   icon: Icon(
                     Icons.home_outlined,
-                    color: widget.navigationShell.currentIndex == 0 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    color: widget.navigationShell.currentIndex == 0
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -55,7 +57,9 @@ class _RootNavigatorState extends State<RootNavigator> {
                   },
                   icon: Icon(
                     Icons.person,
-                    color: widget.navigationShell.currentIndex == 1 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    color: widget.navigationShell.currentIndex == 1
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -65,7 +69,9 @@ class _RootNavigatorState extends State<RootNavigator> {
                   },
                   icon: Icon(
                     Icons.settings,
-                    color: widget.navigationShell.currentIndex == 2 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    color: widget.navigationShell.currentIndex == 2
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -75,7 +81,9 @@ class _RootNavigatorState extends State<RootNavigator> {
                   },
                   icon: Icon(
                     Icons.logout,
-                    color: widget.navigationShell.currentIndex == 3 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    color: widget.navigationShell.currentIndex == 3
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
               ],

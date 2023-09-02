@@ -72,7 +72,7 @@ class StateLoadingWidget extends StatelessWidget {
         height: size,
         width: size,
         child: CircularProgressIndicator(
-          color: spinnerColor ?? ColorsApp.instance.primaryColorGrean,
+          color: spinnerColor ?? ColorsApp.instance.success,
         ),
       ),
     );

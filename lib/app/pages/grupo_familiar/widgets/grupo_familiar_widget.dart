@@ -5,8 +5,6 @@ import 'package:netinhoappclinica/core/styles/text_app.dart';
 import '../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../../gerenciar_pacientes/view/widgets/excluir_buttons.dart';
 
-
-
 class GrupoFamiliarWidget extends StatelessWidget {
   const GrupoFamiliarWidget({
     super.key,
@@ -48,7 +46,7 @@ class GrupoFamiliarWidget extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(Icons.person, size: 30, color: ColorsApp.instance.primaryColorGrean),
+                          Icon(Icons.person, size: 30, color: ColorsApp.instance.success),
                           const SizedBox(width: 1),
                           Text(grupoFamiliar[index],
                               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
@@ -62,8 +60,7 @@ class GrupoFamiliarWidget extends StatelessWidget {
             ),
             Text(
               'Histórico de Pagamentos',
-              style: context.textStyles.textPoppinsMedium
-                  .copyWith(fontSize: 24, color: ColorsApp.instance.primaryColorGrean),
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 24, color: ColorsApp.instance.success),
             ),
             const SizedBox(height: 20),
             Row(
@@ -104,11 +101,11 @@ class GrupoFamiliarWidget extends StatelessWidget {
             const SizedBox(height: 20),
             Row(
               children: [
-                Icon(Icons.search, size: 20, color: ColorsApp.instance.primaryColorGrean),
+                Icon(Icons.search, size: 20, color: ColorsApp.instance.success),
                 const SizedBox(width: 6),
                 Text('Visualizar histórico completo',
-                    style: context.textStyles.textPoppinsMedium
-                        .copyWith(fontSize: 14, color: ColorsApp.instance.primaryColorGrean)),
+                    style:
+                        context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: ColorsApp.instance.success)),
               ],
             ),
             const SizedBox(height: 20),
@@ -117,17 +114,17 @@ class GrupoFamiliarWidget extends StatelessWidget {
                   width: 200,
                   height: 30,
                   decoration: BoxDecoration(
-                    border: Border.all(color: ColorsApp.instance.primaryColorGrean, width: 1),
+                    border: Border.all(color: ColorsApp.instance.success, width: 1),
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.add, size: 20, color: ColorsApp.instance.primaryColorGrean),
+                      Icon(Icons.add, size: 20, color: ColorsApp.instance.success),
                       const SizedBox(width: 6),
                       Text('Ver Carteirinha',
                           style: context.textStyles.textPoppinsMedium
-                              .copyWith(fontSize: 14, color: ColorsApp.instance.primaryColorGrean)),
+                              .copyWith(fontSize: 14, color: ColorsApp.instance.success)),
                     ],
                   )),
             )

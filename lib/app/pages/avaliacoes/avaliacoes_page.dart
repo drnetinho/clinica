@@ -34,7 +34,7 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                   Text(
                     'Escolher Paciente',
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.success),
                   ),
                   const SizedBox(height: 10),
                   Container(
@@ -61,7 +61,7 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                   Text(
                     'Anexar Relatório da consulta',
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.success),
                   ),
                   const SizedBox(height: 10),
                   Container(
@@ -81,7 +81,7 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                         Text(
                           'Arraste o arquivo aqui',
                           style: context.textStyles.textPoppinsMedium
-                              .copyWith(fontSize: 16, color: ColorsApp.instance.primaryColorGrean),
+                              .copyWith(fontSize: 16, color: ColorsApp.instance.success),
                         ),
                         Text(
                           'Ou clique para selecionar',
@@ -105,7 +105,7 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> {
                   Text(
                     'Avaliações',
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(fontSize: 20, color: ColorsApp.instance.primaryColorGrean),
+                        .copyWith(fontSize: 20, color: ColorsApp.instance.success),
                   ),
                   const SizedBox(height: 10),
                   Expanded(

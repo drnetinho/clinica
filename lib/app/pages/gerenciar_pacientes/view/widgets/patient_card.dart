@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
@@ -33,6 +34,16 @@ class PatientCard extends StatelessWidget {
                   color: isSelected ? ColorsApp.instance.primaryColorGrean : null,
                 ),
               ),
+              if (kDebugMode) ...{
+                const SizedBox(width: 4),
+                Text(
+                  patient.id,
+                  style: context.textStyles.textPoppinsMedium.copyWith(
+                    fontSize: 14,
+                    color: ColorsApp.instance.primaryColorGrean,
+                  ),
+                ),
+              },
               const Spacer(),
               Icon(
                 Icons.arrow_forward_ios,

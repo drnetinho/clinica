@@ -17,9 +17,9 @@ import '../app/pages/gerenciar_pacientes/data/repository/get_patients_repository
     as _i5;
 import '../app/pages/gerenciar_pacientes/view/store/patients_store.dart' as _i6;
 import '../app/root/router_controller.dart' as _i7;
-import '../core/services/auth/auth_service.dart' as _i3;
-import '../core/services/firestore/firestore_service.dart' as _i4;
-import '../core/services/shared_preferences/shared_preferences_module.dart'
+import '../common/services/auth/auth_service.dart' as _i3;
+import '../common/services/firestore/firestore_service.dart' as _i4;
+import '../common/services/shared_preferences/shared_preferences_module.dart'
     as _i9;
 
 extension GetItInjectableX on _i1.GetIt {

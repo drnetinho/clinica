@@ -41,7 +41,7 @@ class ClispApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorsApp.instance.whiteColor,
-            backgroundColor: ColorsApp.instance.primaryColorGrean,
+            backgroundColor: ColorsApp.instance.success,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
             ),

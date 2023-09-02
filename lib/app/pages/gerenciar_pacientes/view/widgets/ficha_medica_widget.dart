@@ -19,8 +19,7 @@ class FichaMedicaWidget extends StatelessWidget {
       children: [
         Text(
           'Dados Pessoais',
-          style:
-              context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
         ),
         const SizedBox(height: 20),
         Row(
@@ -68,8 +67,7 @@ class FichaMedicaWidget extends StatelessWidget {
         const SizedBox(height: 40),
         Text(
           'Endereço',
-          style:
-              context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
         ),
         const SizedBox(height: 20),
         Row(
@@ -124,8 +122,7 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text(
                   'Doenças Pré-Existentes',
-                  style: context.textStyles.textPoppinsMedium
-                      .copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
                 ),
                 const SizedBox(height: 10),
                 ...patient.previousIlnesses.map(
@@ -142,8 +139,7 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text(
                   'Grupo Familiar',
-                  style: context.textStyles.textPoppinsMedium
-                      .copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
                 ),
                 const SizedBox(height: 10),
                 Text(

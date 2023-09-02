@@ -19,6 +19,8 @@ migrate_working_dir/
 
 # Flutter/Dart/Pub related
 **/doc/api/
+**/.dart_tool/chrome-device/Default
+**/build/
 **/ios/Flutter/.last_build_id
 .dart_tool/
 .dart_tool/chrome-device/Default
@@ -28,4 +30,3 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-.dart_tool/chrome-device/Default/

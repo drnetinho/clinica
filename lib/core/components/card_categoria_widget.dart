@@ -34,9 +34,9 @@ class CardCategoriasWidget extends StatelessWidget {
                 children: [
                   Text(title,
                       style: context.textStyles.textPoppinsSemiBold
-                          .copyWith(fontSize: 18, color: context.colorsApp.primaryColorGrean)),
+                          .copyWith(fontSize: 18, color: context.colorsApp.success)),
                   const SizedBox(width: 10),
-                  Icon(icon, color: context.colorsApp.primaryColorGrean, size: 24),
+                  Icon(icon, color: context.colorsApp.success, size: 24),
                 ],
               ),
               const SizedBox(height: 10),

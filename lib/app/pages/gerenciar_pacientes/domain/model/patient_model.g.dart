@@ -16,6 +16,7 @@ PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
       (json['previousIlnesses'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
+      json['id'] as String,
     );
 
 Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
@@ -27,4 +28,5 @@ Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
       'age': instance.age,
       'phone': instance.phone,
       'previousIlnesses': instance.previousIlnesses,
+      'id': instance.id,
     };

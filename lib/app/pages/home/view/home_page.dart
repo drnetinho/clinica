@@ -32,9 +32,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Informações Gerais',
-                style: context.textStyles.textPoppinsSemiBold
-                    .copyWith(fontSize: 28)),
+            Text('Informações Gerais', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 28)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,37 +50,24 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 16.0),
-                          child: Text('Pacientes',
-                              style: context.textStyles.textPoppinsSemiBold
-                                  .copyWith(fontSize: 22)),
+                          padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 16.0),
+                          child:
+                              Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
                         ),
                         Row(
                           children: [
-                            InkWell(
-                              child: const CardCategoriasWidget(
-                                icon: Icons.person,
-                                title: 'Gerenciar',
-                                subTitle:
-                                    'Adicionar novos pacientes\n e gerenciar os existentes',
-                              ),
-                              onTap: () => context.go(subRoute(
-                                  HomePage.routeName,
-                                  GerenciarPacientesPage.routeName)),
+                            CardCategoriasWidget(
+                              icon: Icons.person,
+                              title: 'Gerenciar',
+                              subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
+                              onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
                             ),
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            InkWell(
-                              child: const CardCategoriasWidget(
-                                icon: Icons.person,
-                                title: 'Histórico',
-                                subTitle:
-                                    'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
-                              ),
-                              onTap: () => context.go(subRoute(
-                                  HomePage.routeName, HistoricoPage.routeName)),
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                            CardCategoriasWidget(
+                              icon: Icons.person,
+                              title: 'Histórico',
+                              subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
+                              onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
                             ),
                           ],
                         ),
@@ -90,27 +75,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        InkWell(
-                          child: const CardCategoriasWidget(
-                            icon: Icons.person,
-                            title: 'Grupo Familiar',
-                            subTitle:
-                                'Ver membros e acessar\ndetalhes do grupo familiar.',
-                          ),
-                          onTap: () => context.go(subRoute(
-                              HomePage.routeName, GrupoFamiliarPage.routeName)),
+                        CardCategoriasWidget(
+                          icon: Icons.person,
+                          title: 'Grupo Familiar',
+                          subTitle: 'Ver membros e acessar\ndetalhes do grupo familiar.',
+                          onTap: () => context.go(subRoute(HomePage.routeName, GrupoFamiliarPage.routeName)),
                         ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.02),
-                        InkWell(
-                          child: const CardCategoriasWidget(
-                            icon: Icons.person,
-                            title: 'Avaliações',
-                            subTitle:
-                                'Adicionar avaliações\n(Receitas, solicitações de exames)',
-                          ),
-                          onTap: () => context.go(subRoute(
-                              HomePage.routeName, AvaliacoesPage.routeName)),
+                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                        CardCategoriasWidget(
+                          icon: Icons.person,
+                          title: 'Avaliações',
+                          subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
+                          onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),
                         ),
                       ],
                     ),
@@ -122,33 +98,22 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 22.0, vertical: 16.0),
-                      child: Text('Pagamentos',
-                          style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(fontSize: 22)),
+                      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 16.0),
+                      child: Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
                     ),
                     Column(
                       children: [
-                        InkWell(
-                          child: const CardCategoriasWidget(
-                            icon: Icons.person,
-                            title: 'Formas de Pagamento',
-                            subTitle:
-                                'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
-                          ),
-                          onTap: () => context.go(subRoute(HomePage.routeName,
-                              FormasDePagamentoPage.routeName)),
+                        CardCategoriasWidget(
+                          icon: Icons.person,
+                          title: 'Formas de Pagamento',
+                          subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
+                          onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
                         ),
-                        InkWell(
-                          child: const CardCategoriasWidget(
-                            icon: Icons.person,
-                            title: 'Relatórios',
-                            subTitle:
-                                'Acessar relatórios de faturamento.\n     ',
-                          ),
-                          onTap: () => context.go(subRoute(
-                              HomePage.routeName, RelatoriosPage.routeName)),
+                        CardCategoriasWidget(
+                          icon: Icons.person,
+                          title: 'Relatórios',
+                          subTitle: 'Acessar relatórios de faturamento.\n     ',
+                          onTap: () => context.go(subRoute(HomePage.routeName, RelatoriosPage.routeName)),
                         ),
                       ],
                     ),

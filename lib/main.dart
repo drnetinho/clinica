@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'app/core/styles/colors_app.dart';
-import 'app/di/get_it.dart';
+
 import 'app/root/routes.dart';
+import 'core/styles/colors_app.dart';
+import 'di/get_it.dart';
 import 'firebase/prod/firebase_options.dart' as prd;
 import 'firebase/dev/firebase_options.dart' as dev;
 
@@ -16,7 +17,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: dimension != Flavor.prd.name ? dev.DefaultFirebaseOptions.currentPlatform : prd.DefaultFirebaseOptions.currentPlatform,
+    options: dimension != Flavor.prd.name
+        ? dev.DefaultFirebaseOptions.currentPlatform
+        : prd.DefaultFirebaseOptions.currentPlatform,
   );
   await configureDependencies();
 

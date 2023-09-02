@@ -5,7 +5,6 @@ import 'package:netinhoappclinica/core/error/app_error.dart';
 import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 
 import '../../data/repository/get_patients_repository.dart';
-import '../../domain/model/patient_model.dart';
 
 @injectable
 class ManagePatientsStore extends ValueNotifier<AppState> {
@@ -18,8 +17,8 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
     final result = await _repository.getPatients();
 
     if (result.patients.exists) {
-      // value = AppStateSuccess(data: result.patients!);
-      value = AppStateSuccess(data: <PatientModel>[]);
+      value = AppStateSuccess(data: result.patients!);
+      // value = AppStateSuccess(data: <PatientModel>[]);
     }
 
     if (result.error.exists) {

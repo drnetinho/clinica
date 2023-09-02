@@ -119,7 +119,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(color: ColorsApp.instance.greyColor),
                           ),
-                          alignment: Alignment.center,
                           child: ListView.builder(
                             padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
                             shrinkWrap: true,

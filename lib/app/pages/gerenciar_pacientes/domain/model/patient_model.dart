@@ -10,6 +10,8 @@ class PatientModel {
   final String gender;
   final String familyGroup;
   final AddressModel address;
+  final String age;
+  final String phone;
   final List<String> previousIlnesses;
 
   PatientModel(
@@ -17,6 +19,8 @@ class PatientModel {
     this.gender,
     this.familyGroup,
     this.address,
+    this.age,
+    this.phone,
     this.previousIlnesses,
   );
 

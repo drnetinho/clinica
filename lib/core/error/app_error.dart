@@ -11,3 +11,7 @@ class RemoteError extends AppError {
 
   RemoteError({this.message});
 }
+
+extension AppErrorExtension on AppError? {
+  bool get exists => this != null;
+}

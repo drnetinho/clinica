@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
+import 'package:netinhoappclinica/core/services/firestore/firestore_collections.dart';
 
 import '../../../../../core/error/app_error.dart';
 import '../../../../../core/helps/map_utils.dart';
@@ -9,31 +10,31 @@ import '../../../../../core/services/logger.dart';
 import '../../domain/model/patient_model.dart';
 import '../types/home_types.dart';
 
-abstract class GetCitiesRepository {
-  GetCitiesOrError getPatients();
+abstract class GetPatientsRepository {
+  GetPatientsOrError getPatients();
 }
 
-@Injectable(as: GetCitiesRepository)
-class GetCitiesRepositoryImpl implements GetCitiesRepository {
+@Injectable(as: GetPatientsRepository)
+class GetPatientsRepositoryImpl implements GetPatientsRepository {
   final FirestoreService service;
 
-  GetCitiesRepositoryImpl({
+  GetPatientsRepositoryImpl({
     required this.service,
   });
 
   @override
-  GetCitiesOrError getPatients() async {
+  GetPatientsOrError getPatients() async {
     try {
-      final response = await FirestoreService.fire.collection('cities').get();
+      final response = await FirestoreService.fire.collection(FirestoreCollections.patients).get();
 
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
 
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
       Logger.prettyPrint(data, Logger.greenColor);
 
-      return (error: null, cities: data);
+      return (error: null, patients: data);
     } on FirebaseException {
-      return (error: RemoteError(), cities: null);
+      return (error: RemoteError(), patients: null);
     }
   }
 }

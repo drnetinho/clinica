@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class FichaMedicaWidget extends StatelessWidget {
+  final PatientModel patient;
+
   const FichaMedicaWidget({
-    super.key,
-  });
+    Key? key,
+    required this.patient,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,8 @@ class FichaMedicaWidget extends StatelessWidget {
       children: [
         Text(
           'Dados Pessoais',
-          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+          style:
+              context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
         ),
         const SizedBox(height: 20),
         Row(
@@ -25,14 +31,16 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text('Nome:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  'Thiago Fernandes Lopes',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.name,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
                 const SizedBox(height: 10),
                 Text('Sexo:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  'Masculino',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.gender,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
               ],
             ),
@@ -42,14 +50,16 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text('Idade:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  '23',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.age,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
                 const SizedBox(height: 10),
                 Text('Contato:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  '(11) 9 9999-9999',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.phone,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
               ],
             ),
@@ -58,7 +68,8 @@ class FichaMedicaWidget extends StatelessWidget {
         const SizedBox(height: 40),
         Text(
           'Endereço',
-          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+          style:
+              context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
         ),
         const SizedBox(height: 20),
         Row(
@@ -69,14 +80,16 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text('Cidade:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  'Pau dos Ferros - RN',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.address.city,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
                 const SizedBox(height: 10),
                 Text('Bairro:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  'Centro',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.address.neighborhood,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
               ],
             ),
@@ -86,14 +99,16 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text('Rua:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  'Rua João da Silva',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.address.street,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
                 const SizedBox(height: 10),
                 Text('Número:', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                 Text(
-                  '9',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.address.number,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
               ],
             ),
@@ -105,19 +120,20 @@ class FichaMedicaWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Doenças Pré-Existentes',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+                  style: context.textStyles.textPoppinsMedium
+                      .copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  '* Diabetes, Hipertensão',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                ),
-                Text(
-                  '* Diabetes, Hipertensão',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                ...patient.previousIlnesses.map(
+                  (illness) => Text(
+                    illness,
+                    style:
+                        context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  ),
                 ),
               ],
             ),
@@ -126,12 +142,14 @@ class FichaMedicaWidget extends StatelessWidget {
               children: [
                 Text(
                   'Grupo Familiar',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
+                  style: context.textStyles.textPoppinsMedium
+                      .copyWith(fontSize: 16, color: context.colorsApp.primaryColorGrean),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Botao ver grupo',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                  patient.familyGroup,
+                  style:
+                      context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                 ),
               ],
             ),

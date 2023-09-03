@@ -219,7 +219,7 @@ class AppFormField extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(Spacing.m),
                     borderSide: BorderSide(
-                      color: isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.blackColor,
+                      color: isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.warning,
                     ),
                   ),
                   errorBorder: OutlineInputBorder(

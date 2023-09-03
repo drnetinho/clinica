@@ -1,5 +1,7 @@
 const Duration oneSec = Duration(seconds: 1);
 const Duration twoSec = Duration(seconds: 2);
+const Duration threeSec = Duration(seconds: 3);
+const Duration fiveSec = Duration(seconds: 5);
 const Duration threeHundMili = Duration(milliseconds: 300);
 const Duration fiveHundMili = Duration(seconds: 500);
 

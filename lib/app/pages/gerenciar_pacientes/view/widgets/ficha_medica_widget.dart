@@ -5,6 +5,9 @@ import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/controller/
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/patients_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/helps/duration.dart';
+import 'package:netinhoappclinica/core/helps/padding.dart';
+import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -111,6 +114,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                         );
                       } else {
                         editMode.value = true;
+                        showSnack();
                       }
                     },
                   ),
@@ -119,10 +123,6 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
               const SizedBox(height: 20),
               Text(
                 'Dados Pessoais',
-                style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
-              ),
-              Text(
-                widget.patient.name,
                 style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: context.colorsApp.success),
               ),
               const SizedBox(height: 20),
@@ -258,5 +258,22 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
             ],
           );
         });
+  }
+
+  void showSnack() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: ColorsApp.instance.primary,
+        content: const Text('Modo de edição ativado!'),
+        duration: fiveSec,
+        dismissDirection: DismissDirection.up,
+        behavior: SnackBarBehavior.floating,
+        margin: Padd.only(
+          b: MediaQuery.of(context).size.height - 50,
+          l: Spacing.l,
+          r: Spacing.l,
+        ),
+      ),
+    );
   }
 }

@@ -25,13 +25,13 @@ class PatientCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(Icons.person, size: 30, color: ColorsApp.instance.primaryColorGrean),
+              Icon(Icons.person, size: 30, color: ColorsApp.instance.primary),
               const SizedBox(width: 4),
               Text(
                 patient.name,
                 style: context.textStyles.textPoppinsMedium.copyWith(
                   fontSize: 14,
-                  color: isSelected ? ColorsApp.instance.primaryColorGrean : null,
+                  color: isSelected ? ColorsApp.instance.primary : null,
                 ),
               ),
               if (kDebugMode) ...{
@@ -40,7 +40,7 @@ class PatientCard extends StatelessWidget {
                   patient.id,
                   style: context.textStyles.textPoppinsMedium.copyWith(
                     fontSize: 14,
-                    color: ColorsApp.instance.primaryColorGrean,
+                    color: ColorsApp.instance.primary,
                   ),
                 ),
               },
@@ -48,12 +48,12 @@ class PatientCard extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios,
                 size: 20,
-                color: isSelected ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor,
+                color: isSelected ? ColorsApp.instance.primary : ColorsApp.instance.greyColor,
               ),
             ],
           ),
           Divider(
-            color: isSelected ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor.withOpacity(0.5),
+            color: isSelected ? ColorsApp.instance.primary : ColorsApp.instance.greyColor.withOpacity(0.5),
           ),
         ],
       ),

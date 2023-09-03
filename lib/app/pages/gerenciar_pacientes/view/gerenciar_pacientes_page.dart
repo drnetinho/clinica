@@ -42,7 +42,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
         if (patientsStore.value is AppStateSuccess) {
           final data = (patientsStore.value as AppStateSuccess).data as List<PatientModel>;
 
-          // patientSelected.value = data.first;
+          patientSelected.value = data.first;
         }
       },
     );
@@ -156,7 +156,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                   itemBuilder: (context, index) {
                                     final patient = value[index];
 
-                                    return GestureDetector(
+                                    return InkWell(
                                       onTap: () {
                                         patientSelected.value = null;
                                         patientSelected.value = patient;

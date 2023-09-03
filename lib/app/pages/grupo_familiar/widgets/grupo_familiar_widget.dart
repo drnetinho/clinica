@@ -30,7 +30,10 @@ class GrupoFamiliarWidget extends StatelessWidget {
                 const Spacer(),
                 ExcluirButton(onPressed: () {}),
                 const SizedBox(width: 10),
-                EditarButton(onPressed: () {})
+                EditarButton(
+                  isEditing: false,
+                  onPressed: () {},
+                )
               ],
             ),
             const SizedBox(height: 20),

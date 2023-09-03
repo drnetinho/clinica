@@ -11,16 +11,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:shared_preferences/shared_preferences.dart' as _i8;
+import 'package:shared_preferences/shared_preferences.dart' as _i9;
 
 import '../app/pages/gerenciar_pacientes/data/repository/get_patients_repository.dart'
-    as _i5;
-import '../app/pages/gerenciar_pacientes/view/store/patients_store.dart' as _i6;
-import '../app/root/router_controller.dart' as _i7;
+    as _i6;
+import '../app/pages/gerenciar_pacientes/view/controller/ficha_medica_controller.dart'
+    as _i4;
+import '../app/pages/gerenciar_pacientes/view/store/patients_store.dart' as _i7;
+import '../app/root/router_controller.dart' as _i8;
 import '../common/services/auth/auth_service.dart' as _i3;
-import '../common/services/firestore/firestore_service.dart' as _i4;
+import '../common/services/firestore/firestore_service.dart' as _i5;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
-    as _i9;
+    as _i10;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -36,21 +38,24 @@ extension GetItInjectableX on _i1.GetIt {
     final firestoreModule = _$FirestoreModule();
     final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.singleton<_i3.AuthService>(_i3.AuthService());
-    gh.factory<_i4.FirestoreService<dynamic>>(
+    gh.factory<_i4.FichaMedicaController>(() => _i4.FichaMedicaController());
+    gh.factory<_i5.FirestoreService<dynamic>>(
         () => firestoreModule.firestoreService);
-    gh.factory<_i5.GetPatientsRepository>(() => _i5.GetPatientsRepositoryImpl(
-        service: gh<_i4.FirestoreService<dynamic>>()));
-    gh.factory<_i6.ManagePatientsStore>(
-        () => _i6.ManagePatientsStore(gh<_i5.GetPatientsRepository>()));
-    gh.singleton<_i7.RouterController>(_i7.RouterController());
-    await gh.factoryAsync<_i8.SharedPreferences>(
+    gh.factory<_i6.GetPatientsRepository>(() => _i6.GetPatientsRepositoryImpl(
+        service: gh<_i5.FirestoreService<dynamic>>()));
+    gh.factory<_i7.ManagePatientsStore>(
+        () => _i7.ManagePatientsStore(gh<_i6.GetPatientsRepository>()));
+    gh.singleton<_i8.RouterController>(_i8.RouterController());
+    await gh.factoryAsync<_i9.SharedPreferences>(
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i7.EditPatientsStore>(
+        () => _i7.EditPatientsStore(gh<_i6.GetPatientsRepository>()));
     return this;
   }
 }
 
-class _$FirestoreModule extends _i4.FirestoreModule {}
+class _$FirestoreModule extends _i5.FirestoreModule {}
 
-class _$SharedPreferencesModule extends _i9.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i10.SharedPreferencesModule {}

@@ -15,6 +15,7 @@ abstract class GetPatientsRepository {
   GetPatientsOrError getPatients();
   DeletePatientOrError deletePatient({required String id});
   AddPatientOrError addPatient({required PatientModel patient});
+  EditPatientOrError updatePatient({required PatientModel patient});
 }
 
 @Injectable(as: GetPatientsRepository)
@@ -57,6 +58,17 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
     try {
       await FirestoreService.fire.collection(FirestoreCollections.patients).add(patient.toJson());
       Logger.prettyPrint(patient, Logger.cyanColor);
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    }
+  }
+
+  @override
+  EditPatientOrError updatePatient({required PatientModel patient}) async {
+    try {
+      await FirestoreService.fire.collection(FirestoreCollections.patients).doc(patient.id).update(patient.toJson());
+      Logger.prettyPrint(patient, Logger.greenColor);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);

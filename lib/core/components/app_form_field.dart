@@ -5,8 +5,7 @@ import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
-class AppFormField extends StatefulWidget {
-  final double? width;
+class AppFormField extends StatelessWidget {
   final int? maxLength;
   final bool? readOnly;
   final double? fontSize;
@@ -55,18 +54,21 @@ class AppFormField extends StatefulWidget {
   final bool? filled;
   final Color? filledColor;
   final bool isValid;
+  final bool isDense;
   final void Function(String)? onSubmit;
   final AutovalidateMode? autovalidateMode;
   final TextStyle? textStyle;
   final double? minHeight;
-  final double? maxHeight;
+  final double maxHeight;
+  final double maxWidth;
   final bool? expands;
   final List<TextInputFormatter>? inputFormatters;
 
   const AppFormField({
-    Key? key,
+    super.key,
     this.minHeight,
-    this.maxHeight,
+    this.maxHeight = 80,
+    this.maxWidth = 250,
     this.textStyle,
     this.autovalidateMode,
     this.filled,
@@ -91,10 +93,10 @@ class AppFormField extends StatefulWidget {
     this.isValid = false,
     this.prefix,
     this.decoration,
-    this.width = double.infinity,
     this.maxLength,
     this.errorBorderColor,
     this.readOnly = false,
+    this.isDense = true,
     this.fontSize,
     this.hint = '',
     this.labelText = '',
@@ -121,153 +123,146 @@ class AppFormField extends StatefulWidget {
     this.maxLines,
     this.expands,
     this.inputFormatters,
-  }) : super(key: key);
+  });
 
-  @override
-  _AppFormFieldState createState() => _AppFormFieldState();
-}
-
-class _AppFormFieldState extends State<AppFormField> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (widget.labelText != null) ...{
-          Text(
-            widget.labelText ?? '',
-            style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: maxHeight,
+        maxWidth: maxWidth,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (labelText != null) ...{
+            Text(
+              labelText ?? '',
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            ),
+            Spacing.l.verticalGap,
+          },
+          TextFormField(
+            inputFormatters: inputFormatters,
+            onTap: onTap,
+            onChanged: onChanged,
+            onSaved: onSaved,
+            onFieldSubmitted: onSubmit,
+            autovalidateMode: autovalidateMode ?? AutovalidateMode.always,
+            enabled: enabled,
+            maxLength: maxLength,
+            readOnly: readOnly!,
+            textAlignVertical: TextAlignVertical.center,
+            keyboardType: keyboardType,
+            cursorWidth: 1,
+            cursorColor: ColorsApp.instance.blackColor,
+            autofocus: autofocus!,
+            controller: controller,
+            focusNode: focusNode,
+            obscureText: isPassword,
+            validator: validator,
+            minLines: minLines,
+            maxLines: maxLines,
+            style: textStyle ?? context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            expands: expands ?? false,
+            initialValue: initialValue,
+            decoration: decoration ??
+                InputDecoration(
+                  helperText: null,
+                  errorText: null,
+                  errorMaxLines: 1,
+                  errorStyle: const TextStyle(
+                    height: 0,
+                    color: Colors.transparent,
+                  ),
+                  isDense: isDense,
+                  suffixIcon: suffixIcon,
+                  suffixIconColor: suffixIconColor,
+                  suffixStyle: suffixStyle,
+                  suffixIconConstraints: suffixIconConstraints,
+                  suffixText: suffixText,
+                  suffix: suffix,
+                  prefixIcon: prefixIcon,
+                  prefixIconColor: prefixIconColor,
+                  prefixStyle: prefixStyle,
+                  prefixIconConstraints: prefixIconConstraints,
+                  prefixText: prefixText,
+                  prefix: prefix,
+                  filled: filled,
+                  fillColor: filledColor,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: hideLabel ? null : labelText,
+                  hintText: hint,
+                  hintStyle: context.textStyles.textPoppinsMedium.copyWith(
+                    color: hintColor ?? ColorsApp.instance.greyColor2,
+                  ),
+                  contentPadding: contentPadding,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Spacing.m),
+                    borderSide: BorderSide(
+                      color: isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Spacing.m),
+                    borderSide: BorderSide(
+                      color: isValid ? ColorsApp.instance.success : enableBorderColor ?? ColorsApp.instance.greyColor2,
+                    ),
+                  ),
+                  disabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Spacing.m),
+                    borderSide: BorderSide(
+                      color:
+                          isValid ? ColorsApp.instance.success : disabledBorderColor ?? ColorsApp.instance.greyColor2,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Spacing.m),
+                    borderSide: BorderSide(
+                      color: isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.blackColor,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(Spacing.m),
+                    borderSide: BorderSide(
+                      color: isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
+                    ),
+                  ),
+                ),
           ),
-          Spacing.l.verticalGap,
-        },
-        TextFormField(
-          inputFormatters: widget.inputFormatters,
-          onTap: widget.onTap,
-          onChanged: widget.onChanged,
-          onSaved: widget.onSaved,
-          onFieldSubmitted: widget.onSubmit,
-          autovalidateMode: widget.autovalidateMode ?? AutovalidateMode.always,
-          enabled: widget.enabled,
-          maxLength: widget.maxLength,
-          readOnly: widget.readOnly!,
-          textAlignVertical: TextAlignVertical.center,
-          keyboardType: widget.keyboardType,
-          cursorWidth: 1,
-          cursorColor: ColorsApp.instance.blackColor,
-          autofocus: widget.autofocus!,
-          controller: widget.controller,
-          focusNode: widget.focusNode,
-          obscureText: widget.isPassword,
-          validator: widget.validator,
-          minLines: widget.minLines,
-          maxLines: widget.maxLines ?? 1,
-          style: widget.textStyle ?? context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-          expands: widget.expands ?? false,
-          initialValue: widget.initialValue,
-          decoration: widget.decoration ??
-              InputDecoration(
-                helperText: null,
-                errorText: null,
-                errorMaxLines: 1,
-                errorStyle: const TextStyle(
-                  height: 0,
-                  color: Colors.transparent,
-                ),
-                suffixIcon: widget.suffixIcon,
-                suffixIconColor: widget.suffixIconColor,
-                suffixStyle: widget.suffixStyle,
-                suffixIconConstraints: widget.suffixIconConstraints,
-                suffixText: widget.suffixText,
-                suffix: widget.suffix,
-                prefixIcon: widget.prefixIcon,
-                prefixIconColor: widget.prefixIconColor,
-                prefixStyle: widget.prefixStyle,
-                prefixIconConstraints: widget.prefixIconConstraints,
-                prefixText: widget.prefixText,
-                prefix: widget.prefix,
-                filled: widget.filled,
-                fillColor: widget.filledColor,
-                floatingLabelBehavior: FloatingLabelBehavior.auto,
-                labelText: widget.hideLabel ? null : widget.labelText,
-                hintText: widget.hint,
-                hintStyle: context.textStyles.textPoppinsMedium.copyWith(
-                  color: widget.hintColor ?? ColorsApp.instance.greyColor2,
-                ),
-                contentPadding: widget.contentPadding,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(Spacing.m),
-                  borderSide: BorderSide(
-                    color: widget.isValid
-                        ? ColorsApp.instance.success
-                        : widget.borderColor ?? ColorsApp.instance.greyColor2,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(Spacing.m),
-                  borderSide: BorderSide(
-                    color: widget.isValid
-                        ? ColorsApp.instance.success
-                        : widget.enableBorderColor ?? ColorsApp.instance.greyColor2,
-                  ),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(Spacing.m),
-                  borderSide: BorderSide(
-                    color: widget.isValid
-                        ? ColorsApp.instance.success
-                        : widget.disabledBorderColor ?? ColorsApp.instance.greyColor2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(Spacing.m),
-                  borderSide: BorderSide(
-                    color: widget.isValid
-                        ? ColorsApp.instance.success
-                        : widget.focusedBorderColor ?? ColorsApp.instance.blackColor,
-                  ),
-                ),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(Spacing.m),
-                  borderSide: BorderSide(
-                    color: widget.isValid
-                        ? ColorsApp.instance.success
-                        : widget.errorBorderColor ?? ColorsApp.instance.danger,
-                  ),
-                ),
-              ),
-        ),
-        if (widget.helperText != null) ...{
-          Spacing.l.verticalGap,
-          Row(
-            children: [
-              Icon(
-                Icons.info_outline_rounded,
-                size: 18,
-                color: ColorsApp.instance.greyColor2,
-              ),
-              Spacing.l.horizotalGap,
-              Text(
-                widget.helperText ?? '',
-                style: context.textStyles.textPoppinsMedium.copyWith(
-                  fontSize: 14,
-                  height: 1.7,
+          if (helperText != null) ...{
+            Spacing.l.verticalGap,
+            Row(
+              children: [
+                Icon(
+                  Icons.info_outline_rounded,
+                  size: 18,
                   color: ColorsApp.instance.greyColor2,
                 ),
-              ),
-            ],
-          ),
-        },
-        if (widget.errorText != null && widget.controller?.text.isMoreThanOne == true) ...{
-          Spacing.l.horizotalGap,
-          Text(
-            widget.errorText ?? '',
-            style: context.textStyles.textPoppinsMedium.copyWith(
-              fontSize: 14,
-              color: ColorsApp.instance.danger,
+                Spacing.l.horizotalGap,
+                Text(
+                  helperText ?? '',
+                  style: context.textStyles.textPoppinsMedium.copyWith(
+                    fontSize: 14,
+                    height: 1.7,
+                    color: ColorsApp.instance.greyColor2,
+                  ),
+                ),
+              ],
             ),
-          ),
-        }
-      ],
+          },
+          if (errorText != null && controller?.text.isMoreThanOne == true) ...{
+            Spacing.l.horizotalGap,
+            Text(
+              errorText ?? '',
+              style: context.textStyles.textPoppinsMedium.copyWith(
+                fontSize: 14,
+                color: ColorsApp.instance.danger,
+              ),
+            ),
+          }
+        ],
+      ),
     );
   }
 }

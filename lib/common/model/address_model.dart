@@ -21,4 +21,20 @@ class AddressModel {
   factory AddressModel.fromJson(Map<String, dynamic> json) =>
       _$AddressModelFromJson(json);
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
+
+  AddressModel copyWith({
+    String? city,
+    String? neighborhood,
+    String? number,
+    String? state,
+    String? street,
+  }) {
+    return AddressModel(
+      city ?? this.city,
+      neighborhood ?? this.neighborhood,
+      number ?? this.number,
+      state ?? this.state,
+      street ?? this.street,
+    );
+  }
 }

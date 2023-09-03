@@ -23,6 +23,12 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
       value = AppStateError(error: 'Erro ao buscar dados');
     }
   }
+}
+
+@injectable
+class EditPatientsStore extends ValueNotifier<AppState> {
+  final GetPatientsRepository _repository;
+  EditPatientsStore(this._repository) : super(AppStateInitial());
 
   Future<void> deletePatient({required String id}) async {
     value = AppStateLoading();
@@ -33,6 +39,18 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
     }
     if (result.error.exists) {
       value = AppStateError(error: 'Erro ao deletar paciente');
+    }
+  }
+
+  Future<void> updatePatient({required PatientModel patient}) async {
+    value = AppStateLoading();
+    final result = await _repository.updatePatient(patient: patient);
+
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    }
+    if (result.error.exists) {
+      value = AppStateError(error: 'Erro ao atualizar dados do paciente');
     }
   }
 

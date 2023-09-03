@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/patients_store.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/excluir_buttons.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
+import 'package:netinhoappclinica/common/state/app_state.dart';
+import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
-import '../../../../core/components/state_widget.dart';
 import '../../../../core/components/store_builder.dart';
 
 class GerenciarPacientesPage extends StatefulWidget {
@@ -23,14 +22,30 @@ class GerenciarPacientesPage extends StatefulWidget {
 
 class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
   late final ManagePatientsStore patientsStore;
+  late final EditPatientsStore editPatientsStore;
   late final ValueNotifier<PatientModel?> patientSelected;
 
   @override
   void initState() {
     super.initState();
     patientsStore = getIt<ManagePatientsStore>();
+    editPatientsStore = getIt<EditPatientsStore>();
     patientsStore.getPatients();
     patientSelected = ValueNotifier(null);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    patientsStore.addListener(
+      () {
+        if (patientsStore.value is AppStateSuccess) {
+          final data = (patientsStore.value as AppStateSuccess).data as List<PatientModel>;
+
+          // patientSelected.value = data.first;
+        }
+      },
+    );
   }
 
   @override
@@ -95,7 +110,12 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               if (patientSelected.exists) {
-                                patientsStore.addPatient(patient: patientSelected.value!);
+                                editPatientsStore.addPatient(
+                                  patient: patientSelected.value!.copyWith(
+                                    age: DateTime.now().toIso8601String(),
+                                    name: 'Thiago Fernandes',
+                                  ),
+                                );
                               }
                             },
                             child: Row(
@@ -126,22 +146,27 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(color: ColorsApp.instance.greyColor),
                             ),
-                            child: ListView.builder(
-                              padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
-                              shrinkWrap: true,
-                              itemCount: value.length,
-                              itemBuilder: (context, index) {
-                                final patient = value[index];
+                            child: AnimatedBuilder(
+                              animation: patientSelected,
+                              builder: (context, child) {
+                                return ListView.builder(
+                                  padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
+                                  shrinkWrap: true,
+                                  itemCount: value.length,
+                                  itemBuilder: (context, index) {
+                                    final patient = value[index];
 
-                                return GestureDetector(
-                                  onTap: () => patientSelected.value = patient,
-                                  child: AnimatedBuilder(
-                                    animation: patientSelected,
-                                    builder: (context, child) => PatientCard(
-                                      patient: patient,
-                                      isSelected: patient == patientSelected.value,
-                                    ),
-                                  ),
+                                    return GestureDetector(
+                                      onTap: () {
+                                        patientSelected.value = null;
+                                        patientSelected.value = patient;
+                                      },
+                                      child: PatientCard(
+                                        patient: patient,
+                                        isSelected: patient == patientSelected.value,
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             ),
@@ -158,45 +183,38 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
           //ficha medica
           SizedBox(
             height: MediaQuery.of(context).size.height * .9,
-            width: MediaQuery.of(context).size.height * .7,
-            child: AnimatedBuilder(
-                animation: patientSelected,
-                builder: (context, child) {
-                  if (patientSelected.exists) {
-                    return Padding(
-                      padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
-                      child: Card(
-                        color: context.colorsApp.backgroundCardColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                        elevation: 10,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Text('Ficha Médica',
-                                      style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22)),
-                                  const Spacer(),
-                                  ExcluirButton(onPressed: () {}),
-                                  const SizedBox(width: 10),
-                                  EditarButton(onPressed: () {})
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              FichaMedicaWidget(
-                                patient: patientSelected.value!,
-                              ),
-                            ],
-                          ),
-                        ),
+            width: MediaQuery.of(context).size.height * .8,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
+              child: Card(
+                color: context.colorsApp.backgroundCardColor,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                elevation: 10,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AnimatedBuilder(
+                        animation: Listenable.merge([patientSelected]),
+                        builder: (contex, child) {
+                          if (patientSelected.exists) {
+                            return FichaMedicaWidget(
+                              patient: patientSelected.value!,
+                              manageStore: patientsStore,
+                              editStore: editPatientsStore,
+                            );
+                          } else {
+                            return const StateInitialWidget();
+                          }
+                        },
                       ),
-                    );
-                  }
-                  return const StateInitialWidget();
-                }),
-          ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );

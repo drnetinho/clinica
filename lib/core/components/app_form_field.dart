@@ -99,7 +99,7 @@ class AppFormField extends StatelessWidget {
     this.isDense = true,
     this.fontSize,
     this.hint = '',
-    this.labelText = '',
+    this.labelText,
     this.hintColor,
     this.hintSize,
     this.controller,
@@ -134,6 +134,7 @@ class AppFormField extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (labelText != null) ...{
             Text(

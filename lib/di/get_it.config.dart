@@ -17,12 +17,15 @@ import '../app/pages/gerenciar_pacientes/data/repository/get_patients_repository
     as _i6;
 import '../app/pages/gerenciar_pacientes/view/controller/ficha_medica_controller.dart'
     as _i4;
-import '../app/pages/gerenciar_pacientes/view/store/patients_store.dart' as _i7;
+import '../app/pages/gerenciar_pacientes/view/store/edit_patient_store.dart'
+    as _i10;
+import '../app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart'
+    as _i7;
 import '../app/root/router_controller.dart' as _i8;
 import '../common/services/auth/auth_service.dart' as _i3;
 import '../common/services/firestore/firestore_service.dart' as _i5;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
-    as _i10;
+    as _i11;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -50,12 +53,12 @@ extension GetItInjectableX on _i1.GetIt {
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i7.EditPatientsStore>(
-        () => _i7.EditPatientsStore(gh<_i6.GetPatientsRepository>()));
+    gh.factory<_i10.EditPatientsStore>(
+        () => _i10.EditPatientsStore(gh<_i6.GetPatientsRepository>()));
     return this;
   }
 }
 
 class _$FirestoreModule extends _i5.FirestoreModule {}
 
-class _$SharedPreferencesModule extends _i10.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i11.SharedPreferencesModule {}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/patients_store.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
 import 'package:netinhoappclinica/common/state/app_state.dart';
@@ -11,6 +11,7 @@ import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
+import 'store/edit_patient_store.dart';
 
 class GerenciarPacientesPage extends StatefulWidget {
   static const routeName = 'gerenciar_pacientes';
@@ -46,6 +47,8 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
         }
       },
     );
+
+    
   }
 
   @override
@@ -192,24 +195,19 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                 elevation: 10,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AnimatedBuilder(
-                        animation: Listenable.merge([patientSelected]),
-                        builder: (contex, child) {
-                          if (patientSelected.exists) {
-                            return FichaMedicaWidget(
-                              patient: patientSelected.value!,
-                              manageStore: patientsStore,
-                              editStore: editPatientsStore,
-                            );
-                          } else {
-                            return const StateInitialWidget();
-                          }
-                        },
-                      ),
-                    ],
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge([patientSelected]),
+                    builder: (contex, child) {
+                      if (patientSelected.exists) {
+                        return FichaMedicaWidget(
+                          patient: patientSelected.value!,
+                          manageStore: patientsStore,
+                          editStore: editPatientsStore,
+                        );
+                      } else {
+                        return const StateInitialWidget();
+                      }
+                    },
                   ),
                 ),
               ),

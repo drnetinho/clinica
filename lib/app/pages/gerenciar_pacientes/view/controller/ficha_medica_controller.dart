@@ -15,7 +15,37 @@ class FichaMedicaController {
   final TextEditingController famGroupCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
 
-  void updateControllers(PatientModel patient) {
+  final List<String> genderList = ['Masculino', 'Feminino', 'Outro'];
+  // Value Notifiers
+  final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
+  final ValueNotifier<String> selectedGender = ValueNotifier('');
+  final ValueNotifier<bool> showIlnessField = ValueNotifier(false);
+  final ValueNotifier<PatientModel> patientEdited = ValueNotifier(const PatientModel.initial());
+
+  set addIlness(String ilness) => ilnesses.value = [...ilnesses.value, ilness];
+
+  set setGender(String gender) {
+    selectedGender.value = gender;
+    genderCt.text = selectedGender.value;
+  }
+
+  set removeIlness(String ilness) {
+    ilnesses.value.remove(ilness);
+    ilnesses.value = [...ilnesses.value];
+  }
+
+  void onSubmitIlness(String ilness) {
+    addIlness = ilness;
+    ilnessCt.clear();
+    updatePatient();
+  }
+
+  void setupConfig(PatientModel patient) {
+    // Patient
+    patientEdited.value = patient;
+    // Preselected Gender
+    selectedGender.value = patient.gender;
+    // Controllers
     nameCt.text = patient.name;
     ageCt.text = patient.age;
     genderCt.text = patient.gender;
@@ -25,23 +55,23 @@ class FichaMedicaController {
     neighCt.text = patient.address?.neighborhood ?? '';
     numberCt.text = patient.address?.number ?? '';
     famGroupCt.text = patient.familyGroup;
-    ilnessCt.text = patient.previousIlnesses?.first ?? '';
   }
 
-  PatientModel updatePatient(PatientModel patient) {
-    return patient.copyWith(
+  PatientModel updatePatient() {
+    patientEdited.value = patientEdited.value.copyWith(
       name: nameCt.text,
       age: ageCt.text,
       gender: genderCt.text,
       phone: phoneCt.text,
       familyGroup: famGroupCt.text,
-      address: patient.address?.copyWith(
+      address: patientEdited.value.address?.copyWith(
         city: cityCt.text,
         street: streetCt.text,
         neighborhood: neighCt.text,
         number: numberCt.text,
       ),
-      previousIlnesses: [ilnessCt.text],
+      previousIlnesses: ilnesses.value,
     );
+    return patientEdited.value;
   }
 }

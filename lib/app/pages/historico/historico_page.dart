@@ -62,7 +62,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
               'Histórico de consultas',
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

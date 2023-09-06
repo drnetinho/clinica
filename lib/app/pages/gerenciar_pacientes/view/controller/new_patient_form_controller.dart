@@ -3,6 +3,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../common/model/address_model.dart';
 import '../../domain/model/patient_model.dart';
+import '../forms/inputs.dart';
+import '../forms/new_patient_form.dart';
 
 @singleton
 class NewPatientFormController {
@@ -15,6 +17,9 @@ class NewPatientFormController {
   final TextEditingController neighCt = TextEditingController();
   final TextEditingController numberCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
+
+  // Form
+  final ValueNotifier<NewPatinetForm> form = ValueNotifier(NewPatinetForm());
 
   // Value Notifiers
   final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
@@ -71,5 +76,17 @@ class NewPatientFormController {
     ilnessCt.clear();
     ilnesses.value.clear();
     selectedGender.value = '';
+    form.value = NewPatinetForm();
+  }
+
+  void setFormListeners() {
+    nameCt.addListener(() => form.value = form.value.copyWith(name: StringInput.dirty(nameCt.text)));
+    ageCt.addListener(() => form.value = form.value.copyWith(age: StringInput.dirty(ageCt.text)));
+    phoneCt.addListener(() => form.value = form.value.copyWith(phone: PhoneInput.dirty(phoneCt.text)));
+    cityCt.addListener(() => form.value = form.value.copyWith(city: StringInput.dirty(cityCt.text)));
+    streetCt.addListener(() => form.value = form.value.copyWith(street: StringInput.dirty(streetCt.text)));
+    neighCt.addListener(() => form.value = form.value.copyWith(neighborhood: StringInput.dirty(neighCt.text)));
+    numberCt.addListener(() => form.value = form.value.copyWith(number: StringInput.dirty(numberCt.text)));
+    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: StringInput.dirty(ilnessCt.text)));
   }
 }

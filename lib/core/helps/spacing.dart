@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Spacing {
+  static const double ss = 3.0;
   static const double s = 6.0;
   static const double m = 10.0;
   static const double l = 12.0;

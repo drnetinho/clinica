@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/ficha_medica_form.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/inputs.dart';
 import 'package:netinhoappclinica/common/model/address_model.dart';
 
 @injectable
 class FichaMedicaController {
+  // Controllers
   final TextEditingController nameCt = TextEditingController();
   final TextEditingController ageCt = TextEditingController();
   final TextEditingController genderCt = TextEditingController();
@@ -14,6 +17,9 @@ class FichaMedicaController {
   final TextEditingController neighCt = TextEditingController();
   final TextEditingController numberCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
+
+  // Form
+  final ValueNotifier<FichaMedicaForm> form = ValueNotifier(FichaMedicaForm());
 
   // Value Notifiers
   final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
@@ -72,5 +78,30 @@ class FichaMedicaController {
       previousIlnesses: ilnesses.value,
     );
     return patientEdited.value;
+  }
+
+  void setFormListeners() {
+    nameCt.addListener(() => form.value = form.value.copyWith(name: StringInput.dirty(nameCt.text)));
+    ageCt.addListener(() => form.value = form.value.copyWith(age: StringInput.dirty(ageCt.text)));
+    phoneCt.addListener(() => form.value = form.value.copyWith(phone: PhoneInput.dirty(phoneCt.text)));
+    cityCt.addListener(() => form.value = form.value.copyWith(city: StringInput.dirty(cityCt.text)));
+    streetCt.addListener(() => form.value = form.value.copyWith(street: StringInput.dirty(streetCt.text)));
+    neighCt.addListener(() => form.value = form.value.copyWith(neighborhood: StringInput.dirty(neighCt.text)));
+    numberCt.addListener(() => form.value = form.value.copyWith(number: StringInput.dirty(numberCt.text)));
+    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: StringInput.dirty(ilnessCt.text)));
+  }
+
+  void resetValues() {
+    nameCt.clear();
+    ageCt.clear();
+    genderCt.clear();
+    phoneCt.clear();
+    cityCt.clear();
+    streetCt.clear();
+    neighCt.clear();
+    numberCt.clear();
+    ilnessCt.clear();
+    ilnesses.value.clear();
+    selectedGender.value = '';
   }
 }

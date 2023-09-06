@@ -19,10 +19,10 @@ class ExcluirButton extends StatelessWidget {
       onPressed: onPressed,
       child: Row(
         children: [
-          const Icon(Icons.delete_outline, color: Colors.white),
+          Icon(discardMode ? Icons.cancel : Icons.delete_outline, color: Colors.white),
           const SizedBox(width: 10),
           Text(
-            discardMode ? 'Descartar' : 'Excluir',
+            discardMode ? 'Cancelar' : 'Excluir',
             style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 12, color: Colors.white),
           ),
         ],

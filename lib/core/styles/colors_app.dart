@@ -23,6 +23,8 @@ class ColorsApp {
   Color get backgroundCardColor => const Color(0xFFF8F8F8);
   Color get danger => const Color(0xFFFF1313);
   Color get warning => const Color(0xFFF59E0B);
+  Color get yellowColor => const Color(0xFFFFC75E);
+  Color get greenColor => const Color(0xFF9FE2C2);
 }
 
 extension ColorsAppExtension on BuildContext {

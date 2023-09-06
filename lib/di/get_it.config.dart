@@ -41,7 +41,7 @@ extension GetItInjectableX on _i1.GetIt {
     final firestoreModule = _$FirestoreModule();
     final sharedPreferencesModule = _$SharedPreferencesModule();
     gh.singleton<_i3.AuthService>(_i3.AuthService());
-    gh.factory<_i4.FichaMedicaController>(() => _i4.FichaMedicaController());
+    gh.singleton<_i4.FichaMedicaController>(_i4.FichaMedicaController());
     gh.factory<_i5.FirestoreService<dynamic>>(
         () => firestoreModule.firestoreService);
     gh.factory<_i6.GetPatientsRepository>(() => _i6.GetPatientsRepositoryImpl(

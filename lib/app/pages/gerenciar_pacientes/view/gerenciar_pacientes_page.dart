@@ -3,14 +3,15 @@ import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/pat
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/search_header.dart';
 import 'package:netinhoappclinica/common/state/app_state.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
+import 'controller/ficha_medica_controller.dart';
 import 'store/edit_patient_store.dart';
 
 class GerenciarPacientesPage extends StatefulWidget {
@@ -25,10 +26,12 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
   late final ManagePatientsStore patientsStore;
   late final EditPatientsStore editPatientsStore;
   late final ValueNotifier<PatientModel?> patientSelected;
+  late final FichaMedicaController controller;
 
   @override
   void initState() {
     super.initState();
+    controller = getIt<FichaMedicaController>();
     patientsStore = getIt<ManagePatientsStore>();
     editPatientsStore = getIt<EditPatientsStore>();
     patientsStore.getPatients();
@@ -47,8 +50,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
         }
       },
     );
-
-    
   }
 
   @override
@@ -64,118 +65,69 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Gerenciar Pacientes',
-                    style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: SizedBox(
-                          height: 60,
-                          child: Card(
-                            color: context.colorsApp.backgroundCardColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                            elevation: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(Icons.search, size: 30, color: ColorsApp.instance.success),
-                                      const SizedBox(width: 10),
-                                      Expanded(
-                                        flex: 1,
-                                        child: TextField(
-                                          decoration: InputDecoration(
-                                            hintText: 'Pesquisar Paciente',
-                                            hintStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-                                            border: InputBorder.none,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: SizedBox(
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              if (patientSelected.exists) {
-                                editPatientsStore.addPatient(
-                                  patient: patientSelected.value!.copyWith(
-                                    age: DateTime.now().toIso8601String(),
-                                    name: 'Thiago Fernandes',
-                                  ),
-                                );
-                              }
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
-                                const SizedBox(width: 10),
-                                Text('Novo Paciente',
-                                    style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  StoreBuilder<List<PatientModel>>(
+                    store: patientsStore,
+                    validateDefaultStates: false,
+                    builder: (context, patients, child) {
+                      return SearchHeader(
+                        patients: patients,
+                        controller: controller.searchCt,
+                        findedPatients: (p) {
+                          if (p != null) {
+                            controller.addSearchPatients = p;
+                          } else {
+                            controller.resetSearch();
+                          }
+                        },
+                      );
+                    },
                   ),
                   const SizedBox(height: 20),
                   Expanded(
                     child: SizedBox(
                       width: MediaQuery.of(context).size.height * .7,
-                      child: StoreBuilder<List<PatientModel>>(
-                        store: patientsStore,
-                        validateEmptyList: true,
-                        builder: (context, value, child) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: context.colorsApp.backgroundCardColor,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: ColorsApp.instance.greyColor),
-                            ),
-                            child: AnimatedBuilder(
-                              animation: patientSelected,
-                              builder: (context, child) {
-                                return ListView.builder(
-                                  padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
-                                  shrinkWrap: true,
-                                  itemCount: value.length,
-                                  itemBuilder: (context, index) {
-                                    final patient = value[index];
+                      child: ValueListenableBuilder(
+                          valueListenable: controller.searchPatients,
+                          builder: (context, search, _) {
+                            return StoreBuilder<List<PatientModel>>(
+                              store: patientsStore,
+                              validateEmptyList: true,
+                              builder: (context, value, child) {
+                                List<PatientModel> patients = search ?? value;
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    color: context.colorsApp.backgroundCardColor,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: ColorsApp.instance.greyColor),
+                                  ),
+                                  child: AnimatedBuilder(
+                                    animation: patientSelected,
+                                    builder: (context, child) {
+                                      return ListView.builder(
+                                        padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
+                                        shrinkWrap: true,
+                                        itemCount: patients.length,
+                                        itemBuilder: (context, index) {
+                                          final patient = patients[index];
 
-                                    return InkWell(
-                                      onTap: () {
-                                        patientSelected.value = null;
-                                        patientSelected.value = patient;
-                                      },
-                                      child: PatientCard(
-                                        patient: patient,
-                                        isSelected: patient == patientSelected.value,
-                                      ),
-                                    );
-                                  },
+                                          return InkWell(
+                                            onTap: () {
+                                              patientSelected.value = null;
+                                              patientSelected.value = patient;
+                                            },
+                                            child: PatientCard(
+                                              patient: patient,
+                                              isSelected: patient == patientSelected.value,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 );
                               },
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          }),
                     ),
                   ),
                 ],

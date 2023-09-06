@@ -5,7 +5,6 @@ import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/controller/
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -46,9 +45,16 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
     gerenciarController = getIt<GerenciarPacientesController>();
     editMode = ValueNotifier(false);
     controller.setupConfig(widget.patient);
-    if (widget.patient.previousIlnesses.noNull) {
-      controller.ilnesses.value = widget.patient.previousIlnesses!;
-    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    gerenciarController.patientSelected.addListener(() {
+      if (editMode.value) {
+        editMode.value = false;
+      }
+    });
   }
 
   @override
@@ -69,6 +75,14 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
               children: [
                 Text('Ficha Médica', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22)),
                 const Spacer(),
+                Visibility(
+                  visible: isEditing,
+                  child: ExcluirButton(
+                    discardMode: true,
+                    onPressed: () => editMode.value = false,
+                  ),
+                ),
+                const SizedBox(width: 10),
                 ExcluirButton(
                   onPressed: () {
                     showDialog(

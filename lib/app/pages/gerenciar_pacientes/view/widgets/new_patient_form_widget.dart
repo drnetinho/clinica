@@ -58,7 +58,10 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                 const Spacer(),
                 ExcluirButton(
                   discardMode: true,
-                  onPressed: toogleOffAddNewPatient,
+                  onPressed: () {
+                    toogleOffAddNewPatient();
+                    controller.resetValues();
+                  },
                 ),
                 const SizedBox(width: 10),
                 EditarButton(
@@ -82,6 +85,7 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                           actionOnSuccess: () {
                             widget.manageStore.getPatients();
                             toogleOffAddNewPatient();
+                            controller.resetValues();
                           },
                         );
                       },

@@ -7,8 +7,9 @@ import '../../domain/model/patient_model.dart';
 class GerenciarPacientesController {
   // Utils
   final List<String> genderList = ['Masculino', 'Feminino', 'Outro'];
-  final ValueNotifier<bool> addNewPatient = ValueNotifier(false);
+  final ValueNotifier<PatientModel?> patientSelected = ValueNotifier(null);
 
+  final ValueNotifier<bool> addNewPatient = ValueNotifier(false);
   set toogleAddNewPatient(bool value) => addNewPatient.value = value;
 
   // Search Mode

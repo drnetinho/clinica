@@ -13,7 +13,6 @@ class FichaMedicaController {
   final TextEditingController streetCt = TextEditingController();
   final TextEditingController neighCt = TextEditingController();
   final TextEditingController numberCt = TextEditingController();
-  final TextEditingController famGroupCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
 
   // Value Notifiers
@@ -45,6 +44,7 @@ class FichaMedicaController {
     patientEdited.value = patient;
     // Preselected Gender
     selectedGender.value = patient.gender;
+    ilnesses.value = patient.previousIlnesses ?? [];
     // Controllers
     nameCt.text = patient.name;
     ageCt.text = patient.age;
@@ -54,7 +54,6 @@ class FichaMedicaController {
     streetCt.text = patient.address?.street ?? '';
     neighCt.text = patient.address?.neighborhood ?? '';
     numberCt.text = patient.address?.number ?? '';
-    famGroupCt.text = patient.familyGroup;
   }
 
   PatientModel updatePatient() {
@@ -63,7 +62,6 @@ class FichaMedicaController {
       age: ageCt.text,
       gender: genderCt.text,
       phone: phoneCt.text,
-      familyGroup: famGroupCt.text,
       address: AddressModel(
         city: cityCt.text,
         street: streetCt.text,

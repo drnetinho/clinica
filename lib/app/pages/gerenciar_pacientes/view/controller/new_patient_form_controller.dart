@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../../common/model/address_model.dart';
 import '../../domain/model/patient_model.dart';
 
 @singleton
 class NewPatientFormController {
-  final TextEditingController searchCt = TextEditingController();
   final TextEditingController nameCt = TextEditingController();
   final TextEditingController ageCt = TextEditingController();
   final TextEditingController genderCt = TextEditingController();
@@ -14,14 +14,13 @@ class NewPatientFormController {
   final TextEditingController streetCt = TextEditingController();
   final TextEditingController neighCt = TextEditingController();
   final TextEditingController numberCt = TextEditingController();
-  final TextEditingController famGroupCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
 
   // Value Notifiers
   final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
   final ValueNotifier<String> selectedGender = ValueNotifier('');
   final ValueNotifier<bool> showIlnessField = ValueNotifier(false);
-  final ValueNotifier<PatientModel> patientEdited = ValueNotifier(const PatientModel.initial());
+  final ValueNotifier<PatientModel> newPatient = ValueNotifier(const PatientModel.initial());
 
   set addIlness(String ilness) => ilnesses.value = [...ilnesses.value, ilness];
 
@@ -42,20 +41,35 @@ class NewPatientFormController {
   }
 
   PatientModel updatePatient() {
-    patientEdited.value = patientEdited.value.copyWith(
+    newPatient.value = newPatient.value.copyWith(
       name: nameCt.text,
       age: ageCt.text,
       gender: genderCt.text,
       phone: phoneCt.text,
-      familyGroup: famGroupCt.text,
-      address: patientEdited.value.address?.copyWith(
+      familyGroup: 'A definir',
+      address: AddressModel(
         city: cityCt.text,
         street: streetCt.text,
         neighborhood: neighCt.text,
         number: numberCt.text,
+        state: 'RN',
       ),
       previousIlnesses: ilnesses.value,
     );
-    return patientEdited.value;
+    return newPatient.value;
+  }
+
+  void resetValues() {
+    nameCt.clear();
+    ageCt.clear();
+    genderCt.clear();
+    phoneCt.clear();
+    cityCt.clear();
+    streetCt.clear();
+    neighCt.clear();
+    numberCt.clear();
+    ilnessCt.clear();
+    ilnesses.value.clear();
+    selectedGender.value = '';
   }
 }

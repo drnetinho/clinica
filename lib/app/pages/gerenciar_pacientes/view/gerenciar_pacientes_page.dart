@@ -31,9 +31,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
   // Controllers
   late final GerenciarPacientesController controller;
 
-  // Values
-  late final ValueNotifier<PatientModel?> patientSelected;
-
   @override
   void initState() {
     super.initState();
@@ -41,7 +38,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
     patientsStore = getIt<ManagePatientsStore>();
     editPatientsStore = getIt<EditPatientsStore>();
     patientsStore.getPatients();
-    patientSelected = ValueNotifier(null);
   }
 
   @override
@@ -52,7 +48,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
         if (patientsStore.value is AppStateSuccess) {
           final data = (patientsStore.value as AppStateSuccess).data as List<PatientModel>;
 
-          patientSelected.value = data.first;
+          controller.patientSelected.value = data.first;
         }
       },
     );
@@ -108,7 +104,10 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                     border: Border.all(color: ColorsApp.instance.greyColor),
                                   ),
                                   child: AnimatedBuilder(
-                                    animation: patientSelected,
+                                    animation: Listenable.merge([
+                                      controller.patientSelected,
+                                      controller.addNewPatient,
+                                    ]),
                                     builder: (context, child) {
                                       return ListView.builder(
                                         padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
@@ -117,14 +116,17 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                         itemBuilder: (context, index) {
                                           final patient = patients[index];
 
-                                          return InkWell(
-                                            onTap: () {
-                                              patientSelected.value = null;
-                                              patientSelected.value = patient;
-                                            },
-                                            child: PatientCard(
-                                              patient: patient,
-                                              isSelected: patient == patientSelected.value,
+                                          return IgnorePointer(
+                                            ignoring: controller.addNewPatient.value,
+                                            child: InkWell(
+                                              onTap: () {
+                                                controller.patientSelected.value = null;
+                                                controller.patientSelected.value = patient;
+                                              },
+                                              child: PatientCard(
+                                                patient: patient,
+                                                isSelected: patient == controller.patientSelected.value,
+                                              ),
                                             ),
                                           );
                                         },
@@ -155,16 +157,16 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: AnimatedBuilder(
-                    animation: Listenable.merge([patientSelected, controller.addNewPatient]),
+                    animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
                     builder: (contex, child) {
                       if (controller.addNewPatient.value) {
                         return NewPatientFormWidget(
                           manageStore: patientsStore,
                           editStore: editPatientsStore,
                         );
-                      } else if (patientSelected.exists) {
+                      } else if (controller.patientSelected.exists) {
                         return FichaMedicaWidget(
-                          patient: patientSelected.value!,
+                          patient: controller.patientSelected.value!,
                           manageStore: patientsStore,
                           editStore: editPatientsStore,
                         );

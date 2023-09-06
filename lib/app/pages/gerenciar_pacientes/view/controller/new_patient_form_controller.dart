@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/common/model/address_model.dart';
 
-@injectable
-class FichaMedicaController {
+import '../../domain/model/patient_model.dart';
+
+@singleton
+class NewPatientFormController {
+  final TextEditingController searchCt = TextEditingController();
   final TextEditingController nameCt = TextEditingController();
   final TextEditingController ageCt = TextEditingController();
   final TextEditingController genderCt = TextEditingController();
@@ -40,23 +41,6 @@ class FichaMedicaController {
     updatePatient();
   }
 
-  void setupConfig(PatientModel patient) {
-    // Patient
-    patientEdited.value = patient;
-    // Preselected Gender
-    selectedGender.value = patient.gender;
-    // Controllers
-    nameCt.text = patient.name;
-    ageCt.text = patient.age;
-    genderCt.text = patient.gender;
-    phoneCt.text = patient.phone;
-    cityCt.text = patient.address?.city ?? '';
-    streetCt.text = patient.address?.street ?? '';
-    neighCt.text = patient.address?.neighborhood ?? '';
-    numberCt.text = patient.address?.number ?? '';
-    famGroupCt.text = patient.familyGroup;
-  }
-
   PatientModel updatePatient() {
     patientEdited.value = patientEdited.value.copyWith(
       name: nameCt.text,
@@ -64,12 +48,11 @@ class FichaMedicaController {
       gender: genderCt.text,
       phone: phoneCt.text,
       familyGroup: famGroupCt.text,
-      address: AddressModel(
+      address: patientEdited.value.address?.copyWith(
         city: cityCt.text,
         street: streetCt.text,
         neighborhood: neighCt.text,
         number: numberCt.text,
-        state: 'RN',
       ),
       previousIlnesses: ilnesses.value,
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/new_patient_form_widget.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/search_header.dart';
 import 'package:netinhoappclinica/common/state/app_state.dart';
@@ -11,7 +12,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
-import 'controller/ficha_medica_controller.dart';
+import 'controller/gerenciar_pacientes_controller.dart';
 import 'store/edit_patient_store.dart';
 
 class GerenciarPacientesPage extends StatefulWidget {
@@ -23,15 +24,20 @@ class GerenciarPacientesPage extends StatefulWidget {
 }
 
 class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
+  // Stores
   late final ManagePatientsStore patientsStore;
   late final EditPatientsStore editPatientsStore;
+
+  // Controllers
+  late final GerenciarPacientesController controller;
+
+  // Values
   late final ValueNotifier<PatientModel?> patientSelected;
-  late final FichaMedicaController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = getIt<FichaMedicaController>();
+    controller = getIt<GerenciarPacientesController>();
     patientsStore = getIt<ManagePatientsStore>();
     editPatientsStore = getIt<EditPatientsStore>();
     patientsStore.getPatients();
@@ -79,6 +85,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                             controller.resetSearch();
                           }
                         },
+                        addPatient: (v) => controller.toogleAddNewPatient = v,
                       );
                     },
                   ),
@@ -148,9 +155,14 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: AnimatedBuilder(
-                    animation: Listenable.merge([patientSelected]),
+                    animation: Listenable.merge([patientSelected, controller.addNewPatient]),
                     builder: (contex, child) {
-                      if (patientSelected.exists) {
+                      if (controller.addNewPatient.value) {
+                        return NewPatientFormWidget(
+                          manageStore: patientsStore,
+                          editStore: editPatientsStore,
+                        );
+                      } else if (patientSelected.exists) {
                         return FichaMedicaWidget(
                           patient: patientSelected.value!,
                           manageStore: patientsStore,

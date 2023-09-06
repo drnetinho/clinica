@@ -10,16 +10,15 @@ class AddressModel {
   final String state;
   final String street;
 
-  AddressModel(
-    this.city,
-    this.neighborhood,
-    this.number,
-    this.state,
-    this.street,
-  );
+  AddressModel({
+    required this.city,
+    required this.neighborhood,
+    required this.number,
+    required this.state,
+    required this.street,
+  });
 
-  factory AddressModel.fromJson(Map<String, dynamic> json) =>
-      _$AddressModelFromJson(json);
+  factory AddressModel.fromJson(Map<String, dynamic> json) => _$AddressModelFromJson(json);
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 
   AddressModel copyWith({
@@ -30,11 +29,11 @@ class AddressModel {
     String? street,
   }) {
     return AddressModel(
-      city ?? this.city,
-      neighborhood ?? this.neighborhood,
-      number ?? this.number,
-      state ?? this.state,
-      street ?? this.street,
+      city: city ?? this.city,
+      neighborhood: neighborhood ?? this.neighborhood,
+      number: number ?? this.number,
+      state: state ?? this.state,
+      street: street ?? this.street,
     );
   }
 }

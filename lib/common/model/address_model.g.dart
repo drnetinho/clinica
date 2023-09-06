@@ -7,11 +7,11 @@ part of 'address_model.dart';
 // **************************************************************************
 
 AddressModel _$AddressModelFromJson(Map json) => AddressModel(
-      json['city'] as String,
-      json['neighborhood'] as String,
-      json['number'] as String,
-      json['state'] as String,
-      json['street'] as String,
+      city: json['city'] as String,
+      neighborhood: json['neighborhood'] as String,
+      number: json['number'] as String,
+      state: json['state'] as String,
+      street: json['street'] as String,
     );
 
 Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>

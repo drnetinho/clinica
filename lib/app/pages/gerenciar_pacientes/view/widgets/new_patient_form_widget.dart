@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/controller/ficha_medica_controller.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -14,47 +11,37 @@ import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../controller/gerenciar_pacientes_controller.dart';
+import '../controller/new_patient_form_controller.dart';
 import '../store/edit_patient_store.dart';
 import 'excluir_buttons.dart';
 
-class FichaMedicaWidget extends StatefulWidget {
-  final PatientModel patient;
+class NewPatientFormWidget extends StatefulWidget {
   final EditPatientsStore editStore;
   final ManagePatientsStore manageStore;
 
-  const FichaMedicaWidget({
+  const NewPatientFormWidget({
     Key? key,
-    required this.patient,
     required this.editStore,
     required this.manageStore,
   }) : super(key: key);
 
   @override
-  State<FichaMedicaWidget> createState() => _FichaMedicaWidgetState();
+  State<NewPatientFormWidget> createState() => _NewPatientFormWidgetState();
 }
 
-class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
+class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
   late final ValueNotifier<bool> editMode;
 
-  late final FichaMedicaController controller;
+  late final NewPatientFormController controller;
   late final GerenciarPacientesController gerenciarController;
 
   @override
   void initState() {
     super.initState();
-    controller = getIt<FichaMedicaController>();
+    controller = getIt<NewPatientFormController>();
     gerenciarController = getIt<GerenciarPacientesController>();
-    editMode = ValueNotifier(false);
-    controller.setupConfig(widget.patient);
-    if (widget.patient.previousIlnesses.noNull) {
-      controller.ilnesses.value = widget.patient.previousIlnesses!;
-    }
-  }
-
-  @override
-  void didUpdateWidget(covariant FichaMedicaWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    controller.setupConfig(widget.patient);
+    editMode = ValueNotifier(true);
+    controller.showIlnessField.value = true;
   }
 
   @override
@@ -67,56 +54,38 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
           children: [
             Row(
               children: [
-                Text('Ficha Médica', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22)),
+                Text('Adicionar Paciente', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22)),
                 const Spacer(),
                 ExcluirButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        // TODO Thiago: Ajustar visualmente componente genérico de dialog
-                        return AppDialog(
-                          title: 'Deseja Realmente excluir paciente?',
-                          firstButtonText: 'Cancelar',
-                          secondButtonText: 'Excluir',
-                          firstButtonIcon: Icons.cancel,
-                          secondButtonIcon: Icons.delete,
-                          store: widget.editStore,
-                          onPressedSecond: () => widget.editStore.deletePatient(id: widget.patient.id),
-                          actionOnSuccess: () => widget.manageStore.getPatients(),
-                        );
-                      },
-                    );
-                  },
+                  discardMode: true,
+                  onPressed: toogleOffAddNewPatient,
                 ),
                 const SizedBox(width: 10),
                 EditarButton(
                   isEditing: editMode.value,
                   isLoading: widget.editStore.value.isLoading,
                   onPressed: () {
-                    if (isEditing) {
-                      editMode.value = false;
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          // TODO Thiago: Ajustar visualmente componente genérico de dialog
-                          return AppDialog(
-                            title: 'Deseja realmente salvar as alterações?',
-                            firstButtonText: 'Cancelar',
-                            secondButtonText: 'Salvar',
-                            firstButtonIcon: Icons.cancel,
-                            secondButtonIcon: Icons.check,
-                            store: widget.editStore,
-                            onPressedSecond: () => widget.editStore.updatePatient(
-                              patient: controller.updatePatient(),
-                            ),
-                            actionOnSuccess: widget.manageStore.getPatients,
-                          );
-                        },
-                      );
-                    } else {
-                      editMode.value = true;
-                    }
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        // TODO Thiago: Ajustar visualmente componente genérico de dialog
+                        return AppDialog(
+                          title: 'Deseja realmente salvar as alterações?',
+                          firstButtonText: 'Cancelar',
+                          secondButtonText: 'Salvar',
+                          firstButtonIcon: Icons.cancel,
+                          secondButtonIcon: Icons.check,
+                          store: widget.editStore,
+                          onPressedSecond: () => widget.editStore.addPatient(
+                            patient: controller.updatePatient(),
+                          ),
+                          actionOnSuccess: () {
+                            widget.manageStore.getPatients();
+                            toogleOffAddNewPatient();
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
               ],
@@ -316,7 +285,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        widget.patient.familyGroup,
+                        'A definir',
                         style: context.textStyles.textPoppinsMedium
                             .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                       ),
@@ -330,4 +299,6 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
       },
     );
   }
+
+  void toogleOffAddNewPatient() => gerenciarController.toogleAddNewPatient = false;
 }

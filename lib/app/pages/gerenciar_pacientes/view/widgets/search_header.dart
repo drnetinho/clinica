@@ -9,12 +9,14 @@ class SearchHeader extends StatefulWidget {
   final List<PatientModel> patients;
   final TextEditingController controller;
   final Function(List<PatientModel>?) findedPatients;
+  final Function(bool) addPatient;
 
   const SearchHeader({
     super.key,
     required this.patients,
     required this.controller,
     required this.findedPatients,
+    required this.addPatient,
   });
 
   @override
@@ -22,20 +24,7 @@ class SearchHeader extends StatefulWidget {
 }
 
 class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -97,7 +86,7 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
               child: SizedBox(
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => widget.addPatient(true),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

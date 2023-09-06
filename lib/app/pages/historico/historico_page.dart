@@ -136,97 +136,108 @@ class _HistoricoPageState extends State<HistoricoPage> {
                     ),
                   ],
                 ),
+
+                /// Card de Consultas
                 const Spacer(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .8,
                   width: MediaQuery.of(context).size.width * .42,
-                  child: Card(
-                    color: context.colorsApp.backgroundCardColor,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    elevation: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(34, 28, 34, 22),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Stack(
+                    children: [
+                      Card(
+                        color: context.colorsApp.backgroundCardColor,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        elevation: 10,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(34, 28, 34, 22),
+                          child: Column(
                             children: [
-                              Text(
-                                'Lista de Consultas',
-                                style: context.textStyles.textPoppinsSemiBold
-                                    .copyWith(fontSize: 20, color: context.colorsApp.primary),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Lista de Consultas',
+                                    style: context.textStyles.textPoppinsSemiBold
+                                        .copyWith(fontSize: 20, color: context.colorsApp.primary),
+                                  ),
+                                ],
                               ),
-                              const DropButton()
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Expanded(
-                            child: SizedBox(
-                              height: MediaQuery.of(context).size.height * .7,
-                              width: MediaQuery.of(context).size.width * .42,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: context.colorsApp.backgroundCardColor,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ListView.builder(
-                                  itemCount: dates.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 5),
-                                        child: Container(
-                                          height: 80,
-                                          decoration: BoxDecoration(
-                                            color: context.colorsApp.whiteColor,
-                                            borderRadius: BorderRadius.circular(20),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                            children: [
-                                              Row(
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Expanded(
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height * .7,
+                                  width: MediaQuery.of(context).size.width * .42,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: context.colorsApp.backgroundCardColor,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: ListView.builder(
+                                      itemCount: dates.length,
+                                      itemBuilder: (context, index) {
+                                        return Padding(
+                                            padding: const EdgeInsets.symmetric(vertical: 5),
+                                            child: Container(
+                                              height: 80,
+                                              decoration: BoxDecoration(
+                                                color: context.colorsApp.whiteColor,
+                                                borderRadius: BorderRadius.circular(20),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
-                                                  Icon(Icons.calendar_today_outlined, color: context.colorsApp.primary),
-                                                  const SizedBox(width: 10),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.calendar_today_outlined,
+                                                          color: context.colorsApp.primary),
+                                                      const SizedBox(width: 10),
+                                                      Text(
+                                                        'Consulta',
+                                                        style: context.textStyles.textPoppinsSemiBold
+                                                            .copyWith(fontSize: 20),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  // colocar somente a data no formato dd/mm/aaaa, se o mm for 1 digito colocar 0 na frente
                                                   Text(
-                                                    'Consulta',
-                                                    style:
-                                                        context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 20),
+                                                    '${dates[index].day}/${dates[index].month}/${dates[index].year}',
+                                                    style: context.textStyles.textPoppinsRegular
+                                                        .copyWith(fontSize: 20, color: context.colorsApp.greyColor2),
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: context.colorsApp.whiteColor,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(20),
+                                                          side: BorderSide(color: context.colorsApp.primary, width: 2)),
+                                                    ),
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      'Detalhar',
+                                                      style: context.textStyles.textPoppinsSemiBold
+                                                          .copyWith(fontSize: 12, color: context.colorsApp.primary),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                              // colocar somente a data no formato dd/mm/aaaa, se o mm for 1 digito colocar 0 na frente
-                                              Text(
-                                                '${dates[index].day}/${dates[index].month}/${dates[index].year}',
-                                                style: context.textStyles.textPoppinsRegular
-                                                    .copyWith(fontSize: 20, color: context.colorsApp.greyColor2),
-                                              ),
-                                              ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: context.colorsApp.whiteColor,
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius: BorderRadius.circular(20),
-                                                      side: BorderSide(color: context.colorsApp.primary, width: 2)),
-                                                ),
-                                                onPressed: () {},
-                                                child: Text(
-                                                  'Detalhar',
-                                                  style: context.textStyles.textPoppinsSemiBold
-                                                      .copyWith(fontSize: 12, color: context.colorsApp.primary),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ));
-                                  },
+                                            ));
+                                      },
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                      const Positioned(
+                        top: 25,
+                        right: 20,
+                        child: DropButton(),
+                      )
+                    ],
                   ),
                 )
               ],

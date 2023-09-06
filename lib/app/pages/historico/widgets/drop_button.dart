@@ -1,104 +1,360 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class DropButton extends StatefulWidget {
-  const DropButton({super.key});
+  const DropButton({Key? key}) : super(key: key);
 
   @override
   State<DropButton> createState() => _DropButtonState();
 }
 
 class _DropButtonState extends State<DropButton> {
-  final List<String> items = [
-    'Todos',
-    'Este mês',
-    'Este ano',
+  final List<String> filtroGeral = ['Todos', 'Este mês', 'Este ano'];
+  final List<String> meses1 = [
+    'Janeiro',
+    'Março',
+    'Maio',
+    'Julho',
+    'Setembro',
+    'Novembro',
   ];
-  List<String> selectedItems = [];
+
+  final List<String> meses2 = [
+    'Fevereiro',
+    'Abril',
+    'Junho',
+    'Agosto',
+    'Outubro',
+    'Dezembro',
+  ];
+
+  String selectedFilter = ''; // Opção selecionada inicialmente
+  List<String> selectedMonths = [];
+
+  bool showFiltroGeral = false;
+  bool showFiltroMes = false;
+
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
-        isExpanded: true,
-        hint: Text(
-          'Filtrar por',
-          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: context.colorsApp.greyColor2),
+    return Column(
+      children: [
+        Container(
+          height: 40,
+          width: 240,
+          decoration: BoxDecoration(
+            color: context.colorsApp.whiteColor,
+            borderRadius: BorderRadius.circular(8),
+            border:
+                Border.all(color: showFiltroGeral ? context.colorsApp.primary : context.colorsApp.greyColor, width: 2),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  showFiltroGeral = !showFiltroGeral;
+                  showFiltroMes = false;
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    selectedFilter.isEmpty ? 'Filtrar por' : selectedFilter,
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                  Icon(
+                    showFiltroGeral ? Icons.keyboard_arrow_up_sharp : Icons.keyboard_arrow_down_sharp,
+                    color: context.colorsApp.greyColor,
+                  )
+                ],
+              ),
+            ),
+          ),
         ),
-        items: items.map((item) {
-          return DropdownMenuItem(
-            value: item,
-            //disable default onTap to avoid closing menu when selecting an item
-            enabled: false,
-            child: StatefulBuilder(
-              builder: (context, menuSetState) {
-                final isSelected = selectedItems.contains(item);
-                return InkWell(
-                  onTap: () {
-                    isSelected ? selectedItems.remove(item) : selectedItems.add(item);
-                    //This rebuilds the StatefulWidget to update the button's text
-                    setState(() {
-                      //If the item is selected, remove it from the list. If it's not selected, add it to the list.
-                    });
-                    //This rebuilds the dropdownMenu Widget to update the check mark
-                    menuSetState(() {});
-                  },
-                  child: Container(
-                    height: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        Visibility(
+          visible: showFiltroGeral,
+          child: Container(
+            height: 160,
+            width: 240,
+            decoration: BoxDecoration(
+              color: context.colorsApp.whiteColor,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: context.colorsApp.greyColor,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Radio(
+                        value: 'Todos',
+                        groupValue: selectedFilter,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedFilter = value.toString();
+                          });
+                        },
+                      ),
+                      Text('Todos', style: TextStyle(color: context.colorsApp.greyColor)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Radio(
+                        value: 'Este mês',
+                        groupValue: selectedFilter,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedFilter = value.toString();
+                          });
+                        },
+                      ),
+                      Text('Este mês', style: TextStyle(color: context.colorsApp.greyColor)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Radio(
+                        value: 'Este ano',
+                        groupValue: selectedFilter,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedFilter = value.toString();
+                          });
+                        },
+                      ),
+                      Text('Este ano', style: TextStyle(color: context.colorsApp.greyColor)),
+                    ],
+                  ),
+                  const Divider(),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        showFiltroMes = !showFiltroMes;
+                      });
+                    },
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        if (isSelected)
-                          const Icon(Icons.check_box_outlined)
-                        else
-                          const Icon(Icons.check_box_outline_blank),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            item,
-                            style: context.textStyles.textPoppinsMedium
-                                .copyWith(fontSize: 12, color: context.colorsApp.greyColor2),
-                          ),
-                        ),
+                        Text('Filtrar por Mês',
+                            style: TextStyle(
+                              color: context.colorsApp.greyColor,
+                            )),
+                        Icon(Icons.keyboard_arrow_down_sharp, color: context.colorsApp.greyColor),
                       ],
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          );
-        }).toList(),
-        //Use last selected item as the current value so if we've limited menu height, it scroll to last item.
-        value: selectedItems.isEmpty ? null : selectedItems.last,
-        onChanged: (value) {},
-        selectedItemBuilder: (context) {
-          return items.map(
-            (item) {
-              return Container(
-                alignment: AlignmentDirectional.center,
-                child: Text(
-                  selectedItems.join(', '),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Visibility(
+          visible: showFiltroMes,
+          child: Container(
+            height: 220,
+            width: 240,
+            decoration: BoxDecoration(
+              color: context.colorsApp.whiteColor,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: context.colorsApp.greyColor),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Janeiro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Janeiro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Fevereiro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Fevereiro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Março',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Março', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Abril',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Abril', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Maio',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Maio', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Junho',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Junho', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                    ],
                   ),
-                  maxLines: 1,
-                ),
-              );
-            },
-          ).toList();
-        },
-        buttonStyleData: const ButtonStyleData(
-          padding: EdgeInsets.only(left: 16, right: 8),
-          height: 40,
-          width: 140,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Julho',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Julho', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Agosto',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Agosto', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Setembro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Setembro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Outubro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Outubro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Novembro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Novembro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Radio(
+                            value: 'Dezembro',
+                            groupValue: selectedFilter,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedFilter = value.toString();
+                              });
+                            },
+                          ),
+                          Text('Dezembro', style: TextStyle(color: context.colorsApp.greyColor)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-        menuItemStyleData: const MenuItemStyleData(
-          height: 40,
-          padding: EdgeInsets.zero,
-        ),
-      ),
+      ],
     );
   }
 }

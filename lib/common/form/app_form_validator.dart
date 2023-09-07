@@ -6,7 +6,7 @@ class FormValidator {
   static const String requiredText = 'Este campo é obrigatório';
 
   static String? validateCpf(String? cpf) {
-    const List<String> BLACKLIST = <String>[
+    const List<String> blacklist = <String>[
       '00000000000',
       '11111111111',
       '22222222222',
@@ -20,11 +20,11 @@ class FormValidator {
       '12345678909'
     ];
 
-    const String STRIP_REGEX = r'[^\d]';
+    const String stripRegex = r'[^\d]';
 
     // Compute the Verifier Digit (or "Dígito Verificador (DV)" in PT-BR).
     // You can learn more about the algorithm on [wikipedia (pt-br)](https://pt.wikipedia.org/wiki/D%C3%ADgito_verificador)
-    int _verifierDigit(String cpf) {
+    int verifierDigit(String cpf) {
       final List<int> numbers = cpf.split('').map((String number) => int.parse(number, radix: 10)).toList();
 
       final int modulus = numbers.length + 1;
@@ -41,7 +41,7 @@ class FormValidator {
     }
 
     String strip(String? cpf) {
-      final RegExp regExp = RegExp(STRIP_REGEX);
+      final RegExp regExp = RegExp(stripRegex);
       cpf = cpf ?? '';
 
       return cpf.replaceAll(regExp, '');
@@ -63,13 +63,13 @@ class FormValidator {
       }
 
       // CPF can't be blacklisted
-      if (BLACKLIST.contains(cpf)) {
+      if (blacklist.contains(cpf)) {
         return false;
       }
 
       String numbers = cpf.substring(0, 9);
-      numbers += _verifierDigit(numbers).toString();
-      numbers += _verifierDigit(numbers).toString();
+      numbers += verifierDigit(numbers).toString();
+      numbers += verifierDigit(numbers).toString();
 
       return numbers.substring(numbers.length - 2) == cpf.substring(cpf.length - 2);
     }

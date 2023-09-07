@@ -4,8 +4,7 @@ Map<String, dynamic> addMapId(Map<String, dynamic> map, String id) {
   return data;
 }
 
-Map<String, dynamic> addMapKey(
-    Map<String, dynamic> map, String value, String key) {
+Map<String, dynamic> addMapKey(Map<String, dynamic> map, String value, String key) {
   final data = map;
   data.addAll({key: value});
   return data;

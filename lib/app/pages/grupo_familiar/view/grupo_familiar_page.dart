@@ -58,38 +58,43 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
               children: [
                 Column(
                   children: [
+                    // * SEARCH HEADER
                     StoreBuilder<List<FamilyGroupModel>>(
-                        store: groupStore,
-                        validateDefaultStates: false,
-                        builder: (context, groups, child) {
-                          return StoreBuilder<List<PatientModel>>(
-                            store: managePatientsStore,
-                            validateDefaultStates: false,
-                            builder: (context, patients, _) {
-                              return SearchGroupPatients(
-                                patients: const [],
-                                groups: const [],
-                                searchByGroup: false,
-                                width: MediaQuery.of(context).size.width * .32,
-                                onTap: () => showDialog(
-                                  useSafeArea: true,
-                                  context: context,
-                                  // TODO Thiago Personalizar este DIALOG abaixo
-                                  builder: (_) => SearchPatientsDialog(
-                                    controller: controller,
-                                    patients: patients,
-                                    groups: groups,
-                                    selectedGroup: (selectedGroup) {
-                                      if (selectedGroup != null) {
-                                        controller.groupSelected.value = selectedGroup;
-                                      }
-                                    },
-                                  ),
+                      store: groupStore,
+                      validateDefaultStates: false,
+                      builder: (context, groups, child) {
+                        return StoreBuilder<List<PatientModel>>(
+                          store: managePatientsStore,
+                          validateDefaultStates: false,
+                          builder: (context, patients, _) {
+                            // TODO Thiago Personalizar este FormFiel de Busca abaixo
+                            // TODO Atenção (isso vale pra todos), nao mexer na lógica e nem na árvore de widgets, ou seja, não componentize caso a lógica não esteja componentizada
+                            return SearchGroupPatients(
+                              patients: const [],
+                              groups: const [],
+                              searchByGroup: false,
+                              width: MediaQuery.of(context).size.width * .32,
+                              onTap: () => showDialog(
+                                useSafeArea: true,
+                                context: context,
+                                // TODO Thiago Personalizar este DIALOG abaixo
+                                builder: (_) => SearchPatientsDialog(
+                                  controller: controller,
+                                  patients: patients,
+                                  groups: groups,
+                                  selectedGroup: (selectedGroup) {
+                                    if (selectedGroup != null) {
+                                      controller.groupSelected.value = selectedGroup;
+                                    }
+                                  },
                                 ),
-                              );
-                            },
-                          );
-                        }),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                    // * LIST OF GROUPS
                     SizedBox(
                       height: MediaQuery.of(context).size.height * .7,
                       width: MediaQuery.of(context).size.width * .32,
@@ -125,7 +130,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                   ],
                 ),
                 const Spacer(),
-                // Group Details
+                //*  GROUP DETAILS
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .8,
                   width: MediaQuery.of(context).size.width * .42,

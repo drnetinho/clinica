@@ -81,10 +81,14 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
             const SizedBox(height: 20),
             GrupoFamiliarFooter(group: widget.group),
             const SizedBox(height: 20),
-            const HistoricButton(),
+            HistoricButton(
+              onTap: () {},
+            ),
             const SizedBox(height: 20),
-            const Center(
-              child: WalletButton(),
+             Center(
+              child: WalletButton(
+                onTap: () {},
+              ),
             ),
           ],
         ),

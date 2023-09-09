@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'family_group_model.g.dart';
 
 @JsonSerializable()
-class FamilyGroupModel {
+class FamilyGroupModel extends Equatable {
   final String id;
   final String name;
   final bool pending;
@@ -12,7 +13,7 @@ class FamilyGroupModel {
   final DateTime actualPayDate;
   final List<String> payments;
 
-  FamilyGroupModel(
+  const FamilyGroupModel(
     this.id,
     this.name,
     this.pending,
@@ -43,5 +44,18 @@ class FamilyGroupModel {
       actualPayDate ?? this.actualPayDate,
       payments ?? this.payments,
     );
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      name,
+      pending,
+      members,
+      actualMonthlyFee,
+      actualPayDate,
+      payments,
+    ];
   }
 }

@@ -4,19 +4,31 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
+import '../../domain/model/family_group_model.dart';
 
 class SearchGroupPatients extends StatefulWidget {
   final List<PatientModel> patients;
-  final TextEditingController controller;
+  final List<FamilyGroupModel> groups;
+
+  final TextEditingController? controller;
   final Function(List<PatientModel>?)? findedPatients;
+  final Function(List<FamilyGroupModel>?)? findedGroups;
   final VoidCallback? onTap;
+  final bool autoFocus;
+  final bool searchByGroup;
+  final double width;
 
   const SearchGroupPatients({
     super.key,
     required this.patients,
-    required this.controller,
-     this.findedPatients,
+    required this.groups,
+    required this.width,
+    this.findedGroups,
+    this.controller,
+    this.findedPatients,
     this.onTap,
+    this.autoFocus = false,
+    required this.searchByGroup,
   });
 
   @override
@@ -28,20 +40,26 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * .1,
-      width: MediaQuery.of(context).size.width * .32,
+      width: widget.width,
       child: TextFormField(
         controller: widget.controller,
         readOnly: widget.onTap != null,
         onTap: widget.onTap,
+        autofocus: widget.autoFocus,
         onChanged: (v) {
-          if (widget.onTap == null) {
-            if (v.isNotEmpty) {
-              widget.findedPatients?.call(
-                widget.patients.where((p) => p.name.lower.contains(v.lower)).toList(),
+          if (v.isNotEmpty) {
+            if (widget.searchByGroup) {
+              widget.findedGroups?.call(
+                widget.groups.where((g) => containsCase(g.name, v)).toList(),
               );
             } else {
-              widget.findedPatients?.call(null);
+              widget.findedPatients?.call(
+                widget.patients.where((p) => containsCase(p.name, v)).toList(),
+              );
             }
+          } else {
+            widget.findedPatients?.call(null);
+            widget.findedGroups?.call(null);
           }
         },
         decoration: InputDecoration(
@@ -59,4 +77,6 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
       ),
     );
   }
+
+  bool containsCase(String a, String b) => a.lower.contains(b.lower);
 }

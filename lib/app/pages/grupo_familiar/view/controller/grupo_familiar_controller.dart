@@ -11,7 +11,18 @@ class GrupoFamiliarController {
 
   // Search Mode
   final TextEditingController searchCt = TextEditingController();
+
   final ValueNotifier<List<PatientModel>?> searchPatients = ValueNotifier(null);
   set addSearchPatients(List<PatientModel> patients) => searchPatients.value = [...patients];
-  void resetSearch() => searchPatients.value = null;
+  void resetSearchPatients() => searchPatients.value = null;
+
+  final ValueNotifier<List<FamilyGroupModel>?> searchGroups = ValueNotifier(null);
+  set addsearchGroups(List<FamilyGroupModel> groups) => searchGroups.value = [...groups];
+  void resetSearchGroups() => searchGroups.value = null;
+
+  void clearCompleteSearch() {
+    searchCt.clear();
+    resetSearchGroups();
+    resetSearchPatients();
+  }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../../../../core/styles/colors_app.dart';
@@ -21,29 +23,45 @@ class GrupoFamiliarFooter extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Valor',
-                style:
-                    context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2)),
-            Text('R\$ 50,00', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
+            Text(
+              'Valor',
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
+            ),
+            Text(
+              group.actualMonthlyFee.toReal,
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            ),
           ],
         ),
         const Spacer(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Vencimento',
-                style:
-                    context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2)),
-            Text('10/10/2021', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
+            Text(
+              'Vencimento',
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
+            ),
+            Text(
+              group.actualPayDate.formatted,
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            ),
           ],
         ),
         const Spacer(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Status',
-                style:
-                    context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2)),
+            Text(
+              'Status',
+              style: context.textStyles.textPoppinsMedium.copyWith(
+                fontSize: 16,
+                color: ColorsApp.instance.greyColor2,
+              ),
+            ),
+            Text(
+              group.pending ? 'Pendente' : 'Pago',
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            ),
           ],
         ),
         const Spacer(),

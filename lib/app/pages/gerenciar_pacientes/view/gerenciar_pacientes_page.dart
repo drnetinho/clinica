@@ -150,7 +150,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
               child: PhysicalModel(
-                elevation: 10,
+                elevation: 11,
                 color: context.colorsApp.backgroundCardColor,
                 borderRadius: BorderRadius.circular(20),
                 child: Padding(

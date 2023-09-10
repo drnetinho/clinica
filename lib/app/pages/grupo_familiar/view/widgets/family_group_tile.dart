@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
+
+import '../../../../../core/components/store_builder.dart';
 
 class FamilyGroupTile extends StatefulWidget {
   final FamilyGroupModel group;
   final bool isSelected;
+  final GroupPaymentsStore store;
+
   const FamilyGroupTile({
     Key? key,
     required this.group,
     required this.isSelected,
+    required this.store,
   }) : super(key: key);
 
   @override
@@ -18,6 +25,12 @@ class FamilyGroupTile extends StatefulWidget {
 }
 
 class _FamilyGroupTileState extends State<FamilyGroupTile> {
+  @override
+  void initState() {
+    super.initState();
+    widget.store.getGroupPayments(id: widget.group.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,19 +59,25 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
               ),
               child: Icon(Icons.family_restroom, color: context.colorsApp.primary, size: 20),
             ),
-            trailing: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: context.colorsApp.primary,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Text(
-                widget.group.pending ? 'Pendende' : 'Pago',
-                style: context.textStyles.textPoppinsRegular.copyWith(
-                  fontSize: 14,
-                  color: context.colorsApp.whiteColor,
-                ),
-              ),
+            trailing: StoreBuilder<List<FamilyPaymnetModel>>(
+              store: widget.store,
+              validateDefaultStates: false,
+              builder: (context, payments, _) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: context.colorsApp.primary,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Text(
+                    widget.store.isPending(payments) ? 'Pendende' : 'Pago',
+                    style: context.textStyles.textPoppinsRegular.copyWith(
+                      fontSize: 14,
+                      color: context.colorsApp.whiteColor,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
           SizedBox(

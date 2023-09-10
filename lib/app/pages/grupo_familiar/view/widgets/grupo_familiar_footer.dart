@@ -6,12 +6,15 @@ import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../../../../core/styles/colors_app.dart';
+import '../../domain/model/family_payment_model.dart';
 
 class GrupoFamiliarFooter extends StatelessWidget {
   final FamilyGroupModel group;
+  final List<FamilyPaymnetModel> payments;
   const GrupoFamiliarFooter({
     Key? key,
     required this.group,
+    required this.payments,
   }) : super(key: key);
 
   @override
@@ -27,8 +30,9 @@ class GrupoFamiliarFooter extends StatelessWidget {
               'Valor',
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
             ),
+            // TODO (Artur) Verificar se pego o First item ou o Last
             Text(
-              group.actualMonthlyFee.toReal,
+              payments.first.monthlyFee.toReal,
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
             ),
           ],
@@ -42,7 +46,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
             ),
             Text(
-              group.actualPayDate.formatted,
+              payments.first.payDate.formatted,
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
             ),
           ],
@@ -59,7 +63,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
               ),
             ),
             Text(
-              group.pending ? 'Pendente' : 'Pago',
+              payments.any((e) => e.pending) ? 'Pendente' : 'Pago',
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
             ),
           ],

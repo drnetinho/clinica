@@ -6,49 +6,32 @@ import 'package:netinhoappclinica/common/services/firestore/firestore_collection
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';
+import '../../../../../common/services/logger.dart';
 import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
-import '../../../../../common/services/logger.dart';
+import '../../domain/model/family_payment_model.dart';
 import '../types.dart/group_types.dart';
 
 abstract class GetGroupsRepository {
-  UnitOrError updateId({required String id});
+  UnitOrError updateId({required String collection, required String id});
   FamilyGroupsOrError getGroups();
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
+  FamilyGroupPaymentsOrError getGroupPayments({required String id});
+  FamilyGroupPaymentsOrError getAllPayments();
 }
 
 @Injectable(as: GetGroupsRepository)
 class GetGroupsRepositoryImpl implements GetGroupsRepository {
-  final FirestoreService service;
-
-  GetGroupsRepositoryImpl({required this.service});
-
+  final String key = "id";
   @override
   FamilyGroupsOrError getGroups() async {
     try {
-      final response = await FirestoreService.fire.collection(AppCollections.groups).get();
-      const String key = "id";
-
-      final docs = response.docs.map((e) {
-        Map<String, dynamic> data = e.data();
-        // Add MapId and update it in Firebase
-        if (data.containsKey(key) && data[key].isEmpty) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        } else if (!data.containsKey(key)) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        }
-        return data;
-      }).toList();
-
-      final data = docs.map((e) {
-        return FamilyGroupModel.fromJson(e);
-      }).toList();
-      Logger.prettyPrint(data, Logger.greenColor);
-
+      final response = await FirestoreService.fire.collection(Collections.groups).get();
+      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final data = docs.map((e) => FamilyGroupModel.fromJson(e)).toList();
+      Logger.prettyPrint(data, Logger.greenColor, 'getGroups');
       return (error: null, groups: data);
     } on FirebaseException {
       return (error: RemoteError(), groups: null);
@@ -58,11 +41,10 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
   @override
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids}) async {
     try {
-      final response = await FirestoreService.fire.collection(AppCollections.patients).where('id', whereIn: ids).get();
+      final response = await FirestoreService.fire.collection(Collections.patients).where('id', whereIn: ids).get();
       final docs = response.docs.map((e) => e.data()).toList();
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor);
-
+      Logger.prettyPrint(data, Logger.greenColor, 'getGroupMembers');
       return (error: null, members: data);
     } on FirebaseException {
       return (error: RemoteError(), members: null);
@@ -70,9 +52,37 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
   }
 
   @override
-  UnitOrError updateId({required String id}) async {
+  FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
     try {
-      await FirestoreService.fire.collection(AppCollections.groups).doc(id).update({"id": id});
+      final res =
+          await FirestoreService.fire.collection(Collections.payments).where('familyGroupId', isEqualTo: id).get();
+
+      final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
+      Logger.prettyPrint(data, Logger.greenColor,'getGroupPayments');
+      return (error: null, payments: data);
+    } on FirebaseException {
+      return (error: RemoteError(), payments: null);
+    }
+  }
+
+  @override
+  FamilyGroupPaymentsOrError getAllPayments() async {
+    try {
+      final response = await FirestoreService.fire.collection(Collections.payments).get();
+      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
+      Logger.prettyPrint(data, Logger.greenColor, 'getAllPayments');
+      return (error: null, payments: data);
+    } on FirebaseException {
+      return (error: RemoteError(), payments: null);
+    }
+  }
+
+  @override
+  UnitOrError updateId({required String collection, required String id}) async {
+    try {
+      await FirestoreService.fire.collection(collection).doc(id).update({"id": id});
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);

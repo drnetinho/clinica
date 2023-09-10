@@ -11,6 +11,9 @@ FamilyPaymnetModel _$FamilyPaymnetModelFromJson(Map json) => FamilyPaymnetModel(
       json['familyGroupId'] as String,
       (json['monthlyFee'] as num).toDouble(),
       DateTime.parse(json['payDate'] as String),
+      json['receiveDate'] == null
+          ? null
+          : DateTime.parse(json['receiveDate'] as String),
       json['pending'] as bool,
     );
 
@@ -20,5 +23,6 @@ Map<String, dynamic> _$FamilyPaymnetModelToJson(FamilyPaymnetModel instance) =>
       'familyGroupId': instance.familyGroupId,
       'monthlyFee': instance.monthlyFee,
       'payDate': instance.payDate.toIso8601String(),
+      'receiveDate': instance.receiveDate?.toIso8601String(),
       'pending': instance.pending,
     };

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_members_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/grupo_familiar_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/family_group_tile.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_widget.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_patients_dialog.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_patients_dialog.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -17,7 +19,7 @@ import 'controller/grupo_familiar_controller.dart';
 
 class GrupoFamiliarPage extends StatefulWidget {
   static const String routeName = 'grupo_familiar';
-  const GrupoFamiliarPage({super.key});
+  const GrupoFamiliarPage({Key? key}) : super(key: key);
 
   @override
   State<GrupoFamiliarPage> createState() => _GrupoFamiliarPageState();
@@ -28,6 +30,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
   late final GrupMembersStore membersStore;
   late final ManagePatientsStore managePatientsStore;
   late final GrupoFamiliarController controller;
+  late final GroupPaymentsStore paymnetsStore;
 
   @override
   void initState() {
@@ -35,7 +38,9 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
     groupStore = getIt<GrupoFamiliarStore>();
     membersStore = getIt<GrupMembersStore>();
     managePatientsStore = getIt<ManagePatientsStore>();
+    paymnetsStore = getIt<GroupPaymentsStore>();
     controller = getIt<GrupoFamiliarController>();
+
     managePatientsStore.getPatients();
     groupStore.getGroups();
   }
@@ -116,6 +121,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                       onTap: () => controller.groupSelected.value = group,
                                       child: FamilyGroupTile(
                                         group: group,
+                                        store: paymnetsStore,
                                         isSelected: group == groupSelected,
                                       ),
                                     );
@@ -142,7 +148,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
                           child: GrupoFamiliarWidget(
                             group: groupSelected,
-                            store: membersStore,
+                            membersStore: membersStore,
                           ),
                         );
                       } else {

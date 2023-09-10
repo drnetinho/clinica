@@ -8,6 +8,7 @@ class FamilyPaymnetModel {
   final String familyGroupId;
   final double monthlyFee;
   final DateTime payDate;
+  final DateTime? receiveDate;
   final bool pending;
 
   FamilyPaymnetModel(
@@ -15,6 +16,7 @@ class FamilyPaymnetModel {
     this.familyGroupId,
     this.monthlyFee,
     this.payDate,
+    this.receiveDate,
     this.pending,
   );
 
@@ -26,6 +28,7 @@ class FamilyPaymnetModel {
     String? familyGroupId,
     double? monthlyFee,
     DateTime? payDate,
+    DateTime? receiveDate,
     bool? pending,
   }) {
     return FamilyPaymnetModel(
@@ -33,6 +36,7 @@ class FamilyPaymnetModel {
       familyGroupId ?? this.familyGroupId,
       monthlyFee ?? this.monthlyFee,
       payDate ?? this.payDate,
+      receiveDate ?? this.receiveDate,
       pending ?? this.pending,
     );
   }

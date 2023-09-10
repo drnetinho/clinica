@@ -9,17 +9,21 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../../../../core/components/store_builder.dart';
+import '../../../../../di/get_it.dart';
 import '../../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../../../gerenciar_pacientes/view/widgets/excluir_buttons.dart';
+import '../../domain/model/family_payment_model.dart';
 import '../store/group_members_store.dart';
+import '../store/group_payments_store.dart';
+import 'payment_historic_dialog.dart';
 
 class GrupoFamiliarWidget extends StatefulWidget {
   final FamilyGroupModel group;
-  final GrupMembersStore store;
+  final GrupMembersStore membersStore;
   const GrupoFamiliarWidget({
     super.key,
     required this.group,
-    required this.store,
+    required this.membersStore,
   });
 
   @override
@@ -27,10 +31,14 @@ class GrupoFamiliarWidget extends StatefulWidget {
 }
 
 class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
+  late final GroupPaymentsStore paymentsStore;
+
   @override
   void initState() {
     super.initState();
-    widget.store.getGroupMembers(ids: widget.group.members);
+    widget.membersStore.getGroupMembers(ids: widget.group.members);
+    paymentsStore = getIt<GroupPaymentsStore>();
+    paymentsStore.getGroupPayments(id: widget.group.id);
   }
 
   @override
@@ -59,17 +67,18 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
             const SizedBox(height: 20),
             Expanded(
               child: StoreBuilder<List<PatientModel>>(
-                  store: widget.store,
-                  builder: (context, members, child) {
-                    return ListView.builder(
-                      padding: const EdgeInsets.all(0),
-                      shrinkWrap: true,
-                      itemCount: members.length,
-                      itemBuilder: (context, index) {
-                        return GroupMemberTile(member: members[index]);
-                      },
-                    );
-                  }),
+                store: widget.membersStore,
+                builder: (context, members, child) {
+                  return ListView.builder(
+                    padding: const EdgeInsets.all(0),
+                    shrinkWrap: true,
+                    itemCount: members.length,
+                    itemBuilder: (context, index) {
+                      return GroupMemberTile(member: members[index]);
+                    },
+                  );
+                },
+              ),
             ),
             Text(
               'Histórico de Pagamentos',
@@ -79,13 +88,31 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
               ),
             ),
             const SizedBox(height: 20),
-            GrupoFamiliarFooter(group: widget.group),
-            const SizedBox(height: 20),
-            HistoricButton(
-              onTap: () {},
+            StoreBuilder<List<FamilyPaymnetModel>>(
+              store: paymentsStore,
+              validateDefaultStates: false,
+              builder: (context, payments, _) => GrupoFamiliarFooter(
+                group: widget.group,
+                payments: payments,
+              ),
             ),
             const SizedBox(height: 20),
-             Center(
+            StoreBuilder<List<FamilyPaymnetModel>>(
+              store: paymentsStore,
+              validateDefaultStates: false,
+              builder: (context, payments, _) {
+                return HistoricButton(
+                  onTap: () => showDialog(
+                    useSafeArea: true,
+                    context: context,
+                    // TODO Thiago Personalizar este DIALOG abaixo
+                    builder: (_) => PaymentHistoricDialog(payments: payments),
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 20),
+            Center(
               child: WalletButton(
                 onTap: () {},
               ),

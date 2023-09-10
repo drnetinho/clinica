@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
 
 import '../../../../../common/either/either.dart';
@@ -19,39 +18,17 @@ abstract class GetPatientsRepository {
   UnitOrError addPatient({required PatientModel patient});
   UnitOrError updatePatient({required PatientModel patient});
   UnitOrError updateId({required String id});
-
-  Future<({AppError? error, List<FamilyGroupModel>? groups})> getGroups();
 }
 
 @Injectable(as: GetPatientsRepository)
 class GetPatientsRepositoryImpl implements GetPatientsRepository {
-  final FirestoreService service;
-
-  GetPatientsRepositoryImpl({
-    required this.service,
-  });
-
   @override
   GetPatientsOrError getPatients() async {
     try {
-      final response = await FirestoreService.fire.collection(AppCollections.patients).get();
-      const String key = "id";
-
-      final docs = response.docs.map((e) {
-        Map<String, dynamic> data = e.data();
-        if (data.containsKey(key) && data[key].isEmpty) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        } else if (!data.containsKey(key)) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        }
-        return data;
-      }).toList();
-
+      final response = await FirestoreService.fire.collection(Collections.patients).get();
+      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor);
-
+      Logger.prettyPrint(data, Logger.greenColor, 'getPatients');
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);
@@ -61,8 +38,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
   @override
   UnitOrError deletePatient({required String id}) async {
     try {
-      await FirestoreService.fire.collection(AppCollections.patients).doc(id).delete();
-      Logger.prettyPrint(id, Logger.redColor);
+      await FirestoreService.fire.collection(Collections.patients).doc(id).delete();
+      Logger.prettyPrint(id, Logger.redColor, 'deletePatient');
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
@@ -72,8 +49,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
   @override
   UnitOrError addPatient({required PatientModel patient}) async {
     try {
-      await FirestoreService.fire.collection(AppCollections.patients).add(patient.toJson());
-      Logger.prettyPrint(patient, Logger.cyanColor);
+      await FirestoreService.fire.collection(Collections.patients).add(patient.toJson());
+      Logger.prettyPrint(patient, Logger.cyanColor, 'addPatient');
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
@@ -83,8 +60,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
   @override
   UnitOrError updatePatient({required PatientModel patient}) async {
     try {
-      await FirestoreService.fire.collection(AppCollections.patients).doc(patient.id).update(patient.toJson());
-      Logger.prettyPrint(patient, Logger.greenColor);
+      await FirestoreService.fire.collection(Collections.patients).doc(patient.id).update(patient.toJson());
+      Logger.prettyPrint(patient, Logger.greenColor, 'updatePatient');
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
@@ -94,40 +71,10 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
   @override
   UnitOrError updateId({required String id}) async {
     try {
-      await FirestoreService.fire.collection(AppCollections.patients).doc(id).update({"id": id});
+      await FirestoreService.fire.collection(Collections.patients).doc(id).update({"id": id});
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
-    }
-  }
-
-  @override
-  Future<({AppError? error, List<FamilyGroupModel>? groups})> getGroups() async {
-    try {
-      final response = await FirestoreService.fire.collection(AppCollections.patients).get();
-
-      const String key = "id";
-
-      final docs = response.docs.map((e) {
-        Map<String, dynamic> data = e.data();
-        if (data.containsKey(key) && data[key].isEmpty) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        } else if (!data.containsKey(key)) {
-          data = addMapId(data, e.id);
-          updateId(id: e.id);
-        }
-        return data;
-      }).toList();
-
-      final data = docs.map((e) {
-        return FamilyGroupModel.fromJson(e);
-      }).toList();
-      Logger.prettyPrint(data, Logger.greenColor);
-
-      return (error: null, groups: data);
-    } on FirebaseException {
-      return (error: RemoteError(), groups: null);
     }
   }
 }

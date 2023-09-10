@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netinhoappclinica/core/helps/extension/int_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
 class DropButton extends StatefulWidget {
@@ -9,27 +10,7 @@ class DropButton extends StatefulWidget {
 }
 
 class _DropButtonState extends State<DropButton> {
-  final List<String> filtroGeral = ['Todos', 'Este mês', 'Este ano'];
-  final List<String> meses1 = [
-    'Janeiro',
-    'Março',
-    'Maio',
-    'Julho',
-    'Setembro',
-    'Novembro',
-  ];
-
-  final List<String> meses2 = [
-    'Fevereiro',
-    'Abril',
-    'Junho',
-    'Agosto',
-    'Outubro',
-    'Dezembro',
-  ];
-
-  String selectedFilter = ''; // Opção selecionada inicialmente
-  List<String> selectedMonths = [];
+  String selectedFilter = '';
 
   bool showFiltroGeral = false;
   bool showFiltroMes = false;
@@ -44,23 +25,23 @@ class _DropButtonState extends State<DropButton> {
           decoration: BoxDecoration(
             color: context.colorsApp.whiteColor,
             borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(color: showFiltroGeral ? context.colorsApp.primary : context.colorsApp.greyColor, width: 2),
+            border: Border.all(
+              color: showFiltroGeral ? context.colorsApp.primary : context.colorsApp.greyColor,
+              width: 2,
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  showFiltroGeral = !showFiltroGeral;
-                  showFiltroMes = false;
-                });
-              },
+              onTap: () => setState(() {
+                showFiltroGeral = !showFiltroGeral;
+                showFiltroMes = false;
+              }),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    selectedFilter.isEmpty ? 'Filtrar por' : selectedFilter,
+                    selectedFilter.isEmpty ? 'Filtrar' : selectedFilter,
                     style: const TextStyle(color: Colors.grey),
                   ),
                   Icon(
@@ -80,9 +61,7 @@ class _DropButtonState extends State<DropButton> {
             decoration: BoxDecoration(
               color: context.colorsApp.whiteColor,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: context.colorsApp.greyColor,
-              ),
+              border: Border.all(color: context.colorsApp.greyColor),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -90,62 +69,16 @@ class _DropButtonState extends State<DropButton> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Radio(
-                        value: 'Todos',
-                        groupValue: selectedFilter,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedFilter = value.toString();
-                          });
-                        },
-                      ),
-                      Text('Todos', style: TextStyle(color: context.colorsApp.greyColor)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        value: 'Este mês',
-                        groupValue: selectedFilter,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedFilter = value.toString();
-                          });
-                        },
-                      ),
-                      Text('Este mês', style: TextStyle(color: context.colorsApp.greyColor)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        value: 'Este ano',
-                        groupValue: selectedFilter,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedFilter = value.toString();
-                          });
-                        },
-                      ),
-                      Text('Este ano', style: TextStyle(color: context.colorsApp.greyColor)),
-                    ],
-                  ),
+                  buildRadio(value: 'Todos'),
+                  buildRadio(value: 'Este mês'),
+                  buildRadio(value: 'Este ano'),
                   const Divider(),
                   GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        showFiltroMes = !showFiltroMes;
-                      });
-                    },
+                    onTap: () => setState(() => showFiltroMes = !showFiltroMes),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Filtrar por Mês',
-                            style: TextStyle(
-                              color: context.colorsApp.greyColor,
-                            )),
+                        Text('Filtrar por Mês', style: TextStyle(color: context.colorsApp.greyColor)),
                         Icon(Icons.keyboard_arrow_down_sharp, color: context.colorsApp.greyColor),
                       ],
                     ),
@@ -167,189 +100,9 @@ class _DropButtonState extends State<DropButton> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Janeiro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Janeiro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Fevereiro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Fevereiro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Março',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Março', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Abril',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Abril', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Maio',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Maio', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Junho',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Junho', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Julho',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Julho', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Agosto',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Agosto', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Setembro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Setembro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Outubro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Outubro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Novembro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Novembro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio(
-                            value: 'Dezembro',
-                            groupValue: selectedFilter,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedFilter = value.toString();
-                              });
-                            },
-                          ),
-                          Text('Dezembro', style: TextStyle(color: context.colorsApp.greyColor)),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+              child: Wrap(
+                direction: Axis.vertical,
+                children: List.generate(12, (index) => buildRadio(value: (index + 1).monthPerExtens())),
               ),
             ),
           ),
@@ -357,4 +110,15 @@ class _DropButtonState extends State<DropButton> {
       ],
     );
   }
+
+  Widget buildRadio({required String value}) => Row(
+        children: [
+          Radio(
+            value: value,
+            groupValue: selectedFilter,
+            onChanged: (value) => setState(() => selectedFilter = value.toString()),
+          ),
+          Text(value, style: TextStyle(color: context.colorsApp.greyColor)),
+        ],
+      );
 }

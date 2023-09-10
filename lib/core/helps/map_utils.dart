@@ -20,3 +20,7 @@ Map<String, dynamic> refreshMapKey({
   data.addAll({key: newValue});
   return data;
 }
+
+bool mapContainsEmptyKey(Map<String, dynamic> data, String key) {
+  return data.containsKey(key) && data[key].isEmpty;
+}

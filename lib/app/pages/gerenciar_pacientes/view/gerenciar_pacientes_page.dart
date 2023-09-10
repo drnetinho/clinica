@@ -186,6 +186,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
               child: Container(
+                
                 decoration: BoxDecoration(
                   color: context.colorsApp.whiteColor,
                   shape: BoxShape.rectangle,

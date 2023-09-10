@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/clisp_wallet.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_footer.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/historic_button.dart';
@@ -112,11 +113,26 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
               },
             ),
             const SizedBox(height: 20),
-            Center(
-              child: WalletButton(
-                onTap: () {},
-              ),
-            ),
+            StoreBuilder<List<PatientModel>>(
+                store: widget.membersStore,
+                validateDefaultStates: false,
+                builder: (context, members, child) {
+                  return Center(
+                    child: WalletButton(
+                      onTap: () {
+                        showDialog(
+                          useSafeArea: true,
+                          context: context,
+                          // TODO Thiago Personalizar este DIALOG abaixo
+                          builder: (_) => ClispWallet(
+                            groupName: widget.group.name,
+                            members: members,
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }),
           ],
         ),
       ),

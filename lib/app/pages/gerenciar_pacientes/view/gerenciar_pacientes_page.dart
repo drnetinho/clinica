@@ -143,17 +143,54 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
               ),
             ),
           ),
-
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .9,
+            width: MediaQuery.of(context).size.height * .8,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colorsApp.backgroundCardColor,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
+                    builder: (contex, child) {
+                      if (controller.addNewPatient.value) {
+                        return NewPatientFormWidget(
+                          manageStore: patientsStore,
+                          editStore: editPatientsStore,
+                        );
+                      } else if (controller.patientSelected.exists) {
+                        return FichaMedicaWidget(
+                          patient: controller.patientSelected.value!,
+                          manageStore: patientsStore,
+                          editStore: editPatientsStore,
+                        );
+                      } else {
+                        return const StateInitialWidget();
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
           //ficha medica
           SizedBox(
             height: MediaQuery.of(context).size.height * .9,
             width: MediaQuery.of(context).size.height * .8,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
-              child: Card(
-                color: context.colorsApp.backgroundCardColor,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                elevation: 10,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: context.colorsApp.whiteColor,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: AnimatedBuilder(

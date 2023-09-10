@@ -20,6 +20,15 @@ class FamilyPaymnetModel {
     this.pending,
   );
 
+  const FamilyPaymnetModel.empty({
+    this.id = '',
+    this.familyGroupId = '',
+    this.monthlyFee = 0.0,
+    required this.payDate,
+    this.receiveDate,
+    this.pending = true,
+  });
+  
   factory FamilyPaymnetModel.fromJson(Map<String, dynamic> json) => _$FamilyPaymnetModelFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyPaymnetModelToJson(this);
 

@@ -29,6 +29,7 @@ import '../app/pages/grupo_familiar/data/repository/get_groups_repository.dart'
     as _i7;
 import '../app/pages/grupo_familiar/view/controller/grupo_familiar_controller.dart'
     as _i11;
+import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i18;
 import '../app/pages/grupo_familiar/view/store/group_members_store.dart'
     as _i10;
 import '../app/pages/grupo_familiar/view/store/group_payments_store.dart'
@@ -39,7 +40,7 @@ import '../app/root/router_controller.dart' as _i15;
 import '../common/services/auth/auth_service.dart' as _i3;
 import '../common/services/firestore/firestore_service.dart' as _i5;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
-    as _i18;
+    as _i19;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -82,10 +83,12 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.factory<_i17.EditPatientsStore>(
         () => _i17.EditPatientsStore(gh<_i8.GetPatientsRepository>()));
+    gh.factory<_i18.EditPaymentsStore>(
+        () => _i18.EditPaymentsStore(gh<_i7.GetGroupsRepository>()));
     return this;
   }
 }
 
 class _$FirestoreModule extends _i5.FirestoreModule {}
 
-class _$SharedPreferencesModule extends _i18.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i19.SharedPreferencesModule {}

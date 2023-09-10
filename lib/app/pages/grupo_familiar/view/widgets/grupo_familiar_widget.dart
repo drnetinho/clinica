@@ -6,14 +6,18 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/group_me
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_footer.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/historic_button.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/wallet_button.dart';
+import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/store_builder.dart';
 import '../../../../../di/get_it.dart';
 import '../../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../../../gerenciar_pacientes/view/widgets/excluir_buttons.dart';
 import '../../domain/model/family_payment_model.dart';
+import '../store/edit_payment_store.dart';
 import '../store/group_members_store.dart';
 import '../store/group_payments_store.dart';
 import 'payment_historic_dialog.dart';
@@ -21,6 +25,7 @@ import 'payment_historic_dialog.dart';
 class GrupoFamiliarWidget extends StatefulWidget {
   final FamilyGroupModel group;
   final GrupMembersStore membersStore;
+
   const GrupoFamiliarWidget({
     super.key,
     required this.group,
@@ -33,14 +38,24 @@ class GrupoFamiliarWidget extends StatefulWidget {
 
 class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
   late final GroupPaymentsStore paymentsStore;
+  late final EditPaymentsStore editPaymentsStore;
 
   @override
   void initState() {
     super.initState();
     widget.membersStore.getGroupMembers(ids: widget.group.members);
     paymentsStore = getIt<GroupPaymentsStore>();
-    paymentsStore.getGroupPayments(id: widget.group.id);
+    editPaymentsStore = getIt<EditPaymentsStore>();
+    getPayments();
+
+    editPaymentsStore.addListener(() {
+      if (editPaymentsStore.value.isSuccess) {
+        getPayments();
+      }
+    });
   }
+
+  void getPayments() => paymentsStore.getGroupPayments(id: widget.group.id);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +70,10 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
           children: [
             Row(
               children: [
-                Text('Família Souza', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22)),
+                Text(
+                  'Família Souza',
+                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 22),
+                ),
                 const Spacer(),
                 ExcluirButton(onPressed: () {}),
                 const SizedBox(width: 10),
@@ -74,9 +92,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
                     padding: const EdgeInsets.all(0),
                     shrinkWrap: true,
                     itemCount: members.length,
-                    itemBuilder: (context, index) {
-                      return GroupMemberTile(member: members[index]);
-                    },
+                    itemBuilder: (context, index) => GroupMemberTile(member: members[index]),
                   );
                 },
               ),
@@ -92,10 +108,43 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
             StoreBuilder<List<FamilyPaymnetModel>>(
               store: paymentsStore,
               validateDefaultStates: false,
-              builder: (context, payments, _) => GrupoFamiliarFooter(
-                group: widget.group,
-                payments: payments,
-              ),
+              builder: (context, payments, _) {
+                if (payments.exists) {
+                  final lastPayment = paymentsStore.actualPayment(payments) ?? payments.first;
+
+                  return GrupoFamiliarFooter(
+                    group: widget.group,
+                    lastPayment: lastPayment,
+                    onConfirmReceive: () => showDialog(
+                      useSafeArea: true,
+                      context: context,
+                      // TODO Thiago Personalizar este DIALOG abaixo
+                      builder: (_) => AppDialog(
+                        title: 'Deseja realmente salvar as alterações?',
+                        description:
+                            'Você pode apenas confirmar o pagamento atual, ou pode confirmar e gerar automaticamente o próximo pagamento.',
+                        firstButtonText: 'Cancelar',
+                        secondButtonText: 'Apenas confirmar',
+                        thirdButtonText: 'Confirmar e criar',
+                        firstButtonIcon: Icons.cancel,
+                        secondButtonIcon: Icons.check,
+                        thirdButtonIcon: Icons.create,
+                        store: editPaymentsStore,
+                        onPressedSecond: () => editPaymentsStore.confirmPendingPayment(
+                          payment: lastPayment,
+                          generateNextPayment: false,
+                        ),
+                        onPressedThird: () => editPaymentsStore.confirmPendingPayment(
+                          payment: lastPayment,
+                          generateNextPayment: true,
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
             const SizedBox(height: 20),
             StoreBuilder<List<FamilyPaymnetModel>>(
@@ -114,25 +163,24 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
             ),
             const SizedBox(height: 20),
             StoreBuilder<List<PatientModel>>(
-                store: widget.membersStore,
-                validateDefaultStates: false,
-                builder: (context, members, child) {
-                  return Center(
-                    child: WalletButton(
-                      onTap: () {
-                        showDialog(
-                          useSafeArea: true,
-                          context: context,
-                          // TODO Thiago Personalizar este DIALOG abaixo
-                          builder: (_) => ClispWallet(
-                            groupName: widget.group.name,
-                            members: members,
-                          ),
-                        );
-                      },
+              store: widget.membersStore,
+              validateDefaultStates: false,
+              builder: (context, members, child) {
+                return Center(
+                  child: WalletButton(
+                    onTap: () => showDialog(
+                      useSafeArea: true,
+                      context: context,
+                      // TODO Thiago Personalizar este DIALOG abaixo
+                      builder: (_) => ClispWallet(
+                        groupName: widget.group.name,
+                        members: members,
+                      ),
                     ),
-                  );
-                }),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -10,11 +10,14 @@ import '../../domain/model/family_payment_model.dart';
 
 class GrupoFamiliarFooter extends StatelessWidget {
   final FamilyGroupModel group;
-  final List<FamilyPaymnetModel> payments;
+  final FamilyPaymnetModel lastPayment;
+  final VoidCallback? onConfirmReceive;
+
   const GrupoFamiliarFooter({
     Key? key,
     required this.group,
-    required this.payments,
+    required this.lastPayment,
+    this.onConfirmReceive,
   }) : super(key: key);
 
   @override
@@ -32,7 +35,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
             ),
             // TODO (Artur) Verificar se pego o First item ou o Last
             Text(
-              payments.first.monthlyFee.toReal,
+              lastPayment.monthlyFee.toReal,
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
             ),
           ],
@@ -46,7 +49,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
             ),
             Text(
-              payments.first.payDate.formatted,
+              lastPayment.payDate.formatted,
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
             ),
           ],
@@ -62,12 +65,40 @@ class GrupoFamiliarFooter extends StatelessWidget {
                 color: ColorsApp.instance.greyColor2,
               ),
             ),
-            Text(
-              payments.any((e) => e.pending) ? 'Pendente' : 'Pago',
-              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            Row(
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  color: lastPayment.pending ? context.colorsApp.danger : context.colorsApp.greenColor,
+                ),
+                Text(
+                  lastPayment.pending ? 'Pendente' : 'Pago',
+                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                ),
+              ],
             ),
           ],
         ),
+        if (lastPayment.pending) ...{
+          const Spacer(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Recebimento',
+                style: context.textStyles.textPoppinsMedium.copyWith(
+                  fontSize: 16,
+                  color: ColorsApp.instance.greyColor2,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: onConfirmReceive,
+                child: const Text('Confirmar'),
+              ),
+            ],
+          ),
+        },
         const Spacer(),
       ],
     );

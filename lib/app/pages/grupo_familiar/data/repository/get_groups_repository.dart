@@ -20,6 +20,8 @@ abstract class GetGroupsRepository {
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
   FamilyGroupPaymentsOrError getGroupPayments({required String id});
   FamilyGroupPaymentsOrError getAllPayments();
+  UnitOrError editPayment({required FamilyPaymnetModel payment});
+  UnitOrError generatePayment({required FamilyPaymnetModel newPayment});
 }
 
 @Injectable(as: GetGroupsRepository)
@@ -59,7 +61,7 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
 
       final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor,'getGroupPayments');
+      Logger.prettyPrint(data, Logger.greenColor, 'getGroupPayments');
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);
@@ -86,6 +88,28 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError editPayment({required FamilyPaymnetModel payment}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.payments).doc(payment.id).update(payment.toJson());
+      Logger.prettyPrint(payment, Logger.greenColor, 'editPayment');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError generatePayment({required FamilyPaymnetModel newPayment}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.payments).add(newPayment.toJson());
+      Logger.prettyPrint(newPayment, Logger.greenColor, 'generateNextPayment');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
     }
   }
 }

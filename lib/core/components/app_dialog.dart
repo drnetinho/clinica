@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:netinhoappclinica/common/state/app_state.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
@@ -10,25 +11,34 @@ import '../helps/spacing.dart';
 
 class AppDialog extends StatefulWidget {
   final String title;
+  final String? description;
   final String? firstButtonText;
   final IconData? firstButtonIcon;
   final IconData? secondButtonIcon;
+  final IconData? thirdButtonIcon;
+
   final String? secondButtonText;
+  final String? thirdButtonText;
   final VoidCallback? onPressedFirst;
   final VoidCallback? onPressedSecond;
+  final VoidCallback? onPressedThird;
   final VoidCallback? actionOnSuccess;
   final ValueListenable<AppState> store;
 
   const AppDialog({
     Key? key,
     required this.title,
+    this.description,
     this.firstButtonText,
     this.firstButtonIcon,
     this.secondButtonIcon,
+    this.thirdButtonIcon,
     this.secondButtonText,
+    this.thirdButtonText,
     this.onPressedFirst,
-    this.actionOnSuccess,
     this.onPressedSecond,
+    this.onPressedThird,
+    this.actionOnSuccess,
     required this.store,
   }) : super(key: key);
 
@@ -70,6 +80,11 @@ class _AppDialogState extends State<AppDialog> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(widget.title),
+                      if (widget.description != null) ...{
+                        Spacing.m.verticalGap,
+                        Spacing.m.verticalGap,
+                        Text(widget.description!),
+                      },
                       Spacing.m.verticalGap,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -93,6 +108,18 @@ class _AppDialogState extends State<AppDialog> {
                                 children: [
                                   Icon(widget.secondButtonIcon!),
                                   Text(widget.secondButtonText!),
+                                ],
+                              ),
+                            ),
+                          },
+                          if (widget.thirdButtonText != null && widget.thirdButtonIcon != null) ...{
+                            Spacing.m.horizotalGap,
+                            ElevatedButton(
+                              onPressed: widget.onPressedThird,
+                              child: Row(
+                                children: [
+                                  Icon(widget.thirdButtonIcon!),
+                                  Text(widget.thirdButtonText!),
                                 ],
                               ),
                             ),

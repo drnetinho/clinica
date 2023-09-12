@@ -1,5 +1,5 @@
 extension IntToMonth on int {
-    String monthPerExtens() {
+  String monthPerExtens() {
     switch (this) {
       case 1:
         return 'Janeiro';
@@ -26,7 +26,7 @@ extension IntToMonth on int {
       case 12:
         return 'Dezembro';
       default:
-        return '';
+        return 'Other';
     }
   }
 }

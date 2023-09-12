@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'family_payment_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: true)
 class FamilyPaymnetModel {
   final String id;
   final String familyGroupId;
@@ -28,7 +28,7 @@ class FamilyPaymnetModel {
     this.receiveDate,
     this.pending = true,
   });
-  
+
   factory FamilyPaymnetModel.fromJson(Map<String, dynamic> json) => _$FamilyPaymnetModelFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyPaymnetModelToJson(this);
 

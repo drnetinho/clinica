@@ -130,13 +130,13 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
                         secondButtonIcon: Icons.check,
                         thirdButtonIcon: Icons.create,
                         store: editPaymentsStore,
-                        onPressedSecond: () => editPaymentsStore.confirmPendingPayment(
+                        onPressedSecond: () => editPaymentsStore.confirmPending(
                           payment: lastPayment,
-                          generateNextPayment: false,
+                          generateNext: false,
                         ),
-                        onPressedThird: () => editPaymentsStore.confirmPendingPayment(
+                        onPressedThird: () => editPaymentsStore.confirmPending(
                           payment: lastPayment,
-                          generateNextPayment: true,
+                          generateNext: true,
                         ),
                       ),
                     ),
@@ -147,19 +147,16 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> {
               },
             ),
             const SizedBox(height: 20),
-            StoreBuilder<List<FamilyPaymnetModel>>(
-              store: paymentsStore,
-              validateDefaultStates: false,
-              builder: (context, payments, _) {
-                return HistoricButton(
-                  onTap: () => showDialog(
-                    useSafeArea: true,
-                    context: context,
-                    // TODO Thiago Personalizar este DIALOG abaixo
-                    builder: (_) => PaymentHistoricDialog(payments: payments),
-                  ),
-                );
-              },
+            HistoricButton(
+              onTap: () => showDialog(
+                useSafeArea: true,
+                context: context,
+                // TODO Thiago Personalizar este DIALOG abaixo
+                builder: (_) => PaymentHistoricDialog(
+                  paymentsStore: paymentsStore,
+                  onRefresh: getPayments,
+                ),
+              ),
             ),
             const SizedBox(height: 20),
             StoreBuilder<List<PatientModel>>(

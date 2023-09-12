@@ -22,6 +22,7 @@ abstract class GetGroupsRepository {
   FamilyGroupPaymentsOrError getAllPayments();
   UnitOrError editPayment({required FamilyPaymnetModel payment});
   UnitOrError generatePayment({required FamilyPaymnetModel newPayment});
+  UnitOrError deletePayment({required FamilyPaymnetModel payment});
 }
 
 @Injectable(as: GetGroupsRepository)
@@ -62,6 +63,7 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
       final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
       Logger.prettyPrint(data, Logger.greenColor, 'getGroupPayments');
+      data.sort((a, b) => b.payDate.compareTo(a.payDate));
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);
@@ -107,6 +109,17 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
     try {
       await FirestoreService.fire.collection(Collections.payments).add(newPayment.toJson());
       Logger.prettyPrint(newPayment, Logger.greenColor, 'generateNextPayment');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError deletePayment({required FamilyPaymnetModel payment}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.payments).doc(payment.id).delete();
+      Logger.prettyPrint(payment, Logger.greenColor, 'deletePayment');
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);

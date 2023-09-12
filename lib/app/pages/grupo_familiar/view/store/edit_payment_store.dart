@@ -13,9 +13,9 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
 
   final actualDate = DateTime.now();
 
-  Future<void> confirmPendingPayment({
+  Future<void> confirmPending({
     required FamilyPaymnetModel payment,
-    required bool generateNextPayment,
+    required bool generateNext,
   }) async {
     value = AppStateLoading();
     final result = await _repository.editPayment(
@@ -24,39 +24,67 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
         receiveDate: DateTime.now().toLocal(),
       ),
     );
-
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
-      if (generateNextPayment) {
-        await _generateNextPayment(oldPaymenteBase: payment);
+      if (generateNext) {
+        await _generateNext(oldPaymenteBase: payment);
       }
     }
-
     if (result.error.exists) {
       value = AppStateError(error: 'Erro ao confirmar pagamento');
     }
   }
 
-  Future<void> newPayment({required String familyGroupId}) async {
+  Future<void> generate({required String familyGroupId}) async {
     value = AppStateLoading();
-    // TODO dar opcao de alterar data
-    final result = await _repository.generatePayment(
-      newPayment: FamilyPaymnetModel.empty(
-        familyGroupId: familyGroupId,
-        payDate: actualDate,
-      ),
-    );
 
+    final result = await _repository.generatePayment(
+        newPayment: FamilyPaymnetModel.empty(
+      familyGroupId: familyGroupId,
+      payDate: actualDate,
+    ));
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     }
-
     if (result.error.exists) {
       value = AppStateError(error: 'Erro ao confirmar pagamento');
     }
   }
 
-  Future<void> _generateNextPayment({required FamilyPaymnetModel oldPaymenteBase}) async {
+  Future<void> delete({
+    required FamilyPaymnetModel payment,
+  }) async {
+    value = AppStateLoading();
+    final result = await _repository.deletePayment(payment: payment);
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    } else if (result.error.exists) {
+      value = AppStateError(error: 'Erro ao deletar pagamento');
+    }
+  }
+
+  Future<void> revert({
+    required FamilyPaymnetModel payment,
+  }) async {
+    value = AppStateLoading();
+    final result = await _repository.editPayment(
+      payment: FamilyPaymnetModel.empty(
+        familyGroupId: payment.familyGroupId,
+        payDate: payment.payDate,
+        id: payment.id,
+        monthlyFee: payment.monthlyFee,
+        pending: true,
+        receiveDate: null,
+      ),
+    );
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    } else if (result.error.exists) {
+      value = AppStateError(error: 'Erro ao reverter pagamento');
+    }
+  }
+
+  Future<void> _generateNext({required FamilyPaymnetModel oldPaymenteBase}) async {
     value = AppStateLoading();
     final result = await _repository.generatePayment(
       newPayment: FamilyPaymnetModel.empty(

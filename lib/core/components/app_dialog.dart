@@ -16,7 +16,7 @@ class AppDialog extends StatefulWidget {
   final IconData? firstButtonIcon;
   final IconData? secondButtonIcon;
   final IconData? thirdButtonIcon;
-
+  final bool popOnSuccess;
   final String? secondButtonText;
   final String? thirdButtonText;
   final VoidCallback? onPressedFirst;
@@ -28,6 +28,7 @@ class AppDialog extends StatefulWidget {
   const AppDialog({
     Key? key,
     required this.title,
+    this.popOnSuccess = true,
     this.description,
     this.firstButtonText,
     this.firstButtonIcon,
@@ -54,7 +55,9 @@ class _AppDialogState extends State<AppDialog> {
       () {
         if (widget.store.value is AppStateSuccess) {
           widget.actionOnSuccess?.call();
-          context.pop();
+          if (widget.popOnSuccess) {
+            context.pop();
+          }
         }
       },
     );

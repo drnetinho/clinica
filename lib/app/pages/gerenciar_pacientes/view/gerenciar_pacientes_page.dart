@@ -9,6 +9,7 @@ import 'package:netinhoappclinica/common/state/app_state.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
@@ -57,128 +58,147 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .9,
-            width: MediaQuery.of(context).size.height * .7,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(50, 20, 30, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  StoreBuilder<List<PatientModel>>(
-                    store: patientsStore,
-                    validateDefaultStates: false,
-                    builder: (context, patients, child) {
-                      return SearchHeader(
-                        patients: patients,
-                        controller: controller.searchCt,
-                        findedPatients: (p) {
-                          if (p != null) {
-                            controller.addSearchPatients = p;
-                          } else {
-                            controller.resetSearch();
-                          }
-                        },
-                        addPatient: (v) => controller.toogleAddNewPatient = v,
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Expanded(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.height * .7,
-                      child: ValueListenableBuilder(
-                          valueListenable: controller.searchPatients,
-                          builder: (context, search, _) {
-                            return StoreBuilder<List<PatientModel>>(
-                              store: patientsStore,
-                              validateEmptyList: true,
-                              builder: (context, value, child) {
-                                List<PatientModel> patients = search ?? value;
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: context.colorsApp.backgroundCardColor,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(color: ColorsApp.instance.greyColor),
-                                  ),
-                                  child: AnimatedBuilder(
-                                    animation: Listenable.merge([
-                                      controller.patientSelected,
-                                      controller.addNewPatient,
-                                    ]),
-                                    builder: (context, child) {
-                                      return ListView.builder(
-                                        padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
-                                        shrinkWrap: true,
-                                        itemCount: patients.length,
-                                        itemBuilder: (context, index) {
-                                          final patient = patients[index];
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(110, 30, 110, 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Gerenciar Pacientes',
+              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
+            ),
+            const SizedBox(height: 40),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                //container 01
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .8,
+                  width: MediaQuery.of(context).size.width * .32,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .1,
+                        width: MediaQuery.of(context).size.width * .32,
+                        child: StoreBuilder<List<PatientModel>>(
+                          store: patientsStore,
+                          validateDefaultStates: false,
+                          builder: (context, patients, child) {
+                            return SearchHeader(
+                              patients: patients,
+                              controller: controller.searchCt,
+                              findedPatients: (p) {
+                                if (p != null) {
+                                  controller.addSearchPatients = p;
+                                } else {
+                                  controller.resetSearch();
+                                }
+                              },
+                              addPatient: (v) => controller.toogleAddNewPatient = v,
+                            );
+                          },
+                        ),
+                      ),
+                      PhysicalModel(
+                        elevation: 10,
+                        color: context.colorsApp.backgroundCardColor,
+                        borderRadius: BorderRadius.circular(20),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * .7,
+                          width: MediaQuery.of(context).size.width * .32,
+                          child: ValueListenableBuilder(
+                              valueListenable: controller.searchPatients,
+                              builder: (context, search, _) {
+                                return StoreBuilder<List<PatientModel>>(
+                                  store: patientsStore,
+                                  validateEmptyList: true,
+                                  builder: (context, value, child) {
+                                    List<PatientModel> patients = search ?? value;
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: context.colorsApp.backgroundCardColor,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: ColorsApp.instance.greyColor),
+                                      ),
+                                      child: AnimatedBuilder(
+                                        animation: Listenable.merge([
+                                          controller.patientSelected,
+                                          controller.addNewPatient,
+                                        ]),
+                                        builder: (context, child) {
+                                          return ListView.builder(
+                                            padding: const EdgeInsets.only(top: 10, left: 22, right: 22, bottom: 10),
+                                            shrinkWrap: true,
+                                            itemCount: patients.length,
+                                            itemBuilder: (context, index) {
+                                              final patient = patients[index];
 
-                                          return IgnorePointer(
-                                            ignoring: controller.addNewPatient.value,
-                                            child: InkWell(
-                                              onTap: () {
-                                                controller.patientSelected.value = null;
-                                                controller.patientSelected.value = patient;
-                                              },
-                                              child: PatientCard(
-                                                patient: patient,
-                                                isSelected: patient == controller.patientSelected.value,
-                                              ),
-                                            ),
+                                              return IgnorePointer(
+                                                ignoring: controller.addNewPatient.value,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    controller.patientSelected.value = null;
+                                                    controller.patientSelected.value = patient;
+                                                  },
+                                                  child: PatientCard(
+                                                    patient: patient,
+                                                    isSelected: patient == controller.patientSelected.value,
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           );
                                         },
-                                      );
-                                    },
-                                  ),
+                                      ),
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                          }),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          //ficha medica
-          SizedBox(
-            height: MediaQuery.of(context).size.height * .9,
-            width: MediaQuery.of(context).size.height * .8,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 90, 30, 0),
-              child: PhysicalModel(
-                elevation: 11,
-                color: context.colorsApp.backgroundCardColor,
-                borderRadius: BorderRadius.circular(20),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: AnimatedBuilder(
-                    animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
-                    builder: (contex, child) {
-                      if (controller.addNewPatient.value) {
-                        return NewPatientFormWidget(
-                          manageStore: patientsStore,
-                          editStore: editPatientsStore,
-                        );
-                      } else if (controller.patientSelected.exists) {
-                        return FichaMedicaWidget(
-                          patient: controller.patientSelected.value!,
-                          manageStore: patientsStore,
-                          editStore: editPatientsStore,
-                        );
-                      } else {
-                        return const StateInitialWidget();
-                      }
-                    },
+                              }),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ),
-          ),
-        ],
+
+                const Spacer(),
+
+                //ficha medica
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .8,
+                  width: MediaQuery.of(context).size.width * .46,
+                  child: PhysicalModel(
+                    elevation: 10,
+                    color: context.colorsApp.backgroundCardColor,
+                    borderRadius: BorderRadius.circular(20),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AnimatedBuilder(
+                        animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
+                        builder: (contex, child) {
+                          if (controller.addNewPatient.value) {
+                            return NewPatientFormWidget(
+                              manageStore: patientsStore,
+                              editStore: editPatientsStore,
+                            );
+                          } else if (controller.patientSelected.exists) {
+                            return FichaMedicaWidget(
+                              patient: controller.patientSelected.value!,
+                              manageStore: patientsStore,
+                              editStore: editPatientsStore,
+                            );
+                          } else {
+                            return const StateInitialWidget();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

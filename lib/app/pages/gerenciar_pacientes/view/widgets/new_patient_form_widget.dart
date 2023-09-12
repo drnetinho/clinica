@@ -85,7 +85,6 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                               showDialog(
                                 context: context,
                                 builder: (context) {
-                                  // TODO Thiago: Ajustar visualmente componente genérico de dialog
                                   return AppDialog(
                                     title: 'Deseja realmente salvar as alterações?',
                                     firstButtonText: 'Cancelar',
@@ -132,11 +131,50 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                               SizedBox(
                                 height: AppFormField.height,
                                 width: AppFormField.width,
-                                // TODO Thiago Customizar o DropdownButtonFormField para ficar semelhante ao AppFormField (basta copiar o decoration do AppFormField e por aqui)
                                 child: ValueListenableBuilder(
                                   valueListenable: controller.selectedGender,
                                   builder: (context, gender, child) {
                                     return DropdownButtonFormField<String>(
+                                      decoration: InputDecoration(
+                                        labelText: 'Sexo:',
+                                        labelStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: context.colorsApp.greyColor,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: context.colorsApp.greyColor,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: context.colorsApp.greyColor,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: context.colorsApp.danger,
+                                            width: 1,
+                                          ),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                          borderSide: BorderSide(
+                                            color: context.colorsApp.danger,
+                                            width: 1,
+                                          ),
+                                        ),
+                                      ),
                                       value: gender.isNotEmpty ? gender : null,
                                       hint: const Text('Selecione uma opção'),
                                       isExpanded: true,

@@ -64,7 +64,7 @@ class AppFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
 
   static const double height = 90;
-  static const double width = 250;
+  static const double width = 200;
 
   const AppFormField({
     super.key,

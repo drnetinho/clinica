@@ -65,7 +65,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
           children: [
             Text(
               'Gerenciar Pacientes',
-              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
+              style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 36),
             ),
             const SizedBox(height: 40),
             Row(
@@ -119,7 +119,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                       decoration: BoxDecoration(
                                         color: context.colorsApp.backgroundCardColor,
                                         borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(color: ColorsApp.instance.greyColor),
                                       ),
                                       child: AnimatedBuilder(
                                         animation: Listenable.merge([
@@ -166,7 +165,7 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                 //ficha medica
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .8,
-                  width: MediaQuery.of(context).size.width * .46,
+                  width: MediaQuery.of(context).size.width * .4,
                   child: PhysicalModel(
                     elevation: 10,
                     color: context.colorsApp.backgroundCardColor,

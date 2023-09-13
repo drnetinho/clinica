@@ -20,7 +20,7 @@ class EditarButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: isEditing ? context.colorsApp.success : context.colorsApp.whiteColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           side: BorderSide(
             color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success,
           ),
@@ -30,7 +30,7 @@ class EditarButton extends StatelessWidget {
       child: Row(
         children: [
           Icon(isEditing ? Icons.check : Icons.edit,
-              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success),
+              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success, size: 16),
           const SizedBox(width: 10),
           Text(
             isEditing ? 'Salvar' : 'Editar',

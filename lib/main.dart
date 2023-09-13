@@ -71,6 +71,40 @@ class ClispApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
           showSelectedLabels: true,
         ),
+        // DropdownButtonFormField theme config
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.danger,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.danger,
+            ),
+          ),
+          // isDense: true,
+        ),
       ),
     );
   }

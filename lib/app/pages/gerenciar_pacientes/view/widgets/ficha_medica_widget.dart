@@ -165,7 +165,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                         const SizedBox(height: 20),
                         Text(
                           'Dados Pessoais',
-                          style: context.textStyles.textPoppinsMedium
+                          style: context.textStyles.textPoppinsSemiBold
                               .copyWith(fontSize: 22, color: context.colorsApp.success),
                         ),
                         const SizedBox(height: 12),
@@ -199,7 +199,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                       AnimatedCrossFade(
                                         firstChild: Text('${widget.patient.age} Anos', style: defaultGreyStyle),
                                         secondChild: AppFormField(
-                                          maxWidth: 90,
+                                          maxWidth: 50,
                                           controller: controller.ageCt,
                                           isValid: form.age.isValid,
                                           validator: (_) => form.age.error?.exists,
@@ -211,7 +211,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 50),
+                                  const SizedBox(width: 10),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -221,7 +221,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                       AnimatedCrossFade(
                                         firstChild: Text('000.000.000-00', style: defaultGreyStyle),
                                         secondChild: AppFormField(
-                                          maxWidth: 160,
+                                          maxWidth: 140,
                                           controller: controller.ageCt,
                                           isValid: form.age.isValid,
                                           validator: (_) => form.age.error?.exists,
@@ -284,7 +284,6 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                     AnimatedCrossFade(
                                       firstChild: Text(widget.patient.phone, style: defaultGreyStyle),
                                       secondChild: AppFormField(
-                                        maxWidth: AppFormField.width * .8,
                                         controller: controller.phoneCt,
                                         isValid: form.phone.isValid,
                                         validator: (_) => form.phone.error?.exists,
@@ -306,16 +305,17 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                         const SizedBox(height: 30),
                         Text(
                           'Endereço',
-                          style: context.textStyles.textPoppinsMedium
+                          style: context.textStyles.textPoppinsSemiBold
                               .copyWith(fontSize: 22, color: context.colorsApp.success),
                         ),
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text('Cidade:', style: defaultBlackStyle),
                                 Spacing.s.verticalGap,
@@ -346,8 +346,8 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                 ),
                               ],
                             ),
+                            const SizedBox(width: 60),
                             const Spacer(),
-                            const SizedBox(width: 100, height: 100),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -396,9 +396,10 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                 children: [
                                   Text(
                                     'Doenças Pré-Existentes',
-                                    style: context.textStyles.textPoppinsMedium
+                                    style: context.textStyles.textPoppinsSemiBold
                                         .copyWith(fontSize: 22, color: context.colorsApp.success),
                                   ),
+                                  const SizedBox(height: 10),
                                   ValueListenableBuilder(
                                     valueListenable: controller.ilnesses,
                                     builder: (context, value, _) {
@@ -418,7 +419,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                           return Row(
                                             children: [
                                               Text(
-                                                '- $illness',
+                                                '• $illness',
                                                 style: context.textStyles.textPoppinsMedium
                                                     .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
                                               ),
@@ -443,8 +444,9 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                       builder: (context, showField, _) {
                                         return Column(
                                           crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            const SizedBox(height: 40),
+                                            const SizedBox(height: 10),
                                             GestureDetector(
                                               onTap: () {
                                                 controller.showIlnessField.value = true;
@@ -482,10 +484,12 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                               ),
                             ),
                             Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   'Grupo Familiar',
-                                  style: context.textStyles.textPoppinsMedium
+                                  style: context.textStyles.textPoppinsSemiBold
                                       .copyWith(fontSize: 22, color: context.colorsApp.success),
                                 ),
                                 const SizedBox(height: 10),

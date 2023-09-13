@@ -18,6 +18,9 @@ abstract class GetGroupsRepository {
   UnitOrError updateId({required String collection, required String id});
   FamilyGroupsOrError getGroups();
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
+  UnitOrError deleteGroup({required FamilyGroupModel group});
+  UnitOrError generateGroup({required FamilyGroupModel group});
+
   FamilyGroupPaymentsOrError getGroupPayments({required String id});
   FamilyGroupPaymentsOrError getAllPayments();
   UnitOrError editPayment({required FamilyPaymnetModel payment});
@@ -43,6 +46,7 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
 
   @override
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids}) async {
+
     try {
       final response = await FirestoreService.fire.collection(Collections.patients).where('id', whereIn: ids).get();
       final docs = response.docs.map((e) => e.data()).toList();
@@ -51,6 +55,30 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
       return (error: null, members: data);
     } on FirebaseException {
       return (error: RemoteError(), members: null);
+    } catch (e) {
+      return (error: RemoteError(), members: null);
+    }
+  }
+
+  @override
+  UnitOrError deleteGroup({required FamilyGroupModel group}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.groups).doc(group.id).delete();
+      Logger.prettyPrint(group, Logger.greenColor, 'deleteGroup');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: DomainError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError generateGroup({required FamilyGroupModel group}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.groups).add(group.toJson());
+      Logger.prettyPrint(group, Logger.greenColor, 'generateGroup');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: DomainError(), unit: null);
     }
   }
 

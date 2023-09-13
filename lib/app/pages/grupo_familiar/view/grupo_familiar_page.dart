@@ -5,6 +5,7 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_g
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_members_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/grupo_familiar_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/add_grupo_familiar_widget.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/family_group_tile.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_widget.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
@@ -27,7 +28,7 @@ class GrupoFamiliarPage extends StatefulWidget {
 
 class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
   late final GrupoFamiliarStore groupStore;
-  late final GrupMembersStore membersStore;
+  late final GroupMembersStore membersStore;
   late final ManagePatientsStore managePatientsStore;
   late final GrupoFamiliarController controller;
   late final GroupPaymentsStore paymnetsStore;
@@ -36,7 +37,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
   void initState() {
     super.initState();
     groupStore = getIt<GrupoFamiliarStore>();
-    membersStore = getIt<GrupMembersStore>();
+    membersStore = getIt<GroupMembersStore>();
     managePatientsStore = getIt<ManagePatientsStore>();
     paymnetsStore = getIt<GroupPaymentsStore>();
     controller = getIt<GrupoFamiliarController>();
@@ -74,25 +75,47 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                           builder: (context, patients, _) {
                             // TODO Thiago Personalizar este FormFiel de Busca abaixo
                             // TODO Atenção (isso vale pra todos), nao mexer na lógica e nem na árvore de widgets, ou seja, não componentize caso a lógica não esteja componentizada
-                            return SearchGroupPatients(
-                              patients: const [],
-                              groups: const [],
-                              searchByGroup: false,
-                              width: MediaQuery.of(context).size.width * .32,
-                              onTap: () => showDialog(
-                                useSafeArea: true,
-                                context: context,
-                                // TODO Thiago Personalizar este DIALOG abaixo
-                                builder: (_) => SearchPatientsDialog(
-                                  controller: controller,
-                                  patients: patients,
-                                  groups: groups,
-                                  selectedGroup: (selectedGroup) {
-                                    if (selectedGroup != null) {
-                                      controller.groupSelected.value = selectedGroup;
-                                    }
-                                  },
-                                ),
+                            return SizedBox(
+                              height: MediaQuery.of(context).size.height * .1,
+                              child: Row(
+                                children: [
+                                  SearchGroupPatients(
+                                    patients: const [],
+                                    groups: const [],
+                                    searchByGroup: false,
+                                    width: MediaQuery.of(context).size.width * .32,
+                                    onTap: () => showDialog(
+                                      useSafeArea: true,
+                                      context: context,
+                                      // TODO Thiago Personalizar este DIALOG abaixo
+                                      builder: (_) => SearchPatientsDialog(
+                                        controller: controller,
+                                        patients: patients,
+                                        groups: groups,
+                                        selectedGroup: (selectedGroup) {
+                                          if (selectedGroup != null) {
+                                            controller.groupSelected.value = selectedGroup;
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 50,
+                                    child: ElevatedButton(
+                                      onPressed: () => controller.toogleAddNewPatient = true,
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
+                                          const SizedBox(width: 10),
+                                          Text('Novo Grupo',
+                                              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           },
@@ -121,7 +144,6 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                       onTap: () => controller.groupSelected.value = group,
                                       child: FamilyGroupTile(
                                         group: group,
-                                        store: paymnetsStore,
                                         isSelected: group == groupSelected,
                                       ),
                                     );
@@ -140,22 +162,25 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .8,
                   width: MediaQuery.of(context).size.width * .42,
-                  child: ValueListenableBuilder(
-                    valueListenable: controller.groupSelected,
-                    builder: (context, groupSelected, _) {
-                      if (groupSelected != null) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
-                          child: GrupoFamiliarWidget(
-                            group: groupSelected,
-                            membersStore: membersStore,
-                          ),
+                  child: AnimatedBuilder(
+                      animation: controller.addNewPatient,
+                      builder: (context, _) {
+                        return ValueListenableBuilder(
+                          valueListenable: controller.groupSelected,
+                          builder: (context, groupSelected, _) {
+                            if (controller.addNewPatient.value) {
+                              return const AddGrupoFamiliarWidget();
+                            } else if (groupSelected != null) {
+                              return GrupoFamiliarWidget(
+                                group: groupSelected,
+                                membersStore: membersStore,
+                              );
+                            } else {
+                              return const SizedBox.shrink();
+                            }
+                          },
                         );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  ),
+                      }),
                 ),
               ],
             ),

@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../../common/model/address_model.dart';
 import '../../domain/model/patient_model.dart';
-import '../forms/inputs.dart';
+import '../../../../../common/form/inputs.dart';
 import '../forms/new_patient_form.dart';
 
 @singleton

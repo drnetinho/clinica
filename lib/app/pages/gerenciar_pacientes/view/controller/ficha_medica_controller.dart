@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/ficha_medica_form.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/inputs.dart';
+import 'package:netinhoappclinica/common/form/inputs.dart';
 import 'package:netinhoappclinica/common/model/address_model.dart';
 
 @injectable

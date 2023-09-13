@@ -4,10 +4,13 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_g
 
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 
-@injectable
+@singleton
 class GrupoFamiliarController {
 // Utils
   final ValueNotifier<FamilyGroupModel?> groupSelected = ValueNotifier(null);
+
+  final ValueNotifier<bool> addNewPatient = ValueNotifier(false);
+  set toogleAddNewPatient(bool value) => addNewPatient.value = value;
 
   // Search Mode
   final TextEditingController searchCt = TextEditingController();

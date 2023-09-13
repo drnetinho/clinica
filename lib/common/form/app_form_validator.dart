@@ -2,6 +2,8 @@ import 'package:intl/intl.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
 
+import '../../core/helps/actual_date.dart';
+
 class FormValidator {
   static const String requiredText = 'Este campo é obrigatório';
 
@@ -125,7 +127,7 @@ class FormValidator {
     final int month = int.parse(formattedValue.substring(2, 4));
     final int year = int.parse(formattedValue.substring(4, 8));
 
-    final dateNow = DateTime.now();
+    final dateNow = KCurrentDate;
     final dateFormat = DateFormat('dd/MM/yyyy');
 
     if (day < 1 || day > 31) {

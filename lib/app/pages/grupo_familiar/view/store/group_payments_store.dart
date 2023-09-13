@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
+import '../../../../../core/helps/actual_date.dart';
 import '../../data/repository/get_groups_repository.dart';
 import '../../domain/model/family_payment_model.dart';
 
@@ -12,7 +13,6 @@ class GroupPaymentsStore extends ValueNotifier<AppState> {
   final GetGroupsRepository _repository;
   GroupPaymentsStore(this._repository) : super(AppStateInitial());
 
-  final actualDate = DateTime.now();
 
   Future<void> getGroupPayments({required String id}) async {
     value = AppStateLoading();
@@ -28,7 +28,7 @@ class GroupPaymentsStore extends ValueNotifier<AppState> {
 
   FamilyPaymnetModel? actualPayment(List<FamilyPaymnetModel> payments) {
     return payments.firstWhereOrNull(
-      (e) => e.payDate.year == actualDate.year && e.payDate.month == actualDate.month ,
+      (e) => e.payDate.year == KCurrentDate.year && e.payDate.month == KCurrentDate.month,
     );
   }
 

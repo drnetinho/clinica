@@ -67,7 +67,6 @@ extension DateTimeExtension on DateTime {
         return '';
     }
   }
- 
 
   String get dateAndMonth {
     return '$day ${monthPerExtens()}';

@@ -1,11 +1,9 @@
-import '../filter.dart';
-
 extension StringValidators on String {
   bool get hasMinimumLength => length >= 6;
   bool get isMoreThanOne => isNotEmpty && length > 0;
   String? get validate => isMoreThanOne ? null : '';
   String get lower => toLowerCase();
-    bool get containsUppercase => contains(RegExp(r'[A-Z]'));
+  bool get containsUppercase => contains(RegExp(r'[A-Z]'));
   bool get containsLowercase => contains(RegExp(r'[a-z]'));
   bool get containsNumber => contains(RegExp(r'[0-9]'));
 
@@ -15,7 +13,7 @@ extension StringValidators on String {
         .hasMatch(this);
   }
 
-   int get monthToInt {
+  int get monthToInt {
     switch (this) {
       case 'Janeiro':
         return 1;
@@ -40,7 +38,7 @@ extension StringValidators on String {
       case 'Novembro':
         return 11;
       case 'Dezembro':
-        return 12;      
+        return 12;
       default:
         return 1;
     }

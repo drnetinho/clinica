@@ -17,6 +17,13 @@ class FamilyGroupModel extends Equatable {
     this.payments,
   );
 
+  const FamilyGroupModel.empty({
+    this.id = '',
+    this.name = '',
+     this.members = const [],
+     this.payments = const [],
+  });
+
   factory FamilyGroupModel.fromJson(Map<String, dynamic> json) => _$FamilyGroupModelFromJson(json);
   Map<String, dynamic> toJson() => _$FamilyGroupModelToJson(this);
 

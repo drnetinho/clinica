@@ -39,7 +39,6 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * .1,
       width: widget.width,
       child: TextFormField(
         controller: widget.controller,

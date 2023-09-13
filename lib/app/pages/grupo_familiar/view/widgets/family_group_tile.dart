@@ -5,19 +5,18 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_p
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../../core/components/store_builder.dart';
 
 class FamilyGroupTile extends StatefulWidget {
   final FamilyGroupModel group;
   final bool isSelected;
-  final GroupPaymentsStore store;
 
   const FamilyGroupTile({
     Key? key,
     required this.group,
     required this.isSelected,
-    required this.store,
   }) : super(key: key);
 
   @override
@@ -25,10 +24,12 @@ class FamilyGroupTile extends StatefulWidget {
 }
 
 class _FamilyGroupTileState extends State<FamilyGroupTile> {
+  late final GroupPaymentsStore store;
   @override
   void initState() {
     super.initState();
-    widget.store.getGroupPayments(id: widget.group.id);
+    store = getIt<GroupPaymentsStore>();
+    store.getGroupPayments(id: widget.group.id);
   }
 
   @override
@@ -60,21 +61,23 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
               child: Icon(Icons.family_restroom, color: context.colorsApp.primary, size: 20),
             ),
             trailing: StoreBuilder<List<FamilyPaymnetModel>>(
-              store: widget.store,
+              store: store,
               validateDefaultStates: false,
               builder: (context, payments, _) {
                 return Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  width: 100,
                   decoration: BoxDecoration(
-                    color: context.colorsApp.primary,
+                    color: getColorStatus(payments),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Text(
-                    widget.store.isPending(payments) ? 'Pendende' : 'Pago',
+                    getTextStatus(payments),
                     style: context.textStyles.textPoppinsRegular.copyWith(
                       fontSize: 14,
                       color: context.colorsApp.whiteColor,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 );
               },
@@ -90,6 +93,22 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
         ],
       ),
     );
+  }
+
+  String getTextStatus(List<FamilyPaymnetModel> payments) {
+    if (payments.isEmpty) {
+      return 'A definir';
+    } else {
+      return store.isPending(payments) ? 'Pendende' : 'Pago';
+    }
+  }
+
+  Color getColorStatus(List<FamilyPaymnetModel> payments) {
+    if (payments.isEmpty) {
+      return ColorsApp.instance.warning;
+    } else {
+      return store.isPending(payments) ? ColorsApp.instance.danger : ColorsApp.instance.primary;
+    }
   }
 
   String membersText(List<String> members) {

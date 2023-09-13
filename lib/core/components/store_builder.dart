@@ -11,6 +11,8 @@ class StoreBuilder<T> extends StatefulWidget {
   final Widget? child;
   final Widget? loading;
   final Widget? error;
+  final Widget? initial;
+  final Widget? empty;
   final bool validateEmptyList;
   final bool validateDefaultStates;
 
@@ -19,7 +21,9 @@ class StoreBuilder<T> extends StatefulWidget {
     required this.store,
     required this.builder,
     this.child,
+    this.empty,
     this.loading,
+    this.initial,
     this.error,
     this.validateEmptyList = false,
     this.validateDefaultStates = true,
@@ -42,7 +46,7 @@ class _StoreBuilderState<T> extends State<StoreBuilder<T>> {
               Builder(
                 builder: (context) {
                   if (widget.validateEmptyList && data is List && data.isEmpty) {
-                    return const StateEmptyWidget();
+                    return widget.empty ?? const StateEmptyWidget();
                   } else {
                     return widget.builder(context, data, child);
                   }
@@ -50,7 +54,7 @@ class _StoreBuilderState<T> extends State<StoreBuilder<T>> {
               ),
             AppStateError(error: final error) => //
               widget.error ?? StateErrorWidget(message: error),
-            AppStateInitial() => const StateInitialWidget(),
+            AppStateInitial() =>widget.initial ?? const StateInitialWidget(),
             AppStateLoading() => widget.loading ?? const StateLoadingWidget(),
           };
         } else if (value is AppStateSuccess) {

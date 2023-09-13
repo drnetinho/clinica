@@ -18,7 +18,7 @@ class Logger {
 
   static void prettyPrint(dynamic args, String color, String document) {
     final prettyString = encoder.convert(args);
-    logInfo('\n [${document.toUpperCase()}]----------------------------------------------', color);
+    logInfo('\n -----------------[${document.toUpperCase()}]-----------------', whiteColor);
     prettyString.split('\n').forEach((e) => logInfo(e, color));
   }
 }

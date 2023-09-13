@@ -17,6 +17,7 @@ class AppFormField extends StatelessWidget {
   final TextInputType? keyboardType;
   final bool isPassword;
   final bool? enabled;
+  final bool underline;
   final bool? useMask;
   final bool? autofocus;
   final EdgeInsetsGeometry? padding;
@@ -72,11 +73,12 @@ class AppFormField extends StatelessWidget {
     this.maxHeight = height,
     this.maxWidth = width,
     this.textStyle,
-    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.autovalidateMode,
     this.filled,
     this.onSubmit,
     this.filledColor,
     this.onTap,
+    this.underline = false,
     this.helperText,
     this.initialValue,
     this.errorText,
@@ -153,7 +155,7 @@ class AppFormField extends StatelessWidget {
               onChanged: onChanged,
               onSaved: onSaved,
               onFieldSubmitted: onSubmit,
-              autovalidateMode: autovalidateMode,
+              autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
               enabled: enabled,
               maxLength: maxLength,
               readOnly: readOnly!,
@@ -202,38 +204,92 @@ class AppFormField extends StatelessWidget {
                       color: hintColor ?? ColorsApp.instance.greyColor2,
                     ),
                     contentPadding: contentPadding,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Spacing.m),
-                      borderSide: BorderSide(
-                        color: isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Spacing.m),
-                      borderSide: BorderSide(
-                        color:
-                            isValid ? ColorsApp.instance.success : enableBorderColor ?? ColorsApp.instance.greyColor2,
-                      ),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Spacing.m),
-                      borderSide: BorderSide(
-                        color:
-                            isValid ? ColorsApp.instance.success : disabledBorderColor ?? ColorsApp.instance.greyColor2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Spacing.m),
-                      borderSide: BorderSide(
-                        color: isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.warning,
-                      ),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(Spacing.m),
-                      borderSide: BorderSide(
-                        color: isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
-                      ),
-                    ),
+                    border: underline
+                        ? UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              width: 3.0,
+                              color:
+                                  isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              color:
+                                  isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          ),
+                    enabledBorder: underline
+                        ? UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              width: 3.0,
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : enableBorderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : enableBorderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          ),
+                    disabledBorder: underline
+                        ? UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              width: 3.0,
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : disabledBorderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : disabledBorderColor ?? ColorsApp.instance.greyColor2,
+                            ),
+                          ),
+                    focusedBorder: underline
+                        ? UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              width: 3.0,
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : focusedBorderColor ?? ColorsApp.instance.warning,
+                            ),
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              color: isValid
+                                  ? ColorsApp.instance.success
+                                  : focusedBorderColor ?? ColorsApp.instance.warning,
+                            ),
+                          ),
+                    errorBorder: underline
+                        ? UnderlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              width: 3.0,
+                              color:
+                                  isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
+                            ),
+                          )
+                        : OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(Spacing.m),
+                            borderSide: BorderSide(
+                              color:
+                                  isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
+                            ),
+                          ),
                   ),
             ),
           ),

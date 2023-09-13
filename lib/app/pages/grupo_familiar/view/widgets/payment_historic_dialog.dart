@@ -10,6 +10,7 @@ import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/store_builder.dart';
+import '../../../../../core/helps/actual_date.dart';
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../controller/filter_controller.dart';
@@ -163,7 +164,7 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                               selectedValue: (filter) => filteredPayments.value = filterController.filter(
                                 payments,
                                 filter,
-                                editPaymentsStore.actualDate,
+                                KCurrentDate,
                               ),
                             ),
                           ),

@@ -33,7 +33,7 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
             Expanded(
               flex: 3,
               child: PhysicalModel(
-                elevation: 10,
+                elevation: 1,
                 color: context.colorsApp.backgroundCardColor,
                 borderRadius: BorderRadius.circular(12),
                 child: SizedBox(
@@ -44,17 +44,48 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.search, size: 30, color: ColorsApp.instance.success),
+                        Icon(Icons.search, size: 30, color: ColorsApp.instance.greyColor2),
                         const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
                           child: TextField(
                             controller: widget.controller,
                             decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              isDense: true,
                               hintText: 'Pesquisar Paciente',
                               hintStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-                              border: InputBorder.none,
                             ),
+                            style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
                             onChanged: (v) {
                               if (v.isNotEmpty) {
                                 widget.findedPatients(
@@ -74,7 +105,7 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
             ),
             const SizedBox(width: 20),
             PhysicalModel(
-              elevation: 10,
+              elevation: 1,
               color: context.colorsApp.backgroundCardColor,
               borderRadius: BorderRadius.circular(12),
               child: SizedBox(

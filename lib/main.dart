@@ -71,7 +71,6 @@ class ClispApp extends StatelessWidget {
           unselectedItemColor: Colors.white,
           showSelectedLabels: true,
         ),
-        // DropdownButtonFormField theme config
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -103,7 +102,7 @@ class ClispApp extends StatelessWidget {
               color: context.colorsApp.danger,
             ),
           ),
-          // isDense: true,
+          isDense: true,
         ),
       ),
     );

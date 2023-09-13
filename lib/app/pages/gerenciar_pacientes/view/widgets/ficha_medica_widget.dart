@@ -346,8 +346,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 60),
-                            const Spacer(),
+                            const SizedBox(width: 70),
+                            Visibility(
+                              visible: !isEditing,
+                              child: const Spacer(),
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [

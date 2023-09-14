@@ -3,9 +3,12 @@ import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
+import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
 
 import '../../../../../core/helps/actual_date.dart';
 import '../../../../../common/form/inputs.dart';
+import '../../domain/model/family_payment_model.dart';
 import '../form/new_group_form.dart';
 
 @singleton
@@ -22,6 +25,9 @@ class AddGroupController {
     FamilyGroupModel.empty(createdAt: KCurrentDate),
   );
   final ValueNotifier<List<PatientModel>> newGroupMembers = ValueNotifier([]);
+  final ValueNotifier<FamilyPaymnetModel> firstGroupPayment = ValueNotifier(
+    FamilyPaymnetModel.empty(payDate: KCurrentDate, createdAt: KCurrentDate),
+  );
 
   set addMember(PatientModel member) {
     if (!containsMember(member.id)) {
@@ -49,6 +55,15 @@ class AddGroupController {
     return newGroup.value;
   }
 
+  FamilyPaymnetModel updatePayment() {
+    firstGroupPayment.value = firstGroupPayment.value.copyWith(
+      monthlyFee: (double.tryParse(monthlyFee.text.extractCurreency) ?? 0).toCurrency,
+      payDate: payDateCt.text.toDateTime,
+      pending: true,
+    );
+    return firstGroupPayment.value;
+  }
+
   void resetValues() {
     groupNameCt.clear();
     payDateCt.clear();
@@ -58,6 +73,10 @@ class AddGroupController {
     form.value = NewGroupForm();
 
     newGroup.value = FamilyGroupModel.empty(createdAt: KCurrentDate);
+    firstGroupPayment.value = FamilyPaymnetModel.empty(
+      payDate: KCurrentDate,
+      createdAt: KCurrentDate,
+    );
   }
 
   void setInitialPayDate() => payDateCt.text = KCurrentDate.formatted;

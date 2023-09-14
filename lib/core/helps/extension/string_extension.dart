@@ -1,11 +1,17 @@
+import 'package:intl/intl.dart';
+
+import '../../../common/form/formatters/app_formatters.dart';
+
 extension StringValidators on String {
   bool get hasMinimumLength => length >= 6;
   bool get isMoreThanOne => isNotEmpty && length > 0;
-  String? get validate => isMoreThanOne ? null : '';
   String get lower => toLowerCase();
+  String get extractCurreency => replaceAll(AppRegExp.chars, '');
   bool get containsUppercase => contains(RegExp(r'[A-Z]'));
   bool get containsLowercase => contains(RegExp(r'[a-z]'));
   bool get containsNumber => contains(RegExp(r'[0-9]'));
+
+  DateTime get toDateTime => DateFormat('dd/MM/yyyy').parse(this);
 
   bool get isValidEmail {
     return RegExp(

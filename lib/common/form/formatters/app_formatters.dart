@@ -12,7 +12,12 @@ class AppFormatters {
     },
   );
 
-  static TextInputFormatter onlyNumber = FilteringTextInputFormatter.allow(RegExp('[0-9]'));
+  static TextInputFormatter onlyNumber = FilteringTextInputFormatter.allow(AppRegExp.onlyNumberRegEx);
   static CurrencyInputFormatter currency = CurrencyInputFormatter();
   static DateTextFormatter date = DateTextFormatter();
+}
+
+class AppRegExp {
+  static RegExp onlyNumberRegEx = RegExp('[0-9]');
+  static RegExp chars = RegExp(r"[^\d]+");
 }

@@ -6,6 +6,7 @@ import 'package:netinhoappclinica/common/error/app_error.dart';
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/groups_repository.dart';
 import '../../domain/model/family_group_model.dart';
+import '../../domain/model/family_payment_model.dart';
 
 @injectable
 class DeleteGroupStore extends ValueNotifier<AppState> {
@@ -31,9 +32,12 @@ class AddGroupStore extends ValueNotifier<AppState> {
   final GroupsRepository _repository;
   AddGroupStore(this._repository) : super(AppStateInitial());
 
-  Future<void> generate({required FamilyGroupModel group}) async {
+  Future<void> generate({required FamilyGroupModel group, required FamilyPaymnetModel paymnetModel}) async {
     value = AppStateLoading();
-    final result = await _repository.generateGroup(group: group);
+    final result = await _repository.generateGroup(
+      group: group,
+      paymnetModel: paymnetModel,
+    );
 
     if (result.unit != null) {
       value = AppStateSuccess(data: null);

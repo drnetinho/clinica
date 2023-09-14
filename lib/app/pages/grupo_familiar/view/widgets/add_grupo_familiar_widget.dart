@@ -124,6 +124,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                                 if (form.isValid) {
                                   generateGroupStore.generate(
                                     group: addGroupController.updateGroup(),
+                                    paymnetModel: addGroupController.updatePayment(),
                                   );
                                 }
                               }

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
 
 import '../../../../../common/either/either.dart';
@@ -14,14 +15,22 @@ import '../../../../../common/services/firestore/firestore_service.dart';
 import '../types.dart/group_types.dart';
 
 abstract class GroupsRepository {
-  UnitOrError updateId({required String collection, required String id});
+  UnitOrError updateField({
+    required String collection,
+    required Map<String, dynamic> map,
+    required String docId,
+  });
   FamilyGroupsOrError getGroups();
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
-  UnitOrError deleteGroup({required FamilyGroupModel group});
-  UnitOrError generateGroup({required FamilyGroupModel group});
-
-  UnitOrError removePatientGroup({required String patientId});
+  UnitOrError generateGroup({
+    required FamilyGroupModel group,
+    required FamilyPaymnetModel paymnetModel,
+  });
   UnitOrError addPatientGroup({required String patientId, required String groupId});
+
+  UnitOrError deleteGroup({required FamilyGroupModel group});
+  UnitOrError removeGroupPayments({required String paymentId});
+  UnitOrError removePatientGroup({required String patientId});
 }
 
 @Injectable(as: GroupsRepository)
@@ -43,7 +52,7 @@ class GroupsRepositoryImpl implements GroupsRepository {
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids}) async {
     try {
       final response = await FirestoreService.fire.collection(Collections.patients).where('id', whereIn: ids).get();
-      final docs = response.docs.map((e) => e.data()).toList();
+      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
       Logger.prettyPrint(data, Logger.greenColor, 'getGroupMembers');
       return (error: null, members: data);
@@ -61,6 +70,10 @@ class GroupsRepositoryImpl implements GroupsRepository {
       for (var patient in group.members) {
         await removePatientGroup(patientId: patient);
       }
+      for (var payment in group.payments) {
+        await removeGroupPayments(paymentId: payment);
+      }
+
       Logger.prettyPrint(group, Logger.greenColor, 'deleteGroup');
       return (error: null, unit: unit);
     } on FirebaseException {
@@ -69,13 +82,39 @@ class GroupsRepositoryImpl implements GroupsRepository {
   }
 
   @override
-  UnitOrError generateGroup({required FamilyGroupModel group}) async {
+  UnitOrError generateGroup({
+    required FamilyGroupModel group,
+    required FamilyPaymnetModel paymnetModel,
+  }) async {
     try {
-      final data = await FirestoreService.fire.collection(Collections.groups).add(group.toJson());
+      final newGroup = await FirestoreService.fire.collection(Collections.groups).add(group.toJson());
+
+      // Gerando um novo pagamento para o grupo
+      final newPayment = await FirestoreService.fire.collection(Collections.payments).add(
+            paymnetModel.copyWith(familyGroupId: newGroup.id).toJson(),
+          );
+
+      // Atualizando os pagamentos do grupo
+      await updateField(
+        collection: Collections.groups,
+        docId: newGroup.id,
+        map: {
+          "payments": [newPayment.id]
+        },
+      );
+
+      // Atualizando o grupo do pagamento
+      await updateField(
+        collection: Collections.payments,
+        docId: newPayment.id,
+        map: {"familyGroupId": newGroup.id},
+      );
+
+      // Atualizando os membros do grupo
       for (var patient in group.members) {
-        await addPatientGroup(patientId: patient, groupId: data.id);
+        await addPatientGroup(patientId: patient, groupId: newGroup.id);
       }
-      updateId(collection: Collections.groups, id: data.id);
+
       Logger.prettyPrint(group, Logger.greenColor, 'generateGroup');
       return (error: null, unit: unit);
     } on FirebaseException {
@@ -106,12 +145,27 @@ class GroupsRepositoryImpl implements GroupsRepository {
   }
 
   @override
-  UnitOrError updateId({required String collection, required String id}) async {
+  UnitOrError updateField({
+    required String collection,
+    required String docId,
+    required Map<String, dynamic> map,
+  }) async {
     try {
-      await FirestoreService.fire.collection(collection).doc(id).update({"id": id});
+      await FirestoreService.fire.collection(collection).doc(docId).update(map);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError removeGroupPayments({required String paymentId}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.payments).doc(paymentId).delete();
+      Logger.prettyPrint(paymentId, Logger.greenColor, 'removeGroupPayments');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
     }
   }
 }

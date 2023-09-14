@@ -52,9 +52,9 @@ class _StoreBuilderState<T> extends State<StoreBuilder<T>> {
                   }
                 },
               ),
-            AppStateError(error: final error) => //
+            AppStateError(message: final error) => //
               widget.error ?? StateErrorWidget(message: error),
-            AppStateInitial() =>widget.initial ?? const StateInitialWidget(),
+            AppStateInitial() => widget.initial ?? const StateInitialWidget(),
             AppStateLoading() => widget.loading ?? const StateLoadingWidget(),
           };
         } else if (value is AppStateSuccess) {

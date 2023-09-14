@@ -7,8 +7,8 @@ import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../domain/model/family_group_model.dart';
 
 class SearchGroupPatients extends StatefulWidget {
-  final List<PatientModel> patients;
-  final List<FamilyGroupModel> groups;
+  final List<PatientModel>? patients;
+  final List<FamilyGroupModel>? groups;
 
   final TextEditingController? controller;
   final Function(List<PatientModel>?)? findedPatients;
@@ -20,8 +20,8 @@ class SearchGroupPatients extends StatefulWidget {
 
   const SearchGroupPatients({
     super.key,
-    required this.patients,
-    required this.groups,
+    this.patients,
+    this.groups,
     required this.width,
     this.findedGroups,
     this.controller,
@@ -49,11 +49,11 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
           if (v.isNotEmpty) {
             if (widget.searchByGroup) {
               widget.findedGroups?.call(
-                widget.groups.where((g) => containsCase(g.name, v)).toList(),
+                widget.groups?.where((g) => containsCase(g.name, v)).toList(),
               );
             } else {
               widget.findedPatients?.call(
-                widget.patients.where((p) => containsCase(p.name, v)).toList(),
+                widget.patients?.where((p) => containsCase(p.name, v)).toList(),
               );
             }
           } else {

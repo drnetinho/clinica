@@ -30,23 +30,24 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       }
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao confirmar pagamento');
+      value = AppStateError(message: 'Erro ao confirmar pagamento');
     }
   }
 
-  Future<void> generate({required String familyGroupId}) async {
+  Future<void> generate({required String groupId}) async {
     value = AppStateLoading();
 
     final result = await _repository.generatePayment(
-        newPayment: FamilyPaymnetModel.empty(
-      familyGroupId: familyGroupId,
-      payDate: KCurrentDate,
-    ));
+      newPayment: FamilyPaymnetModel.empty(
+        familyGroupId: groupId,
+        payDate: KCurrentDate,
+      ),
+    );
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao confirmar pagamento');
+      value = AppStateError(message: 'Erro ao confirmar pagamento');
     }
   }
 
@@ -58,7 +59,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao deletar pagamento');
+      value = AppStateError(message: 'Erro ao deletar pagamento');
     }
   }
 
@@ -79,7 +80,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao reverter pagamento');
+      value = AppStateError(message: 'Erro ao reverter pagamento');
     }
   }
 
@@ -99,7 +100,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao gerar novo pagamento');
+      value = AppStateError(message: 'Erro ao gerar novo pagamento');
     }
   }
 }

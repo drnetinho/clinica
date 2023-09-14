@@ -7,9 +7,9 @@ import '../../data/repository/get_groups_repository.dart';
 import '../../domain/model/family_group_model.dart';
 
 @injectable
-class ManageGrupoFamiliarStore extends ValueNotifier<AppState> {
+class DeleteGroupStore extends ValueNotifier<AppState> {
   final GetGroupsRepository _repository;
-  ManageGrupoFamiliarStore(this._repository) : super(AppStateInitial());
+  DeleteGroupStore(this._repository) : super(AppStateInitial());
 
   Future<void> delete({required FamilyGroupModel group}) async {
     value = AppStateLoading();
@@ -18,9 +18,15 @@ class ManageGrupoFamiliarStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao reverter pagamento');
+      value = AppStateError(message: 'Erro ao excluir Grupo');
     }
   }
+}
+
+@injectable
+class AddGroupStore extends ValueNotifier<AppState> {
+  final GetGroupsRepository _repository;
+  AddGroupStore(this._repository) : super(AppStateInitial());
 
   Future<void> generate({required FamilyGroupModel group}) async {
     value = AppStateLoading();
@@ -29,7 +35,7 @@ class ManageGrupoFamiliarStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao reverter pagamento');
+      value = AppStateError(message: 'Erro ao criar Grupo');
     }
   }
 }

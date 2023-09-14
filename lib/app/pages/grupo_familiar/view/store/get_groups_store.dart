@@ -6,9 +6,9 @@ import '../../../../../common/state/app_state.dart';
 import '../../data/repository/get_groups_repository.dart';
 
 @injectable
-class GrupoFamiliarStore extends ValueNotifier<AppState> {
+class GetGroupsStore extends ValueNotifier<AppState> {
   final GetGroupsRepository _repository;
-  GrupoFamiliarStore(this._repository) : super(AppStateInitial());
+  GetGroupsStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroups() async {
     value = AppStateLoading();
@@ -18,7 +18,7 @@ class GrupoFamiliarStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.groups);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao buscar grupos');
+      value = AppStateError(message: 'Erro ao buscar grupos');
     }
   }
 }

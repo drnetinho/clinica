@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/components/snackbar.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/padding.dart';
 import 'package:netinhoappclinica/core/helps/spacing.dart';
@@ -10,56 +12,72 @@ import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_form_field.dart';
-import '../../../../../core/components/store_builder.dart';
 import '../../../../../di/get_it.dart';
-import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../../../gerenciar_pacientes/view/widgets/excluir_buttons.dart';
-import '../controller/add_grupo_familiar_controller.dart';
-import '../controller/grupo_familiar_controller.dart';
+import '../controller/add_group_controller.dart';
+import '../controller/group_page_controller.dart';
 import '../form/new_group_form.dart';
-import '../store/manage_grupo_familiar_store.dart';
-import '../store/group_members_store.dart';
+import '../store/get_group_members_store.dart';
+import '../store/get_groups_store.dart';
+import '../store/edit_groups_stores.dart';
+import 'add_group_members_dialog.dart';
 
 class AddGrupoFamiliarWidget extends StatefulWidget {
-  const AddGrupoFamiliarWidget({super.key});
+  final GetGroupsStore groupStore;
+  const AddGrupoFamiliarWidget({
+    Key? key,
+    required this.groupStore,
+  }) : super(key: key);
 
   @override
   State<AddGrupoFamiliarWidget> createState() => _AddGrupoFamiliarWidgetState();
 }
 
-class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
-  late final ManageGrupoFamiliarStore manageGroupsStore;
-  late final GroupMembersStore membersStore;
+class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with SnackBarMixin {
+  late final AddGroupStore generateGroupStore;
+
+  late final GetGroupMembersStore membersStore;
   late final EditPaymentsStore editPaymentsStore;
 
-  late final GrupoFamiliarController groupsController;
-  late final AddGrupoFamiliarController addGroupController;
+  late final GroupPageController groupsController;
+  late final AddGroupController addGroupController;
 
   @override
   void initState() {
     super.initState();
-    manageGroupsStore = getIt<ManageGrupoFamiliarStore>();
-    membersStore = getIt<GroupMembersStore>();
+    generateGroupStore = getIt<AddGroupStore>();
+    membersStore = getIt<GetGroupMembersStore>();
     editPaymentsStore = getIt<EditPaymentsStore>();
-    groupsController = getIt<GrupoFamiliarController>();
-    addGroupController = getIt<AddGrupoFamiliarController>();
+    groupsController = getIt<GroupPageController>();
+    addGroupController = getIt<AddGroupController>();
 
     addGroupController.setFormListeners();
     membersStore.setEmptyMembers();
-
-    manageGroupsStore.addListener(() {
-      if (manageGroupsStore.value.isSuccess) {
-        // editPaymentsStore.generate(
-        //   familyGroupId: addGroupController.newGroup.value.id,
-        // );
-      }
-    });
+    generateGroupStore.addListener(storeListener);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    addGroupController.setInitialPayDate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    generateGroupStore.removeListener(storeListener);
+  }
+
+  void storeListener() {
+    if (generateGroupStore.value.isSuccess) {
+      resetForm();
+      widget.groupStore.getGroups();
+    }
+    if (generateGroupStore.value.isError) {
+      final message = generateGroupStore.value.error.message;
+      showError(context: context, text: message);
+    }
   }
 
   @override
@@ -80,7 +98,6 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppFormField(
-                        autofocus: true,
                         underline: true,
                         maxWidth: MediaQuery.of(context).size.width * .15,
                         hint: 'Nome do Grupo',
@@ -97,10 +114,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                       const Spacer(),
                       ExcluirButton(
                         discardMode: true,
-                        onPressed: () {
-                          toogleOffAddNewGroup();
-                          addGroupController.resetValues();
-                        },
+                        onPressed: resetForm,
                       ),
                       const SizedBox(width: 10),
                       EditarButton(
@@ -108,7 +122,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                         onPressed: form.isValid
                             ? () {
                                 if (form.isValid) {
-                                  manageGroupsStore.generate(
+                                  generateGroupStore.generate(
                                     group: addGroupController.updateGroup(),
                                   );
                                 }
@@ -124,26 +138,30 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                       color: ColorsApp.instance.success,
                     ),
                   ),
-                  const Spacer(),
                   Expanded(
-                    child: StoreBuilder<List<PatientModel>>(
-                      store: membersStore,
-                      validateEmptyList: true,
-                      empty: const StateEmptyWidget(
-                        message: 'O Grupo ainda não possui membros',
-                      ),
+                    child: ValueListenableBuilder(
+                      valueListenable: addGroupController.newGroupMembers,
                       builder: (context, members, child) {
-                        return ValueListenableBuilder(
-                          valueListenable: addGroupController.newGroupMembers,
-                          builder: (contex, newMembers, _) {
-                            return ListView.separated(
-                              separatorBuilder: (_, __) => const Divider(),
-                              padding: const EdgeInsets.all(0),
-                              shrinkWrap: true,
-                              itemCount: members.length,
-                              itemBuilder: (context, index) => GroupMemberTile(member: members[index]),
-                            );
-                          },
+                        if (members.isEmpty) {
+                          return const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              StateEmptyWidget(
+                                message: 'O Grupo ainda não possui membros',
+                              ),
+                            ],
+                          );
+                        }
+                        return ListView.builder(
+                          padding: const EdgeInsets.all(0),
+                          shrinkWrap: true,
+                          itemCount: members.length,
+                          // TODO Thiago Arrumar este GroupMemberTile principalmente o botão de remover
+                          itemBuilder: (context, index) => GroupMemberTile(
+                            member: members[index],
+                            enableRemove: true,
+                            onRemoveMember: () => addGroupController.removeMember = members[index],
+                          ),
                         );
                       },
                     ),
@@ -157,7 +175,14 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                         color: ColorsApp.instance.success,
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () => showDialog(
+                      useSafeArea: true,
+                      context: context,
+                      // TODO Thiago Personalizar este DIALOG abaixo
+                      builder: (_) => AddGroupMembersDialog(
+                        addController: addGroupController,
+                      ),
+                    ),
                   ),
                   const Spacer(),
                   Text(
@@ -182,6 +207,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
                       const SizedBox(width: 60),
                       AppFormField(
                         labelText: 'Vencimento:',
+                        autofocus: true,
                         controller: addGroupController.payDateCt,
                         isValid: form.payDate.isValid,
                         autovalidateMode: AutovalidateMode.always,
@@ -198,5 +224,8 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> {
     );
   }
 
-  void toogleOffAddNewGroup() => groupsController.toogleAddNewPatient = false;
+  void resetForm() {
+    groupsController.toogleAddNewPatient = false;
+    addGroupController.resetValues();
+  }
 }

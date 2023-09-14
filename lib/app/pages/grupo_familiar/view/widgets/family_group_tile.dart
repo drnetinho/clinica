@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/get_group_payments_store.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -24,11 +24,11 @@ class FamilyGroupTile extends StatefulWidget {
 }
 
 class _FamilyGroupTileState extends State<FamilyGroupTile> {
-  late final GroupPaymentsStore store;
+  late final GetGroupPaymentsStore store;
   @override
   void initState() {
     super.initState();
-    store = getIt<GroupPaymentsStore>();
+    store = getIt<GetGroupPaymentsStore>();
     store.getGroupPayments(id: widget.group.id);
   }
 

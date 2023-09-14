@@ -14,10 +14,10 @@ import '../../../../../core/helps/actual_date.dart';
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../controller/filter_controller.dart';
-import '../store/group_payments_store.dart';
+import '../store/get_group_payments_store.dart';
 
 class PaymentHistoricDialog extends StatefulWidget {
-  final GroupPaymentsStore paymentsStore;
+  final GetGroupPaymentsStore paymentsStore;
   final VoidCallback onRefresh;
 
   const PaymentHistoricDialog({

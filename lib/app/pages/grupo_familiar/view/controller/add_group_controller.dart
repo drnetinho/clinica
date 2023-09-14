@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 
 import '../../../../../core/helps/actual_date.dart';
@@ -9,7 +9,7 @@ import '../../../../../common/form/inputs.dart';
 import '../form/new_group_form.dart';
 
 @singleton
-class AddGrupoFamiliarController {
+class AddGroupController {
   final TextEditingController groupNameCt = TextEditingController();
   final TextEditingController monthlyFee = TextEditingController();
   final TextEditingController payDateCt = TextEditingController();
@@ -21,19 +21,28 @@ class AddGrupoFamiliarController {
   final ValueNotifier<FamilyGroupModel> newGroup = ValueNotifier(
     const FamilyGroupModel.empty(),
   );
-  final ValueNotifier<List<String>> newGroupMembers = ValueNotifier([]);
-  final ValueNotifier<FamilyPaymnetModel> newGroupPayment = ValueNotifier(FamilyPaymnetModel.empty(
-    payDate: KCurrentDate,
-  ));
+  final ValueNotifier<List<PatientModel>> newGroupMembers = ValueNotifier([]);
 
-  set addMembers(List<String> members) => newGroupMembers.value = [
-        ...newGroupMembers.value,
-        ...members,
-      ];
+  set addMember(PatientModel member) {
+    if (!containsMember(member.id)) {
+      newGroupMembers.value = [...newGroupMembers.value, member];
+    }
+  }
+
+  bool containsMember(String id) => newGroupMembers.value.any((m) => m.id == id);
+
+  void resetNewMembers() => newGroupMembers.value = [];
+
+  set removeMember(PatientModel member) {
+    newGroupMembers.value.remove(
+      newGroupMembers.value.firstWhere((m) => m.id == member.id),
+    );
+    newGroupMembers.value = [...newGroupMembers.value];
+  }
 
   FamilyGroupModel updateGroup() {
     newGroup.value = newGroup.value.copyWith(
-      members: newGroupMembers.value,
+      members: newGroupMembers.value.map((e) => e.id).toList(),
       name: groupNameCt.text,
       payments: const [],
     );
@@ -49,9 +58,6 @@ class AddGrupoFamiliarController {
     form.value = NewGroupForm();
 
     newGroup.value = const FamilyGroupModel.empty();
-    newGroupPayment.value = FamilyPaymnetModel.empty(
-      payDate: KCurrentDate,
-    );
   }
 
   void setInitialPayDate() => payDateCt.text = KCurrentDate.formatted;

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_members_store.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/group_payments_store.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/grupo_familiar_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/get_group_members_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/get_group_payments_store.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/get_groups_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/add_grupo_familiar_widget.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/family_group_tile.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_widget.dart';
@@ -16,7 +16,7 @@ import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
 import '../../gerenciar_pacientes/view/store/manage_patient_store.dart';
-import 'controller/grupo_familiar_controller.dart';
+import 'controller/group_page_controller.dart';
 
 class GrupoFamiliarPage extends StatefulWidget {
   static const String routeName = 'grupo_familiar';
@@ -27,20 +27,20 @@ class GrupoFamiliarPage extends StatefulWidget {
 }
 
 class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
-  late final GrupoFamiliarStore groupStore;
-  late final GroupMembersStore membersStore;
+  late final GetGroupsStore groupStore;
+  late final GetGroupMembersStore membersStore;
   late final ManagePatientsStore managePatientsStore;
-  late final GrupoFamiliarController controller;
-  late final GroupPaymentsStore paymnetsStore;
+  late final GroupPageController controller;
+  late final GetGroupPaymentsStore paymnetsStore;
 
   @override
   void initState() {
     super.initState();
-    groupStore = getIt<GrupoFamiliarStore>();
-    membersStore = getIt<GroupMembersStore>();
+    groupStore = getIt<GetGroupsStore>();
+    membersStore = getIt<GetGroupMembersStore>();
     managePatientsStore = getIt<ManagePatientsStore>();
-    paymnetsStore = getIt<GroupPaymentsStore>();
-    controller = getIt<GrupoFamiliarController>();
+    paymnetsStore = getIt<GetGroupPaymentsStore>();
+    controller = getIt<GroupPageController>();
 
     managePatientsStore.getPatients();
     groupStore.getGroups();
@@ -169,11 +169,12 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                           valueListenable: controller.groupSelected,
                           builder: (context, groupSelected, _) {
                             if (controller.addNewPatient.value) {
-                              return const AddGrupoFamiliarWidget();
+                              return AddGrupoFamiliarWidget(groupStore: groupStore);
                             } else if (groupSelected != null) {
                               return GrupoFamiliarWidget(
                                 group: groupSelected,
                                 membersStore: membersStore,
+                                groupStore: groupStore,
                               );
                             } else {
                               return const SizedBox.shrink();

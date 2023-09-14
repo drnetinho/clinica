@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_g
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 
 @singleton
-class GrupoFamiliarController {
+class GroupPageController {
 // Utils
   final ValueNotifier<FamilyGroupModel?> groupSelected = ValueNotifier(null);
 

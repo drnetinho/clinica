@@ -7,9 +7,9 @@ import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../data/repository/get_groups_repository.dart';
 
 @injectable
-class GroupMembersStore extends ValueNotifier<AppState> {
+class GetGroupMembersStore extends ValueNotifier<AppState> {
   final GetGroupsRepository _repository;
-  GroupMembersStore(this._repository) : super(AppStateInitial());
+  GetGroupMembersStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroupMembers({required List<String> ids}) async {
     value = AppStateLoading();
@@ -23,7 +23,7 @@ class GroupMembersStore extends ValueNotifier<AppState> {
         value = AppStateSuccess(data: result.members);
       }
       if (result.error.exists) {
-        value = AppStateError(error: 'Erro ao buscar membros do grupo');
+        value = AppStateError(message: 'Erro ao buscar membros do grupo');
       }
     }
   }

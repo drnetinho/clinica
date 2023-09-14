@@ -11,38 +11,36 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:shared_preferences/shared_preferences.dart' as _i19;
+import 'package:shared_preferences/shared_preferences.dart' as _i16;
 
 import '../app/pages/gerenciar_pacientes/data/repository/get_patients_repository.dart'
-    as _i10;
+    as _i11;
 import '../app/pages/gerenciar_pacientes/view/controller/ficha_medica_controller.dart'
     as _i5;
 import '../app/pages/gerenciar_pacientes/view/controller/gerenciar_pacientes_controller.dart'
     as _i8;
 import '../app/pages/gerenciar_pacientes/view/controller/new_patient_form_controller.dart'
-    as _i17;
+    as _i14;
 import '../app/pages/gerenciar_pacientes/view/store/edit_patient_store.dart'
-    as _i20;
+    as _i18;
 import '../app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart'
-    as _i16;
+    as _i13;
 import '../app/pages/grupo_familiar/data/repository/get_groups_repository.dart'
     as _i9;
-import '../app/pages/grupo_familiar/view/controller/add_grupo_familiar_controller.dart'
+import '../app/pages/grupo_familiar/view/controller/add_group_controller.dart'
     as _i3;
 import '../app/pages/grupo_familiar/view/controller/filter_controller.dart'
     as _i6;
-import '../app/pages/grupo_familiar/view/controller/grupo_familiar_controller.dart'
-    as _i13;
-import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i21;
-import '../app/pages/grupo_familiar/view/store/group_members_store.dart'
-    as _i11;
-import '../app/pages/grupo_familiar/view/store/group_payments_store.dart'
+import '../app/pages/grupo_familiar/view/controller/group_page_controller.dart'
     as _i12;
-import '../app/pages/grupo_familiar/view/store/grupo_familiar_store.dart'
-    as _i14;
-import '../app/pages/grupo_familiar/view/store/manage_grupo_familiar_store.dart'
-    as _i15;
-import '../app/root/router_controller.dart' as _i18;
+import '../app/pages/grupo_familiar/view/store/edit_groups_stores.dart' as _i17;
+import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i19;
+import '../app/pages/grupo_familiar/view/store/get_group_members_store.dart'
+    as _i20;
+import '../app/pages/grupo_familiar/view/store/get_group_payments_store.dart'
+    as _i21;
+import '../app/pages/grupo_familiar/view/store/get_groups_store.dart' as _i10;
+import '../app/root/router_controller.dart' as _i15;
 import '../common/services/auth/auth_service.dart' as _i4;
 import '../common/services/firestore/firestore_service.dart' as _i7;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
@@ -61,8 +59,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     final firestoreModule = _$FirestoreModule();
     final sharedPreferencesModule = _$SharedPreferencesModule();
-    gh.singleton<_i3.AddGrupoFamiliarController>(
-        _i3.AddGrupoFamiliarController());
+    gh.singleton<_i3.AddGroupController>(_i3.AddGroupController());
     gh.singleton<_i4.AuthService>(_i4.AuthService());
     gh.factory<_i5.FichaMedicaController>(() => _i5.FichaMedicaController());
     gh.factory<_i6.FilterController>(() => _i6.FilterController());
@@ -71,30 +68,32 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i8.GerenciarPacientesController>(
         _i8.GerenciarPacientesController());
     gh.factory<_i9.GetGroupsRepository>(() => _i9.GetGroupsRepositoryImpl());
-    gh.factory<_i10.GetPatientsRepository>(
-        () => _i10.GetPatientsRepositoryImpl());
-    gh.factory<_i11.GroupMembersStore>(
-        () => _i11.GroupMembersStore(gh<_i9.GetGroupsRepository>()));
-    gh.factory<_i12.GroupPaymentsStore>(
-        () => _i12.GroupPaymentsStore(gh<_i9.GetGroupsRepository>()));
-    gh.singleton<_i13.GrupoFamiliarController>(_i13.GrupoFamiliarController());
-    gh.factory<_i14.GrupoFamiliarStore>(
-        () => _i14.GrupoFamiliarStore(gh<_i9.GetGroupsRepository>()));
-    gh.factory<_i15.ManageGrupoFamiliarStore>(
-        () => _i15.ManageGrupoFamiliarStore(gh<_i9.GetGroupsRepository>()));
-    gh.factory<_i16.ManagePatientsStore>(
-        () => _i16.ManagePatientsStore(gh<_i10.GetPatientsRepository>()));
-    gh.singleton<_i17.NewPatientFormController>(
-        _i17.NewPatientFormController());
-    gh.singleton<_i18.RouterController>(_i18.RouterController());
-    await gh.factoryAsync<_i19.SharedPreferences>(
+    gh.factory<_i10.GetGroupsStore>(
+        () => _i10.GetGroupsStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i11.GetPatientsRepository>(
+        () => _i11.GetPatientsRepositoryImpl());
+    gh.singleton<_i12.GroupPageController>(_i12.GroupPageController());
+    gh.factory<_i13.ManagePatientsStore>(
+        () => _i13.ManagePatientsStore(gh<_i11.GetPatientsRepository>()));
+    gh.singleton<_i14.NewPatientFormController>(
+        _i14.NewPatientFormController());
+    gh.singleton<_i15.RouterController>(_i15.RouterController());
+    await gh.factoryAsync<_i16.SharedPreferences>(
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i20.EditPatientsStore>(
-        () => _i20.EditPatientsStore(gh<_i10.GetPatientsRepository>()));
-    gh.factory<_i21.EditPaymentsStore>(
-        () => _i21.EditPaymentsStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i17.AddGroupStore>(
+        () => _i17.AddGroupStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i17.DeleteGroupStore>(
+        () => _i17.DeleteGroupStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i18.EditPatientsStore>(
+        () => _i18.EditPatientsStore(gh<_i11.GetPatientsRepository>()));
+    gh.factory<_i19.EditPaymentsStore>(
+        () => _i19.EditPaymentsStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i20.GetGroupMembersStore>(
+        () => _i20.GetGroupMembersStore(gh<_i9.GetGroupsRepository>()));
+    gh.factory<_i21.GetGroupPaymentsStore>(
+        () => _i21.GetGroupPaymentsStore(gh<_i9.GetGroupsRepository>()));
     return this;
   }
 }

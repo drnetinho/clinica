@@ -9,10 +9,9 @@ import '../../data/repository/get_groups_repository.dart';
 import '../../domain/model/family_payment_model.dart';
 
 @injectable
-class GroupPaymentsStore extends ValueNotifier<AppState> {
+class GetGroupPaymentsStore extends ValueNotifier<AppState> {
   final GetGroupsRepository _repository;
-  GroupPaymentsStore(this._repository) : super(AppStateInitial());
-
+  GetGroupPaymentsStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroupPayments({required String id}) async {
     value = AppStateLoading();
@@ -22,7 +21,7 @@ class GroupPaymentsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.payments);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao buscar pagamentos do grupo');
+      value = AppStateError(message: 'Erro ao buscar pagamentos do grupo');
     }
   }
 

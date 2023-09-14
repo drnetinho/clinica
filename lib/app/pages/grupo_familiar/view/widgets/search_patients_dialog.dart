@@ -11,10 +11,10 @@ import 'package:netinhoappclinica/core/helps/padding.dart';
 import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
-import '../controller/grupo_familiar_controller.dart';
+import '../controller/group_page_controller.dart';
 
 class SearchPatientsDialog extends StatefulWidget {
-  final GrupoFamiliarController controller;
+  final GroupPageController controller;
   final List<PatientModel> patients;
   final List<FamilyGroupModel> groups;
   final Function(FamilyGroupModel?) selectedGroup;
@@ -42,7 +42,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
     selectedGroup = ValueNotifier(null);
   }
 
-  GrupoFamiliarController get ctrl => widget.controller;
+  GroupPageController get ctrl => widget.controller;
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(

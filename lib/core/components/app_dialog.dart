@@ -53,7 +53,7 @@ class _AppDialogState extends State<AppDialog> {
     super.initState();
     widget.store.addListener(
       () {
-        if (widget.store.value is AppStateSuccess) {
+        if (widget.store.value.isSuccess) {
           widget.actionOnSuccess?.call();
           if (widget.popOnSuccess) {
             context.pop();

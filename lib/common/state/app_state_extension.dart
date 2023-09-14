@@ -16,4 +16,7 @@ extension WidgetAppState on AppState {
   bool get isError => this is AppStateError;
   bool get isSuccess => this is AppStateSuccess;
   bool get isInitial => this is AppStateInitial;
+
+  AppStateSuccess get success => this as AppStateSuccess;
+  AppStateError get error => this as AppStateError;
 }

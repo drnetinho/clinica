@@ -3,11 +3,11 @@ import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
-import '../../data/repository/get_groups_repository.dart';
+import '../../data/repository/groups_repository.dart';
 
 @injectable
 class GetGroupsStore extends ValueNotifier<AppState> {
-  final GetGroupsRepository _repository;
+  final GroupsRepository _repository;
   GetGroupsStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroups() async {

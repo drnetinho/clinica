@@ -5,12 +5,12 @@ import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../../../core/helps/actual_date.dart';
-import '../../data/repository/get_groups_repository.dart';
+import '../../data/repository/group_payments_repository.dart';
 import '../../domain/model/family_payment_model.dart';
 
 @injectable
 class GetGroupPaymentsStore extends ValueNotifier<AppState> {
-  final GetGroupsRepository _repository;
+  final GroupPaymentsRepository _repository;
   GetGroupPaymentsStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroupPayments({required String id}) async {

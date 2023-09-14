@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../common/model/address_model.dart';
+import '../../../../../core/helps/actual_date.dart';
 import '../../domain/model/patient_model.dart';
 import '../../../../../common/form/inputs.dart';
 import '../forms/new_patient_form.dart';
@@ -25,7 +26,9 @@ class NewPatientFormController {
   final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
   final ValueNotifier<String> selectedGender = ValueNotifier('');
   final ValueNotifier<bool> showIlnessField = ValueNotifier(false);
-  final ValueNotifier<PatientModel> newPatient = ValueNotifier(const PatientModel.initial());
+  final ValueNotifier<PatientModel> newPatient = ValueNotifier(PatientModel.initial(
+    createdAt: KCurrentDate,
+  ));
 
   set addIlness(String ilness) => ilnesses.value = [...ilnesses.value, ilness];
 
@@ -60,6 +63,7 @@ class NewPatientFormController {
         state: 'RN',
       ),
       previousIlnesses: ilnesses.value,
+      createdAt: KCurrentDate,
     );
     return newPatient.value;
   }

@@ -1,23 +1,26 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'family_payment_model.g.dart';
 
 @JsonSerializable(includeIfNull: true)
-class FamilyPaymnetModel {
+class FamilyPaymnetModel extends Equatable {
   final String id;
   final String familyGroupId;
   final double monthlyFee;
   final DateTime payDate;
   final DateTime? receiveDate;
   final bool pending;
+  final DateTime createdAt;
 
-  FamilyPaymnetModel(
+  const FamilyPaymnetModel(
     this.id,
     this.familyGroupId,
     this.monthlyFee,
     this.payDate,
     this.receiveDate,
     this.pending,
+    this.createdAt,
   );
 
   const FamilyPaymnetModel.empty({
@@ -25,6 +28,7 @@ class FamilyPaymnetModel {
     this.familyGroupId = '',
     this.monthlyFee = 0.0,
     required this.payDate,
+    required this.createdAt,
     this.receiveDate,
     this.pending = true,
   });
@@ -39,6 +43,7 @@ class FamilyPaymnetModel {
     DateTime? payDate,
     DateTime? receiveDate,
     bool? pending,
+    DateTime? createdAt,
   }) {
     return FamilyPaymnetModel(
       id ?? this.id,
@@ -47,6 +52,20 @@ class FamilyPaymnetModel {
       payDate ?? this.payDate,
       receiveDate ?? this.receiveDate,
       pending ?? this.pending,
+      createdAt ?? this.createdAt,
     );
+  }
+
+  @override
+  // TODO: implement props
+  List<Object> get props {
+    return [
+      id,
+      familyGroupId,
+      monthlyFee,
+      payDate,
+      pending,
+      createdAt,
+    ];
   }
 }

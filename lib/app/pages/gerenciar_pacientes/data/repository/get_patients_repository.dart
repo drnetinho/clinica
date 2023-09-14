@@ -17,7 +17,6 @@ abstract class GetPatientsRepository {
   UnitOrError deletePatient({required String id});
   UnitOrError addPatient({required PatientModel patient});
   UnitOrError updatePatient({required PatientModel patient});
-  UnitOrError updateId({required String id});
 }
 
 @Injectable(as: GetPatientsRepository)
@@ -67,14 +66,7 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: RemoteError(), unit: null);
     }
   }
+  
 
-  @override
-  UnitOrError updateId({required String id}) async {
-    try {
-      await FirestoreService.fire.collection(Collections.patients).doc(id).update({"id": id});
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: RemoteError(), unit: null);
-    }
-  }
+
 }

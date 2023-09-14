@@ -4,11 +4,11 @@ import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
-import '../../data/repository/get_groups_repository.dart';
+import '../../data/repository/groups_repository.dart';
 
 @injectable
 class GetGroupMembersStore extends ValueNotifier<AppState> {
-  final GetGroupsRepository _repository;
+  final GroupsRepository _repository;
   GetGroupMembersStore(this._repository) : super(AppStateInitial());
 
   Future<void> getGroupMembers({required List<String> ids}) async {

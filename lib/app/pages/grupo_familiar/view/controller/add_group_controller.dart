@@ -19,7 +19,7 @@ class AddGroupController {
 
   // Value Notifiers
   final ValueNotifier<FamilyGroupModel> newGroup = ValueNotifier(
-    const FamilyGroupModel.empty(),
+    FamilyGroupModel.empty(createdAt: KCurrentDate),
   );
   final ValueNotifier<List<PatientModel>> newGroupMembers = ValueNotifier([]);
 
@@ -57,7 +57,7 @@ class AddGroupController {
     newGroupMembers.value.clear();
     form.value = NewGroupForm();
 
-    newGroup.value = const FamilyGroupModel.empty();
+    newGroup.value = FamilyGroupModel.empty(createdAt: KCurrentDate);
   }
 
   void setInitialPayDate() => payDateCt.text = KCurrentDate.formatted;

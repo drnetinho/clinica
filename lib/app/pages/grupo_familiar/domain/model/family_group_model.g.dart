@@ -11,6 +11,7 @@ FamilyGroupModel _$FamilyGroupModelFromJson(Map json) => FamilyGroupModel(
       json['name'] as String,
       (json['members'] as List<dynamic>).map((e) => e as String).toList(),
       (json['payments'] as List<dynamic>).map((e) => e as String).toList(),
+      DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$FamilyGroupModelToJson(FamilyGroupModel instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$FamilyGroupModelToJson(FamilyGroupModel instance) =>
       'name': instance.name,
       'members': instance.members,
       'payments': instance.payments,
+      'createdAt': instance.createdAt.toIso8601String(),
     };

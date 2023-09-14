@@ -4,12 +4,12 @@ import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../../../core/helps/actual_date.dart';
-import '../../data/repository/get_groups_repository.dart';
+import '../../data/repository/group_payments_repository.dart';
 import '../../domain/model/family_payment_model.dart';
 
 @injectable
 class EditPaymentsStore extends ValueNotifier<AppState> {
-  final GetGroupsRepository _repository;
+  final GroupPaymentsRepository _repository;
   EditPaymentsStore(this._repository) : super(AppStateInitial());
 
   Future<void> confirmPending({
@@ -41,6 +41,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       newPayment: FamilyPaymnetModel.empty(
         familyGroupId: groupId,
         payDate: KCurrentDate,
+        createdAt: KCurrentDate,
       ),
     );
     if (result.unit != null) {
@@ -75,6 +76,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
         monthlyFee: payment.monthlyFee,
         pending: true,
         receiveDate: null,
+          createdAt: KCurrentDate,
       ),
     );
     if (result.unit != null) {
@@ -93,6 +95,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
         payDate: oldPaymenteBase.payDate.copyWith(
           month: oldPaymenteBase.payDate.month + 1,
         ),
+          createdAt: KCurrentDate,
       ),
     );
 

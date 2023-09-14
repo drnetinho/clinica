@@ -11,26 +11,21 @@ import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
-import '../../domain/model/family_payment_model.dart';
 import '../types.dart/group_types.dart';
 
-abstract class GetGroupsRepository {
+abstract class GroupsRepository {
   UnitOrError updateId({required String collection, required String id});
   FamilyGroupsOrError getGroups();
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
   UnitOrError deleteGroup({required FamilyGroupModel group});
   UnitOrError generateGroup({required FamilyGroupModel group});
 
-  FamilyGroupPaymentsOrError getGroupPayments({required String id});
-  FamilyGroupPaymentsOrError getAllPayments();
-  UnitOrError editPayment({required FamilyPaymnetModel payment});
-  UnitOrError generatePayment({required FamilyPaymnetModel newPayment});
-  UnitOrError deletePayment({required FamilyPaymnetModel payment});
+  UnitOrError removePatientGroup({required String patientId});
+  UnitOrError addPatientGroup({required String patientId, required String groupId});
 }
 
-@Injectable(as: GetGroupsRepository)
-class GetGroupsRepositoryImpl implements GetGroupsRepository {
-  final String key = "id";
+@Injectable(as: GroupsRepository)
+class GroupsRepositoryImpl implements GroupsRepository {
   @override
   FamilyGroupsOrError getGroups() async {
     try {
@@ -46,7 +41,6 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
 
   @override
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids}) async {
-
     try {
       final response = await FirestoreService.fire.collection(Collections.patients).where('id', whereIn: ids).get();
       final docs = response.docs.map((e) => e.data()).toList();
@@ -64,6 +58,9 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
   UnitOrError deleteGroup({required FamilyGroupModel group}) async {
     try {
       await FirestoreService.fire.collection(Collections.groups).doc(group.id).delete();
+      for (var patient in group.members) {
+        await removePatientGroup(patientId: patient);
+      }
       Logger.prettyPrint(group, Logger.greenColor, 'deleteGroup');
       return (error: null, unit: unit);
     } on FirebaseException {
@@ -74,7 +71,11 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
   @override
   UnitOrError generateGroup({required FamilyGroupModel group}) async {
     try {
-      await FirestoreService.fire.collection(Collections.groups).add(group.toJson());
+      final data = await FirestoreService.fire.collection(Collections.groups).add(group.toJson());
+      for (var patient in group.members) {
+        await addPatientGroup(patientId: patient, groupId: data.id);
+      }
+      updateId(collection: Collections.groups, id: data.id);
       Logger.prettyPrint(group, Logger.greenColor, 'generateGroup');
       return (error: null, unit: unit);
     } on FirebaseException {
@@ -83,31 +84,24 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
   }
 
   @override
-  FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
+  UnitOrError removePatientGroup({required String patientId}) async {
     try {
-      final res =
-          await FirestoreService.fire.collection(Collections.payments).where('familyGroupId', isEqualTo: id).get();
-
-      final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
-      final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getGroupPayments');
-      data.sort((a, b) => b.payDate.compareTo(a.payDate));
-      return (error: null, payments: data);
+      await FirestoreService.fire.collection(Collections.patients).doc(patientId).update({'familyGroup': 'A definir'});
+      Logger.prettyPrint(patientId, Logger.greenColor, 'removePatientGroup');
+      return (error: null, unit: unit);
     } on FirebaseException {
-      return (error: RemoteError(), payments: null);
+      return (error: RemoteError(), unit: null);
     }
   }
 
   @override
-  FamilyGroupPaymentsOrError getAllPayments() async {
+  UnitOrError addPatientGroup({required String patientId, required String groupId}) async {
     try {
-      final response = await FirestoreService.fire.collection(Collections.payments).get();
-      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
-      final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getAllPayments');
-      return (error: null, payments: data);
+      await FirestoreService.fire.collection(Collections.patients).doc(patientId).update({'familyGroup': groupId});
+      Logger.prettyPrint(patientId, Logger.greenColor, 'addPatientGroup');
+      return (error: null, unit: unit);
     } on FirebaseException {
-      return (error: RemoteError(), payments: null);
+      return (error: RemoteError(), unit: null);
     }
   }
 
@@ -118,39 +112,6 @@ class GetGroupsRepositoryImpl implements GetGroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
-    }
-  }
-
-  @override
-  UnitOrError editPayment({required FamilyPaymnetModel payment}) async {
-    try {
-      await FirestoreService.fire.collection(Collections.payments).doc(payment.id).update(payment.toJson());
-      Logger.prettyPrint(payment, Logger.greenColor, 'editPayment');
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: RemoteError(), unit: null);
-    }
-  }
-
-  @override
-  UnitOrError generatePayment({required FamilyPaymnetModel newPayment}) async {
-    try {
-      await FirestoreService.fire.collection(Collections.payments).add(newPayment.toJson());
-      Logger.prettyPrint(newPayment, Logger.greenColor, 'generateNextPayment');
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: RemoteError(), unit: null);
-    }
-  }
-
-  @override
-  UnitOrError deletePayment({required FamilyPaymnetModel payment}) async {
-    try {
-      await FirestoreService.fire.collection(Collections.payments).doc(payment.id).delete();
-      Logger.prettyPrint(payment, Logger.greenColor, 'deletePayment');
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: RemoteError(), unit: null);
     }
   }
 }

@@ -21,6 +21,7 @@ PatientModel _$PatientModelFromJson(Map json) => PatientModel(
           .toList(),
       json['id'] as String,
       json['cpf'] as String,
+      DateTime.parse(json['createdAt'] as String),
     );
 
 Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
       'previousIlnesses': instance.previousIlnesses,
       'id': instance.id,
       'cpf': instance.cpf,
+      'createdAt': instance.createdAt.toIso8601String(),
     };

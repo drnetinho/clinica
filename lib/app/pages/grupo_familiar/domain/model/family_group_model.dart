@@ -9,19 +9,22 @@ class FamilyGroupModel extends Equatable {
   final String name;
   final List<String> members;
   final List<String> payments;
+  final DateTime createdAt;
 
   const FamilyGroupModel(
     this.id,
     this.name,
     this.members,
     this.payments,
+    this.createdAt,
   );
 
   const FamilyGroupModel.empty({
     this.id = '',
     this.name = '',
-     this.members = const [],
-     this.payments = const [],
+    required this.createdAt,
+    this.members = const [],
+    this.payments = const [],
   });
 
   factory FamilyGroupModel.fromJson(Map<String, dynamic> json) => _$FamilyGroupModelFromJson(json);
@@ -32,12 +35,14 @@ class FamilyGroupModel extends Equatable {
     String? name,
     List<String>? members,
     List<String>? payments,
+    DateTime? createdAt,
   }) {
     return FamilyGroupModel(
       id ?? this.id,
       name ?? this.name,
       members ?? this.members,
       payments ?? this.payments,
+      createdAt ?? this.createdAt,
     );
   }
 
@@ -48,6 +53,7 @@ class FamilyGroupModel extends Equatable {
       name,
       members,
       payments,
+      createdAt,
     ];
   }
 }

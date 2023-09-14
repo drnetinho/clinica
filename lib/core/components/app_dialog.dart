@@ -80,7 +80,7 @@ class _AppDialogState extends State<AppDialog> {
                 color: context.colorsApp.whiteColor,
                 borderRadius: BorderRadius.circular(16),
               ),
-              height: widget.height ?? (widget.description != null ? 180 : 120),
+              height: widget.height ?? (widget.description != null ? 180 : 140),
               width: widget.width ?? 470,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

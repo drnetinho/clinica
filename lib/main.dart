@@ -102,7 +102,7 @@ class ClispApp extends StatelessWidget {
               color: context.colorsApp.danger,
             ),
           ),
-          isDense: true,
+          // isDense: true,
         ),
       ),
     );

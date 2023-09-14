@@ -31,8 +31,10 @@ class ExcluirButton extends StatelessWidget {
           const SizedBox(width: 6),
           Text(
             discardMode ? 'Cancelar' : 'Excluir',
-            style: context.textStyles.textPoppinsSemiBold
-                .copyWith(fontSize: 12, color: discardMode ? Colors.black : Colors.white),
+            style: context.textStyles.textPoppinsSemiBold.copyWith(
+              fontSize: 12,
+              color: discardMode ? Colors.black : Colors.white,
+            ),
           ),
         ],
       ),

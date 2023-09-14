@@ -162,7 +162,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(width: 100),
                         Text(
                           'Dados Pessoais',
                           style: context.textStyles.textPoppinsSemiBold
@@ -302,7 +302,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                             const Spacer(),
                           ],
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 20),
                         Text(
                           'Endereço',
                           style: context.textStyles.textPoppinsSemiBold
@@ -311,7 +311,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                         const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -344,9 +344,103 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                   crossFadeState: state,
                                   duration: animationDuration,
                                 ),
+                                const SizedBox(height: 20),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height * .2,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Doenças Crônicas',
+                                        style: context.textStyles.textPoppinsSemiBold
+                                            .copyWith(fontSize: 22, color: context.colorsApp.success),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      ValueListenableBuilder(
+                                        valueListenable: controller.ilnesses,
+                                        builder: (context, value, _) {
+                                          if (value.isEmpty) {
+                                            return Text(
+                                              'Nenhum registro',
+                                              style: context.textStyles.textPoppinsMedium
+                                                  .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                            );
+                                          }
+                                          return ListView.builder(
+                                            itemCount: value.length,
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              final illness = value[index];
+
+                                              return Row(
+                                                children: [
+                                                  Text(
+                                                    '• $illness',
+                                                    style: context.textStyles.textPoppinsMedium
+                                                        .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                                  ),
+                                                  Spacing.s.horizotalGap,
+                                                  Visibility(
+                                                    visible: isEditing,
+                                                    child: GestureDetector(
+                                                      onTap: () => controller.removeIlness = illness,
+                                                      child: const Icon(Icons.close),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      Visibility(
+                                        visible: isEditing,
+                                        child: ValueListenableBuilder(
+                                          valueListenable: controller.showIlnessField,
+                                          builder: (context, showField, _) {
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(height: 10),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller.showIlnessField.value = true;
+                                                    scrollController.animateTo(
+                                                      scrollController.position.maxScrollExtent,
+                                                      duration: const Duration(milliseconds: 300),
+                                                      curve: Curves.easeOut,
+                                                    );
+                                                  },
+                                                  child: Text(
+                                                    'Adicionar Doença',
+                                                    style: context.textStyles.textPoppinsMedium
+                                                        .copyWith(fontSize: 16, color: context.colorsApp.success),
+                                                  ),
+                                                ),
+                                                if (showField)
+                                                  AppFormField(
+                                                    controller: controller.ilnessCt,
+                                                    onSubmit: (v) {
+                                                      if (form.ilness.isValid) {
+                                                        controller.onSubmitIlness(v);
+                                                      }
+                                                    },
+                                                    isValid: form.ilness.isValid,
+                                                    validator: (_) => form.ilness.error?.exists,
+                                                    errorText: form.ilness.displayError?.message,
+                                                  ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
-                            const SizedBox(width: 70),
+                            const Spacer(),
                             Visibility(
                               visible: !isEditing,
                               child: const Spacer(),
@@ -382,127 +476,30 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                   crossFadeState: state,
                                   duration: animationDuration,
                                 ),
+                                const SizedBox(height: 20),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Grupo Familiar',
+                                      style: context.textStyles.textPoppinsSemiBold
+                                          .copyWith(fontSize: 22, color: context.colorsApp.success),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      widget.patient.familyGroup,
+                                      style: context.textStyles.textPoppinsMedium
+                                          .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                    ),
+                                  ],
+                                ),
                               ],
+                            ),
+                            const SizedBox(
+                              width: 20,
                             ),
                             const Spacer(),
-                          ],
-                        ),
-                        const SizedBox(height: 40),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .2,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Doenças Pré-Existentes',
-                                    style: context.textStyles.textPoppinsSemiBold
-                                        .copyWith(fontSize: 22, color: context.colorsApp.success),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  ValueListenableBuilder(
-                                    valueListenable: controller.ilnesses,
-                                    builder: (context, value, _) {
-                                      if (value.isEmpty) {
-                                        return Text(
-                                          'Nenhum registro',
-                                          style: context.textStyles.textPoppinsMedium
-                                              .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                                        );
-                                      }
-                                      return ListView.builder(
-                                        itemCount: value.length,
-                                        shrinkWrap: true,
-                                        itemBuilder: (context, index) {
-                                          final illness = value[index];
-
-                                          return Row(
-                                            children: [
-                                              Text(
-                                                '• $illness',
-                                                style: context.textStyles.textPoppinsMedium
-                                                    .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                                              ),
-                                              Spacing.s.horizotalGap,
-                                              Visibility(
-                                                visible: isEditing,
-                                                child: GestureDetector(
-                                                  onTap: () => controller.removeIlness = illness,
-                                                  child: const Icon(Icons.close),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                  Visibility(
-                                    visible: isEditing,
-                                    child: ValueListenableBuilder(
-                                      valueListenable: controller.showIlnessField,
-                                      builder: (context, showField, _) {
-                                        return Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            const SizedBox(height: 10),
-                                            GestureDetector(
-                                              onTap: () {
-                                                controller.showIlnessField.value = true;
-                                                scrollController.animateTo(
-                                                  scrollController.position.maxScrollExtent,
-                                                  duration: const Duration(milliseconds: 300),
-                                                  curve: Curves.easeOut,
-                                                );
-                                              },
-                                              child: Text(
-                                                'Adicionar Doença',
-                                                style: context.textStyles.textPoppinsMedium
-                                                    .copyWith(fontSize: 16, color: context.colorsApp.success),
-                                              ),
-                                            ),
-                                            if (showField)
-                                              AppFormField(
-                                                maxHeight: 60,
-                                                controller: controller.ilnessCt,
-                                                onSubmit: (v) {
-                                                  if (form.ilness.isValid) {
-                                                    controller.onSubmitIlness(v);
-                                                  }
-                                                },
-                                                isValid: form.ilness.isValid,
-                                                validator: (_) => form.ilness.error?.exists,
-                                                errorText: form.ilness.displayError?.message,
-                                              ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Grupo Familiar',
-                                  style: context.textStyles.textPoppinsSemiBold
-                                      .copyWith(fontSize: 22, color: context.colorsApp.success),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  widget.patient.familyGroup,
-                                  style: context.textStyles.textPoppinsMedium
-                                      .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ],

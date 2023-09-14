@@ -132,7 +132,6 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
                                             itemCount: patients.length,
                                             itemBuilder: (context, index) {
                                               final patient = patients[index];
-
                                               return IgnorePointer(
                                                 ignoring: controller.addNewPatient.value,
                                                 child: InkWell(

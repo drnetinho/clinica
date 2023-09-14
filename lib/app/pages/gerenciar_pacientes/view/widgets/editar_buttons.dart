@@ -22,7 +22,7 @@ class EditarButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success,
+            color: context.colorsApp.success,
           ),
         ),
       ),
@@ -31,7 +31,7 @@ class EditarButton extends StatelessWidget {
         children: [
           Icon(isEditing ? Icons.check : Icons.edit,
               color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success, size: 16),
-          const SizedBox(width: 10),
+          const SizedBox(width: 6),
           Text(
             isEditing ? 'Salvar' : 'Editar',
             style: context.textStyles.textPoppinsSemiBold.copyWith(

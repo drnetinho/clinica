@@ -120,6 +120,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                           title: 'Deseja realmente excluir o Grupo ${widget.group.name}?',
                           firstButtonText: 'Cancelar',
                           secondButtonText: 'Excluir',
+                          width: 600,
                           firstButtonIcon: Icons.cancel,
                           secondButtonIcon: Icons.delete,
                           store: deleteGrupoStore,
@@ -199,6 +200,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                             secondButtonIcon: Icons.check,
                             thirdButtonIcon: Icons.create,
                             store: editPaymentsStore,
+                            width: 600,
                             onPressedSecond: () => editPaymentsStore.confirmPending(
                               payment: lastPayment,
                               generateNext: false,

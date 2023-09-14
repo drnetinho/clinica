@@ -114,10 +114,6 @@ dart_style
 2.19
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/dart_style-2.3.2/
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/dart_style-2.3.2/lib/
-dropdown_button2
-2.17
-file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9/
-file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9/lib/
 equatable
 2.12
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5/
@@ -210,6 +206,10 @@ flutter_lints
 2.18
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.2/
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-2.0.2/lib/
+formz
+2.14
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/formz-0.6.0/
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/formz-0.6.0/lib/
 freezed
 2.17
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/freezed-2.4.1/
@@ -262,6 +262,10 @@ injectable_generator
 2.17
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/injectable_generator-2.1.6/
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/injectable_generator-2.1.6/lib/
+intl
+2.12
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0/
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0/lib/
 io
 2.12
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/io-1.0.4/
@@ -286,6 +290,10 @@ logging
 2.19
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0/
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0/lib/
+mask_text_input_formatter
+2.12
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/mask_text_input_formatter-2.3.0/
+file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/mask_text_input_formatter-2.3.0/lib/
 matcher
 2.18
 file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/matcher-0.12.15/

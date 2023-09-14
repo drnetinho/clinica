@@ -14,16 +14,27 @@ class ExcluirButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style:
-          ElevatedButton.styleFrom(backgroundColor: discardMode ? context.colorsApp.warning : context.colorsApp.danger),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: discardMode ? context.colorsApp.dartWhite : context.colorsApp.danger,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+            color: discardMode ? context.colorsApp.dartWhite : context.colorsApp.danger,
+          ),
+        ),
+      ),
       onPressed: onPressed,
       child: Row(
         children: [
-          Icon(discardMode ? Icons.cancel : Icons.delete_outline, color: Colors.white),
-          const SizedBox(width: 10),
+          Icon(discardMode ? Icons.close : Icons.delete_outline,
+              color: discardMode ? Colors.black : Colors.white, size: 16),
+          const SizedBox(width: 6),
           Text(
             discardMode ? 'Cancelar' : 'Excluir',
-            style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 12, color: Colors.white),
+            style: context.textStyles.textPoppinsSemiBold.copyWith(
+              fontSize: 12,
+              color: discardMode ? Colors.black : Colors.white,
+            ),
           ),
         ],
       ),

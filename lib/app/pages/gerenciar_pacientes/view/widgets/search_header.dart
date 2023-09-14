@@ -24,56 +24,78 @@ class SearchHeader extends StatefulWidget {
 }
 
 class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderStateMixin {
- 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          'Gerenciar Pacientes',
-          style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
-        ),
-        const SizedBox(height: 20),
         Row(
           children: [
             Expanded(
-              flex: 5,
-              child: SizedBox(
-                height: 60,
-                child: Card(
-                  color: context.colorsApp.backgroundCardColor,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  elevation: 1,
+              flex: 3,
+              child: PhysicalModel(
+                elevation: 1,
+                color: context.colorsApp.backgroundCardColor,
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  height: 50,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            Icon(Icons.search, size: 30, color: ColorsApp.instance.success),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              flex: 1,
-                              child: TextField(
-                                controller: widget.controller,
-                                decoration: InputDecoration(
-                                  hintText: 'Pesquisar Paciente',
-                                  hintStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-                                  border: InputBorder.none,
+                        Icon(Icons.search, size: 30, color: ColorsApp.instance.greyColor2),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          flex: 1,
+                          child: TextField(
+                            controller: widget.controller,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
                                 ),
-                                onChanged: (v) {
-                                  if (v.isNotEmpty) {
-                                    widget.findedPatients(
-                                      widget.patients.where((p) => p.name.lower.contains(v.lower)).toList(),
-                                    );
-                                  } else {
-                                    widget.findedPatients(null);
-                                  }
-                                },
                               ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                              ),
+                              isDense: true,
+                              hintText: 'Pesquisar Paciente',
+                              hintStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
                             ),
-                          ],
+                            style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                            onChanged: (v) {
+                              if (v.isNotEmpty) {
+                                widget.findedPatients(
+                                  widget.patients.where((p) => p.name.lower.contains(v.lower)).toList(),
+                                );
+                              } else {
+                                widget.findedPatients(null);
+                              }
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -81,17 +103,21 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
                 ),
               ),
             ),
-            Expanded(
-              flex: 2,
+            const SizedBox(width: 20),
+            PhysicalModel(
+              elevation: 1,
+              color: context.colorsApp.backgroundCardColor,
+              borderRadius: BorderRadius.circular(12),
               child: SizedBox(
                 height: 50,
+                width: 180,
                 child: ElevatedButton(
                   onPressed: () => widget.addPatient(true),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 8),
                       Text('Novo Paciente', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
                     ],
                   ),

@@ -176,12 +176,6 @@
       "languageVersion": "2.19"
     },
     {
-      "name": "dropdown_button2",
-      "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/dropdown_button2-2.3.9",
-      "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
       "name": "equatable",
       "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/equatable-2.0.5",
       "packageUri": "lib/",
@@ -338,6 +332,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "formz",
+      "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/formz-0.6.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "freezed",
       "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/freezed-2.4.1",
       "packageUri": "lib/",
@@ -416,6 +416,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "io",
       "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/io-1.0.4",
       "packageUri": "lib/",
@@ -450,6 +456,12 @@
       "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/logging-1.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.19"
+    },
+    {
+      "name": "mask_text_input_formatter",
+      "rootUri": "file:///C:/Users/thiago/AppData/Local/Pub/Cache/hosted/pub.dev/mask_text_input_formatter-2.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "matcher",
@@ -770,7 +782,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-09-04T17:39:31.139620Z",
+  "generated": "2023-09-12T23:39:36.674442Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

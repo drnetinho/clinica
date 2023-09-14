@@ -18,25 +18,25 @@ class EditarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: context.colorsApp.whiteColor,
+        backgroundColor: isEditing ? context.colorsApp.success : context.colorsApp.whiteColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
           side: BorderSide(
-            color: isEditing ? context.colorsApp.warning : context.colorsApp.success,
+            color: context.colorsApp.success,
           ),
         ),
       ),
       onPressed: onPressed,
       child: Row(
         children: [
-          Icon(isEditing ? Icons.save : Icons.edit,
-              color: isEditing ? context.colorsApp.warning : context.colorsApp.success),
-          const SizedBox(width: 10),
+          Icon(isEditing ? Icons.check : Icons.edit,
+              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success, size: 16),
+          const SizedBox(width: 6),
           Text(
             isEditing ? 'Salvar' : 'Editar',
             style: context.textStyles.textPoppinsSemiBold.copyWith(
               fontSize: 12,
-              color: isEditing ? context.colorsApp.warning : context.colorsApp.success,
+              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success,
             ),
           ),
         ],

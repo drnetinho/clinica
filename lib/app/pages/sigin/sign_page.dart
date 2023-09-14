@@ -47,9 +47,11 @@ class SignPage extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: 40,
-                  child: ElevatedButton(onPressed: () {
-                    context.go(HomePage.routeName);
-                  }, child: const Text('Entrar')),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        context.go(HomePage.routeName);
+                      },
+                      child: const Text('Entrar')),
                 )
               ],
             ),

@@ -26,6 +26,7 @@ class ColorsApp {
   Color get warning => const Color(0xFFF59E0B);
   Color get yellowColor => const Color(0xFFFFC75E);
   Color get greenColor => const Color(0xFF9FE2C2);
+  Color get greenColor2 => const Color(0xFF527736);
   Color get softBlack => const Color(0xFF1E211D);
 }
 

@@ -70,9 +70,9 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                           children: [
                             Expanded(flex: 2, child: Text('Valor')),
                             Expanded(flex: 2, child: Text('Vencimento')),
-                            Expanded(flex: 2, child: Text('Recebimento')),
-                            Expanded(flex: 2, child: Text('Status')),
-                            Expanded(flex: 2, child: Text('Gerenciar')),
+                            Expanded(flex: 2, child: Text('Status da Parcela')),
+                            Expanded(flex: 2, child: Text('Pagamento')),
+                            Expanded(flex: 1, child: Text('')),
                           ],
                         ),
                       ),

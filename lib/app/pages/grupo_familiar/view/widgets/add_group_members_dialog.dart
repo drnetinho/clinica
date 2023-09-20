@@ -6,6 +6,7 @@ import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
+import '../../../../../core/components/state_widget.dart';
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
@@ -74,6 +75,10 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
                 child: StoreBuilder<List<PatientModel>>(
                   store: patientsStore,
                   validateDefaultStates: true,
+                  validateEmptyList: true,
+                  empty: const StateEmptyWidget(
+                    message: 'Não existem pacientes sem grupos.',
+                  ),
                   builder: (context, patientsList, _) {
                     return AnimatedBuilder(
                         animation: widget.addController.newGroupMembers,

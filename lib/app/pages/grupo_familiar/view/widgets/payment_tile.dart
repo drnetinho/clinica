@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
 class PaymentTile extends StatelessWidget {
   final FamilyPaymnetModel paymnet;
@@ -26,40 +24,44 @@ class PaymentTile extends StatelessWidget {
       children: [
         Expanded(flex: 2, child: Text(paymnet.monthlyFee.toReal)),
         Expanded(flex: 2, child: Text(paymnet.payDate.formatted)),
-        Expanded(flex: 2, child: Text(paymnet.receiveDate?.formatted ?? 'Pendente')),
         Expanded(flex: 2, child: Text(paymnet.pending ? 'Pendente' : 'Pago')),
+        Expanded(flex: 2, child: Text(paymnet.receiveDate?.formatted ?? 'Pendente')),
+
         // TODO THIAGO Estilizar textos e este botao
         Expanded(
-          flex: 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 100,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: paymnet.pending ? context.colorsApp.primary : context.colorsApp.danger,
-                  ),
-                  onPressed: () {
-                    if (paymnet.pending) {
-                      onConfirmPayment?.call();
-                    } else {
-                      onRevertPayment?.call();
-                    }
-                  },
-                  child: Text(paymnet.pending ? 'Confirmar' : 'Reverter'),
+          flex: 1,
+          child: PopupMenuButton<int>(
+            icon: const Icon(Icons.more_vert_outlined),
+            itemBuilder: (context) {
+              return [
+                const PopupMenuItem(
+                  value: 0,
+                  child: Text('Deletar'),
                 ),
-              ),
-              Spacing.s.horizotalGap,
-              IconButton(
-                onPressed: onDeletePayment,
-                splashRadius: 18,
-                icon: Icon(
-                  Icons.delete,
-                  color: context.colorsApp.danger,
-                ),
-              ),
-            ],
+                if (paymnet.pending) ...{
+                  const PopupMenuItem(
+                    value: 1,
+                    child: Text('Confirmar'),
+                  )
+                } else ...{
+                  const PopupMenuItem(
+                    value: 2,
+                    child: Text('Reverter'),
+                  )
+                },
+              ];
+            },
+            onSelected: (value) {
+              if (value == 0) {
+                onDeletePayment?.call();
+              }
+              if (value == 1) {
+                onConfirmPayment?.call();
+              }
+              if (value == 2) {
+                onRevertPayment?.call();
+              }
+            },
           ),
         ),
       ],

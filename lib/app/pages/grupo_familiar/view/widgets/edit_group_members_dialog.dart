@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
+import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
@@ -74,6 +75,10 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
                 child: StoreBuilder<List<PatientModel>>(
                   store: patientsStore,
                   validateDefaultStates: true,
+                  validateEmptyList: true,
+                  empty: const StateEmptyWidget(
+                    message: 'Não existem pacientes sem grupos.',
+                  ),
                   builder: (context, patientsList, _) {
                     return AnimatedBuilder(
                       animation: widget.editController.members,
@@ -87,6 +92,7 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
                               itemBuilder: (context, index) {
                                 final patient = patients[index];
                                 final memberIncluded = widget.editController.containsMember(patient.id);
+
                                 return ListTile(
                                   trailing: Checkbox(
                                     value: memberIncluded,

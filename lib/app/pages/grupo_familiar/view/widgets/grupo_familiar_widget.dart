@@ -387,7 +387,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                               Spacing.m.verticalGap,
                               ElevatedButton(
                                 onPressed: () => editPaymentsStore.generate(groupId: widget.group.id),
-                                child: const Text('Gerar um pagamento'),
+                                child: const Text('Gerar parcela'),
                               ),
                             ],
                           );

@@ -14,6 +14,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
+import '../../../../core/components/state_widget.dart';
 import '../../../../core/components/store_builder.dart';
 import '../../gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'controller/group_page_controller.dart';
@@ -45,8 +46,6 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
     managePatientsStore.getPatients();
     groupStore.getGroups();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +134,17 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                         child: StoreBuilder<List<FamilyGroupModel>>(
                           store: groupStore,
                           builder: (context, groups, child) {
+                            if (groups.isEmpty) {
+                              return const Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  StateEmptyWidget(
+                                    icon: Icons.group_add,
+                                    message: 'Não existem grupos cadastrados.',
+                                  ),
+                                ],
+                              );
+                            }
                             return ValueListenableBuilder(
                               valueListenable: controller.groupSelected,
                               builder: (context, groupSelected, _) {
@@ -142,6 +152,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                   itemCount: groups.length,
                                   itemBuilder: (context, index) {
                                     final group = groups[index];
+
                                     return InkWell(
                                       onTap: () => controller.groupSelected.value = group,
                                       child: FamilyGroupTile(

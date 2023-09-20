@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
@@ -10,22 +11,21 @@ import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../../gerenciar_pacientes/view/store/manage_patient_store.dart';
-import '../controller/add_group_controller.dart';
 import '../controller/group_page_controller.dart';
 
-class AddGroupMembersDialog extends StatefulWidget {
-  final AddGroupController addController;
+class EditGroupMembersDialog extends StatefulWidget {
+  final EditGroupController editController;
 
-  const AddGroupMembersDialog({
+  const EditGroupMembersDialog({
     Key? key,
-    required this.addController,
+    required this.editController,
   }) : super(key: key);
 
   @override
-  State<AddGroupMembersDialog> createState() => _AddGroupMembersDialogState();
+  State<EditGroupMembersDialog> createState() => _EditGroupMembersDialogState();
 }
 
-class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
+class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
   late final GroupPageController mainCtrl;
   late final ManagePatientsStore patientsStore;
 
@@ -76,35 +76,36 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
                   validateDefaultStates: true,
                   builder: (context, patientsList, _) {
                     return AnimatedBuilder(
-                        animation: widget.addController.newGroupMembers,
-                        builder: (context, _) {
-                          return ValueListenableBuilder(
-                            valueListenable: mainCtrl.searchPatients,
-                            builder: (context, search, _) {
-                              List<PatientModel> patients = search ?? patientsList;
-                              return ListView.builder(
-                                itemCount: patients.length,
-                                itemBuilder: (context, index) {
-                                  final patient = patients[index];
-                                  final memberIncluded = widget.addController.containsMember(patient.id);
-                                  return ListTile(
-                                    trailing: Checkbox(
-                                      value: memberIncluded,
-                                      onChanged: (v) => v == true ? addMember(patient) : removeMember(patient),
-                                    ),
-                                    title: Text(patient.name),
-                                    leading: const Icon(Icons.person),
-                                    selectedTileColor: context.colorsApp.greenColor,
-                                    selectedColor: context.colorsApp.blackColor,
-                                    onTap: () {
-                                      !memberIncluded ? addMember(patient) : removeMember(patient);
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          );
-                        });
+                      animation: widget.editController.members,
+                      builder: (context, _) {
+                        return ValueListenableBuilder(
+                          valueListenable: mainCtrl.searchPatients,
+                          builder: (context, search, _) {
+                            List<PatientModel> patients = search ?? patientsList;
+                            return ListView.builder(
+                              itemCount: patients.length,
+                              itemBuilder: (context, index) {
+                                final patient = patients[index];
+                                final memberIncluded = widget.editController.containsMember(patient.id);
+                                return ListTile(
+                                  trailing: Checkbox(
+                                    value: memberIncluded,
+                                    onChanged: (v) => v == true ? addMember(patient) : removeMember(patient),
+                                  ),
+                                  title: Text(patient.name),
+                                  leading: const Icon(Icons.person),
+                                  selectedTileColor: context.colorsApp.greenColor,
+                                  selectedColor: context.colorsApp.blackColor,
+                                  onTap: () {
+                                    !memberIncluded ? addMember(patient) : removeMember(patient);
+                                  },
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
               ),
@@ -114,7 +115,7 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
               alignment: Alignment.bottomRight,
               padding: Padd.all(Spacing.m),
               child: ValueListenableBuilder(
-                valueListenable: widget.addController.newGroupMembers,
+                valueListenable: widget.editController.members,
                 builder: (context, newMembers, _) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -139,6 +140,6 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
     );
   }
 
-  void addMember(PatientModel member) => widget.addController.addMember = member;
-  void removeMember(PatientModel member) => widget.addController.removeMember = member;
+  void addMember(PatientModel member) => widget.editController.addMember = member;
+  void removeMember(PatientModel member) => widget.editController.removeMember = member;
 }

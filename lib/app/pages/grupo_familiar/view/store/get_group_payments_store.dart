@@ -21,7 +21,7 @@ class GetGroupPaymentsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.payments);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao buscar pagamentos do grupo');
+      value = AppStateError(message:result.error?.message ?? 'Erro ao buscar pagamentos do grupo');
     }
   }
 

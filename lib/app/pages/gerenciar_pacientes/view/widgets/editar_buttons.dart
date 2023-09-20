@@ -27,20 +27,31 @@ class EditarButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Row(
-        children: [
-          Icon(isEditing ? Icons.check : Icons.edit,
-              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success, size: 16),
-          const SizedBox(width: 6),
-          Text(
-            isEditing ? 'Salvar' : 'Editar',
-            style: context.textStyles.textPoppinsSemiBold.copyWith(
-              fontSize: 12,
-              color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success,
+      child: isLoading
+          ? Center(
+              child: SizedBox(
+                height: 10,
+                width: 10,
+                child: CircularProgressIndicator(
+                  color: context.colorsApp.whiteColor,
+                  strokeWidth: 2.0,
+                ),
+              ),
+            )
+          : Row(
+              children: [
+                Icon(isEditing ? Icons.check : Icons.edit,
+                    color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success, size: 16),
+                const SizedBox(width: 6),
+                Text(
+                  isEditing ? 'Salvar' : 'Editar',
+                  style: context.textStyles.textPoppinsSemiBold.copyWith(
+                    fontSize: 12,
+                    color: isEditing ? context.colorsApp.whiteColor : context.colorsApp.success,
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }

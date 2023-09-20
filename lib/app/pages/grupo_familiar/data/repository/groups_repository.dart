@@ -27,10 +27,14 @@ abstract class GroupsRepository {
     required FamilyPaymnetModel paymnetModel,
   });
   UnitOrError addPatientGroup({required String patientId, required String groupId});
-
   UnitOrError deleteGroup({required FamilyGroupModel group});
   UnitOrError removeGroupPayments({required String paymentId});
   UnitOrError removePatientGroup({required String patientId});
+  UnitOrError updateGroup({
+    required FamilyGroupModel group,
+    required List<String> membersToRemove,
+    required List<String> membersToAdd,
+  });
 }
 
 @Injectable(as: GroupsRepository)
@@ -45,6 +49,39 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, groups: data);
     } on FirebaseException {
       return (error: RemoteError(), groups: null);
+    } catch (e) {
+      return (error: UndefiniedError(), groups: null);
+    }
+  }
+
+  @override
+  UnitOrError updateGroup({
+    required FamilyGroupModel group,
+    required List<String> membersToRemove,
+    required List<String> membersToAdd,
+  }) async {
+    try {
+      // Atualizando o Grupo
+      await FirestoreService.fire.collection(Collections.groups).doc(group.id).update(group.toJson());
+      // Removendo o Grupo para cada paciente que não faz mais parte
+      for (var member in membersToRemove) {
+        await removePatientGroup(patientId: member);
+      }
+      // Atualizando o Grupo dos atuais pacientes
+      for (var member in membersToAdd) {
+        await updateField(
+          collection: Collections.patients,
+          docId: member,
+          map: {"familyGroup": group.id},
+        );
+      }
+
+      Logger.prettyPrint(group, Logger.greenColor, 'updateGroup');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -59,7 +96,7 @@ class GroupsRepositoryImpl implements GroupsRepository {
     } on FirebaseException {
       return (error: RemoteError(), members: null);
     } catch (e) {
-      return (error: RemoteError(), members: null);
+      return (error: UndefiniedError(), members: null);
     }
   }
 
@@ -78,6 +115,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -119,6 +158,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -130,6 +171,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -141,6 +184,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -155,6 +200,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: DomainError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -166,6 +213,8 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 }

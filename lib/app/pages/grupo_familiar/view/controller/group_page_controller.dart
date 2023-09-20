@@ -28,4 +28,6 @@ class GroupPageController {
     resetSearchGroups();
     resetSearchPatients();
   }
+
+  
 }

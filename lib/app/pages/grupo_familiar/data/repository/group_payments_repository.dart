@@ -35,6 +35,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);
+    } catch (e) {
+      return (error: UndefiniedError(), payments: null);
     }
   }
 
@@ -48,6 +50,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);
+    } catch (e) {
+      return (error: UndefiniedError(), payments: null);
     }
   }
 
@@ -59,6 +63,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -70,6 +76,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -81,6 +89,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 }

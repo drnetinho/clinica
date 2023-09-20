@@ -12,18 +12,22 @@ class GrupoFamiliarFooter extends StatelessWidget {
   final FamilyGroupModel group;
   final FamilyPaymnetModel lastPayment;
   final VoidCallback? onConfirmReceive;
+  final VoidCallback? onConfirmRevert;
+  final VoidCallback? onConfirmDelete;
 
   const GrupoFamiliarFooter({
     Key? key,
     required this.group,
     required this.lastPayment,
     this.onConfirmReceive,
+    this.onConfirmRevert,
+    this.onConfirmDelete,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Column(
@@ -59,7 +63,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Status',
+              'Status da parcela',
               style: context.textStyles.textPoppinsMedium.copyWith(
                 fontSize: 16,
                 color: ColorsApp.instance.greyColor2,
@@ -80,26 +84,55 @@ class GrupoFamiliarFooter extends StatelessWidget {
             ),
           ],
         ),
-        if (lastPayment.pending) ...{
-          const Spacer(),
+        const Spacer(),
+        if (lastPayment.receiveDate != null)
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Recebimento',
-                style: context.textStyles.textPoppinsMedium.copyWith(
-                  fontSize: 16,
-                  color: ColorsApp.instance.greyColor2,
-                ),
+                style:
+                    context.textStyles.textPoppinsMedium.copyWith(fontSize: 16, color: ColorsApp.instance.greyColor2),
               ),
-              ElevatedButton(
-                onPressed: onConfirmReceive,
-                child: const Text('Confirmar'),
+              Text(
+                lastPayment.receiveDate!.formatted,
+                style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
               ),
             ],
           ),
-        },
-        const Spacer(),
+        PopupMenuButton<int>(
+          icon: const Icon(Icons.more_vert_outlined),
+          itemBuilder: (context) {
+            return [
+              const PopupMenuItem(
+                value: 0,
+                child: Text('Deletar'),
+              ),
+              if (lastPayment.pending) ...{
+                const PopupMenuItem(
+                  value: 1,
+                  child: Text('Confirmar'),
+                )
+              } else ...{
+                const PopupMenuItem(
+                  value: 2,
+                  child: Text('Reverter'),
+                )
+              },
+            ];
+          },
+          onSelected: (value) {
+            if (value == 0) {
+              onConfirmDelete?.call();
+            }
+            if (value == 1) {
+              onConfirmReceive?.call();
+            }
+            if (value == 2) {
+              onConfirmRevert?.call();
+            }
+          },
+        ),
       ],
     );
   }

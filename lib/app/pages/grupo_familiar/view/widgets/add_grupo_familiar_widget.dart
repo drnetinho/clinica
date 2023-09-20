@@ -67,6 +67,10 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
   void dispose() {
     super.dispose();
     generateGroupStore.removeListener(storeListener);
+
+    generateGroupStore.dispose();
+    membersStore.dispose();
+    editPaymentsStore.dispose();
   }
 
   void storeListener() {
@@ -117,18 +121,13 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                         onPressed: resetForm,
                       ),
                       const SizedBox(width: 10),
-                      EditarButton(
-                        isEditing: true,
-                        onPressed: form.isValid
-                            ? () {
-                                if (form.isValid) {
-                                  generateGroupStore.generate(
-                                    group: addGroupController.updateGroup(),
-                                    paymnetModel: addGroupController.updatePayment(),
-                                  );
-                                }
-                              }
-                            : null,
+                      AnimatedBuilder(
+                        animation: generateGroupStore,
+                        builder: (context, _) => EditarButton(
+                          isLoading: generateGroupStore.value.isLoading,
+                          isEditing: true,
+                          onPressed: form.isValid ? onSave : null,
+                        ),
                       )
                     ],
                   ),
@@ -222,6 +221,13 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
               ),
             );
           }),
+    );
+  }
+
+  void onSave() {
+    generateGroupStore.generate(
+      group: addGroupController.updateGroup(),
+      paymnetModel: addGroupController.updatePayment(),
     );
   }
 

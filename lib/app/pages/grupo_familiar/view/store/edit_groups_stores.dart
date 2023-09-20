@@ -22,7 +22,7 @@ class DeleteGroupStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao excluir Grupo');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao excluir Grupo');
     }
   }
 }
@@ -42,7 +42,35 @@ class AddGroupStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao criar Grupo');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao criar Grupo');
+    }
+  }
+}
+
+@injectable
+class EditGroupStore extends ValueNotifier<AppState> {
+  final GroupsRepository _repository;
+  EditGroupStore(this._repository) : super(AppStateInitial());
+
+  Future<void> edit({
+    required FamilyGroupModel group,
+    required List<String> oldMembers,
+  }) async {
+    value = AppStateLoading();
+
+    final toRemove = oldMembers.where((old) => !group.members.contains(old)).toList();
+    final toAdd = group.members.where((member) => !oldMembers.contains(member)).toList();
+
+    final result = await _repository.updateGroup(
+      group: group,
+      membersToRemove: toRemove,
+      membersToAdd: toAdd,
+    );
+
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    } else if (result.error.exists) {
+      value = AppStateError(message: result.error?.message ?? 'Erro ao atualizar Grupo');
     }
   }
 }

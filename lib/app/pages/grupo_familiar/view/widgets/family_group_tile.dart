@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/get_group_payments_store.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
-
-import '../../../../../core/components/store_builder.dart';
 
 class FamilyGroupTile extends StatefulWidget {
   final FamilyGroupModel group;
@@ -24,14 +19,6 @@ class FamilyGroupTile extends StatefulWidget {
 }
 
 class _FamilyGroupTileState extends State<FamilyGroupTile> {
-  late final GetGroupPaymentsStore store;
-  @override
-  void initState() {
-    super.initState();
-    store = getIt<GetGroupPaymentsStore>();
-    store.getGroupPayments(id: widget.group.id);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,28 +47,6 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
               ),
               child: Icon(Icons.family_restroom, color: context.colorsApp.primary, size: 20),
             ),
-            trailing: StoreBuilder<List<FamilyPaymnetModel>>(
-              store: store,
-              validateDefaultStates: false,
-              builder: (context, payments, _) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  width: 100,
-                  decoration: BoxDecoration(
-                    color: getColorStatus(payments),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Text(
-                    getTextStatus(payments),
-                    style: context.textStyles.textPoppinsRegular.copyWith(
-                      fontSize: 14,
-                      color: context.colorsApp.whiteColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                );
-              },
-            ),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * .28,
@@ -93,22 +58,6 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
         ],
       ),
     );
-  }
-
-  String getTextStatus(List<FamilyPaymnetModel> payments) {
-    if (payments.isEmpty) {
-      return 'A definir';
-    } else {
-      return store.isPending(payments) ? 'Pendende' : 'Pago';
-    }
-  }
-
-  Color getColorStatus(List<FamilyPaymnetModel> payments) {
-    if (payments.isEmpty) {
-      return ColorsApp.instance.warning;
-    } else {
-      return store.isPending(payments) ? ColorsApp.instance.danger : ColorsApp.instance.primary;
-    }
   }
 
   String membersText(List<String> members) {

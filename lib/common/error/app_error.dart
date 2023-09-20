@@ -1,15 +1,28 @@
-sealed class AppError {}
+sealed class AppError {
+  final String? message;
 
-class DomainError extends AppError {
+  AppError({this.message});
+}
+
+class DomainError implements AppError {
+  @override
   final String? message;
 
   DomainError({this.message});
 }
 
-class RemoteError extends AppError {
+class RemoteError implements AppError {
+  @override
   final String? message;
 
   RemoteError({this.message});
+}
+
+class UndefiniedError implements AppError {
+  @override
+  final String? message;
+
+  UndefiniedError({this.message = 'Undefinied'});
 }
 
 extension AppErrorExtension on AppError? {

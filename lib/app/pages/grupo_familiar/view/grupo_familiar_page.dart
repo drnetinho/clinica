@@ -46,6 +46,8 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
     groupStore.getGroups();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

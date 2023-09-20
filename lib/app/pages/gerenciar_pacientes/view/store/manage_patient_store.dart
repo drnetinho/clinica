@@ -20,7 +20,7 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.patients!);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao buscar dados');
+      value = AppStateError(message:result.error?.message ?? 'Erro ao buscar dados');
     }
   }
 
@@ -33,7 +33,7 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: list);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao buscar dados');
+      value = AppStateError(message:result.error?.message ?? 'Erro ao buscar dados');
     }
   }
 }

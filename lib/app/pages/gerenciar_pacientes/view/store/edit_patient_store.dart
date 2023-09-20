@@ -19,7 +19,7 @@ class EditPatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao deletar paciente');
+      value = AppStateError(message:result.error?.message ?? 'Erro ao deletar paciente');
     }
   }
 
@@ -31,7 +31,7 @@ class EditPatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao atualizar dados do paciente');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao atualizar dados do paciente');
     }
   }
 
@@ -43,7 +43,7 @@ class EditPatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao adicionar paciente');
+      value = AppStateError(message:result.error?.message ?? 'Erro ao adicionar paciente');
     }
   }
 }

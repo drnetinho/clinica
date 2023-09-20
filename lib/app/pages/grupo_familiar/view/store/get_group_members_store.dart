@@ -23,7 +23,7 @@ class GetGroupMembersStore extends ValueNotifier<AppState> {
         value = AppStateSuccess(data: result.members);
       }
       if (result.error.exists) {
-        value = AppStateError(message: 'Erro ao buscar membros do grupo');
+        value = AppStateError(message:result.error?.message ?? 'Erro ao buscar membros do grupo');
       }
     }
   }

@@ -31,6 +31,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);
+    } catch (e) {
+      return (error: UndefiniedError(), patients: null);
     }
   }
 
@@ -42,6 +44,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -53,6 +57,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 
@@ -64,9 +70,8 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
-  
-
-
 }

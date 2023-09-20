@@ -18,7 +18,7 @@ class GetGroupsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.groups);
     }
     if (result.error.exists) {
-      value = AppStateError(message: 'Erro ao buscar grupos');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao buscar grupos');
     }
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
 import '../../../../../di/get_it.dart';
@@ -56,41 +58,75 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 20, right: 20),
-                  child: SizedBox(
-                    height: 30,
-                    width: 100,
-                    child: EditarButton(
-                      isEditing: true,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) {
-                            return AppDialog(
-                              title: 'Deseja realmente salvar as alterações?',
-                              firstButtonText: 'Cancelar',
-                              secondButtonText: 'Salvar',
-                              firstButtonIcon: Icons.cancel,
-                              secondButtonIcon: Icons.check,
-                              store: widget.editPixStore,
-                              onPressedSecond: () {
-                                if (form.isValid) {
-                                  widget.editPixStore.updatePix(pix: controller.updatePix());
-                                } else {
-                                  //TODO - ARTUR IMPLEMENTAR MIXN DE ERROR
-                                }
-                              },
-                              actionOnSuccess: () {
-                                widget.formasPagamentoController.editPix.value = false;
-                                controller.resetValues();
-                                widget.getPixStore.getPix();
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          widget.formasPagamentoController.editPix.value = false;
+                          controller.resetValues();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: context.colorsApp.dartWhite,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            side: BorderSide(
+                              color: context.colorsApp.dartWhite,
+                            ),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(Icons.close, color: context.colorsApp.blackColor, size: 16),
+                            const SizedBox(width: 6),
+                            Text(
+                              'Cancelar',
+                              style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                fontSize: 12,
+                                color: context.colorsApp.blackColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      SizedBox(
+                        height: 30,
+                        width: 100,
+                        child: EditarButton(
+                          isEditing: true,
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AppDialog(
+                                  title: 'Deseja realmente salvar as alterações?',
+                                  firstButtonText: 'Cancelar',
+                                  secondButtonText: 'Salvar',
+                                  firstButtonIcon: Icons.cancel,
+                                  secondButtonIcon: Icons.check,
+                                  store: widget.editPixStore,
+                                  onPressedSecond: () {
+                                    if (form.isValid) {
+                                      widget.editPixStore.updatePix(pix: controller.updatePix());
+                                    } else {
+                                      //TODO - ARTUR IMPLEMENTAR MIXN DE ERROR
+                                    }
+                                  },
+                                  actionOnSuccess: () {
+                                    widget.formasPagamentoController.editPix.value = false;
+                                    controller.resetValues();
+                                    widget.getPixStore.getPix();
+                                  },
+                                );
                               },
                             );
-                          },
-                        );
 
-                        widget.formasPagamentoController.editPix.value = false;
-                      },
-                    ),
+                            widget.formasPagamentoController.editPix.value = false;
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Padding(

@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: context.colorsApp.whiteColor,
       body: Padding(
-        padding: const EdgeInsets.only(top: 40.0, left: 80, right: 80, bottom: 40),
+        padding: const EdgeInsets.only(top: 30.0, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -42,11 +42,9 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const AppBarWidget(),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 16.0),
-                      child: Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(
                       children: [
                         CardCategoriasWidget(
@@ -66,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    // SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(
                       children: [
                         CardCategoriasWidget(
@@ -95,26 +93,26 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const EscalaMedica(),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 16.0),
-                          child:
-                              Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                        ),
+                        Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                         Column(
                           children: [
                             CardCategoriasWidget(
+                              background: context.colorsApp.dartMedium,
                               width: 400,
                               icon: Icons.person,
                               title: 'Formas de Pagamento',
                               subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
                               onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
                             ),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                             CardCategoriasWidget(
+                              background: context.colorsApp.dartMedium,
                               width: 400,
                               icon: Icons.person,
                               title: 'Relatórios',

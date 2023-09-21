@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
@@ -15,8 +16,8 @@ class EscalaMedica extends StatelessWidget {
 
   double getwidth(BuildContext context) {
     // A largura nao pode ser menor que 400
-    if (MediaQuery.of(context).size.width * 0.4 < 400) {
-      return 600;
+    if (MediaQuery.of(context).size.width * 0.2 < 400) {
+      return 400;
     } else {
       return MediaQuery.of(context).size.width * 0.3;
     }
@@ -24,7 +25,7 @@ class EscalaMedica extends StatelessWidget {
 
   double getheight(BuildContext context) {
     // A altura nao pode ser menor que 200
-    if (MediaQuery.of(context).size.height * 0.2 < 250) {
+    if (MediaQuery.of(context).size.height * 0.2 < 200) {
       return 250;
     } else {
       return MediaQuery.of(context).size.height * 0.22;
@@ -44,7 +45,7 @@ class EscalaMedica extends StatelessWidget {
           const SizedBox(height: 20),
           SizedBox(
             child: PhysicalModel(
-              color: ColorsApp.instance.backgroundCardColor,
+              color: ColorsApp.instance.dartMedium,
               borderRadius: BorderRadius.circular(20),
               elevation: 5,
               child: Column(
@@ -56,32 +57,45 @@ class EscalaMedica extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const CircleAvatar(),
-                        const SizedBox(width: 50),
+                        const SizedBox(width: 20),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Nome',
-                              style: context.textStyles.textPoppinsBold
+                              'Dr. Francisco José',
+                              style: context.textStyles.textPoppinsSemiBold
                                   .copyWith(color: context.colorsApp.blackColor)
-                                  .copyWith(fontSize: 12),
+                                  .copyWith(fontSize: 18),
                             ),
                             Text(
-                              'Especialidade',
-                              style: context.textStyles.textPoppinsBold
+                              'Clínico Geral',
+                              style: context.textStyles.textPoppinsRegular
                                   .copyWith(color: context.colorsApp.greyColor2)
-                                  .copyWith(fontSize: 10),
+                                  .copyWith(fontSize: 16),
                             ),
                           ],
                         ),
-                        const SizedBox(width: 50),
+                        const Spacer(),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(20),
                             ),
                           ),
                           onPressed: () {},
-                          child: const Row(children: [Icon(Icons.edit), Text('Editar')]),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.edit, size: 14),
+                              const SizedBox(width: 5),
+                              Text(
+                                'Editar',
+                                style: context.textStyles.textPoppinsSemiBold
+                                    .copyWith(color: context.colorsApp.whiteColor)
+                                    .copyWith(fontSize: 12),
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -89,7 +103,7 @@ class EscalaMedica extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: context.colorsApp.bottonBarColor,
+                      color: context.colorsApp.dartWhite,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(

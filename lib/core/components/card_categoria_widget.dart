@@ -22,15 +22,24 @@ class CardCategoriasWidget extends StatelessWidget {
     this.background,
   });
 
+  double getHeigth(BuildContext context) {
+    // A altura nao pode ser menor que 150
+    if (MediaQuery.of(context).size.height * 0.17 < 150) {
+      return 150;
+    } else {
+      return MediaQuery.of(context).size.height * 0.17;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
         width: width ?? MediaQuery.of(context).size.width * 0.25,
-        height: height ?? MediaQuery.of(context).size.height * 0.2,
+        height: height ?? getHeigth(context),
         child: PhysicalModel(
-          color: background ?? ColorsApp.instance.backgroundCardColor,
+          color: background ?? ColorsApp.instance.dartWhite,
           borderRadius: BorderRadius.circular(20),
           shape: BoxShape.rectangle,
           elevation: 3,
@@ -38,6 +47,7 @@ class CardCategoriasWidget extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   children: [

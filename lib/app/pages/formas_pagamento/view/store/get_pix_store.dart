@@ -17,7 +17,7 @@ class GetPixStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: result.pix!);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao buscar dados');
+      value = AppStateError(message: 'Erro ao buscar dados');
     }
   }
 }

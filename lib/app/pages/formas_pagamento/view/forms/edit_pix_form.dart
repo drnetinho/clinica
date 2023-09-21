@@ -1,6 +1,6 @@
 import 'package:formz/formz.dart';
 
-import '../../../gerenciar_pacientes/view/forms/inputs.dart';
+import '../../../../../common/form/inputs.dart';
 
 class EditPixForm with FormzMixin {
   final StringInput name;

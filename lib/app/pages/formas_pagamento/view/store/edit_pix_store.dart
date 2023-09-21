@@ -19,7 +19,7 @@ class EditPixStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(error: 'Erro ao atualizar dados do pix');
+      value = AppStateError(message: 'Erro ao atualizar dados do pix');
     }
   }
 

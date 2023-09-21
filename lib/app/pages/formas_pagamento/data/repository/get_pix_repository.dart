@@ -27,12 +27,12 @@ class GetPixRepositoryImpl implements GetPixRepository {
   @override
   GetPixOrError getPix() async {
     try {
-      final response = await FirestoreService.fire.collection(FirestoreCollections.pix).get();
+      final response = await FirestoreService.fire.collection(Collections.pix).get();
 
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
 
       final data = docs.map((e) => PixModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor);
+      Logger.prettyPrint(data, Logger.greenColor, Collections.pix);
 
       return (error: null, pix: data.first);
     } on FirebaseException {
@@ -43,8 +43,8 @@ class GetPixRepositoryImpl implements GetPixRepository {
   @override
   EditPixOrError updatePix({required PixModel pix}) async {
     try {
-      await FirestoreService.fire.collection(FirestoreCollections.pix).doc(pix.id).update(pix.toJson());
-      Logger.prettyPrint(pix, Logger.greenColor);
+      await FirestoreService.fire.collection(Collections.pix).doc(pix.id).update(pix.toJson());
+      Logger.prettyPrint(pix, Logger.greenColor,Collections.pix);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);

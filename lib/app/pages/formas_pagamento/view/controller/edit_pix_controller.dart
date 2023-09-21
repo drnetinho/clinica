@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../gerenciar_pacientes/view/forms/inputs.dart';
+import '../../../../../common/form/inputs.dart';
 import '../../domain/model/pix_model.dart';
 import '../forms/edit_pix_form.dart';
 

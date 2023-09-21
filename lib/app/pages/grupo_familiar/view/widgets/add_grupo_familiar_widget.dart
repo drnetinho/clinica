@@ -77,6 +77,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
     if (generateGroupStore.value.isSuccess) {
       resetForm();
       widget.groupStore.getGroups();
+      showSuccess(context: context, text: 'Grupo criado com sucesso!');
     }
     if (generateGroupStore.value.isError) {
       final message = generateGroupStore.value.error.message;
@@ -233,6 +234,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
 
   void resetForm() {
     groupsController.toogleAddNewPatient = false;
+    groupsController.groupSelected.value = null;
     addGroupController.resetValues();
   }
 }

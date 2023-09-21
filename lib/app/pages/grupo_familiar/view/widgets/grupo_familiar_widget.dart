@@ -82,6 +82,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
   @override
   void didUpdateWidget(covariant GrupoFamiliarWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
+    widget.membersStore.getGroupMembers(ids: widget.group.members);
     getPayments();
   }
 
@@ -111,9 +112,12 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
   void editGroupStoreListener() {
     if (editGroupStore.value.isSuccess) {
       editMode.value = false;
-      final ids = editGroupController.members.value.map((e) => e.id).toList();
-      widget.membersStore.getGroupMembers(ids: ids);
+      // Todo Não remover!!!
+      // final ids = editGroupController.members.value.map((e) => e.id).toList();
+      // widget.membersStore.getGroupMembers(ids: ids);
+      groupsController.groupSelected.value = null;
       widget.groupStore.getGroups();
+      showSuccess(context: context, text: 'Grupo editado com sucesso!');
     }
 
     if (editGroupStore.value.isError) {

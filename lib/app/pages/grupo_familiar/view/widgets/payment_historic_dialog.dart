@@ -105,6 +105,7 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                         secondButtonIcon: Icons.check,
                                         thirdButtonIcon: Icons.create,
                                         store: editPaymentsStore,
+                                        width: 600,
                                         onPressedSecond: () => editPaymentsStore.confirmPending(
                                           payment: payment,
                                           generateNext: false,

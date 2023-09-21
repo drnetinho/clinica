@@ -9,17 +9,17 @@ class AppBarWidget extends StatelessWidget {
 
   double getwidth(BuildContext context) {
     // A largura nao pode ser menor que 600
-    if (MediaQuery.of(context).size.width * 0.4 < 600) {
-      return 600;
+    if (MediaQuery.of(context).size.width * 0.3 < 800) {
+      return 800;
     } else {
-      return MediaQuery.of(context).size.width * 0.4;
+      return MediaQuery.of(context).size.width * 0.3;
     }
   }
 
   double getheight(BuildContext context) {
     // A altura nao pode ser menor que 250
-    if (MediaQuery.of(context).size.height * 0.2 < 200) {
-      return 250;
+    if (MediaQuery.of(context).size.height * 0.2 < 350) {
+      return 350;
     } else {
       return MediaQuery.of(context).size.height * 0.22;
     }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
@@ -14,19 +13,10 @@ class EscalaMedica extends StatelessWidget {
     this.background,
   });
 
-  double getwidth(BuildContext context) {
-    // A largura nao pode ser menor que 400
-    if (MediaQuery.of(context).size.width * 0.2 < 400) {
-      return 400;
-    } else {
-      return MediaQuery.of(context).size.width * 0.3;
-    }
-  }
-
   double getheight(BuildContext context) {
     // A altura nao pode ser menor que 200
-    if (MediaQuery.of(context).size.height * 0.2 < 200) {
-      return 250;
+    if (MediaQuery.of(context).size.height * 0.2 < 350) {
+      return 350;
     } else {
       return MediaQuery.of(context).size.height * 0.22;
     }
@@ -35,7 +25,7 @@ class EscalaMedica extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width ?? getwidth(context),
+      width: width ?? 400,
       height: height ?? getheight(context),
       child: Column(
         children: [

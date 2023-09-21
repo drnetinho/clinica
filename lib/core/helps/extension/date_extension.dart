@@ -83,4 +83,6 @@ extension DateTimeExtension on DateTime {
     final format = DateFormat('HH:mm');
     return format.format(toLocal());
   }
+
+  String get formatted => DateFormat('dd/MM/yyyy').format(this);
 }

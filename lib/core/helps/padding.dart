@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Padd {
   static EdgeInsets sv(double value) => EdgeInsets.symmetric(vertical: value);
+  static EdgeInsets all(double value) => EdgeInsets.all(value);
   static EdgeInsets sh(double value) => EdgeInsets.symmetric(horizontal: value);
 
   static EdgeInsets s({required double v, required double h}) {

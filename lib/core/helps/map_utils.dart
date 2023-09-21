@@ -4,8 +4,7 @@ Map<String, dynamic> addMapId(Map<String, dynamic> map, String id) {
   return data;
 }
 
-Map<String, dynamic> addMapKey(
-    Map<String, dynamic> map, String value, String key) {
+Map<String, dynamic> addMapKey(Map<String, dynamic> map, String value, String key) {
   final data = map;
   data.addAll({key: value});
   return data;
@@ -20,4 +19,8 @@ Map<String, dynamic> refreshMapKey({
   data.remove(key);
   data.addAll({key: newValue});
   return data;
+}
+
+bool mapContainsEmptyKey(Map<String, dynamic> data, String key) {
+  return data.containsKey(key) && data[key].isEmpty;
 }

@@ -232,10 +232,12 @@ class _HistoricoPageState extends State<HistoricoPage> {
                           ),
                         ),
                       ),
-                      const Positioned(
+                      Positioned(
                         top: 25,
                         right: 20,
-                        child: DropButton(),
+                        child: DropButton(
+                          selectedValue: (p0) {},
+                        ),
                       )
                     ],
                   ),

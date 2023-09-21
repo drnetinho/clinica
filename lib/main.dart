@@ -21,6 +21,7 @@ void main() async {
         ? dev.DefaultFirebaseOptions.currentPlatform
         : prd.DefaultFirebaseOptions.currentPlatform,
   );
+
   await configureDependencies();
 
   runApp(const ClispApp());

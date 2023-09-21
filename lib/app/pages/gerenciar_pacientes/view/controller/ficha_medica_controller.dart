@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/ficha_medica_form.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/inputs.dart';
+import 'package:netinhoappclinica/common/form/inputs.dart';
 import 'package:netinhoappclinica/common/model/address_model.dart';
+import 'package:netinhoappclinica/core/helps/actual_date.dart';
 
 @injectable
 class FichaMedicaController {
@@ -25,7 +26,9 @@ class FichaMedicaController {
   final ValueNotifier<List<String>> ilnesses = ValueNotifier([]);
   final ValueNotifier<String> selectedGender = ValueNotifier('');
   final ValueNotifier<bool> showIlnessField = ValueNotifier(false);
-  final ValueNotifier<PatientModel> patientEdited = ValueNotifier(const PatientModel.initial());
+  final ValueNotifier<PatientModel> patientEdited = ValueNotifier(PatientModel.initial(
+    createdAt: KCurrentDate,
+  ));
 
   set addIlness(String ilness) => ilnesses.value = [...ilnesses.value, ilness];
 
@@ -76,6 +79,7 @@ class FichaMedicaController {
         state: 'RN',
       ),
       previousIlnesses: ilnesses.value,
+      createdAt: KCurrentDate,
     );
     return patientEdited.value;
   }

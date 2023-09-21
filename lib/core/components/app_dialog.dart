@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:netinhoappclinica/common/state/app_state.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
@@ -12,25 +13,39 @@ import '../helps/spacing.dart';
 
 class AppDialog extends StatefulWidget {
   final String title;
+  final String? description;
   final String? firstButtonText;
   final IconData? firstButtonIcon;
   final IconData? secondButtonIcon;
+  final IconData? thirdButtonIcon;
+  final bool popOnSuccess;
   final String? secondButtonText;
+  final String? thirdButtonText;
   final VoidCallback? onPressedFirst;
   final VoidCallback? onPressedSecond;
+  final VoidCallback? onPressedThird;
   final VoidCallback? actionOnSuccess;
   final ValueListenable<AppState> store;
+  final double? width;
+  final double? height;
 
   const AppDialog({
     Key? key,
     required this.title,
+    this.popOnSuccess = true,
+    this.description,
+    this.width,
+    this.height,
     this.firstButtonText,
     this.firstButtonIcon,
     this.secondButtonIcon,
+    this.thirdButtonIcon,
     this.secondButtonText,
+    this.thirdButtonText,
     this.onPressedFirst,
-    this.actionOnSuccess,
     this.onPressedSecond,
+    this.onPressedThird,
+    this.actionOnSuccess,
     required this.store,
   }) : super(key: key);
 
@@ -44,9 +59,11 @@ class _AppDialogState extends State<AppDialog> {
     super.initState();
     widget.store.addListener(
       () {
-        if (widget.store.value is AppStateSuccess) {
+        if (widget.store.value.isSuccess) {
           widget.actionOnSuccess?.call();
-          context.pop();
+          if (widget.popOnSuccess) {
+            context.pop();
+          }
         }
       },
     );
@@ -63,8 +80,8 @@ class _AppDialogState extends State<AppDialog> {
                 color: context.colorsApp.whiteColor,
                 borderRadius: BorderRadius.circular(16),
               ),
-              height: 120,
-              width: 470,
+              height: widget.height ?? (widget.description != null ? 180 : 140),
+              width: widget.width ?? 470,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: switch (widget.store.value.widgetState) {
@@ -79,6 +96,13 @@ class _AppDialogState extends State<AppDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(widget.title, style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 16)),
+                        Spacing.m.verticalGap,
+                        if (widget.description != null) ...{
+                          Text(
+                            widget.description!,
+                            style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 12),
+                          ),
+                        },
                         Spacing.xm.verticalGap,
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -120,6 +144,29 @@ class _AppDialogState extends State<AppDialog> {
                                     const SizedBox(width: 4),
                                     Text(
                                       widget.secondButtonText!,
+                                      style: context.textStyles.textPoppinsSemiBold
+                                          .copyWith(color: context.colorsApp.whiteColor),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            },
+                            if (widget.thirdButtonText != null && widget.thirdButtonIcon != null) ...{
+                              Spacing.m.horizotalGap,
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: context.colorsApp.danger,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                ),
+                                onPressed: widget.onPressedThird,
+                                child: Row(
+                                  children: [
+                                    Icon(widget.thirdButtonIcon!, color: context.colorsApp.whiteColor),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      widget.thirdButtonText!,
                                       style: context.textStyles.textPoppinsSemiBold
                                           .copyWith(color: context.colorsApp.whiteColor),
                                     ),

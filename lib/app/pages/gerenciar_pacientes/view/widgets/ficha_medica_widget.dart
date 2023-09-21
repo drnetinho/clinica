@@ -74,441 +74,458 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: controller.form,
-        builder: (context, form, _) {
-          return ValueListenableBuilder(
-            valueListenable: editMode,
-            builder: (context, isEditing, _) {
-              final state = isEditing ? CrossFadeState.showSecond : CrossFadeState.showFirst;
-              return Scrollbar(
-                thumbVisibility: true,
-                controller: scrollController,
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * .8,
+      width: MediaQuery.of(context).size.width * .4,
+      child: PhysicalModel(
+        elevation: 10,
+        color: context.colorsApp.backgroundCardColor,
+        borderRadius: BorderRadius.circular(20),
+        child: ValueListenableBuilder(
+            valueListenable: controller.form,
+            builder: (context, form, _) {
+              return ValueListenableBuilder(
+                valueListenable: editMode,
+                builder: (context, isEditing, _) {
+                  final state = isEditing ? CrossFadeState.showSecond : CrossFadeState.showFirst;
+                  return Scrollbar(
+                    thumbVisibility: true,
+                    controller: scrollController,
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Ficha Médica', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30)),
-                            const Spacer(),
-                            Visibility(
-                              visible: isEditing,
-                              child: ExcluirButton(
-                                discardMode: true,
-                                onPressed: () {
-                                  editMode.value = false;
-                                  controller.resetValues();
-                                  controller.setupConfig(widget.patient);
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            Visibility(
-                              visible: !isEditing,
-                              child: ExcluirButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AppDialog(
-                                        title: 'Deseja Realmente excluir paciente?',
-                                        firstButtonText: 'Cancelar',
-                                        secondButtonText: 'Excluir',
-                                        firstButtonIcon: Icons.close,
-                                        secondButtonIcon: Icons.delete_outline,
-                                        store: widget.editStore,
-                                        onPressedSecond: () => widget.editStore.deletePatient(id: widget.patient.id),
-                                        actionOnSuccess: () => widget.manageStore.getPatients(),
-                                      );
+                            Row(
+                              children: [
+                                Text('Ficha Médica',
+                                    style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30)),
+                                const Spacer(),
+                                Visibility(
+                                  visible: isEditing,
+                                  child: ExcluirButton(
+                                    discardMode: true,
+                                    onPressed: () {
+                                      editMode.value = false;
+                                      controller.resetValues();
+                                      controller.setupConfig(widget.patient);
                                     },
-                                  );
-                                },
-                              ),
-                            ),
-                            const SizedBox(width: 10),
-                            EditarButton(
-                              isEditing: editMode.value,
-                              isLoading: widget.editStore.value.isLoading,
-                              onPressed: () {
-                                if (isEditing) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AppDialog(
-                                        title: 'Deseja realmente salvar as alterações?',
-                                        firstButtonText: 'Cancelar',
-                                        secondButtonText: 'Salvar',
-                                        firstButtonIcon: Icons.cancel,
-                                        secondButtonIcon: Icons.check,
-                                        store: widget.editStore,
-                                        onPressedSecond: () => widget.editStore.updatePatient(
-                                          patient: controller.updatePatient(),
-                                        ),
-                                        actionOnSuccess: () {
-                                          widget.manageStore.getPatients();
-                                          editMode.value = false;
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Visibility(
+                                  visible: !isEditing,
+                                  child: ExcluirButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AppDialog(
+                                            title: 'Deseja Realmente excluir paciente?',
+                                            firstButtonText: 'Cancelar',
+                                            secondButtonText: 'Excluir',
+                                            firstButtonIcon: Icons.close,
+                                            secondButtonIcon: Icons.delete_outline,
+                                            store: widget.editStore,
+                                            onPressedSecond: () =>
+                                                widget.editStore.deletePatient(id: widget.patient.id),
+                                            actionOnSuccess: () => widget.manageStore.getPatients(),
+                                          );
                                         },
                                       );
                                     },
-                                  );
-                                } else {
-                                  editMode.value = true;
-                                }
-                              },
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 100),
-                        Text(
-                          'Dados Pessoais',
-                          style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(fontSize: 22, color: context.colorsApp.success),
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Nome:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.name, style: defaultGreyStyle),
-                                  secondChild: AppFormField(
-                                    controller: controller.nameCt,
-                                    isValid: form.name.isValid,
-                                    validator: (_) => form.name.error?.exists,
-                                    errorText: form.name.displayError?.message,
                                   ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
                                 ),
-                                const SizedBox(height: 10),
-                                Row(children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('Idade:', style: defaultBlackStyle),
-                                      Spacing.s.verticalGap,
-                                      AnimatedCrossFade(
-                                        firstChild: Text('${widget.patient.age} Anos', style: defaultGreyStyle),
-                                        secondChild: AppFormField(
-                                          maxWidth: 50,
-                                          controller: controller.ageCt,
-                                          isValid: form.age.isValid,
-                                          validator: (_) => form.age.error?.exists,
-                                          errorText: form.age.displayError?.message,
-                                          inputFormatters: [AppFormatters.onlyNumber],
-                                        ),
-                                        crossFadeState: state,
-                                        duration: animationDuration,
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text('CPF:', style: defaultBlackStyle),
-                                      Spacing.s.verticalGap,
-                                      //TODO ARTUR CPF AJUSTAR
-                                      AnimatedCrossFade(
-                                        firstChild: Text('000.000.000-00', style: defaultGreyStyle),
-                                        secondChild: AppFormField(
-                                          maxWidth: 140,
-                                          controller: controller.ageCt,
-                                          isValid: form.age.isValid,
-                                          validator: (_) => form.age.error?.exists,
-                                          errorText: form.age.displayError?.message,
-                                          inputFormatters: [AppFormatters.onlyNumber],
-                                        ),
-                                        // secondChild: AppFormField(
-                                        //   controller: controller.cpfCt,
-                                        //   isValid: form.cpf.isValid,
-                                        //   validator: (_) => form.cpf.error?.exists,
-                                        //   errorText: form.cpf.displayError?.message,
-                                        //   inputFormatters: [
-                                        //     AppFormatters.cpfInputFormatter,
-                                        //   ],
-                                        // ),
-                                        crossFadeState: state,
-                                        duration: animationDuration,
-                                      ),
-                                    ],
-                                  ),
-                                ]),
+                                const SizedBox(width: 10),
+                                EditarButton(
+                                  isEditing: editMode.value,
+                                  isLoading: widget.editStore.value.isLoading,
+                                  onPressed: () {
+                                    if (isEditing) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AppDialog(
+                                            title: 'Deseja realmente salvar as alterações?',
+                                            firstButtonText: 'Cancelar',
+                                            secondButtonText: 'Salvar',
+                                            firstButtonIcon: Icons.cancel,
+                                            secondButtonIcon: Icons.check,
+                                            store: widget.editStore,
+                                            onPressedSecond: () => widget.editStore.updatePatient(
+                                              patient: controller.updatePatient(),
+                                            ),
+                                            actionOnSuccess: () {
+                                              widget.manageStore.getPatients();
+                                              editMode.value = false;
+                                            },
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      editMode.value = true;
+                                    }
+                                  },
+                                ),
                               ],
                             ),
-                            const Spacer(),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            const SizedBox(width: 100),
+                            Text(
+                              'Dados Pessoais',
+                              style: context.textStyles.textPoppinsSemiBold
+                                  .copyWith(fontSize: 22, color: context.colorsApp.success),
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
-                                Text('Sexo:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.gender, style: defaultGreyStyle),
-                                  secondChild: SizedBox(
-                                    height: AppFormField.height,
-                                    width: AppFormField.width,
-                                    child: ValueListenableBuilder(
-                                      valueListenable: controller.selectedGender,
-                                      builder: (context, gender, child) {
-                                        return DropdownButtonFormField<String>(
-                                          value: gender.isNotEmpty ? gender : null,
-                                          hint: const Text('Selecione uma opção'),
-                                          isExpanded: true,
-                                          items: gerenciarController.genderList
-                                              .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
-                                              .toList(),
-                                          onChanged: (v) => v != null ? controller.setGender = v : null,
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
-                                ),
-                                const SizedBox(height: 10),
                                 Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Contato:', style: defaultBlackStyle),
+                                    Text('Nome:', style: defaultBlackStyle),
                                     Spacing.s.verticalGap,
                                     AnimatedCrossFade(
-                                      firstChild: Text(widget.patient.phone, style: defaultGreyStyle),
+                                      firstChild: Text(widget.patient.name, style: defaultGreyStyle),
                                       secondChild: AppFormField(
-                                        controller: controller.phoneCt,
-                                        isValid: form.phone.isValid,
-                                        validator: (_) => form.phone.error?.exists,
-                                        errorText: form.phone.displayError?.message,
-                                        inputFormatters: [
-                                          AppFormatters.phoneInputFormatter,
-                                        ],
+                                        controller: controller.nameCt,
+                                        isValid: form.name.isValid,
+                                        validator: (_) => form.name.error?.exists,
+                                        errorText: form.name.displayError?.message,
                                       ),
                                       crossFadeState: state,
                                       duration: animationDuration,
                                     ),
+                                    const SizedBox(height: 10),
+                                    Row(children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Idade:', style: defaultBlackStyle),
+                                          Spacing.s.verticalGap,
+                                          AnimatedCrossFade(
+                                            firstChild: Text('${widget.patient.age} Anos', style: defaultGreyStyle),
+                                            secondChild: AppFormField(
+                                              maxWidth: 50,
+                                              controller: controller.ageCt,
+                                              isValid: form.age.isValid,
+                                              validator: (_) => form.age.error?.exists,
+                                              errorText: form.age.displayError?.message,
+                                              inputFormatters: [AppFormatters.onlyNumber],
+                                            ),
+                                            crossFadeState: state,
+                                            duration: animationDuration,
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('CPF:', style: defaultBlackStyle),
+                                          Spacing.s.verticalGap,
+                                          //TODO ARTUR CPF AJUSTAR
+                                          AnimatedCrossFade(
+                                            firstChild: Text('000.000.000-00', style: defaultGreyStyle),
+                                            secondChild: AppFormField(
+                                              maxWidth: 140,
+                                              controller: controller.ageCt,
+                                              isValid: form.age.isValid,
+                                              validator: (_) => form.age.error?.exists,
+                                              errorText: form.age.displayError?.message,
+                                              inputFormatters: [AppFormatters.onlyNumber],
+                                            ),
+                                            // secondChild: AppFormField(
+                                            //   controller: controller.cpfCt,
+                                            //   isValid: form.cpf.isValid,
+                                            //   validator: (_) => form.cpf.error?.exists,
+                                            //   errorText: form.cpf.displayError?.message,
+                                            //   inputFormatters: [
+                                            //     AppFormatters.cpfInputFormatter,
+                                            //   ],
+                                            // ),
+                                            crossFadeState: state,
+                                            duration: animationDuration,
+                                          ),
+                                        ],
+                                      ),
+                                    ]),
                                   ],
-                                )
-                              ],
-                            ),
-                            const Spacer(),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Text(
-                          'Endereço',
-                          style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(fontSize: 22, color: context.colorsApp.success),
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Text('Cidade:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.address?.city ?? '', style: defaultGreyStyle),
-                                  secondChild: AppFormField(
-                                    controller: controller.cityCt,
-                                    isValid: form.city.isValid,
-                                    validator: (_) => form.city.error?.exists,
-                                    errorText: form.city.displayError?.message,
-                                  ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
                                 ),
-                                const SizedBox(height: 10),
-                                Text('Bairro:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.address?.neighborhood ?? '', style: defaultGreyStyle),
-                                  secondChild: AppFormField(
-                                    controller: controller.neighCt,
-                                    isValid: form.neighborhood.isValid,
-                                    validator: (_) => form.neighborhood.error?.exists,
-                                    errorText: form.neighborhood.displayError?.message,
-                                  ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
-                                ),
-                                const SizedBox(height: 20),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height * .2,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Doenças Crônicas',
-                                        style: context.textStyles.textPoppinsSemiBold
-                                            .copyWith(fontSize: 22, color: context.colorsApp.success),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      ValueListenableBuilder(
-                                        valueListenable: controller.ilnesses,
-                                        builder: (context, value, _) {
-                                          if (value.isEmpty) {
-                                            return Text(
-                                              'Nenhum registro',
-                                              style: context.textStyles.textPoppinsMedium
-                                                  .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                                            );
-                                          }
-                                          return ListView.builder(
-                                            itemCount: value.length,
-                                            shrinkWrap: true,
-                                            itemBuilder: (context, index) {
-                                              final illness = value[index];
-
-                                              return Row(
-                                                children: [
-                                                  Text(
-                                                    '• $illness',
-                                                    style: context.textStyles.textPoppinsMedium
-                                                        .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
-                                                  ),
-                                                  Spacing.s.horizotalGap,
-                                                  Visibility(
-                                                    visible: isEditing,
-                                                    child: GestureDetector(
-                                                      onTap: () => controller.removeIlness = illness,
-                                                      child: const Icon(Icons.close),
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                      Visibility(
-                                        visible: isEditing,
+                                const Spacer(),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Sexo:', style: defaultBlackStyle),
+                                    Spacing.s.verticalGap,
+                                    AnimatedCrossFade(
+                                      firstChild: Text(widget.patient.gender, style: defaultGreyStyle),
+                                      secondChild: SizedBox(
+                                        height: AppFormField.height,
+                                        width: AppFormField.width,
                                         child: ValueListenableBuilder(
-                                          valueListenable: controller.showIlnessField,
-                                          builder: (context, showField, _) {
-                                            return Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                const SizedBox(height: 10),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    controller.showIlnessField.value = true;
-                                                    scrollController.animateTo(
-                                                      scrollController.position.maxScrollExtent,
-                                                      duration: const Duration(milliseconds: 300),
-                                                      curve: Curves.easeOut,
-                                                    );
-                                                  },
-                                                  child: Text(
-                                                    'Adicionar Doença',
-                                                    style: context.textStyles.textPoppinsMedium
-                                                        .copyWith(fontSize: 16, color: context.colorsApp.success),
-                                                  ),
-                                                ),
-                                                if (showField)
-                                                  AppFormField(
-                                                    controller: controller.ilnessCt,
-                                                    onSubmit: (v) {
-                                                      if (form.ilness.isValid) {
-                                                        controller.onSubmitIlness(v);
-                                                      }
-                                                    },
-                                                    isValid: form.ilness.isValid,
-                                                    validator: (_) => form.ilness.error?.exists,
-                                                    errorText: form.ilness.displayError?.message,
-                                                  ),
-                                              ],
+                                          valueListenable: controller.selectedGender,
+                                          builder: (context, gender, child) {
+                                            return DropdownButtonFormField<String>(
+                                              value: gender.isNotEmpty ? gender : null,
+                                              hint: const Text('Selecione uma opção'),
+                                              isExpanded: true,
+                                              items: gerenciarController.genderList
+                                                  .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+                                                  .toList(),
+                                              onChanged: (v) => v != null ? controller.setGender = v : null,
                                             );
                                           },
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const Spacer(),
-                            Visibility(
-                              visible: !isEditing,
-                              child: const Spacer(),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Rua:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.address?.street ?? '', style: defaultGreyStyle),
-                                  secondChild: AppFormField(
-                                    controller: controller.streetCt,
-                                    isValid: form.street.isValid,
-                                    validator: (_) => form.street.error?.exists,
-                                    errorText: form.street.displayError?.message,
-                                  ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
-                                ),
-                                const SizedBox(height: 10),
-                                Text('Número:', style: defaultBlackStyle),
-                                Spacing.s.verticalGap,
-                                AnimatedCrossFade(
-                                  firstChild: Text(widget.patient.address?.number ?? '', style: defaultGreyStyle),
-                                  secondChild: AppFormField(
-                                    controller: controller.numberCt,
-                                    isValid: form.number.isValid,
-                                    validator: (_) => form.number.error?.exists,
-                                    errorText: form.number.displayError?.message,
-                                    inputFormatters: [AppFormatters.onlyNumber],
-                                  ),
-                                  crossFadeState: state,
-                                  duration: animationDuration,
-                                ),
-                                const SizedBox(height: 20),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Grupo Familiar',
-                                      style: context.textStyles.textPoppinsSemiBold
-                                          .copyWith(fontSize: 22, color: context.colorsApp.success),
+                                      crossFadeState: state,
+                                      duration: animationDuration,
                                     ),
                                     const SizedBox(height: 10),
-                                    Text(
-                                      widget.patient.familyGroup,
-                                      style: context.textStyles.textPoppinsMedium
-                                          .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('Contato:', style: defaultBlackStyle),
+                                        Spacing.s.verticalGap,
+                                        AnimatedCrossFade(
+                                          firstChild: Text(widget.patient.phone, style: defaultGreyStyle),
+                                          secondChild: AppFormField(
+                                            controller: controller.phoneCt,
+                                            isValid: form.phone.isValid,
+                                            validator: (_) => form.phone.error?.exists,
+                                            errorText: form.phone.displayError?.message,
+                                            inputFormatters: [
+                                              AppFormatters.phoneInputFormatter,
+                                            ],
+                                          ),
+                                          crossFadeState: state,
+                                          duration: animationDuration,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                const Spacer(),
+                              ],
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Endereço',
+                              style: context.textStyles.textPoppinsSemiBold
+                                  .copyWith(fontSize: 22, color: context.colorsApp.success),
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text('Cidade:', style: defaultBlackStyle),
+                                    Spacing.s.verticalGap,
+                                    AnimatedCrossFade(
+                                      firstChild: Text(widget.patient.address?.city ?? '', style: defaultGreyStyle),
+                                      secondChild: AppFormField(
+                                        controller: controller.cityCt,
+                                        isValid: form.city.isValid,
+                                        validator: (_) => form.city.error?.exists,
+                                        errorText: form.city.displayError?.message,
+                                      ),
+                                      crossFadeState: state,
+                                      duration: animationDuration,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text('Bairro:', style: defaultBlackStyle),
+                                    Spacing.s.verticalGap,
+                                    AnimatedCrossFade(
+                                      firstChild:
+                                          Text(widget.patient.address?.neighborhood ?? '', style: defaultGreyStyle),
+                                      secondChild: AppFormField(
+                                        controller: controller.neighCt,
+                                        isValid: form.neighborhood.isValid,
+                                        validator: (_) => form.neighborhood.error?.exists,
+                                        errorText: form.neighborhood.displayError?.message,
+                                      ),
+                                      crossFadeState: state,
+                                      duration: animationDuration,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    SizedBox(
+                                      height: MediaQuery.of(context).size.height * .3,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Doenças Crônicas',
+                                            style: context.textStyles.textPoppinsSemiBold
+                                                .copyWith(fontSize: 22, color: context.colorsApp.success),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          Container(
+                                            color: context.colorsApp.primary,
+                                            height: 100,
+                                            width: 200,
+                                            child: ValueListenableBuilder(
+                                              valueListenable: controller.ilnesses,
+                                              builder: (context, value, _) {
+                                                if (value.isEmpty) {
+                                                  return Text(
+                                                    'Nenhum registro',
+                                                    style: context.textStyles.textPoppinsMedium
+                                                        .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                                  );
+                                                }
+                                                return ListView.builder(
+                                                  itemCount: value.length,
+                                                  // shrinkWrap: true,
+                                                  itemBuilder: (context, index) {
+                                                    final illness = value[index];
+
+                                                    return Row(
+                                                      children: [
+                                                        Text(
+                                                          '• $illness',
+                                                          style: context.textStyles.textPoppinsMedium.copyWith(
+                                                              fontSize: 14, color: context.colorsApp.greyColor),
+                                                        ),
+                                                        Spacing.s.horizotalGap,
+                                                        Visibility(
+                                                          visible: isEditing,
+                                                          child: GestureDetector(
+                                                            onTap: () => controller.removeIlness = illness,
+                                                            child: const Icon(Icons.close),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          if (isEditing)
+                                            ValueListenableBuilder(
+                                              valueListenable: controller.showIlnessField,
+                                              builder: (context, showField, _) {
+                                                return Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    const SizedBox(height: 10),
+                                                    GestureDetector(
+                                                      onTap: () {
+                                                        controller.showIlnessField.value = true;
+                                                        scrollController.animateTo(
+                                                          scrollController.position.maxScrollExtent,
+                                                          duration: const Duration(milliseconds: 300),
+                                                          curve: Curves.easeOut,
+                                                        );
+                                                      },
+                                                      child: Text(
+                                                        'Adicionar Doença',
+                                                        style: context.textStyles.textPoppinsMedium
+                                                            .copyWith(fontSize: 16, color: context.colorsApp.success),
+                                                      ),
+                                                    ),
+                                                    Visibility(
+                                                      visible: showField,
+                                                      child: AppFormField(
+                                                        controller: controller.ilnessCt,
+                                                        onSubmit: (v) {
+                                                          if (form.ilness.isValid) {
+                                                            controller.onSubmitIlness(v);
+                                                          }
+                                                        },
+                                                        isValid: form.ilness.isValid,
+                                                        validator: (_) => form.ilness.error?.exists,
+                                                        errorText: form.ilness.displayError?.message,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
+                                const Spacer(),
+                                Visibility(
+                                  visible: !isEditing,
+                                  child: const Spacer(),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Rua:', style: defaultBlackStyle),
+                                    Spacing.s.verticalGap,
+                                    AnimatedCrossFade(
+                                      firstChild: Text(widget.patient.address?.street ?? '', style: defaultGreyStyle),
+                                      secondChild: AppFormField(
+                                        controller: controller.streetCt,
+                                        isValid: form.street.isValid,
+                                        validator: (_) => form.street.error?.exists,
+                                        errorText: form.street.displayError?.message,
+                                      ),
+                                      crossFadeState: state,
+                                      duration: animationDuration,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text('Número:', style: defaultBlackStyle),
+                                    Spacing.s.verticalGap,
+                                    AnimatedCrossFade(
+                                      firstChild: Text(widget.patient.address?.number ?? '', style: defaultGreyStyle),
+                                      secondChild: AppFormField(
+                                        controller: controller.numberCt,
+                                        isValid: form.number.isValid,
+                                        validator: (_) => form.number.error?.exists,
+                                        errorText: form.number.displayError?.message,
+                                        inputFormatters: [AppFormatters.onlyNumber],
+                                      ),
+                                      crossFadeState: state,
+                                      duration: animationDuration,
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Grupo Familiar',
+                                          style: context.textStyles.textPoppinsSemiBold
+                                              .copyWith(fontSize: 22, color: context.colorsApp.success),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          widget.patient.familyGroup,
+                                          style: context.textStyles.textPoppinsMedium
+                                              .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                const Spacer(),
                               ],
                             ),
-                            const SizedBox(
-                              width: 20,
-                            ),
-                            const Spacer(),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  );
+                },
               );
-            },
-          );
-        });
+            }),
+      ),
+    );
   }
 }

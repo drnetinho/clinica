@@ -16,6 +16,7 @@ class ColorsApp {
   Color get blackColor => const Color(0xFF000000);
   Color get whiteColor => const Color(0xFFFFFFFF);
   Color get dartWhite => const Color(0xFFF0F1F0);
+  Color get dartMedium => const Color(0xFFF8F8F8);
   Color get greyColor => const Color(0xFFB4B4B4);
   Color get greyColor2 => const Color(0xFF616161);
   Color get transparentColor => const Color(0x00000000);
@@ -26,6 +27,7 @@ class ColorsApp {
   Color get warning => const Color(0xFFF59E0B);
   Color get yellowColor => const Color(0xFFFFC75E);
   Color get greenColor => const Color(0xFF9FE2C2);
+  Color get greenColor2 => const Color(0xFF527736);
   Color get softBlack => const Color(0xFF1E211D);
 }
 

@@ -163,33 +163,26 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
 
                 //ficha medica
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * .8,
-                  width: MediaQuery.of(context).size.width * .4,
-                  child: PhysicalModel(
-                    elevation: 10,
-                    color: context.colorsApp.backgroundCardColor,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AnimatedBuilder(
-                        animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
-                        builder: (contex, child) {
-                          if (controller.addNewPatient.value) {
-                            return NewPatientFormWidget(
-                              manageStore: patientsStore,
-                              editStore: editPatientsStore,
-                            );
-                          } else if (controller.patientSelected.exists) {
-                            return FichaMedicaWidget(
-                              patient: controller.patientSelected.value!,
-                              manageStore: patientsStore,
-                              editStore: editPatientsStore,
-                            );
-                          } else {
-                            return const StateInitialWidget();
-                          }
-                        },
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AnimatedBuilder(
+                      animation: Listenable.merge([controller.patientSelected, controller.addNewPatient]),
+                      builder: (contex, child) {
+                        if (controller.addNewPatient.value) {
+                          return NewPatientFormWidget(
+                            manageStore: patientsStore,
+                            editStore: editPatientsStore,
+                          );
+                        } else if (controller.patientSelected.exists) {
+                          return FichaMedicaWidget(
+                            patient: controller.patientSelected.value!,
+                            manageStore: patientsStore,
+                            editStore: editPatientsStore,
+                          );
+                        } else {
+                          return const StateInitialWidget();
+                        }
+                      },
                     ),
                   ),
                 ),

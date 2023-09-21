@@ -16,74 +16,75 @@ class MedicalScaleCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Escala médica da Semana',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(
-                  color: context.colorsApp.blackColor,
-                  fontSize: 50 * unitHeight)),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.blackColor, fontSize: 32 * unitHeight)),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-          Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(radius: 80 * unitHeight),
-                  const SizedBox(width: 60),
-                  Column(
-                    children: [
-                      Text(
-                        'Nome',
-                        style: context.textStyles.textPoppinsBold
-                            .copyWith(color: context.colorsApp.blackColor)
-                            .copyWith(fontSize: 28 * unitHeight),
-                      ),
-                      Text(
-                        'Especialidade',
-                        style: context.textStyles.textPoppinsBold
-                            .copyWith(color: context.colorsApp.blackColor)
-                            .copyWith(fontSize: 24 * unitHeight),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  Container(
-                    width: 500 * unitHeight,
-                    height: 100 * unitHeight,
-                    // height: MediaQuery.of(context).size.height * 0.1,
-                    decoration: BoxDecoration(
-                      color: context.colorsApp.greyColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
+          SizedBox(
+            height: 160 * unitHeight,
+            width: MediaQuery.of(context).size.width,
+            child: PhysicalModel(
+              borderRadius: BorderRadius.circular(10),
+              color: context.colorsApp.dartMedium,
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    CircleAvatar(radius: 40 * unitHeight),
+                    const SizedBox(width: 60),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today,
-                            color: context.colorsApp.greyColor2,
-                            size: 40 * unitHeight),
-                        const SizedBox(width: 10),
                         Text(
-                          'Quinta, 13 junho',
-                          style: context.textStyles.textPoppinsBold.copyWith(
-                              color: context.colorsApp.greyColor2,
-                              fontSize: 22 * unitHeight),
+                          'Dr. Francisco José',
+                          style: context.textStyles.textPoppinsSemiBold
+                              .copyWith(color: context.colorsApp.blackColor)
+                              .copyWith(fontSize: 26 * unitHeight),
                         ),
-                        const SizedBox(width: 30),
-                        Icon(Icons.access_alarm,
-                            color: context.colorsApp.greyColor2,
-                            size: 40 * unitHeight),
-                        const SizedBox(width: 10),
                         Text(
-                          '10:00' ' - ' '11:00',
-                          style: context.textStyles.textPoppinsBold.copyWith(
-                              color: context.colorsApp.greyColor2,
-                              fontSize: 22 * unitHeight),
+                          'Clínico Geral',
+                          style: context.textStyles.textPoppinsRegular
+                              .copyWith(color: context.colorsApp.blackColor)
+                              .copyWith(fontSize: 22 * unitHeight),
                         ),
                       ],
                     ),
-                  )
-                ],
+                    const Spacer(),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.36,
+                      height: 50 * unitHeight,
+                      decoration: BoxDecoration(
+                        color: context.colorsApp.dartWhite,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 80),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.calendar_today, color: context.colorsApp.greyColor2, size: 40 * unitHeight),
+                            const SizedBox(width: 30),
+                            Text(
+                              'Quinta, 13 junho',
+                              style: context.textStyles.textPoppinsBold
+                                  .copyWith(color: context.colorsApp.greyColor2, fontSize: 22 * unitHeight),
+                            ),
+                            const Spacer(),
+                            Icon(Icons.access_alarm, color: context.colorsApp.greyColor2, size: 40 * unitHeight),
+                            const SizedBox(width: 30),
+                            Text(
+                              '10:00' ' - ' '11:00',
+                              style: context.textStyles.textPoppinsBold
+                                  .copyWith(color: context.colorsApp.greyColor2, fontSize: 22 * unitHeight),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

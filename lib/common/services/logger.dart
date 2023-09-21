@@ -10,13 +10,15 @@ class Logger {
   static String whiteColor = '\x1B[37m';
   static const String _resetCode = '\x1B[0m';
 
-  static void logInfo(String message, String color) =>
-      dev.log('$color$message$_resetCode');
+  static void logInfo(String message, String color) {
+    dev.log('$color$message$_resetCode');
+  }
 
   static JsonEncoder encoder = const JsonEncoder.withIndent('  ');
 
-  static void prettyPrint(dynamic args, String color) {
+  static void prettyPrint(dynamic args, String color, String document) {
     final prettyString = encoder.convert(args);
+    logInfo('\n -----------------[${document.toUpperCase()}]-----------------', whiteColor);
     prettyString.split('\n').forEach((e) => logInfo(e, color));
   }
 }

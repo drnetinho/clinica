@@ -32,15 +32,21 @@ class StateErrorWidget extends StatelessWidget {
 }
 
 class StateEmptyWidget extends StatelessWidget {
-  const StateEmptyWidget({super.key});
+  final String? message;
+  final IconData? icon;
+  const StateEmptyWidget({
+    Key? key,
+    this.message,
+    this.icon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         children: [
-          Icon(Icons.info),
-          Text('Nenhum dado encontrado'),
+          Icon(icon ?? Icons.info),
+          Text(message ?? 'Nenhum dado encontrado'),
         ],
       ),
     );

@@ -9,8 +9,8 @@ class AppStateSuccess<T> extends AppState {
 }
 
 class AppStateError extends AppState {
-  final String? error;
-  AppStateError({this.error});
+  final String message;
+  AppStateError({ required this.message});
 }
 
 class AppStateLoading extends AppState {}

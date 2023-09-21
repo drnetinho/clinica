@@ -15,6 +15,8 @@ class PatientModel extends Equatable {
   final String phone;
   final List<String>? previousIlnesses;
   final String id;
+  final String cpf;
+  final DateTime createdAt;
 
   const PatientModel(
     this.name,
@@ -25,6 +27,8 @@ class PatientModel extends Equatable {
     this.phone,
     this.previousIlnesses,
     this.id,
+    this.cpf,
+    this.createdAt,
   );
 
   const PatientModel.initial({
@@ -36,6 +40,8 @@ class PatientModel extends Equatable {
     this.phone = '',
     this.previousIlnesses,
     this.id = '',
+    this.cpf = '',
+    required this.createdAt,
   });
 
   factory PatientModel.fromJson(Map<String, dynamic> json) => _$PatientModelFromJson(json);
@@ -51,6 +57,8 @@ class PatientModel extends Equatable {
         phone,
         previousIlnesses,
         id,
+        cpf,
+        createdAt,
       ];
 
   PatientModel copyWith({
@@ -62,6 +70,8 @@ class PatientModel extends Equatable {
     String? phone,
     List<String>? previousIlnesses,
     String? id,
+    String? cpf,
+    DateTime? createdAt,
   }) {
     return PatientModel(
       name ?? this.name,
@@ -72,6 +82,8 @@ class PatientModel extends Equatable {
       phone ?? this.phone,
       previousIlnesses ?? this.previousIlnesses,
       id ?? this.id,
+      cpf ?? this.cpf,
+      createdAt ?? this.createdAt,
     );
   }
 }

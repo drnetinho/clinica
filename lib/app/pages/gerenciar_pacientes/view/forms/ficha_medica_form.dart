@@ -1,6 +1,6 @@
 import 'package:formz/formz.dart';
 
-import 'inputs.dart';
+import '../../../../../common/form/inputs.dart';
 
 class FichaMedicaForm with FormzMixin {
   final StringInput name;

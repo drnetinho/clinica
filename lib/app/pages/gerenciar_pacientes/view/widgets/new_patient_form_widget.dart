@@ -7,7 +7,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
-import '../../../../../common/form/app_formatters.dart';
+import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
 import '../../../../../core/helps/spacing.dart';

@@ -4,7 +4,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/app/pages/avaliacoes/avaliacoes_page.dart';
 import 'package:netinhoappclinica/app/pages/formas_pagamento/formas_de_pagamento_page.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/grupo_familiar_page.dart';
+import 'package:netinhoappclinica/app/pages/grupo_familiar/view/grupo_familiar_page.dart';
 import 'package:netinhoappclinica/app/pages/home/view/widgets/app_bar_widget.dart';
 import 'package:netinhoappclinica/app/pages/home/view/widgets/escala_medica.dart';
 import 'package:netinhoappclinica/app/pages/relatorios/relatorios_page.dart';

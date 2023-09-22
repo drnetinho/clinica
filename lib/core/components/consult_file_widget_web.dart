@@ -3,9 +3,8 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'input_field.dart';
 
-
-class ConsultFileWidget extends StatelessWidget {
-  const ConsultFileWidget({
+class ConsultFileWidgetWeb extends StatelessWidget {
+  const ConsultFileWidgetWeb({
     super.key,
   });
 
@@ -28,12 +27,14 @@ class ConsultFileWidget extends StatelessWidget {
             ),
             Text(
               'Acessar Carteirinha do\nGrupo Familiar',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor, fontSize: 32 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.blackColor, fontSize: 32 * unitHeight),
             ),
             const SizedBox(height: 60),
             Text(
               'Insira o CPF de  algum participante do seu\ngrupo familiar',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor, fontSize: 22 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.blackColor, fontSize: 22 * unitHeight),
             ),
             const SizedBox(height: 20),
             SizedBox(

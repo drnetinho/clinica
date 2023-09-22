@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
-class AppBarLandingPage extends StatelessWidget {
-  const AppBarLandingPage({
+class AppBarLandingPageWeb extends StatelessWidget {
+  const AppBarLandingPageWeb({
     super.key,
   });
 
@@ -22,15 +22,18 @@ class AppBarLandingPage extends StatelessWidget {
           children: [
             Text(
               'Clinica Clisp',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 28 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 28 * unitHeight),
             ),
             Text(
               'Endereço: Rua 1, 123, Centro, Cidade, UF',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.greyColor, fontSize: 20 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.greyColor, fontSize: 20 * unitHeight),
             ),
             Text(
               'Telefone: (11) 1234-5678',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.greyColor2, fontSize: 20 * unitHeight),
+              style: context.textStyles.textPoppinsSemiBold
+                  .copyWith(color: context.colorsApp.greyColor2, fontSize: 20 * unitHeight),
             ),
           ],
         ),

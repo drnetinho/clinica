@@ -60,6 +60,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
   late final ValueNotifier<bool> editMode;
 
   @override
+  @override
   void initState() {
     super.initState();
     widget.membersStore.getGroupMembers(ids: widget.group.members);
@@ -97,6 +98,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
     editPaymentsStore.dispose();
     deleteGrupoStore.dispose();
     editGroupStore.dispose();
+    editMode.dispose();
   }
 
   void editPaymentStoreListener() {

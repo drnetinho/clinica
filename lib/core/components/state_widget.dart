@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class StateErrorWidget extends StatelessWidget {
   final String? message;
@@ -44,9 +45,17 @@ class StateEmptyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon ?? Icons.info),
-          Text(message ?? 'Nenhum dado encontrado'),
+          Icon(
+            icon ?? Icons.info,
+            size: 24,
+            color: ColorsApp.instance.warning,
+          ),
+          Text(
+            message ?? 'Nenhum dado encontrado',
+            style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 18),
+          ),
         ],
       ),
     );

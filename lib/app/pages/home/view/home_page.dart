@@ -7,7 +7,7 @@ import 'package:netinhoappclinica/app/pages/formas_pagamento/formas_de_pagamento
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/grupo_familiar_page.dart';
 import 'package:netinhoappclinica/app/pages/home/view/widgets/app_bar_widget.dart';
 import 'package:netinhoappclinica/app/pages/home/view/widgets/escala_medica.dart';
-import 'package:netinhoappclinica/app/pages/relatorios/relatorios_page.dart';
+import 'package:netinhoappclinica/app/pages/relatorios/view/relatorios_page.dart';
 
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';

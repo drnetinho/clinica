@@ -1,4 +1,5 @@
 extension IntToMonth on int {
+  String get toPercent => '${(this * 100).toStringAsFixed(0)}%';
   String monthPerExtens() {
     switch (this) {
       case 1:

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/payment_tile.dart';
-import 'package:netinhoappclinica/app/pages/historico/widgets/drop_button.dart';
+import 'package:netinhoappclinica/core/components/drop_filter.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
@@ -34,6 +34,13 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
   late final EditPaymentsStore editPaymentsStore;
   late final FilterController filterController;
   late final ValueNotifier<List<FamilyPaymnetModel>?> filteredPayments;
+
+  @override
+  void dispose() {
+    filteredPayments.dispose();
+    editPaymentsStore.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -161,7 +168,7 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                         children: [
                           Align(
                             alignment: Alignment.topLeft,
-                            child: DropButton(
+                            child: DropFilter(
                               selectedValue: (filter) => filteredPayments.value = filterController.filter(
                                 payments,
                                 filter,

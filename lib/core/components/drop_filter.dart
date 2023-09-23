@@ -4,29 +4,37 @@ import 'package:netinhoappclinica/core/helps/extension/int_extension.dart';
 import 'package:netinhoappclinica/core/helps/filter.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
-class DropButton extends StatefulWidget {
+class DropFilter extends StatefulWidget {
   final Function(String) selectedValue;
+  final String? currentFilter;
 
-  const DropButton({
+  const DropFilter({
     Key? key,
     required this.selectedValue,
+    this.currentFilter,
   }) : super(key: key);
 
   @override
-  State<DropButton> createState() => _DropButtonState();
+  State<DropFilter> createState() => _DropFilterState();
 }
 
-class _DropButtonState extends State<DropButton> {
+class _DropFilterState extends State<DropFilter> {
   late final ValueNotifier<String> selectedFilter;
 
   late bool showFiltroGeral;
   late bool showFiltroMes;
 
   @override
+  void dispose() {
+    selectedFilter.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     setup(false);
-    selectedFilter = ValueNotifier(FilterStrings.todos);
+    selectedFilter = ValueNotifier(widget.currentFilter ?? FilterStrings.todos);
 
     selectedFilter.addListener(() {
       widget.selectedValue.call(selectedFilter.value);

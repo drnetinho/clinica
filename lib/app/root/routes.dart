@@ -11,7 +11,7 @@ import '../pages/gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../pages/grupo_familiar/view/grupo_familiar_page.dart';
 import '../pages/historico/historico_page.dart';
 import '../pages/landing/landing_page.dart';
-import '../pages/relatorios/relatorios_page.dart';
+import '../pages/relatorios/view/relatorios_page.dart';
 import '../pages/sigin/sign_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../common/services/auth/auth_service.dart';
 import '../../../core/components/input_field.dart';
-import '../home/view/home_page.dart';
+import '../../../di/get_it.dart';
 
 class SignPage extends StatelessWidget {
   static const String routeName = '/sign';
@@ -48,10 +48,11 @@ class SignPage extends StatelessWidget {
                   width: MediaQuery.of(context).size.width * 0.3,
                   height: 40,
                   child: ElevatedButton(
-                      onPressed: () {
-                        context.go(HomePage.routeName);
-                      },
-                      child: const Text('Entrar')),
+                    onPressed: () {
+                      getIt<AuthService>().isLogged.value = true;
+                    },
+                    child: const Text('Entrar'),
+                  ),
                 )
               ],
             ),

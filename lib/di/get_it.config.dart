@@ -50,13 +50,14 @@ import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i24;
 import '../app/pages/grupo_familiar/view/store/get_group_members_store.dart'
     as _i26;
 import '../app/pages/grupo_familiar/view/store/get_group_payments_store.dart'
-    as _i27;
-import '../app/pages/grupo_familiar/view/store/get_groups_store.dart' as _i28;
+    as _i29;
+import '../app/pages/grupo_familiar/view/store/get_groups_store.dart' as _i27;
+import '../app/pages/relatorios/view/store/get_payments_store.dart' as _i28;
 import '../app/root/router_controller.dart' as _i20;
 import '../common/services/auth/auth_service.dart' as _i4;
 import '../common/services/firestore/firestore_service.dart' as _i9;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
-    as _i29;
+    as _i30;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -116,14 +117,18 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i25.EditPixStore(gh<_i13.GetPixRepository>()));
     gh.factory<_i26.GetGroupMembersStore>(
         () => _i26.GetGroupMembersStore(gh<_i17.GroupsRepository>()));
-    gh.factory<_i27.GetGroupPaymentsStore>(
-        () => _i27.GetGroupPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
-    gh.factory<_i28.GetGroupsStore>(
-        () => _i28.GetGroupsStore(gh<_i17.GroupsRepository>()));
+    gh.factory<_i27.GetGroupsStore>(
+        () => _i27.GetGroupsStore(gh<_i17.GroupsRepository>()));
+    gh.singleton<_i28.GetRelatoriosPaymentsStore>(
+        _i28.GetRelatoriosPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
+    gh.factory<_i29.GetGroupPaymentsStore>(() => _i29.GetGroupPaymentsStore(
+          gh<_i16.GroupPaymentsRepository>(),
+          gh<_i28.GetRelatoriosPaymentsStore>(),
+        ));
     return this;
   }
 }
 
 class _$FirestoreModule extends _i9.FirestoreModule {}
 
-class _$SharedPreferencesModule extends _i29.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i30.SharedPreferencesModule {}

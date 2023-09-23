@@ -41,6 +41,14 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
   late final GerenciarPacientesController gerenciarController;
 
   @override
+  void dispose() {
+    editMode.dispose();
+    scrollController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     scrollController = ScrollController();

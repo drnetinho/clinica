@@ -15,6 +15,7 @@ import '../types.dart/group_types.dart';
 abstract class GroupPaymentsRepository {
   FamilyGroupPaymentsOrError getGroupPayments({required String id});
   FamilyGroupPaymentsOrError getAllPayments();
+  FamilyGroupPaymentsOrError getAllPendingPayments();
   UnitOrError editPayment({required FamilyPaymnetModel payment});
   UnitOrError generatePayment({required FamilyPaymnetModel newPayment});
   UnitOrError deletePayment({required FamilyPaymnetModel payment});
@@ -91,6 +92,22 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: RemoteError(), unit: null);
     } catch (e) {
       return (error: UndefiniedError(), unit: null);
+    }
+  }
+
+  @override
+  FamilyGroupPaymentsOrError getAllPendingPayments() async {
+    try {
+      final response =
+          await FirestoreService.fire.collection(Collections.payments).where('pending', isEqualTo: true).get();
+      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
+      Logger.prettyPrint(data, Logger.greenColor, 'getAllPendingPayments');
+      return (error: null, payments: data);
+    } on FirebaseException {
+      return (error: RemoteError(), payments: null);
+    } catch (e) {
+      return (error: UndefiniedError(), payments: null);
     }
   }
 }

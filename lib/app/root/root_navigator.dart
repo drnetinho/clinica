@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
+import '../../common/services/auth/auth_service.dart';
+import '../../di/get_it.dart';
+import '../pages/home/view/home_page.dart';
+import '../pages/profile/profile_page.dart';
+import '../pages/settings/settings_page.dart';
+
 class RootNavigator extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
   static const String routeName = '/';
@@ -12,17 +18,13 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _RootNavigatorState extends State<RootNavigator> {
-  late final PageController _pageController;
-
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -40,9 +42,7 @@ class _RootNavigatorState extends State<RootNavigator> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(0);
-                  },
+                  onPressed: () => context.go(HomePage.routeName),
                   icon: Icon(
                     Icons.home_outlined,
                     color: widget.navigationShell.currentIndex == 0
@@ -52,9 +52,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(1);
-                  },
+                  onPressed: () => context.go(ProfilePage.routeName),
                   icon: Icon(
                     Icons.person,
                     color: widget.navigationShell.currentIndex == 1
@@ -64,9 +62,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(2);
-                  },
+                  onPressed: () => context.go(SettingsPage.routeName),
                   icon: Icon(
                     Icons.settings,
                     color: widget.navigationShell.currentIndex == 2
@@ -77,7 +73,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 const SizedBox(height: 20),
                 IconButton(
                   onPressed: () {
-                    //TODO Fazer logout aqui
+                    getIt<AuthService>().isLogged.value = false;
                   },
                   icon: Icon(
                     Icons.logout,

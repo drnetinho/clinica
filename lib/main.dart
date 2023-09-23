@@ -37,7 +37,6 @@ class ClispApp extends StatelessWidget {
       routerDelegate: goRouter.routerDelegate,
       routeInformationProvider: goRouter.routeInformationProvider,
       routeInformationParser: goRouter.routeInformationParser,
-      // TODO Ver depois
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(

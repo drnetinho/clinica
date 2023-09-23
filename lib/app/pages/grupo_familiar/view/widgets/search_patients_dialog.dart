@@ -36,6 +36,13 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
   late final ValueNotifier<FamilyGroupModel?> selectedGroup;
 
   @override
+  void dispose() {
+    searchByGroup.dispose();
+    selectedGroup.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     searchByGroup = ValueNotifier(true);

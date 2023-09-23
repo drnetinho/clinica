@@ -4,9 +4,6 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_g
 import 'package:netinhoappclinica/app/pages/relatorios/view/widgets/group_tile.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
-
-import '../../../grupo_familiar/view/store/get_group_payments_store.dart';
 
 class GroupsCard extends StatefulWidget {
   final List<FamilyGroupModel> groups;

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
+import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/components/snackbar.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import '../../../../../core/components/app_dialog.dart';
@@ -27,7 +29,7 @@ class EdittingPixFormWidget extends StatefulWidget {
   State<EdittingPixFormWidget> createState() => _EdittingPixFormWidgetState();
 }
 
-class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> {
+class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> with SnackBarMixin {
   late final EditPixController controller;
 
   @override
@@ -35,12 +37,28 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> {
     super.initState();
     controller = getIt<EditPixController>();
     controller.setFormListeners();
+    widget.editPixStore.addListener(pixListener);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     controller.initControllers();
+  }
+
+  @override
+  void dispose() {
+    widget.editPixStore.removeListener(pixListener);
+    super.dispose();
+  }
+
+  void pixListener() {
+    if (widget.editPixStore.value.isSuccess) {
+      showSuccess(
+        context: context,
+        text: 'Pix atualizado com sucesso!',
+      );
+    }
   }
 
   Duration get animationDuration => kThemeAnimationDuration;
@@ -109,7 +127,10 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> {
                                     if (form.isValid) {
                                       widget.editPixStore.updatePix(pix: controller.updatePix());
                                     } else {
-                                      //TODO - ARTUR IMPLEMENTAR MIXN DE ERROR
+                                      showError(
+                                        context: context,
+                                        text: 'Erro ao atualizar Pix. Tente novamente!',
+                                      );
                                     }
                                   },
                                   actionOnSuccess: () {

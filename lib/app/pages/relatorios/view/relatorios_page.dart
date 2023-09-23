@@ -34,21 +34,25 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
   late final ValueNotifier<String> currentFilter;
 
   @override
-  void dispose() {
-    getGroupsStore.dispose();
-    getPaymentsStore.dispose();
-    currentFilter.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
     getGroupsStore = getIt<GetGroupsStore>();
     filterController = getIt<FilterController>();
-    getPaymentsStore = getIt<GetRelatoriosPaymentsStore>()..getPendingPayments();
-    getGroupsStore.getGroups();
+    getPaymentsStore = getIt<GetRelatoriosPaymentsStore>();
+    fetchData();
     currentFilter = ValueNotifier(FilterStrings.todos);
+  }
+
+  void fetchData() {
+    getGroupsStore.getGroups();
+    getPaymentsStore.getPendingPayments();
+  }
+
+  @override
+  void dispose() {
+    getGroupsStore.dispose();
+    currentFilter.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,7 +69,7 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                   style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: fetchData,
                   icon: const Icon(Icons.refresh, color: Colors.green),
                 ),
               ],

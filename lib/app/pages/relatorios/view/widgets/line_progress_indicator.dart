@@ -32,7 +32,7 @@ class _LineProgressIndicatorState extends State<LineProgressIndicator> with Sing
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(seconds: 1),
     );
     animation = Tween<double>(begin: 0.0, end: widget.percent).animate(_controller);
 

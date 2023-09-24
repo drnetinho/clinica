@@ -26,6 +26,16 @@ enum MinimumStringInputError {
 
 // --------------------------------------------------  INPUTS
 
+class EmtpyInput extends FormzInput<String, StringInputError> {
+  const EmtpyInput.pure() : super.pure('');
+  const EmtpyInput.dirty([String value = '']) : super.dirty(value);
+
+  @override
+  StringInputError? validator(String value) {
+    return null;
+  }
+}
+
 class StringInput extends FormzInput<String, StringInputError> {
   const StringInput.pure() : super.pure('');
   const StringInput.dirty([String value = '']) : super.dirty(value);
@@ -62,5 +72,26 @@ class PhoneInput extends FormzInput<String, PhoneInputError> {
   @override
   PhoneInputError? validator(String value) {
     return FormValidator.validatePhone(value) ? null : PhoneInputError.invalid;
+  }
+}
+
+// CPF INPUT
+
+enum CpfInputError {
+  empty(message: 'O campo CPF é obrigatório', exists: '');
+
+  final String exists;
+  final String message;
+  const CpfInputError({required this.message, required this.exists});
+}
+
+class CpfInput extends FormzInput<String, CpfInputError> {
+  const CpfInput.pure() : super.pure('');
+  const CpfInput.dirty([String value = '']) : super.dirty(value);
+
+  @override
+  CpfInputError? validator(String value) {
+    final String valueWithoutMask = value.replaceAll(RegExp(r'\D'), '');
+    return valueWithoutMask.isNotEmpty && (valueWithoutMask.length == 11) ? null : CpfInputError.empty;
   }
 }

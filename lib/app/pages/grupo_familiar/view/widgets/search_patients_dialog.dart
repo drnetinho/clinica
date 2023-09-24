@@ -188,7 +188,10 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           ElevatedButton(
-                            onPressed: context.pop,
+                            onPressed: () {
+                              context.pop();
+                              ctrl.clearCompleteSearch();
+                            },
                             child: const Text('Cancelar'),
                           ),
                           Spacing.m.horizotalGap,

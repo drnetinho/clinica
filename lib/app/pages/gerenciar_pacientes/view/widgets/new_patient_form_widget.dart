@@ -10,6 +10,7 @@ import 'package:netinhoappclinica/di/get_it.dart';
 import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
+import '../../../../../core/components/snackbar.dart';
 import '../../../../../core/helps/spacing.dart';
 import '../controller/gerenciar_pacientes_controller.dart';
 import '../controller/new_patient_form_controller.dart';
@@ -31,7 +32,7 @@ class NewPatientFormWidget extends StatefulWidget {
   State<NewPatientFormWidget> createState() => _NewPatientFormWidgetState();
 }
 
-class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
+class _NewPatientFormWidgetState extends State<NewPatientFormWidget> with SnackBarMixin {
   late final ScrollController scrollController;
   late final ValueNotifier<bool> editMode;
 
@@ -99,27 +100,31 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                                   isEditing: editMode.value,
                                   isLoading: widget.editStore.value.isLoading,
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AppDialog(
-                                          title: 'Deseja realmente salvar as alterações?',
-                                          firstButtonText: 'Cancelar',
-                                          secondButtonText: 'Salvar',
-                                          firstButtonIcon: Icons.cancel,
-                                          secondButtonIcon: Icons.check,
-                                          store: widget.editStore,
-                                          onPressedSecond: () => widget.editStore.addPatient(
-                                            patient: controller.updatePatient(),
-                                          ),
-                                          actionOnSuccess: () {
-                                            widget.manageStore.getPatients();
-                                            toogleOffAddNewPatient();
-                                            controller.resetValues();
-                                          },
-                                        );
-                                      },
-                                    );
+                                    if (form.isValid) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AppDialog(
+                                            title: 'Deseja realmente salvar as alterações?',
+                                            firstButtonText: 'Cancelar',
+                                            secondButtonText: 'Salvar',
+                                            firstButtonIcon: Icons.cancel,
+                                            secondButtonIcon: Icons.check,
+                                            store: widget.editStore,
+                                            onPressedSecond: () => widget.editStore.addPatient(
+                                              patient: controller.updatePatient(),
+                                            ),
+                                            actionOnSuccess: () {
+                                              widget.manageStore.getPatients();
+                                              toogleOffAddNewPatient();
+                                              controller.resetValues();
+                                            },
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      showError(context: context, text: 'Preencha os campos corretamente');
+                                    }
                                   },
                                 ),
                               ],
@@ -156,23 +161,20 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                                           controller: controller.ageCt,
                                           isValid: form.age.isValid,
                                           validator: (_) => form.age.error?.exists,
-                                          errorText: form.age.displayError?.message,
+                                          errorText: form.age.displayError?.exists,
                                           inputFormatters: [AppFormatters.onlyNumber],
                                         ),
                                         const SizedBox(width: 10),
-                                        //todo: ARTUR, COLOCAR O CPF AQUI
                                         AppFormField(
                                           padding: EdgeInsets.zero,
                                           margin: EdgeInsets.zero,
                                           maxWidth: 140,
                                           labelText: 'CPF',
-                                          controller: controller.phoneCt,
-                                          isValid: form.phone.isValid,
-                                          validator: (_) => form.phone.error?.exists,
-                                          errorText: form.phone.displayError?.message,
-                                          inputFormatters: [
-                                            AppFormatters.phoneInputFormatter,
-                                          ],
+                                          controller: controller.cpfCt,
+                                          isValid: form.cpf.isValid,
+                                          validator: (_) => form.cpf.error?.exists,
+                                          errorText: form.cpf.displayError?.message,
+                                          inputFormatters: [AppFormatters.cpfInputFormatter],
                                         ),
                                       ],
                                     ),
@@ -355,12 +357,12 @@ class _NewPatientFormWidgetState extends State<NewPatientFormWidget> {
                                                     maxHeight: 60,
                                                     controller: controller.ilnessCt,
                                                     onSubmit: (v) {
-                                                      if (form.ilness.isValid) {
+                                                      if (v.isNotEmpty) {
                                                         controller.onSubmitIlness(v);
                                                       }
                                                     },
                                                     isValid: form.ilness.isValid,
-                                                    validator: (_) => form.ilness.error?.exists,
+                                                    validator: (v) => v?.isNotEmpty == true ? null : '',
                                                     errorText: form.ilness.displayError?.message,
                                                   ),
                                               ],

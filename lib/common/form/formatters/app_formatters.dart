@@ -15,7 +15,17 @@ class AppFormatters {
   static TextInputFormatter onlyNumber = FilteringTextInputFormatter.allow(AppRegExp.onlyNumberRegEx);
   static CurrencyInputFormatter currency = CurrencyInputFormatter();
   static DateTextFormatter date = DateTextFormatter();
+
+ static MaskTextInputFormatter cpfInputFormatter = MaskTextInputFormatter(
+  mask: '###.###.###-##',
+  filter: <String, RegExp>{
+    '#': RegExp(r'[0-9]'),
+  },
+);
 }
+
+
+
 
 class AppRegExp {
   static RegExp onlyNumberRegEx = RegExp('[0-9]');

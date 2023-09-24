@@ -8,16 +8,16 @@ import 'package:netinhoappclinica/core/helps/actual_date.dart';
 
 @injectable
 class FichaMedicaController {
-  // Controllers
-  final TextEditingController nameCt = TextEditingController();
-  final TextEditingController ageCt = TextEditingController();
-  final TextEditingController genderCt = TextEditingController();
-  final TextEditingController phoneCt = TextEditingController();
-  final TextEditingController cityCt = TextEditingController();
-  final TextEditingController streetCt = TextEditingController();
-  final TextEditingController neighCt = TextEditingController();
-  final TextEditingController numberCt = TextEditingController();
-  final TextEditingController ilnessCt = TextEditingController();
+  final nameCt = TextEditingController();
+  final ageCt = TextEditingController();
+  final cpfCt = TextEditingController();
+  final genderCt = TextEditingController();
+  final phoneCt = TextEditingController();
+  final cityCt = TextEditingController();
+  final streetCt = TextEditingController();
+  final neighCt = TextEditingController();
+  final numberCt = TextEditingController();
+  final ilnessCt = TextEditingController();
 
   // Form
   final ValueNotifier<FichaMedicaForm> form = ValueNotifier(FichaMedicaForm());
@@ -63,6 +63,7 @@ class FichaMedicaController {
     streetCt.text = patient.address?.street ?? '';
     neighCt.text = patient.address?.neighborhood ?? '';
     numberCt.text = patient.address?.number ?? '';
+    cpfCt.text = patient.cpf;
   }
 
   PatientModel updatePatient() {
@@ -71,6 +72,7 @@ class FichaMedicaController {
       age: ageCt.text,
       gender: genderCt.text,
       phone: phoneCt.text,
+      cpf: cpfCt.text,
       address: AddressModel(
         city: cityCt.text,
         street: streetCt.text,
@@ -92,7 +94,8 @@ class FichaMedicaController {
     streetCt.addListener(() => form.value = form.value.copyWith(street: StringInput.dirty(streetCt.text)));
     neighCt.addListener(() => form.value = form.value.copyWith(neighborhood: StringInput.dirty(neighCt.text)));
     numberCt.addListener(() => form.value = form.value.copyWith(number: StringInput.dirty(numberCt.text)));
-    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: StringInput.dirty(ilnessCt.text)));
+    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: EmtpyInput.dirty(ilnessCt.text)));
+    cpfCt.addListener(() => form.value = form.value.copyWith(cpf: CpfInput.dirty(cpfCt.text)));
   }
 
   void resetValues() {
@@ -105,6 +108,7 @@ class FichaMedicaController {
     neighCt.clear();
     numberCt.clear();
     ilnessCt.clear();
+    cpfCt.clear();
     ilnesses.value.clear();
     selectedGender.value = '';
   }

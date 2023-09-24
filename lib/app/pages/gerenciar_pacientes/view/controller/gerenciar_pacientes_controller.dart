@@ -17,5 +17,11 @@ class GerenciarPacientesController {
   final ValueNotifier<List<PatientModel>?> searchPatients = ValueNotifier(null);
 
   set addSearchPatients(List<PatientModel> patients) => searchPatients.value = [...patients];
-  void resetSearch() => searchPatients.value = null;
+  void resetSearch() {
+    searchPatients.value = null;
+    searchCt.clear();
+  }
+  void resetPatient() {
+    patientSelected.value = null;
+  }
 }

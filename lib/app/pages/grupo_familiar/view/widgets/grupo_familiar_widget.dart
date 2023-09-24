@@ -21,6 +21,7 @@ import '../../../../../core/components/state_widget.dart';
 import '../../../../../core/components/store_builder.dart';
 import '../../../../../core/helps/padding.dart';
 import '../../../../../di/get_it.dart';
+import '../../../gerenciar_pacientes/view/store/manage_patient_store.dart';
 import '../../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../../../gerenciar_pacientes/view/widgets/excluir_buttons.dart';
 import '../../domain/model/family_payment_model.dart';
@@ -114,11 +115,11 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
   void editGroupStoreListener() {
     if (editGroupStore.value.isSuccess) {
       editMode.value = false;
-      // Todo Não remover!!!
-      // final ids = editGroupController.members.value.map((e) => e.id).toList();
-      // widget.membersStore.getGroupMembers(ids: ids);
       groupsController.groupSelected.value = null;
       widget.groupStore.getGroups();
+      // TODO Artur observar viabilidade dessa chamada
+      getIt<ManagePatientsStore>().getPatients();
+      editGroupController.resetValues();
       showSuccess(context: context, text: 'Grupo editado com sucesso!');
     }
 

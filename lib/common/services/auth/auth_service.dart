@@ -2,7 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:netinhoappclinica/app/root/routes.dart';
+
+import '../../../app/pages/home/view/home_page.dart';
+import '../../../app/pages/sigin/sign_page.dart';
 
 @singleton
 class AuthService {
@@ -10,7 +15,13 @@ class AuthService {
 
   AuthService() {
     firebaseAuth = FirebaseAuth.instance;
+    isLogged = ValueNotifier<bool>(false);
+    isLogged.addListener(() {
+      isLogged.value ? goRouter.go(HomePage.routeName) : goRouter.go(SignPage.routeName);
+    });
   }
+
+  late final ValueNotifier<bool> isLogged;
 
   // Stream
   Stream<User?> get authState => firebaseAuth.authStateChanges();

@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/fic
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/new_patient_form_widget.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/search_header.dart';
-import 'package:netinhoappclinica/common/state/app_state.dart';
+import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
@@ -38,21 +38,16 @@ class _GerenciarPacientesPageState extends State<GerenciarPacientesPage> {
     controller = getIt<GerenciarPacientesController>();
     patientsStore = getIt<ManagePatientsStore>();
     editPatientsStore = getIt<EditPatientsStore>();
-    patientsStore.getPatients();
+    if (!patientsStore.value.isSuccess) {
+      patientsStore.getPatients();
+    }
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    patientsStore.addListener(
-      () {
-        if (patientsStore.value is AppStateSuccess) {
-          final data = (patientsStore.value as AppStateSuccess).data as List<PatientModel>;
-
-          controller.patientSelected.value = data.first;
-        }
-      },
-    );
+  void dispose() {
+    controller.resetPatient();
+    controller.resetSearch();
+    super.dispose();
   }
 
   @override

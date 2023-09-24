@@ -10,6 +10,7 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/family_g
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_widget.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_patients_dialog.dart';
+import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -44,7 +45,16 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
     controller = getIt<GroupPageController>();
 
     managePatientsStore.getPatients();
-    groupStore.getGroups();
+    if (!groupStore.value.isSuccess) {
+      groupStore.getGroups();
+    }
+  }
+
+  @override
+  void dispose() {
+    controller.clearCompleteSearch();
+    controller.resetSelectedGroup();
+    super.dispose();
   }
 
   @override
@@ -131,41 +141,46 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                         color: context.colorsApp.backgroundCardColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         elevation: 1,
-                        child: StoreBuilder<List<FamilyGroupModel>>(
-                          store: groupStore,
-                          builder: (context, groups, child) {
-                            if (groups.isEmpty) {
-                              return const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  StateEmptyWidget(
-                                    icon: Icons.group_add,
-                                    message: 'Não existem grupos cadastrados.',
-                                  ),
-                                ],
-                              );
-                            }
-                            return ValueListenableBuilder(
-                              valueListenable: controller.groupSelected,
-                              builder: (context, groupSelected, _) {
-                                return ListView.builder(
-                                  itemCount: groups.length,
-                                  itemBuilder: (context, index) {
-                                    final group = groups[index];
-
-                                    return InkWell(
-                                      onTap: () => controller.groupSelected.value = group,
-                                      child: FamilyGroupTile(
-                                        group: group,
-                                        isSelected: group == groupSelected,
-                                      ),
+                        child: StoreBuilder<List<PatientModel>>(
+                            store: managePatientsStore,
+                            validateDefaultStates: true,
+                            builder: (context, __, _) {
+                              return StoreBuilder<List<FamilyGroupModel>>(
+                                store: groupStore,
+                                builder: (context, groups, child) {
+                                  if (groups.isEmpty) {
+                                    return const Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        StateEmptyWidget(
+                                          icon: Icons.group_add,
+                                          message: 'Não existem grupos cadastrados.',
+                                        ),
+                                      ],
                                     );
-                                  },
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                  }
+                                  return ValueListenableBuilder(
+                                    valueListenable: controller.groupSelected,
+                                    builder: (context, groupSelected, _) {
+                                      return ListView.builder(
+                                        itemCount: groups.length,
+                                        itemBuilder: (context, index) {
+                                          final group = groups[index];
+
+                                          return InkWell(
+                                            onTap: () => controller.groupSelected.value = group,
+                                            child: FamilyGroupTile(
+                                              group: group,
+                                              isSelected: group == groupSelected,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            }),
                       ),
                     ),
                   ],

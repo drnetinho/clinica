@@ -47,9 +47,8 @@ class EditGroupController {
 
   void resetValues() {
     groupNameCt.clear();
-    members.value.clear();
     form.value = NewGroupForm();
-
+    resetNewMembers();
     selectedGroup.value = FamilyGroupModel.empty(createdAt: KCurrentDate);
   }
 

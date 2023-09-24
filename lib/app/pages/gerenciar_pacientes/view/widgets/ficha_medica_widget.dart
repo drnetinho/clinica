@@ -5,6 +5,7 @@ import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/controller/
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/components/snackbar.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -33,7 +34,7 @@ class FichaMedicaWidget extends StatefulWidget {
   State<FichaMedicaWidget> createState() => _FichaMedicaWidgetState();
 }
 
-class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
+class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixin {
   late final ScrollController scrollController;
   late final ValueNotifier<bool> editMode;
 
@@ -44,7 +45,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
   void dispose() {
     editMode.dispose();
     scrollController.dispose();
-
+    gerenciarController.searchCt.clear();
     super.dispose();
   }
 
@@ -55,13 +56,12 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
     controller = getIt<FichaMedicaController>();
     gerenciarController = getIt<GerenciarPacientesController>();
     editMode = ValueNotifier(false);
-    controller.setupConfig(widget.patient);
-    controller.setFormListeners();
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    controller.setFormListeners();
     gerenciarController.patientSelected.addListener(() {
       if (editMode.value) {
         editMode.value = false;
@@ -139,7 +139,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                             store: widget.editStore,
                                             onPressedSecond: () =>
                                                 widget.editStore.deletePatient(id: widget.patient.id),
-                                            actionOnSuccess: () => widget.manageStore.getPatients(),
+                                            actionOnSuccess: () {
+                                              widget.manageStore.getPatients();
+                                              gerenciarController.resetSearch();
+                                              gerenciarController.resetPatient();
+                                            },
                                           );
                                         },
                                       );
@@ -152,28 +156,38 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                   isLoading: widget.editStore.value.isLoading,
                                   onPressed: () {
                                     if (isEditing) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AppDialog(
-                                            title: 'Deseja realmente salvar as alterações?',
-                                            firstButtonText: 'Cancelar',
-                                            secondButtonText: 'Salvar',
-                                            firstButtonIcon: Icons.cancel,
-                                            secondButtonIcon: Icons.check,
-                                            store: widget.editStore,
-                                            onPressedSecond: () => widget.editStore.updatePatient(
-                                              patient: controller.updatePatient(),
-                                            ),
-                                            actionOnSuccess: () {
-                                              widget.manageStore.getPatients();
-                                              editMode.value = false;
-                                            },
-                                          );
-                                        },
-                                      );
+                                      if (form.isValid) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AppDialog(
+                                              title: 'Deseja realmente salvar as alterações?',
+                                              firstButtonText: 'Cancelar',
+                                              secondButtonText: 'Salvar',
+                                              firstButtonIcon: Icons.cancel,
+                                              secondButtonIcon: Icons.check,
+                                              store: widget.editStore,
+                                              onPressedSecond: () {
+                                                widget.editStore.updatePatient(
+                                                  patient: controller.updatePatient(),
+                                                );
+                                              },
+                                              actionOnSuccess: () {
+                                                widget.manageStore.getPatients();
+                                                controller.resetValues();
+                                                gerenciarController.resetSearch();
+                                                gerenciarController.resetPatient();
+                                                editMode.value = false;
+                                              },
+                                            );
+                                          },
+                                        );
+                                      } else {
+                                        showError(context: context, text: 'Preencha os campos corretamente');
+                                      }
                                     } else {
                                       editMode.value = true;
+                                      controller.setupConfig(widget.patient);
                                     }
                                   },
                                 ),
@@ -198,10 +212,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                     AnimatedCrossFade(
                                       firstChild: Text(widget.patient.name, style: defaultGreyStyle),
                                       secondChild: AppFormField(
+                                        autovalidateMode: AutovalidateMode.always,
                                         controller: controller.nameCt,
                                         isValid: form.name.isValid,
                                         validator: (_) => form.name.error?.exists,
-                                        errorText: form.name.displayError?.message,
+                                        errorText: form.name.error?.message,
                                       ),
                                       crossFadeState: state,
                                       duration: animationDuration,
@@ -216,11 +231,12 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                           AnimatedCrossFade(
                                             firstChild: Text('${widget.patient.age} Anos', style: defaultGreyStyle),
                                             secondChild: AppFormField(
+                                              autovalidateMode: AutovalidateMode.always,
                                               maxWidth: 50,
                                               controller: controller.ageCt,
                                               isValid: form.age.isValid,
                                               validator: (_) => form.age.error?.exists,
-                                              errorText: form.age.displayError?.message,
+                                              errorText: form.age.error?.exists,
                                               inputFormatters: [AppFormatters.onlyNumber],
                                             ),
                                             crossFadeState: state,
@@ -234,26 +250,17 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                         children: [
                                           Text('CPF:', style: defaultBlackStyle),
                                           Spacing.s.verticalGap,
-                                          //TODO ARTUR CPF AJUSTAR
                                           AnimatedCrossFade(
-                                            firstChild: Text('000.000.000-00', style: defaultGreyStyle),
+                                            firstChild: Text(widget.patient.cpf, style: defaultGreyStyle),
                                             secondChild: AppFormField(
+                                              autovalidateMode: AutovalidateMode.always,
                                               maxWidth: 140,
-                                              controller: controller.ageCt,
-                                              isValid: form.age.isValid,
-                                              validator: (_) => form.age.error?.exists,
-                                              errorText: form.age.displayError?.message,
-                                              inputFormatters: [AppFormatters.onlyNumber],
+                                              controller: controller.cpfCt,
+                                              isValid: form.cpf.isValid,
+                                              validator: (_) => form.cpf.error?.exists,
+                                              errorText: form.cpf.error?.message,
+                                              inputFormatters: [AppFormatters.cpfInputFormatter],
                                             ),
-                                            // secondChild: AppFormField(
-                                            //   controller: controller.cpfCt,
-                                            //   isValid: form.cpf.isValid,
-                                            //   validator: (_) => form.cpf.error?.exists,
-                                            //   errorText: form.cpf.displayError?.message,
-                                            //   inputFormatters: [
-                                            //     AppFormatters.cpfInputFormatter,
-                                            //   ],
-                                            // ),
                                             crossFadeState: state,
                                             duration: animationDuration,
                                           ),
@@ -301,10 +308,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                         AnimatedCrossFade(
                                           firstChild: Text(widget.patient.phone, style: defaultGreyStyle),
                                           secondChild: AppFormField(
+                                            autovalidateMode: AutovalidateMode.always,
                                             controller: controller.phoneCt,
                                             isValid: form.phone.isValid,
                                             validator: (_) => form.phone.error?.exists,
-                                            errorText: form.phone.displayError?.message,
+                                            errorText: form.phone.error?.message,
                                             inputFormatters: [
                                               AppFormatters.phoneInputFormatter,
                                             ],
@@ -339,10 +347,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                     AnimatedCrossFade(
                                       firstChild: Text(widget.patient.address?.city ?? '', style: defaultGreyStyle),
                                       secondChild: AppFormField(
+                                        autovalidateMode: AutovalidateMode.always,
                                         controller: controller.cityCt,
                                         isValid: form.city.isValid,
                                         validator: (_) => form.city.error?.exists,
-                                        errorText: form.city.displayError?.message,
+                                        errorText: form.city.error?.message,
                                       ),
                                       crossFadeState: state,
                                       duration: animationDuration,
@@ -354,10 +363,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                       firstChild:
                                           Text(widget.patient.address?.neighborhood ?? '', style: defaultGreyStyle),
                                       secondChild: AppFormField(
+                                        autovalidateMode: AutovalidateMode.always,
                                         controller: controller.neighCt,
                                         isValid: form.neighborhood.isValid,
                                         validator: (_) => form.neighborhood.error?.exists,
-                                        errorText: form.neighborhood.displayError?.message,
+                                        errorText: form.neighborhood.error?.message,
                                       ),
                                       crossFadeState: state,
                                       duration: animationDuration,
@@ -374,8 +384,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                                 .copyWith(fontSize: 22, color: context.colorsApp.success),
                                           ),
                                           const SizedBox(height: 10),
-                                          Container(
-                                            color: context.colorsApp.primary,
+                                          SizedBox(
                                             height: 100,
                                             width: 200,
                                             child: ValueListenableBuilder(
@@ -440,20 +449,19 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                                             .copyWith(fontSize: 16, color: context.colorsApp.success),
                                                       ),
                                                     ),
-                                                    Visibility(
-                                                      visible: showField,
-                                                      child: AppFormField(
+                                                    if (showField)
+                                                      AppFormField(
+                                                        autovalidateMode: AutovalidateMode.always,
                                                         controller: controller.ilnessCt,
                                                         onSubmit: (v) {
-                                                          if (form.ilness.isValid) {
+                                                          if (v.isNotEmpty) {
                                                             controller.onSubmitIlness(v);
                                                           }
                                                         },
                                                         isValid: form.ilness.isValid,
-                                                        validator: (_) => form.ilness.error?.exists,
-                                                        errorText: form.ilness.displayError?.message,
+                                                        validator: (v) => v?.isNotEmpty == true ? null : '',
+                                                        errorText: form.ilness.error?.message,
                                                       ),
-                                                    ),
                                                   ],
                                                 );
                                               },
@@ -476,10 +484,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                     AnimatedCrossFade(
                                       firstChild: Text(widget.patient.address?.street ?? '', style: defaultGreyStyle),
                                       secondChild: AppFormField(
+                                        autovalidateMode: AutovalidateMode.always,
                                         controller: controller.streetCt,
                                         isValid: form.street.isValid,
                                         validator: (_) => form.street.error?.exists,
-                                        errorText: form.street.displayError?.message,
+                                        errorText: form.street.error?.message,
                                       ),
                                       crossFadeState: state,
                                       duration: animationDuration,
@@ -490,10 +499,11 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> {
                                     AnimatedCrossFade(
                                       firstChild: Text(widget.patient.address?.number ?? '', style: defaultGreyStyle),
                                       secondChild: AppFormField(
+                                        autovalidateMode: AutovalidateMode.always,
                                         controller: controller.numberCt,
                                         isValid: form.number.isValid,
                                         validator: (_) => form.number.error?.exists,
-                                        errorText: form.number.displayError?.message,
+                                        errorText: form.number.error?.message,
                                         inputFormatters: [AppFormatters.onlyNumber],
                                       ),
                                       crossFadeState: state,

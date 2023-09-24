@@ -94,8 +94,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i16.GroupPaymentsRepository>(
         () => _i16.GroupPaymentsRepositoryImpl());
     gh.factory<_i17.GroupsRepository>(() => _i17.GroupsRepositoryImpl());
-    gh.factory<_i18.ManagePatientsStore>(
-        () => _i18.ManagePatientsStore(gh<_i12.GetPatientsRepository>()));
+    gh.singleton<_i18.ManagePatientsStore>(
+        _i18.ManagePatientsStore(gh<_i12.GetPatientsRepository>()));
     gh.singleton<_i19.NewPatientFormController>(
         _i19.NewPatientFormController());
     gh.singleton<_i20.RouterController>(_i20.RouterController());
@@ -117,8 +117,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i25.EditPixStore(gh<_i13.GetPixRepository>()));
     gh.factory<_i26.GetGroupMembersStore>(
         () => _i26.GetGroupMembersStore(gh<_i17.GroupsRepository>()));
-    gh.factory<_i27.GetGroupsStore>(
-        () => _i27.GetGroupsStore(gh<_i17.GroupsRepository>()));
+    gh.singleton<_i27.GetGroupsStore>(
+        _i27.GetGroupsStore(gh<_i17.GroupsRepository>()));
     gh.singleton<_i28.GetRelatoriosPaymentsStore>(
         _i28.GetRelatoriosPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
     gh.factory<_i29.GetGroupPaymentsStore>(() => _i29.GetGroupPaymentsStore(

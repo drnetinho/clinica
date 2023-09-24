@@ -45,7 +45,7 @@ class GroupsRepositoryImpl implements GroupsRepository {
       final response = await FirestoreService.fire.collection(Collections.groups).get();
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyGroupModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getGroups');
+      Logger.prettyPrint('LISTA DE GRUPOS', Logger.greenColor, 'getGroups');
       return (error: null, groups: data);
     } on FirebaseException {
       return (error: RemoteError(), groups: null);

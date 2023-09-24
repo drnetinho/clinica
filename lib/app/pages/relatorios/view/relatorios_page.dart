@@ -39,7 +39,13 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
     getGroupsStore = getIt<GetGroupsStore>();
     filterController = getIt<FilterController>();
     getPaymentsStore = getIt<GetRelatoriosPaymentsStore>();
-    fetchData();
+    if (!getPaymentsStore.value.isSuccess) {
+      getPaymentsStore.getPendingPayments();
+    }
+    if (!getGroupsStore.value.isSuccess) {
+      getGroupsStore.getGroups();
+    }
+
     currentFilter = ValueNotifier(FilterStrings.todos);
   }
 
@@ -50,7 +56,6 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
 
   @override
   void dispose() {
-    getGroupsStore.dispose();
     currentFilter.dispose();
     super.dispose();
   }
@@ -68,10 +73,6 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                   'Relatórios de Fatuamento',
                   style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
                 ),
-                IconButton(
-                  onPressed: fetchData,
-                  icon: const Icon(Icons.refresh, color: Colors.green),
-                ),
               ],
             ),
             Container(
@@ -86,7 +87,7 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                     builder: (context, List<FamilyGroupModel> groups, _) {
                       return AnimatedBuilder(
                           animation: Listenable.merge(
-                            [currentFilter, getPaymentsStore.undefiniedGroupsPerFilter],
+                            [currentFilter],
                           ),
                           builder: (context, _) {
                             return StoreBuilder(

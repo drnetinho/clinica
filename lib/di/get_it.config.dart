@@ -19,7 +19,7 @@ import '../app/pages/formas_pagamento/view/controller/edit_pix_controller.dart'
     as _i6;
 import '../app/pages/formas_pagamento/view/controller/formas_pagamento_controller.dart'
     as _i10;
-import '../app/pages/formas_pagamento/view/store/edit_pix_store.dart' as _i25;
+import '../app/pages/formas_pagamento/view/store/edit_pix_store.dart' as _i26;
 import '../app/pages/formas_pagamento/view/store/get_pix_store.dart' as _i14;
 import '../app/pages/gerenciar_pacientes/data/repository/get_patients_repository.dart'
     as _i12;
@@ -30,7 +30,7 @@ import '../app/pages/gerenciar_pacientes/view/controller/gerenciar_pacientes_con
 import '../app/pages/gerenciar_pacientes/view/controller/new_patient_form_controller.dart'
     as _i19;
 import '../app/pages/gerenciar_pacientes/view/store/edit_patient_store.dart'
-    as _i23;
+    as _i24;
 import '../app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart'
     as _i18;
 import '../app/pages/grupo_familiar/data/repository/group_payments_repository.dart'
@@ -45,19 +45,21 @@ import '../app/pages/grupo_familiar/view/controller/filter_controller.dart'
     as _i8;
 import '../app/pages/grupo_familiar/view/controller/group_page_controller.dart'
     as _i15;
-import '../app/pages/grupo_familiar/view/store/edit_groups_stores.dart' as _i22;
-import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i24;
+import '../app/pages/grupo_familiar/view/store/edit_groups_stores.dart' as _i23;
+import '../app/pages/grupo_familiar/view/store/edit_payment_store.dart' as _i25;
 import '../app/pages/grupo_familiar/view/store/get_group_members_store.dart'
-    as _i26;
+    as _i28;
 import '../app/pages/grupo_familiar/view/store/get_group_payments_store.dart'
-    as _i29;
-import '../app/pages/grupo_familiar/view/store/get_groups_store.dart' as _i27;
-import '../app/pages/relatorios/view/store/get_payments_store.dart' as _i28;
+    as _i31;
+import '../app/pages/grupo_familiar/view/store/get_groups_store.dart' as _i29;
+import '../app/pages/landing/controller/wallet_controller.dart' as _i22;
+import '../app/pages/landing/store/get_group_cpf_store.dart' as _i27;
+import '../app/pages/relatorios/view/store/get_payments_store.dart' as _i30;
 import '../app/root/router_controller.dart' as _i20;
 import '../common/services/auth/auth_service.dart' as _i4;
 import '../common/services/firestore/firestore_service.dart' as _i9;
 import '../common/services/shared_preferences/shared_preferences_module.dart'
-    as _i30;
+    as _i32;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -103,27 +105,30 @@ extension GetItInjectableX on _i1.GetIt {
       () => sharedPreferencesModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i22.AddGroupStore>(
-        () => _i22.AddGroupStore(gh<_i17.GroupsRepository>()));
-    gh.factory<_i22.DeleteGroupStore>(
-        () => _i22.DeleteGroupStore(gh<_i17.GroupsRepository>()));
-    gh.factory<_i22.EditGroupStore>(
-        () => _i22.EditGroupStore(gh<_i17.GroupsRepository>()));
-    gh.factory<_i23.EditPatientsStore>(
-        () => _i23.EditPatientsStore(gh<_i12.GetPatientsRepository>()));
-    gh.factory<_i24.EditPaymentsStore>(
-        () => _i24.EditPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
-    gh.factory<_i25.EditPixStore>(
-        () => _i25.EditPixStore(gh<_i13.GetPixRepository>()));
-    gh.factory<_i26.GetGroupMembersStore>(
-        () => _i26.GetGroupMembersStore(gh<_i17.GroupsRepository>()));
-    gh.singleton<_i27.GetGroupsStore>(
-        _i27.GetGroupsStore(gh<_i17.GroupsRepository>()));
-    gh.singleton<_i28.GetRelatoriosPaymentsStore>(
-        _i28.GetRelatoriosPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
-    gh.factory<_i29.GetGroupPaymentsStore>(() => _i29.GetGroupPaymentsStore(
+    gh.factory<_i22.WalletController>(() => _i22.WalletController());
+    gh.factory<_i23.AddGroupStore>(
+        () => _i23.AddGroupStore(gh<_i17.GroupsRepository>()));
+    gh.factory<_i23.DeleteGroupStore>(
+        () => _i23.DeleteGroupStore(gh<_i17.GroupsRepository>()));
+    gh.factory<_i23.EditGroupStore>(
+        () => _i23.EditGroupStore(gh<_i17.GroupsRepository>()));
+    gh.factory<_i24.EditPatientsStore>(
+        () => _i24.EditPatientsStore(gh<_i12.GetPatientsRepository>()));
+    gh.factory<_i25.EditPaymentsStore>(
+        () => _i25.EditPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
+    gh.factory<_i26.EditPixStore>(
+        () => _i26.EditPixStore(gh<_i13.GetPixRepository>()));
+    gh.factory<_i27.GetGroupByCpfStore>(
+        () => _i27.GetGroupByCpfStore(gh<_i17.GroupsRepository>()));
+    gh.factory<_i28.GetGroupMembersStore>(
+        () => _i28.GetGroupMembersStore(gh<_i17.GroupsRepository>()));
+    gh.singleton<_i29.GetGroupsStore>(
+        _i29.GetGroupsStore(gh<_i17.GroupsRepository>()));
+    gh.singleton<_i30.GetRelatoriosPaymentsStore>(
+        _i30.GetRelatoriosPaymentsStore(gh<_i16.GroupPaymentsRepository>()));
+    gh.factory<_i31.GetGroupPaymentsStore>(() => _i31.GetGroupPaymentsStore(
           gh<_i16.GroupPaymentsRepository>(),
-          gh<_i28.GetRelatoriosPaymentsStore>(),
+          gh<_i30.GetRelatoriosPaymentsStore>(),
         ));
     return this;
   }
@@ -131,4 +136,4 @@ extension GetItInjectableX on _i1.GetIt {
 
 class _$FirestoreModule extends _i9.FirestoreModule {}
 
-class _$SharedPreferencesModule extends _i30.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i32.SharedPreferencesModule {}

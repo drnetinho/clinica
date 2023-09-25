@@ -13,6 +13,14 @@ extension StringValidators on String {
 
   DateTime get toDateTime => DateFormat('dd/MM/yyyy').parse(this);
 
+  String formatPlural(int value) {
+    if (value > 1) {
+      return '$value ${this}s';
+    } else {
+      return '$value $this';
+    }
+  }
+
   bool get isValidEmail {
     return RegExp(
             r'^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')

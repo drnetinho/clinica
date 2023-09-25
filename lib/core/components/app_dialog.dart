@@ -112,7 +112,7 @@ class _AppDialogState extends State<AppDialog> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: context.colorsApp.dartWhite,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: widget.onPressedFirst ?? context.pop,
@@ -120,7 +120,7 @@ class _AppDialogState extends State<AppDialog> {
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
                                     Icon(widget.firstButtonIcon!, color: context.colorsApp.greyColor2),
-                                    const SizedBox(width: 4),
+                                    const SizedBox(width: 6),
                                     Text(widget.firstButtonText!,
                                         style: context.textStyles.textPoppinsSemiBold
                                             .copyWith(color: context.colorsApp.softBlack)),
@@ -134,14 +134,14 @@ class _AppDialogState extends State<AppDialog> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: context.colorsApp.danger,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                 ),
                                 onPressed: widget.onPressedSecond,
                                 child: Row(
                                   children: [
                                     Icon(widget.secondButtonIcon!, color: context.colorsApp.whiteColor),
-                                    const SizedBox(width: 4),
+                                    const SizedBox(width: 6),
                                     Text(
                                       widget.secondButtonText!,
                                       style: context.textStyles.textPoppinsSemiBold

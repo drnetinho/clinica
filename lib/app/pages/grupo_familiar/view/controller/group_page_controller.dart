@@ -29,5 +29,7 @@ class GroupPageController {
     resetSearchPatients();
   }
 
+  void resetSelectedGroup() => groupSelected.value = null;
+
   
 }

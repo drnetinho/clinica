@@ -36,6 +36,13 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
   late final ValueNotifier<FamilyGroupModel?> selectedGroup;
 
   @override
+  void dispose() {
+    searchByGroup.dispose();
+    selectedGroup.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     searchByGroup = ValueNotifier(true);
@@ -181,7 +188,10 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           ElevatedButton(
-                            onPressed: context.pop,
+                            onPressed: () {
+                              context.pop();
+                              ctrl.clearCompleteSearch();
+                            },
                             child: const Text('Cancelar'),
                           ),
                           Spacing.m.horizotalGap,

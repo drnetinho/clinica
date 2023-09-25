@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/common/error/app_error.dart';
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/groups_repository.dart';
 
-@injectable
+@singleton
 class GetGroupsStore extends ValueNotifier<AppState> {
   final GroupsRepository _repository;
   GetGroupsStore(this._repository) : super(AppStateInitial());

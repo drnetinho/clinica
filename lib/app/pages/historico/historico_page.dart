@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/historico/widgets/drop_button.dart';
+import 'package:netinhoappclinica/core/components/drop_filter.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
@@ -235,7 +235,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                       Positioned(
                         top: 25,
                         right: 20,
-                        child: DropButton(
+                        child: DropFilter(
                           selectedValue: (p0) {},
                         ),
                       )

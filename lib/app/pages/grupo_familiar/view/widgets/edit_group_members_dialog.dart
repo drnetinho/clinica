@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
 import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
@@ -35,7 +34,12 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
     super.initState();
     mainCtrl = getIt<GroupPageController>();
     patientsStore = getIt<ManagePatientsStore>();
-    patientsStore.getUndefiniedPatients();
+  }
+
+  @override
+  void dispose() {
+    mainCtrl.clearCompleteSearch();
+    super.dispose();
   }
 
   @override
@@ -48,9 +52,8 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
         child: Column(
           children: [
             Spacing.xm.verticalGap,
-            StoreBuilder<List<PatientModel>>(
-              store: patientsStore,
-              validateDefaultStates: false,
+            ValueListenableBuilder<List<PatientModel>>(
+              valueListenable: patientsStore.undefiniedPatients,
               builder: (context, patients, _) {
                 return AnimatedBuilder(
                   animation: mainCtrl.searchCt,
@@ -72,14 +75,14 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
             Expanded(
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * .35,
-                child: StoreBuilder<List<PatientModel>>(
-                  store: patientsStore,
-                  validateDefaultStates: true,
-                  validateEmptyList: true,
-                  empty: const StateEmptyWidget(
-                    message: 'Não existem pacientes sem grupos.',
-                  ),
+                child: ValueListenableBuilder<List<PatientModel>>(
+                  valueListenable: patientsStore.undefiniedPatients,
                   builder: (context, patientsList, _) {
+                    if (patientsList.isEmpty) {
+                      return const StateEmptyWidget(
+                        message: 'Não existem pacientes sem grupos.',
+                      );
+                    }
                     return AnimatedBuilder(
                       animation: widget.editController.members,
                       builder: (context, _) {

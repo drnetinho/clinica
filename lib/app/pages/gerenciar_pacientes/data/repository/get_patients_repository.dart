@@ -27,7 +27,7 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       final response = await FirestoreService.fire.collection(Collections.patients).get();
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getPatients');
+      Logger.prettyPrint('LISTA DE PACIENTES', Logger.greenColor, 'getPatients');
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);

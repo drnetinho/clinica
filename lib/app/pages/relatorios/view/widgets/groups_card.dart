@@ -19,9 +19,10 @@ class GroupsCard extends StatefulWidget {
   State<GroupsCard> createState() => _GroupsCardState();
 }
 
-class _GroupsCardState extends State<GroupsCard> {
+class _GroupsCardState extends State<GroupsCard> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SizedBox(
       height: MediaQuery.of(context).size.height * .8,
       width: MediaQuery.of(context).size.width * .28,
@@ -52,11 +53,17 @@ class _GroupsCardState extends State<GroupsCard> {
             SizedBox(
               height: MediaQuery.of(context).size.height * .72,
               width: MediaQuery.of(context).size.width * .28,
-              child: ListView.builder(
-                itemCount: widget.groups.length,
-                itemBuilder: (context, index) => GroupTile(
-                  group: widget.groups[index],
-                  filter: widget.filter,
+             
+              child: SingleChildScrollView(
+                child: Column(
+                  children: widget.groups
+                      .map(
+                        (e) => GroupTile(
+                          group: e,
+                          filter: widget.filter,
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ),
@@ -65,4 +72,7 @@ class _GroupsCardState extends State<GroupsCard> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

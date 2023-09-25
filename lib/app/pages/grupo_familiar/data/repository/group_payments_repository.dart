@@ -31,7 +31,7 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
 
       final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getGroupPayments');
+      Logger.prettyPrint('LISTA DE PAGAMENTOS', Logger.greenColor, 'getGroupPayments');
       data.sort((a, b) => b.payDate.compareTo(a.payDate));
       return (error: null, payments: data);
     } on FirebaseException {
@@ -47,7 +47,7 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       final response = await FirestoreService.fire.collection(Collections.payments).get();
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getAllPayments');
+      Logger.prettyPrint('', Logger.greenColor, 'getAllPayments');
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);
@@ -102,7 +102,7 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
           await FirestoreService.fire.collection(Collections.payments).where('pending', isEqualTo: true).get();
       final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
-      Logger.prettyPrint(data, Logger.greenColor, 'getAllPendingPayments');
+      Logger.prettyPrint('LISTA DE PAGAMENTOS PENDENTES', Logger.greenColor, 'getAllPendingPayments');
       return (error: null, payments: data);
     } on FirebaseException {
       return (error: RemoteError(), payments: null);

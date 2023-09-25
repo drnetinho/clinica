@@ -67,6 +67,7 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
   void dispose() {
     super.dispose();
     generateGroupStore.removeListener(storeListener);
+    groupsController.clearCompleteSearch();
 
     generateGroupStore.dispose();
     membersStore.dispose();

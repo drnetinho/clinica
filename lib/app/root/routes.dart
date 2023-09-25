@@ -38,7 +38,7 @@ final goRouter = GoRouter(
     }
 
     if (!isLogged && !isAllowedPath) {
-      return SignPage.routeName;
+      return LandingPage.routeName;
     } else {
       return null;
     }

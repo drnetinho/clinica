@@ -9,18 +9,20 @@ class NewPatinetForm with FormzMixin {
   final StringInput street;
   final StringInput neighborhood;
   final StringInput number;
-  final StringInput ilness;
+  final EmtpyInput ilness;
   final PhoneInput phone;
+  final CpfInput cpf;
 
   NewPatinetForm({
     this.name = const StringInput.pure(),
     this.age = const StringInput.pure(),
     this.phone = const PhoneInput.pure(),
     this.city = const StringInput.pure(),
-    this.ilness = const StringInput.pure(),
+    this.ilness = const EmtpyInput.pure(),
     this.neighborhood = const StringInput.pure(),
     this.number = const StringInput.pure(),
     this.street = const StringInput.pure(),
+    this.cpf = const CpfInput.pure(),
   });
 
   @override
@@ -33,6 +35,7 @@ class NewPatinetForm with FormzMixin {
         neighborhood,
         number,
         street,
+        cpf,
       ];
 
   NewPatinetForm copyWith({
@@ -42,8 +45,9 @@ class NewPatinetForm with FormzMixin {
     StringInput? street,
     StringInput? neighborhood,
     StringInput? number,
-    StringInput? ilness,
+    EmtpyInput? ilness,
     PhoneInput? phone,
+    CpfInput? cpf,
   }) {
     return NewPatinetForm(
       name: name ?? this.name,
@@ -54,6 +58,7 @@ class NewPatinetForm with FormzMixin {
       number: number ?? this.number,
       ilness: ilness ?? this.ilness,
       phone: phone ?? this.phone,
+      cpf: cpf ?? this.cpf,
     );
   }
 }

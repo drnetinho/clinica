@@ -18,6 +18,7 @@ class NewPatientFormController {
   final TextEditingController neighCt = TextEditingController();
   final TextEditingController numberCt = TextEditingController();
   final TextEditingController ilnessCt = TextEditingController();
+  final cpfCt = TextEditingController();
 
   // Form
   final ValueNotifier<NewPatinetForm> form = ValueNotifier(NewPatinetForm());
@@ -54,6 +55,7 @@ class NewPatientFormController {
       age: ageCt.text,
       gender: genderCt.text,
       phone: phoneCt.text,
+      cpf: cpfCt.text,
       familyGroup: 'A definir',
       address: AddressModel(
         city: cityCt.text,
@@ -78,6 +80,7 @@ class NewPatientFormController {
     neighCt.clear();
     numberCt.clear();
     ilnessCt.clear();
+    cpfCt.clear();
     ilnesses.value.clear();
     selectedGender.value = '';
     form.value = NewPatinetForm();
@@ -91,6 +94,7 @@ class NewPatientFormController {
     streetCt.addListener(() => form.value = form.value.copyWith(street: StringInput.dirty(streetCt.text)));
     neighCt.addListener(() => form.value = form.value.copyWith(neighborhood: StringInput.dirty(neighCt.text)));
     numberCt.addListener(() => form.value = form.value.copyWith(number: StringInput.dirty(numberCt.text)));
-    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: StringInput.dirty(ilnessCt.text)));
+    ilnessCt.addListener(() => form.value = form.value.copyWith(ilness: EmtpyInput.dirty(ilnessCt.text)));
+    cpfCt.addListener(() => form.value = form.value.copyWith(cpf: CpfInput.dirty(cpfCt.text)));
   }
 }

@@ -6,6 +6,7 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/edit_payme
 import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/payment_tile.dart';
 import 'package:netinhoappclinica/core/components/drop_filter.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../../core/components/app_dialog.dart';
@@ -100,7 +101,6 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                     onConfirmPayment: () => showDialog(
                                       useSafeArea: true,
                                       context: context,
-                                      // TODO Thiago Personalizar este DIALOG abaixo
                                       builder: (_) => AppDialog(
                                         title: 'Deseja realmente salvar as alterações?',
                                         description:
@@ -108,9 +108,12 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                         firstButtonText: 'Cancelar',
                                         secondButtonText: 'Apenas confirmar',
                                         thirdButtonText: 'Confirmar e criar',
-                                        firstButtonIcon: Icons.cancel,
+                                        firstButtonIcon: Icons.close,
                                         secondButtonIcon: Icons.check,
                                         thirdButtonIcon: Icons.create,
+                                        firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                        secondButtonBackgroudColor: context.colorsApp.success,
+                                        thirdButtonBackgroudColor: context.colorsApp.success,
                                         store: editPaymentsStore,
                                         width: 600,
                                         onPressedSecond: () => editPaymentsStore.confirmPending(
@@ -132,8 +135,10 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                             'Ao reverter este pagamento o status dele irá ser definido como Pendente.',
                                         firstButtonText: 'Cancelar',
                                         secondButtonText: 'Reverter',
-                                        firstButtonIcon: Icons.cancel,
+                                        firstButtonIcon: Icons.close,
                                         secondButtonIcon: Icons.check,
+                                        secondButtonBackgroudColor: context.colorsApp.danger,
+                                        firstButtonBackgroudColor: context.colorsApp.dartWhite,
                                         store: editPaymentsStore,
                                         onPressedSecond: () => editPaymentsStore.revert(payment: payment),
                                       ),
@@ -145,7 +150,9 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                         title: 'Deseja realmente salvar as alterações?',
                                         firstButtonText: 'Cancelar',
                                         secondButtonText: 'Deletar',
-                                        firstButtonIcon: Icons.cancel,
+                                        secondButtonBackgroudColor: context.colorsApp.danger,
+                                        firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                        firstButtonIcon: Icons.close,
                                         secondButtonIcon: Icons.delete,
                                         store: editPaymentsStore,
                                         onPressedSecond: () => editPaymentsStore.delete(payment: payment),

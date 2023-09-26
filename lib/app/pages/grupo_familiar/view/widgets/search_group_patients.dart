@@ -61,18 +61,29 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
             widget.findedGroups?.call(null);
           }
         },
+        style: context.textStyles.textPoppinsRegular.copyWith(fontSize: 16, color: context.colorsApp.greyColor2),
         decoration: InputDecoration(
-          hintText: 'Buscar Pacientes',
-          hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          icon: Icon(Icons.search, color: context.colorsApp.greyColor2),
+          prefixIcon: Icon(Icons.search, color: context.colorsApp.greyColor2),
+          prefixIconColor: context.colorsApp.greyColor2,
+          hintText: 'Buscar Pacientes ou Grupos',
+          hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 16, color: context.colorsApp.greyColor),
+          border: border,
+          errorBorder: border,
+          enabledBorder: border,
+          focusedBorder: border,
+          disabledBorder: border,
           filled: true,
-          fillColor: context.colorsApp.backgroundCardColor,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20),
         ),
+      ),
+    );
+  }
+
+  OutlineInputBorder get border {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide(
+        color: context.colorsApp.transparentColor,
       ),
     );
   }

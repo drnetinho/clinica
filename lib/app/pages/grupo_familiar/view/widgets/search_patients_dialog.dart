@@ -10,6 +10,7 @@ import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.
 import 'package:netinhoappclinica/core/helps/padding.dart';
 import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../controller/group_page_controller.dart';
 
@@ -56,6 +57,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
       valueListenable: searchByGroup,
       builder: (context, filterByGroup, _) {
         return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Container(
             padding: Padd.sh(Spacing.x),
             height: MediaQuery.of(context).size.height * .8,
@@ -65,6 +67,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                 Spacing.xm.verticalGap,
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AnimatedBuilder(
                       animation: ctrl.searchCt,
@@ -81,14 +84,14 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                         );
                       },
                     ),
-                    Spacing.m.horizotalGap,
+                    const Spacer(),
                     SearchDialogFilterButtons(
                       groupIsSelected: filterByGroup,
                       onChanged: (filter) {
                         ctrl.clearCompleteSearch();
                         return searchByGroup.value = filter;
                       },
-                    )
+                    ),
                   ],
                 ),
                 Spacing.xm.verticalGap,
@@ -110,8 +113,35 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                                 builder: (context, _) {
                                   return ListTile(
                                     title: Text(group.name),
-                                    selectedTileColor: context.colorsApp.greenColor,
+                                    selectedTileColor: context.colorsApp.greenColor.withOpacity(.2),
                                     selectedColor: context.colorsApp.blackColor,
+                                    leading: SizedBox(
+                                      width: 90,
+                                      height: 40,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Radio(
+                                              activeColor: context.colorsApp.primary,
+                                              value: group.id,
+                                              groupValue: selectedGroup.value?.id,
+                                              onChanged: (value) {
+                                                if (selectedGroup.value != group) {
+                                                  selectedGroup.value = group;
+                                                } else {
+                                                  selectedGroup.value = null;
+                                                }
+                                              },
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Icon(Icons.family_restroom, size: 30, color: context.colorsApp.primary),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                     onTap: () {
                                       if (selectedGroup.value != group) {
                                         selectedGroup.value = group;
@@ -155,8 +185,34 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                                 builder: (context, _) {
                                   return ListTile(
                                     title: Text(patient.name),
-                                    leading: const Icon(Icons.family_restroom),
-                                    selectedTileColor: context.colorsApp.greenColor,
+                                    leading: SizedBox(
+                                      width: 90,
+                                      height: 40,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Radio(
+                                              activeColor: context.colorsApp.primary,
+                                              value: patient.familyGroup,
+                                              groupValue: selectedGroup.value?.id,
+                                              onChanged: (value) {
+                                                if (selectedGroup.value != group) {
+                                                  selectedGroup.value = group;
+                                                } else {
+                                                  selectedGroup.value = null;
+                                                }
+                                              },
+                                            ),
+                                            const SizedBox(width: 6),
+                                            Icon(Icons.person, size: 40, color: context.colorsApp.primary),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    selectedTileColor: context.colorsApp.greenColor.withOpacity(.2),
                                     selectedColor: context.colorsApp.blackColor,
                                     subtitle: Text(group.name),
                                     onTap: () {
@@ -188,21 +244,39 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: context.colorsApp.dartWhite),
                             onPressed: () {
                               context.pop();
                               ctrl.clearCompleteSearch();
                             },
-                            child: const Text('Cancelar'),
+                            child: Row(
+                              children: [
+                                Icon(Icons.close, color: context.colorsApp.greenColor2),
+                                const SizedBox(height: 10),
+                                Text('Cancelar',
+                                    style: context.textStyles.textPoppinsSemiBold
+                                        .copyWith(color: context.colorsApp.blackColor)),
+                              ],
+                            ),
                           ),
                           Spacing.m.horizotalGap,
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(backgroundColor: context.colorsApp.primary),
                             onPressed: selectedGroup.value != null
                                 ? () {
                                     widget.selectedGroup.call(selectedGroup.value);
                                     context.pop();
                                   }
                                 : null,
-                            child: const Text('Confirmar'),
+                            child: Row(
+                              children: [
+                                Icon(Icons.check, color: context.colorsApp.whiteColor),
+                                const SizedBox(height: 10),
+                                Text('Confirmar',
+                                    style: context.textStyles.textPoppinsSemiBold
+                                        .copyWith(color: context.colorsApp.whiteColor)),
+                              ],
+                            ),
                           ),
                         ],
                       );

@@ -158,7 +158,6 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                           padding: const EdgeInsets.all(0),
                           shrinkWrap: true,
                           itemCount: members.length,
-                          // TODO Thiago Arrumar este GroupMemberTile principalmente o botão de remover
                           itemBuilder: (context, index) => GroupMemberTile(
                             member: members[index],
                             enableRemove: true,
@@ -180,7 +179,6 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                     onTap: () => showDialog(
                       useSafeArea: true,
                       context: context,
-                      // TODO Thiago Personalizar este DIALOG abaixo
                       builder: (_) => AddGroupMembersDialog(
                         addController: addGroupController,
                       ),

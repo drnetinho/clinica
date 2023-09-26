@@ -35,7 +35,7 @@ class GroupMemberTile extends StatelessWidget {
                 const SizedBox(width: 20),
                 IconButton(
                   onPressed: onRemoveMember,
-                  icon: const Icon(Icons.cancel),
+                  icon: const Icon(Icons.close),
                 )
               },
             ],

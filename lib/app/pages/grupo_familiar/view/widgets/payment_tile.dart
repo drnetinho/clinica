@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
 
 class PaymentTile extends StatelessWidget {
   final FamilyPaymnetModel paymnet;
@@ -26,12 +26,12 @@ class PaymentTile extends StatelessWidget {
         Expanded(flex: 2, child: Text(paymnet.payDate.formatted)),
         Expanded(flex: 2, child: Text(paymnet.pending ? 'Pendente' : 'Pago')),
         Expanded(flex: 2, child: Text(paymnet.receiveDate?.formatted ?? 'Pendente')),
-
-        // TODO THIAGO Estilizar textos e este botao
         Expanded(
           flex: 1,
           child: PopupMenuButton<int>(
-            icon: const Icon(Icons.more_vert_outlined),
+            icon: Icon(Icons.more_vert_outlined, color: context.colorsApp.primary),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            elevation: 2,
             itemBuilder: (context) {
               return [
                 const PopupMenuItem(

@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                           width: 290,
                           icon: Icons.person,
                           title: 'Histórico',
-                          subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
+                          subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
                         ),
                       ],

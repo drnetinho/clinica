@@ -14,9 +14,9 @@ class EscalaMedica extends StatelessWidget {
   });
 
   double getheight(BuildContext context) {
-    // A altura nao pode ser menor que 200
-    if (MediaQuery.of(context).size.height * 0.2 < 350) {
-      return 350;
+    // A altura nao pode ser menor que 250
+    if (MediaQuery.of(context).size.height * 0.2 < 250) {
+      return 250;
     } else {
       return MediaQuery.of(context).size.height * 0.22;
     }

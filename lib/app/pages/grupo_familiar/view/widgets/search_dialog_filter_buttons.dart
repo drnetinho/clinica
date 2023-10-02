@@ -16,35 +16,56 @@ class SearchDialogFilterButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * .1,
+      width: MediaQuery.of(context).size.width * .16,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              if (!groupIsSelected) {
-                onChanged.call(true);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: groupIsSelected ? context.colorsApp.greenColor : context.colorsApp.whiteColor),
-            child: Text(
-              'Grupo',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor),
+          SizedBox(
+            height: 46,
+            width: 110,
+            child: ElevatedButton(
+              onPressed: () {
+                if (!groupIsSelected) {
+                  onChanged.call(true);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: groupIsSelected ? context.colorsApp.whiteColor : context.colorsApp.dartMedium,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: groupIsSelected ? context.colorsApp.primary : context.colorsApp.whiteColor),
+                ),
+              ),
+              child: Text(
+                'Grupo',
+                style: context.textStyles.textPoppinsSemiBold
+                    .copyWith(color: groupIsSelected ? context.colorsApp.blackColor : context.colorsApp.greyColor),
+              ),
             ),
           ),
           Spacing.m.horizotalGap,
-          ElevatedButton(
-            onPressed: () {
-              if (groupIsSelected) {
-                onChanged.call(false);
-              }
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: !groupIsSelected ? context.colorsApp.greenColor : context.colorsApp.whiteColor),
-            child: Text(
-              'Paciente',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor),
+          SizedBox(
+            height: 46,
+            width: 110,
+            child: ElevatedButton(
+              onPressed: () {
+                if (groupIsSelected) {
+                  onChanged.call(false);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: !groupIsSelected ? context.colorsApp.whiteColor : context.colorsApp.dartMedium,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: !groupIsSelected ? context.colorsApp.primary : context.colorsApp.whiteColor),
+                ),
+              ),
+              child: Text(
+                'Paciente',
+                style: context.textStyles.textPoppinsSemiBold
+                    .copyWith(color: !groupIsSelected ? context.colorsApp.blackColor : context.colorsApp.greyColor),
+              ),
             ),
           ),
         ],

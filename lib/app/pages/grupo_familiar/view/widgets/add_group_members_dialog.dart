@@ -91,6 +91,7 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
                                   final memberIncluded = widget.addController.containsMember(patient.id);
                                   return ListTile(
                                     trailing: Checkbox(
+                                      activeColor: context.colorsApp.primary,
                                       value: memberIncluded,
                                       onChanged: (v) => v == true ? addMember(patient) : removeMember(patient),
                                     ),

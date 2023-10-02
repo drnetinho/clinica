@@ -28,6 +28,9 @@ class AppDialog extends StatefulWidget {
   final ValueListenable<AppState> store;
   final double? width;
   final double? height;
+  final Color? firstButtonBackgroudColor;
+  final Color? secondButtonBackgroudColor;
+  final Color? thirdButtonBackgroudColor;
 
   const AppDialog({
     Key? key,
@@ -46,6 +49,9 @@ class AppDialog extends StatefulWidget {
     this.onPressedSecond,
     this.onPressedThird,
     this.actionOnSuccess,
+    this.firstButtonBackgroudColor,
+    this.secondButtonBackgroudColor,
+    this.thirdButtonBackgroudColor,
     required this.store,
   }) : super(key: key);
 
@@ -72,6 +78,7 @@ class _AppDialogState extends State<AppDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: AnimatedBuilder(
           animation: widget.store,
           builder: (context, _) {
@@ -110,7 +117,7 @@ class _AppDialogState extends State<AppDialog> {
                             if (widget.firstButtonText != null && widget.firstButtonIcon != null) ...{
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: context.colorsApp.dartWhite,
+                                  backgroundColor: widget.firstButtonBackgroudColor ?? context.colorsApp.whiteColor,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -119,7 +126,7 @@ class _AppDialogState extends State<AppDialog> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Icon(widget.firstButtonIcon!, color: context.colorsApp.greyColor2),
+                                    Icon(widget.firstButtonIcon!, color: context.colorsApp.greyColor2, size: 16),
                                     const SizedBox(width: 6),
                                     Text(widget.firstButtonText!,
                                         style: context.textStyles.textPoppinsSemiBold
@@ -132,7 +139,7 @@ class _AppDialogState extends State<AppDialog> {
                               Spacing.m.horizotalGap,
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: context.colorsApp.danger,
+                                  backgroundColor: widget.secondButtonBackgroudColor ?? context.colorsApp.primary,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -140,7 +147,7 @@ class _AppDialogState extends State<AppDialog> {
                                 onPressed: widget.onPressedSecond,
                                 child: Row(
                                   children: [
-                                    Icon(widget.secondButtonIcon!, color: context.colorsApp.whiteColor),
+                                    Icon(widget.secondButtonIcon!, color: context.colorsApp.whiteColor, size: 16),
                                     const SizedBox(width: 6),
                                     Text(
                                       widget.secondButtonText!,
@@ -155,7 +162,7 @@ class _AppDialogState extends State<AppDialog> {
                               Spacing.m.horizotalGap,
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: context.colorsApp.danger,
+                                  backgroundColor: widget.thirdButtonBackgroudColor ?? context.colorsApp.primary,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(12),
                                   ),
@@ -163,7 +170,7 @@ class _AppDialogState extends State<AppDialog> {
                                 onPressed: widget.onPressedThird,
                                 child: Row(
                                   children: [
-                                    Icon(widget.thirdButtonIcon!, color: context.colorsApp.whiteColor),
+                                    Icon(widget.thirdButtonIcon!, color: context.colorsApp.whiteColor, size: 16),
                                     const SizedBox(width: 4),
                                     Text(
                                       widget.thirdButtonText!,

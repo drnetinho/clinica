@@ -28,6 +28,8 @@ class ColorsApp {
   Color get yellowColor => const Color(0xFFFFC75E);
   Color get greenColor => const Color(0xFF9FE2C2);
   Color get greenColor2 => const Color(0xFF527736);
+  Color get greenDark => const Color(0xFF1A4014);
+  Color get greenDark2 => const Color(0xFF77A755);
   Color get softBlack => const Color(0xFF1E211D);
 }
 

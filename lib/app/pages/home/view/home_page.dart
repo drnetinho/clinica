@@ -11,6 +11,7 @@ import 'package:netinhoappclinica/app/pages/relatorios/view/relatorios_page.dart
 
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';
+import '../../edit_medical_scale/edit_medical_scale.dart';
 import '../../gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../../historico/historico_page.dart';
 
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                           width: 290,
                           icon: Icons.person,
                           title: 'Histórico',
-                          subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
+                          subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
                         ),
                       ],
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const EscalaMedica(),
+                    EscalaMedica(onPressedEdit: () => context.go(EditMedicalScale.routeName)),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

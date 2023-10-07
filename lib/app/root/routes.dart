@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/home/view/home_page.dart';
-import 'package:netinhoappclinica/app/pages/profile/profile_page.dart';
+import 'package:netinhoappclinica/app/pages/doctors/doctors_page.dart';
 import 'package:netinhoappclinica/app/pages/settings/settings_page.dart';
 import 'package:netinhoappclinica/app/root/root_navigator.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../common/services/auth/auth_service.dart';
 import '../pages/avaliacoes/avaliacoes_page.dart';
+import '../pages/edit_medical_scale/edit_medical_scale.dart';
 import '../pages/formas_pagamento/formas_de_pagamento_page.dart';
 import '../pages/gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../pages/grupo_familiar/view/grupo_familiar_page.dart';
@@ -106,8 +107,8 @@ final goRouter = GoRouter(
           routes: [
             //* PROFILE
             GoRoute(
-              path: ProfilePage.routeName,
-              builder: (context, state) => const ProfilePage(),
+              path: DoctorsPage.routeName,
+              builder: (context, state) => const DoctorsPage(),
               routes: const [],
             ),
           ],
@@ -132,6 +133,10 @@ final goRouter = GoRouter(
     GoRoute(
       path: SignPage.routeName,
       builder: (context, state) => const SignPage(),
+    ),
+    GoRoute(
+      path: EditMedicalScale.routeName,
+      builder: (context, state) => const EditMedicalScale(),
     ),
   ],
 );

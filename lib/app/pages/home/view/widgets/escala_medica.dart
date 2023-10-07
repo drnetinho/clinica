@@ -6,17 +6,19 @@ class EscalaMedica extends StatelessWidget {
   final double? width;
   final double? height;
   final Color? background;
+  final void Function()? onPressedEdit;
   const EscalaMedica({
     super.key,
     this.width,
     this.height,
     this.background,
+    required this.onPressedEdit,
   });
 
   double getheight(BuildContext context) {
-    // A altura nao pode ser menor que 200
-    if (MediaQuery.of(context).size.height * 0.2 < 350) {
-      return 350;
+    // A altura nao pode ser menor que 250
+    if (MediaQuery.of(context).size.height * 0.2 < 250) {
+      return 250;
     } else {
       return MediaQuery.of(context).size.height * 0.22;
     }
@@ -73,7 +75,7 @@ class EscalaMedica extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: onPressedEdit,
                           child: Row(
                             children: [
                               const Icon(Icons.edit, size: 14),
@@ -99,6 +101,7 @@ class EscalaMedica extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.calendar_today, color: context.colorsApp.greyColor2, size: 20),
                           const SizedBox(width: 10),

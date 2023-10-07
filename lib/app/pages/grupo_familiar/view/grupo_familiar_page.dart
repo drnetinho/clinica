@@ -61,7 +61,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(110, 30, 110, 10),
+        padding: const EdgeInsets.fromLTRB(80, 30, 80, 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -84,21 +84,20 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                           store: managePatientsStore,
                           validateDefaultStates: false,
                           builder: (context, patients, _) {
-                            // TODO Thiago Personalizar este FormFiel de Busca abaixo
-                            // TODO Atenção (isso vale pra todos), nao mexer na lógica e nem na árvore de widgets, ou seja, não componentize caso a lógica não esteja componentizada
                             return SizedBox(
                               height: MediaQuery.of(context).size.height * .1,
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SearchGroupPatients(
                                     patients: const [],
                                     groups: const [],
                                     searchByGroup: false,
-                                    width: MediaQuery.of(context).size.width * .32,
+                                    width: MediaQuery.of(context).size.width * .18,
                                     onTap: () => showDialog(
                                       useSafeArea: true,
                                       context: context,
-                                      // TODO Thiago Personalizar este DIALOG abaixo
                                       builder: (_) => SearchPatientsDialog(
                                         controller: controller,
                                         patients: patients,
@@ -111,6 +110,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                       ),
                                     ),
                                   ),
+                                  const SizedBox(width: 30),
                                   SizedBox(
                                     height: 50,
                                     child: ElevatedButton(
@@ -121,7 +121,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                           Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
                                           const SizedBox(width: 10),
                                           Text('Novo Grupo',
-                                              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
+                                              style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16)),
                                         ],
                                       ),
                                     ),

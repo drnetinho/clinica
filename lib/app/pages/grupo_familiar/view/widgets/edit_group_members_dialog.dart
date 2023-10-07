@@ -5,6 +5,7 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_g
 import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../../../../core/helps/padding.dart';
@@ -45,6 +46,7 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         padding: Padd.sh(Spacing.x),
         height: MediaQuery.of(context).size.height * .8,
@@ -98,6 +100,7 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
 
                                 return ListTile(
                                   trailing: Checkbox(
+                                    activeColor: context.colorsApp.primary,
                                     value: memberIncluded,
                                     onChanged: (v) => v == true ? addMember(patient) : removeMember(patient),
                                   ),
@@ -130,13 +133,21 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(context.colorsApp.dartWhite),
+                        ),
                         onPressed: context.pop,
-                        child: const Text('Cancelar'),
+                        child: Text('Cancelar',
+                            style: context.textStyles.textPoppinsRegular.copyWith(color: context.colorsApp.blackColor)),
                       ),
                       Spacing.m.horizotalGap,
                       ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(context.colorsApp.primary),
+                        ),
                         onPressed: newMembers.exists ? context.pop : null,
-                        child: const Text('Confirmar'),
+                        child: Text('Confirmar',
+                            style: context.textStyles.textPoppinsRegular.copyWith(color: context.colorsApp.whiteColor)),
                       ),
                     ],
                   );

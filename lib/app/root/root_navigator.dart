@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import '../../common/services/auth/auth_service.dart';
 import '../../di/get_it.dart';
 import '../pages/home/view/home_page.dart';
-import '../pages/profile/profile_page.dart';
+import '../pages/doctors/doctors_page.dart';
 import '../pages/settings/settings_page.dart';
 
 class RootNavigator extends StatefulWidget {
@@ -52,7 +52,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () => context.go(ProfilePage.routeName),
+                  onPressed: () => context.go(DoctorsPage.routeName),
                   icon: Icon(
                     Icons.person,
                     color: widget.navigationShell.currentIndex == 1

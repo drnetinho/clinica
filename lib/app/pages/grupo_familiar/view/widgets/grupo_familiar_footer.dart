@@ -71,11 +71,9 @@ class GrupoFamiliarFooter extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  color: lastPayment.pending ? context.colorsApp.danger : context.colorsApp.greenColor,
-                ),
+                Icon(Icons.circle,
+                    color: lastPayment.pending ? context.colorsApp.warning : context.colorsApp.greenColor, size: 14),
+                const SizedBox(width: 6),
                 Text(
                   lastPayment.pending ? 'Pendente' : 'Pago',
                   style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
@@ -101,7 +99,9 @@ class GrupoFamiliarFooter extends StatelessWidget {
             ],
           ),
         PopupMenuButton<int>(
-          icon: const Icon(Icons.more_vert_outlined),
+          icon: Icon(Icons.more_vert_outlined, color: context.colorsApp.primary),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          elevation: 2,
           itemBuilder: (context) {
             return [
               const PopupMenuItem(

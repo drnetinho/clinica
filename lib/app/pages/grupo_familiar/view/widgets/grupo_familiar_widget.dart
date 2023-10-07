@@ -193,11 +193,12 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                               : () => showDialog(
                                     useSafeArea: true,
                                     context: context,
-                                    // TODO Thiago Personalizar este DIALOG abaixo
                                     builder: (_) => AppDialog(
                                       title: 'Deseja realmente excluir o Grupo ${widget.group.name}?',
                                       firstButtonText: 'Cancelar',
                                       secondButtonText: 'Excluir',
+                                      firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                      secondButtonBackgroudColor: context.colorsApp.danger,
                                       width: 600,
                                       firstButtonIcon: Icons.cancel,
                                       secondButtonIcon: Icons.delete,
@@ -270,7 +271,6 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                         onTap: () => showDialog(
                           useSafeArea: true,
                           context: context,
-                          // TODO Thiago Personalizar este DIALOG abaixo
                           builder: (_) => EditGroupMembersDialog(
                             editController: editGroupController,
                           ),
@@ -330,8 +330,10 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                                 title: 'Deseja realmente salvar as alterações?',
                                 firstButtonText: 'Cancelar',
                                 secondButtonText: 'Deletar',
-                                firstButtonIcon: Icons.cancel,
+                                firstButtonIcon: Icons.close,
                                 secondButtonIcon: Icons.delete,
+                                firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                secondButtonBackgroudColor: context.colorsApp.danger,
                                 store: editPaymentsStore,
                                 onPressedSecond: () => editPaymentsStore.delete(payment: lastPayment),
                               ),
@@ -344,8 +346,10 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                                 description: 'Ao reverter este pagamento o status dele irá ser definido como Pendente.',
                                 firstButtonText: 'Cancelar',
                                 secondButtonText: 'Reverter',
-                                firstButtonIcon: Icons.cancel,
+                                firstButtonIcon: Icons.close,
                                 secondButtonIcon: Icons.check,
+                                firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                secondButtonBackgroudColor: context.colorsApp.danger,
                                 store: editPaymentsStore,
                                 onPressedSecond: () => editPaymentsStore.revert(payment: lastPayment),
                               ),
@@ -353,7 +357,6 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                             onConfirmReceive: () => showDialog(
                               useSafeArea: true,
                               context: context,
-                              // TODO Thiago Personalizar este DIALOG abaixo
                               builder: (_) => AppDialog(
                                 title: 'Deseja realmente salvar as alterações?',
                                 description:
@@ -361,9 +364,12 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                                 firstButtonText: 'Cancelar',
                                 secondButtonText: 'Apenas confirmar',
                                 thirdButtonText: 'Confirmar e criar',
-                                firstButtonIcon: Icons.cancel,
+                                firstButtonIcon: Icons.close,
                                 secondButtonIcon: Icons.check,
-                                thirdButtonIcon: Icons.create,
+                                thirdButtonIcon: Icons.add,
+                                firstButtonBackgroudColor: context.colorsApp.dartWhite,
+                                secondButtonBackgroudColor: context.colorsApp.success,
+                                thirdButtonBackgroudColor: context.colorsApp.success,
                                 store: editPaymentsStore,
                                 width: 600,
                                 onPressedSecond: () => editPaymentsStore.confirmPending(
@@ -406,7 +412,6 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                               onTap: () => showDialog(
                                 useSafeArea: true,
                                 context: context,
-                                // TODO Thiago Personalizar este DIALOG abaixo
                                 builder: (_) => PaymentHistoricDialog(
                                   paymentsStore: paymentsStore,
                                   onRefresh: getPayments,
@@ -428,7 +433,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                             onTap: () => showDialog(
                               useSafeArea: true,
                               context: context,
-                              // TODO Thiago Personalizar este DIALOG abaixo
+                         
                               builder: (_) => ClispWallet(
                                 groupName: widget.group.name,
                                 members: members,

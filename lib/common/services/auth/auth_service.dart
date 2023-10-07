@@ -42,7 +42,7 @@ class AuthService {
       return (userCredential: result, error: null);
     } on FirebaseAuthException catch (e) {
       log(e.message ?? '');
-      return (userCredential: null, error: e.message);
+      return (userCredential: null, error: 'Erro ao realizar login: ${e.code}');
     }
   }
 

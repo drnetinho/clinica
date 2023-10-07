@@ -32,7 +32,10 @@ class GoLoginAdmin extends StatelessWidget {
                   .copyWith(color: context.colorsApp.greyColor, fontSize: 24 * unitHeight),
             ),
             const SizedBox(height: 60),
-            ElevatedButton(
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.2 * unitHeight,
+              height: 60 * unitHeight,
+              child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: context.colorsApp.whiteColor,
                   shape: RoundedRectangleBorder(
@@ -41,9 +44,13 @@ class GoLoginAdmin extends StatelessWidget {
                 onPressed: () {
                   context.go(SignPage.routeName);
                 },
-                child: Text('Entrar',
-                    style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: ColorsApp.instance.success, fontSize: 24 * unitHeight))),
+                child: Text(
+                  'Entrar',
+                  style: context.textStyles.textPoppinsSemiBold
+                      .copyWith(color: ColorsApp.instance.success, fontSize: 24 * unitHeight),
+                ),
+              ),
+            ),
           ],
         ),
         Padding(

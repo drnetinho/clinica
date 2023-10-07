@@ -129,7 +129,7 @@ class AppFormField extends StatelessWidget {
     this.inputFormatters,
   });
 
-  double get getMaxHeight => labelText != null ? height + 30 : height;
+  double get getMaxHeight => labelText != null ? maxHeight + 30 : height;
 
   @override
   Widget build(BuildContext context) {
@@ -148,188 +148,174 @@ class AppFormField extends StatelessWidget {
             ),
             Spacing.s.verticalGap,
           },
-          Expanded(
-            child: TextFormField(
-              inputFormatters: inputFormatters,
-              onTap: onTap,
-              onChanged: onChanged,
-              onSaved: onSaved,
-              onFieldSubmitted: onSubmit,
-              autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
-              enabled: enabled,
-              maxLength: maxLength,
-              readOnly: readOnly!,
-              textAlignVertical: TextAlignVertical.center,
-              keyboardType: keyboardType,
-              cursorWidth: 1,
-              cursorColor: ColorsApp.instance.blackColor,
-              autofocus: autofocus!,
-              controller: controller,
-              focusNode: focusNode,
-              obscureText: isPassword,
-              validator: validator,
-              minLines: minLines,
-              maxLines: maxLines,
-              style: textStyle ?? context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-              expands: expands ?? false,
-              initialValue: initialValue,
-              decoration: decoration ??
-                  InputDecoration(
-                    helperText: null,
-                    errorText: null,
-                    errorMaxLines: 1,
-                    errorStyle: const TextStyle(
-                      height: 0,
-                      color: Colors.transparent,
-                    ),
-                    isDense: isDense,
-                    suffixIcon: suffixIcon,
-                    suffixIconColor: suffixIconColor,
-                    suffixStyle: suffixStyle,
-                    suffixIconConstraints: suffixIconConstraints,
-                    suffixText: suffixText,
-                    suffix: suffix,
-                    prefixIcon: prefixIcon,
-                    prefixIconColor: prefixIconColor,
-                    prefixStyle: prefixStyle,
-                    prefixIconConstraints: prefixIconConstraints,
-                    prefixText: prefixText,
-                    prefix: prefix,
-                    filled: filled,
-                    fillColor: filledColor,
-                    floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    labelText: hideLabel ? null : labelText,
-                    hintText: hint,
-                    hintStyle: context.textStyles.textPoppinsMedium.copyWith(
-                      color: hintColor ?? ColorsApp.instance.greyColor2,
-                    ),
-                    contentPadding: contentPadding,
-                    border: underline
-                        ? UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              width: 3.0,
-                              color:
-                                  isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          )
-                        : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              color:
-                                  isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          ),
-                    enabledBorder: underline
-                        ? UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              width: 3.0,
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : enableBorderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          )
-                        : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : enableBorderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          ),
-                    disabledBorder: underline
-                        ? UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              width: 3.0,
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : disabledBorderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          )
-                        : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : disabledBorderColor ?? ColorsApp.instance.greyColor2,
-                            ),
-                          ),
-                    focusedBorder: underline
-                        ? UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              width: 3.0,
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : focusedBorderColor ?? ColorsApp.instance.warning,
-                            ),
-                          )
-                        : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              color: isValid
-                                  ? ColorsApp.instance.success
-                                  : focusedBorderColor ?? ColorsApp.instance.warning,
-                            ),
-                          ),
-                    errorBorder: underline
-                        ? UnderlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              width: 3.0,
-                              color:
-                                  isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
-                            ),
-                          )
-                        : OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(Spacing.m),
-                            borderSide: BorderSide(
-                              color:
-                                  isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
-                            ),
-                          ),
+          TextFormField(
+            inputFormatters: inputFormatters,
+            onTap: onTap,
+            onChanged: onChanged,
+            onSaved: onSaved,
+            onFieldSubmitted: onSubmit,
+            autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
+            enabled: enabled,
+            maxLength: maxLength,
+            readOnly: readOnly!,
+            textAlignVertical: TextAlignVertical.center,
+            keyboardType: keyboardType,
+            cursorWidth: 1,
+            cursorColor: ColorsApp.instance.blackColor,
+            autofocus: autofocus!,
+            controller: controller,
+            focusNode: focusNode,
+            obscureText: isPassword,
+            validator: validator,
+            minLines: minLines,
+            maxLines: maxLines,
+            style: textStyle ?? context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+            expands: expands ?? false,
+            initialValue: initialValue,
+            decoration: decoration ??
+                InputDecoration(
+                  helperText: null,
+                  errorText: null,
+                  errorMaxLines: 1,
+                  errorStyle: const TextStyle(
+                    height: 0,
+                    color: Colors.transparent,
                   ),
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (helperText != null && errorText == null) ...{
-                  Spacing.ss.verticalGap,
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.info_outline_rounded,
-                        size: 14,
-                        color: ColorsApp.instance.greyColor2,
-                      ),
-                      Spacing.l.horizotalGap,
-                      Text(
-                        helperText ?? '',
-                        style: context.textStyles.textPoppinsMedium.copyWith(
-                          fontSize: 11,
-                          height: 1.7,
-                          color: ColorsApp.instance.greyColor2,
+                  isDense: isDense,
+                  suffixIcon: suffixIcon,
+                  suffixIconColor: suffixIconColor,
+                  suffixStyle: suffixStyle,
+                  suffixIconConstraints: suffixIconConstraints,
+                  suffixText: suffixText,
+                  suffix: suffix,
+                  prefixIcon: prefixIcon,
+                  prefixIconColor: prefixIconColor,
+                  prefixStyle: prefixStyle,
+                  prefixIconConstraints: prefixIconConstraints,
+                  prefixText: prefixText,
+                  prefix: prefix,
+                  filled: filled,
+                  fillColor: filledColor,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  labelText: hideLabel ? null : labelText,
+                  hintText: hint,
+                  hintStyle: context.textStyles.textPoppinsMedium.copyWith(
+                    color: hintColor ?? ColorsApp.instance.greyColor2,
+                  ),
+                  contentPadding: contentPadding,
+                  border: underline
+                      ? UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color: isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            color: isValid ? ColorsApp.instance.success : borderColor ?? ColorsApp.instance.greyColor2,
+                          ),
                         ),
-                      ),
-                    ],
+                  enabledBorder: underline
+                      ? UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color: isValid
+                                ? ColorsApp.instance.success
+                                : enableBorderColor ?? ColorsApp.instance.greyColor2,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            color: isValid
+                                ? ColorsApp.instance.success
+                                : enableBorderColor ?? ColorsApp.instance.greyColor2,
+                          ),
+                        ),
+                  disabledBorder: underline
+                      ? UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color: isValid
+                                ? ColorsApp.instance.success
+                                : disabledBorderColor ?? ColorsApp.instance.greyColor2,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            color: isValid
+                                ? ColorsApp.instance.success
+                                : disabledBorderColor ?? ColorsApp.instance.greyColor2,
+                          ),
+                        ),
+                  focusedBorder: underline
+                      ? UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color:
+                                isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.warning,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            color:
+                                isValid ? ColorsApp.instance.success : focusedBorderColor ?? ColorsApp.instance.warning,
+                          ),
+                        ),
+                  errorBorder: underline
+                      ? UnderlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            width: 3.0,
+                            color: isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
+                          ),
+                        )
+                      : OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(Spacing.m),
+                          borderSide: BorderSide(
+                            color: isValid ? ColorsApp.instance.success : errorBorderColor ?? ColorsApp.instance.danger,
+                          ),
+                        ),
+                ),
+          ),
+          if (helperText != null && errorText == null) ...{
+            Spacing.ss.verticalGap,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.info_outline_rounded,
+                  size: 14,
+                  color: ColorsApp.instance.greyColor2,
+                ),
+                Spacing.ss.horizotalGap,
+                Text(
+                  helperText ?? '',
+                  style: context.textStyles.textPoppinsMedium.copyWith(
+                    fontSize: 11,
+                    height: 1.7,
+                    color: ColorsApp.instance.greyColor2,
                   ),
-                } else if (errorText != null) ...{
-                  Spacing.ss.verticalGap,
-                  Text(
-                    errorText!,
-                    style: context.textStyles.textPoppinsMedium.copyWith(
-                      fontSize: 11,
-                      color: ColorsApp.instance.danger,
-                    ),
-                  ),
-                }
+                ),
               ],
             ),
-          ),
+          } else if (errorText != null) ...{
+            Spacing.ss.verticalGap,
+            Text(
+              errorText!,
+              style: context.textStyles.textPoppinsMedium.copyWith(
+                fontSize: 11,
+                color: ColorsApp.instance.danger,
+              ),
+            ),
+          },
         ],
       ),
     );

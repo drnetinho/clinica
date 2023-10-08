@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
-class AppBarLandingPage extends StatelessWidget {
-  const AppBarLandingPage({
+class AppBarLandingPageWeb extends StatelessWidget {
+  const AppBarLandingPageWeb({
     super.key,
   });
 

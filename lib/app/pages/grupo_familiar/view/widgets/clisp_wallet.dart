@@ -56,25 +56,32 @@ class ClispWallet extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Wrap(
-                  direction: Axis.vertical,
-                  children: List.generate(
-                    members.length,
-                    (index) => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          members[index].name,
-                          style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: SingleChildScrollView(
+                    child: Wrap(
+                      direction: Axis.horizontal,
+                      spacing: 100,
+                      runSpacing: 20,
+                      children: List.generate(
+                        members.length,
+                        (index) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              members[index].name,
+                              style: context.textStyles.textPoppinsSemiBold
+                                  .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
+                            ),
+                            Text(
+                              members[index].cpf,
+                              style: context.textStyles.textPoppinsSemiBold
+                                  .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
+                            ),
+                          ],
                         ),
-                        Text(
-                          members[index].cpf,
-                          style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

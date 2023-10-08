@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
-class MedicalScaleCardWidget extends StatelessWidget {
-  const MedicalScaleCardWidget({
+class MedicalScaleCardWidgetWeb extends StatelessWidget {
+  const MedicalScaleCardWidgetWeb({
     super.key,
   });
 

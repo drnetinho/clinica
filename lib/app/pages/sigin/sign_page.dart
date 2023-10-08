@@ -54,7 +54,7 @@ class _SignPageState extends State<SignPage> with SnackBarMixin {
               color: context.colorsApp.whiteColor.withOpacity(.9),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.38,
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.6,
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

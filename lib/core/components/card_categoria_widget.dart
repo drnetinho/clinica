@@ -55,9 +55,16 @@ class CardCategoriasWidget extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(title,
-                          style: context.textStyles.textPoppinsBold
-                              .copyWith(fontSize: 24, color: context.colorsApp.success)),
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: context.textStyles.textPoppinsBold.copyWith(
+                            fontSize: 20,
+                            color: context.colorsApp.success,
+                          ),
+                          maxLines: 3,
+                        ),
+                      ),
                       const SizedBox(width: 20),
                       Icon(icon, color: context.colorsApp.success, size: 24),
                     ],

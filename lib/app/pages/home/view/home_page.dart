@@ -55,16 +55,18 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CardCategoriasWidget(
                           width: 290,
+                          background: context.colorsApp.dartMedium,
                           icon: Icons.person,
-                          title: 'Gerenciar',
+                          title: 'Gerenciar Paciente',
                           subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
                           onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
                         ),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         CardCategoriasWidget(
                           width: 290,
+                          background: context.colorsApp.dartMedium,
                           icon: Icons.person,
-                          title: 'Histórico',
+                          title: 'Histórico do Pacinte',
                           subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
                         ),
@@ -75,6 +77,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         CardCategoriasWidget(
                           width: 290,
+                          background: context.colorsApp.dartMedium,
                           icon: Icons.person,
                           title: 'Grupo Familiar',
                           subTitle: 'Ver membros e acessar\ndetalhes do grupo familiar.',
@@ -83,8 +86,9 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         CardCategoriasWidget(
                           width: 290,
+                          background: context.colorsApp.dartMedium,
                           icon: Icons.person,
-                          title: 'Avaliações',
+                          title: 'Avaliações do Paciente',
                           subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
                           onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),
                         ),
@@ -110,18 +114,18 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             CardCategoriasWidget(
                               background: context.colorsApp.dartMedium,
-                              width: 400,
+                              width: 290,
                               icon: Icons.person,
-                              title: 'Formas de Pagamento',
+                              title: 'Dados de Pagamento',
                               subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
                               onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
                             ),
                             SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                             CardCategoriasWidget(
                               background: context.colorsApp.dartMedium,
-                              width: 400,
+                              width: 290,
                               icon: Icons.person,
-                              title: 'Relatórios',
+                              title: 'Relatórios de Faturamento',
                               subTitle: 'Acessar relatórios de faturamento.\n     ',
                               onTap: () => context.go(subRoute(HomePage.routeName, RelatoriosPage.routeName)),
                             ),

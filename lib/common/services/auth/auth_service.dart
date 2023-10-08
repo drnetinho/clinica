@@ -15,7 +15,7 @@ class AuthService {
 
   AuthService() {
     firebaseAuth = FirebaseAuth.instance;
-    isLogged = ValueNotifier<bool>(false);
+    isLogged = ValueNotifier<bool>(currentUser != null);
     isLogged.addListener(() {
       isLogged.value ? goRouter.go(HomePage.routeName) : goRouter.go(SignPage.routeName);
     });
@@ -67,6 +67,8 @@ class AuthService {
       await firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {
       log(e.message ?? '');
+    } finally {
+      isLogged.value = false;
     }
   }
 }

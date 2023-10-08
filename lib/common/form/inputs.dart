@@ -5,13 +5,18 @@ import 'app_form_validator.dart';
 
 // --------------------------------------------------  ERRORS
 enum StringInputError {
-  empty(message: 'Digite ao menos um caractere', exists: '');
+  empty(
+    message: 'Digite ao menos um caractere',
+    exists: '',
+    password: 'Digite ao menos 6 caracteres',
+  );
 
   final String message;
+  final String password;
 
   /// Serve apenas para o formField ficar ativo no ErrorState
   final String exists;
-  const StringInputError({required this.message, required this.exists});
+  const StringInputError({required this.message, required this.exists, required this.password});
 }
 
 enum MinimumStringInputError {
@@ -73,6 +78,15 @@ class PhoneInput extends FormzInput<String, PhoneInputError> {
   PhoneInputError? validator(String value) {
     return FormValidator.validatePhone(value) ? null : PhoneInputError.invalid;
   }
+}
+
+// Email INPUT
+enum EmailInputError {
+  invalid(message: 'Email inválido', exists: '');
+
+  final String message;
+  final String exists;
+  const EmailInputError({required this.message, required this.exists});
 }
 
 // CPF INPUT

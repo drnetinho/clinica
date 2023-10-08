@@ -15,6 +15,14 @@ mixin SnackBarMixin {
     ));
   }
 
+  void showWarning({required BuildContext context, required String text}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(text),
+      backgroundColor: ColorsApp.instance.warning,
+      duration: const Duration(seconds: 8),
+    ));
+  }
+
   void showSuccess({required BuildContext context, required String text}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(text),

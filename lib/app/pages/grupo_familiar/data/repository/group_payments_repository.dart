@@ -10,7 +10,7 @@ import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
 import '../../domain/model/family_payment_model.dart';
-import '../types.dart/group_types.dart';
+import '../types/group_types.dart';
 
 abstract class GroupPaymentsRepository {
   UnitOrError updateField({
@@ -32,8 +32,11 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
   @override
   FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
     try {
-      final res =
-          await FirestoreService.fire.collection(Collections.payments).where('familyGroupId', isEqualTo: id).get();
+      final res = await FirestoreService.fire
+          .collection(Collections.payments)
+          .where('familyGroupId', isEqualTo: id)
+          .orderBy('payDate')
+          .get();
 
       final docs = res.docs.map((e) {
         if (mapContainsEmptyKey(e.data(), idKey)) {

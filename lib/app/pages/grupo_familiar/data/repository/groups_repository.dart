@@ -12,7 +12,7 @@ import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
-import '../types.dart/group_types.dart';
+import '../types/group_types.dart';
 
 abstract class GroupsRepository {
   UnitOrError updateField({

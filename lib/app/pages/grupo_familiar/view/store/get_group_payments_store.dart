@@ -53,5 +53,11 @@ class GetGroupPaymentsStore extends ValueNotifier<AppState> {
     );
   }
 
+  FamilyPaymnetModel? actualPendingPayment(List<FamilyPaymnetModel> payments) {
+    return payments.firstWhereOrNull(
+      (e) => e.pending,
+    );
+  }
+
   bool isPending(List<FamilyPaymnetModel> payments) => payments.any((p) => p.pending);
 }

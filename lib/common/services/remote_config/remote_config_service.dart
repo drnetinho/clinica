@@ -16,7 +16,7 @@ class RMConfig {
 
   // Values
   String get appName => _remoteConfig.getString(RemoteConfigValues.appName);
-  bool get blogToogle => _remoteConfig.getBool(RemoteConfigValues.blogToogle);
+  String? get pixQrCode => _remoteConfig.getString(RemoteConfigValues.pix);
 
   // Configs
   Future<void> initialize() async {
@@ -25,7 +25,7 @@ class RMConfig {
       await _remoteConfig.setConfigSettings(
         RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 10),
-          minimumFetchInterval: const Duration(seconds: 1),
+          minimumFetchInterval: const Duration(minutes: 2),
         ),
       );
       await _remoteConfig.fetchAndActivate();

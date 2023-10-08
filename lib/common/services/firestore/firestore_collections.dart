@@ -3,4 +3,5 @@ class Collections {
   static const String pix = 'pix';
   static const String groups = 'groups';
   static const String payments = 'payments';
+  static const String clinica = 'clinica';
 }

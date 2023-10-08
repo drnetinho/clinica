@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'app/root/routes.dart';
+import 'common/services/remote_config/remote_config_service.dart';
 import 'core/styles/colors_app.dart';
 import 'di/get_it.dart';
 import 'firebase/prod/firebase_options.dart' as prd;
@@ -21,7 +22,7 @@ void main() async {
         ? dev.DefaultFirebaseOptions.currentPlatform
         : prd.DefaultFirebaseOptions.currentPlatform,
   );
-
+  await RMConfig.instance.initialize();
   await configureDependencies();
 
   runApp(const ClispApp());

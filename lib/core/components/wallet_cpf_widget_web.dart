@@ -13,16 +13,16 @@ import '../../di/get_it.dart';
 import 'app_form_field.dart';
 import 'app_loader.dart';
 
-class WalletCPFWidget extends StatefulWidget {
-  const WalletCPFWidget({
+class WalletCPFWidgetWeb extends StatefulWidget {
+  const WalletCPFWidgetWeb({
     super.key,
   });
 
   @override
-  State<WalletCPFWidget> createState() => _WalletCPFWidgetState();
+  State<WalletCPFWidgetWeb> createState() => _WalletCPFWidgetWebState();
 }
 
-class _WalletCPFWidgetState extends State<WalletCPFWidget> with SnackBarMixin {
+class _WalletCPFWidgetWebState extends State<WalletCPFWidgetWeb> with SnackBarMixin {
   late final GetGroupByCpfStore _getGroupByCpfStore;
   late final WalletController walletController;
 

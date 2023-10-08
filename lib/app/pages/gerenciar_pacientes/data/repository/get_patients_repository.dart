@@ -13,6 +13,11 @@ import '../../domain/model/patient_model.dart';
 import '../types/home_types.dart';
 
 abstract class GetPatientsRepository {
+  UnitOrError updateField({
+    required String collection,
+    required Map<String, dynamic> map,
+    required String docId,
+  });
   GetPatientsOrError getPatients();
   UnitOrError deletePatient({required String id});
   UnitOrError addPatient({required PatientModel patient});
@@ -21,11 +26,17 @@ abstract class GetPatientsRepository {
 
 @Injectable(as: GetPatientsRepository)
 class GetPatientsRepositoryImpl implements GetPatientsRepository {
+  final idKey = 'id';
   @override
   GetPatientsOrError getPatients() async {
     try {
       final response = await FirestoreService.fire.collection(Collections.patients).get();
-      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final docs = response.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.patients, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
       Logger.prettyPrint('LISTA DE PACIENTES', Logger.greenColor, 'getPatients');
       return (error: null, patients: data);
@@ -70,6 +81,22 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError updateField({
+    required String collection,
+    required String docId,
+    required Map<String, dynamic> map,
+  }) async {
+    try {
+      await FirestoreService.fire.collection(collection).doc(docId).update(map);
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: DomainError(), unit: null);
     } catch (e) {
       return (error: UndefiniedError(), unit: null);
     }

@@ -32,11 +32,8 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
   @override
   FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
     try {
-      final res = await FirestoreService.fire
-          .collection(Collections.payments)
-          .where('familyGroupId', isEqualTo: id)
-          .orderBy('payDate')
-          .get();
+      final res =
+          await FirestoreService.fire.collection(Collections.payments).where('familyGroupId', isEqualTo: id).get();
 
       final docs = res.docs.map((e) {
         if (mapContainsEmptyKey(e.data(), idKey)) {

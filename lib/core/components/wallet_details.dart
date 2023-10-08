@@ -5,13 +5,15 @@ import 'package:netinhoappclinica/core/components/app_loader.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/duration.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 import '../../app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import '../../app/pages/grupo_familiar/view/store/get_group_members_store.dart';
 import '../../app/pages/grupo_familiar/view/store/get_group_payments_store.dart';
 import '../../di/get_it.dart';
-import 'animated_resize.dart';
+import '../helps/spacing.dart';
 
 class WalletDetails extends StatefulWidget {
   final FamilyGroupModel group;
@@ -54,94 +56,149 @@ class _WalletDetailsState extends State<WalletDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: isFlipped,
-      builder: (context, _) {
-        return AnimatedCrossFade(
-          duration: threeHundMili,
-          crossFadeState: isFlipped.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-          firstChild: GestureDetector(
-            onTap: () => isFlipped.value = true,
-            child: AnimatedResize(
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Group.png'),
-                  ),
-                ),
-                child: Center(
-                  child: StoreBuilder<List<PatientModel>>(
-                    store: _getGroupMembersStore,
-                    validateDefaultStates: true,
-                    loading: const AppLoader(primary: false),
-                    builder: (context, members, _) {
-                      return Wrap(
-                        children: members
-                            .map(
-                              (member) => Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(member.name),
-                                    Text(member.cpf),
-                                  ],
-                                ),
-                              ),
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ),
-          secondChild: GestureDetector(
-            onTap: () => isFlipped.value = false,
-            child: AnimatedResize(
-              child: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Group.png'),
-                  ),
-                ),
-                child: StoreBuilder<List<FamilyPaymnetModel>>(
-                    store: paymnetsStore,
-                    validateDefaultStates: false,
-                    builder: (context, payments, _) {
-                      final payment = paymnetsStore.actualPendingPayment(payments);
-                      return Center(
-                        child: RMConfig.instance.pixQrCode?.isNotEmpty == true
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+    return SizedBox(
+      child: AnimatedBuilder(
+        animation: isFlipped,
+        builder: (context, _) {
+          return StoreBuilder<List<PatientModel>>(
+            store: _getGroupMembersStore,
+            validateDefaultStates: true,
+            loading: const AppLoader(primary: false),
+            builder: (context, members, _) {
+              return AnimatedCrossFade(
+                duration: threeHundMili,
+                crossFadeState: isFlipped.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+                firstChild: GestureDetector(
+                  onTap: () => isFlipped.value = true,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: context.colorsApp.greenDark2, borderRadius: BorderRadius.circular(40)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(Icons.family_restroom, size: 60, color: context.colorsApp.dartWhite),
+                              const SizedBox(width: 20),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Image.network(
-                                    RMConfig.instance.pixQrCode!,
-                                    height: 200,
-                                    width: 200,
+                                  Text(
+                                    'Carteira Clisp',
+                                    style: context.textStyles.textPoppinsBold
+                                        .copyWith(fontSize: 24, color: context.colorsApp.dartWhite),
                                   ),
-                                  if (payment != null) Text('Pagamento pendente: ${payment.payDate.formatted}'),
+                                  Text(
+                                    widget.group.name,
+                                    style: context.textStyles.textPoppinsBold
+                                        .copyWith(fontSize: 18, color: context.colorsApp.greenDark),
+                                  ),
                                 ],
                               )
-                            : Column(
-                                children: [
-                                  const Text('Nenhum QR Code cadastrado, entre em contato com o administrador.'),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      // Levar pro whatsapp
-                                    },
-                                    child: const Text('Falar com o administrador'),
+                            ],
+                          ),
+                          Spacing.xs.verticalGap,
+                          Expanded(
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10),
+                                child: GridView.builder(
+                                  itemCount: members.length,
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 0.5,
+                                    childAspectRatio: 16 / 7,
                                   ),
-                                ],
-                              ),
-                      );
-                    }),
-              ),
-            ),
-          ),
-        );
-      },
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          members[index].name,
+                                          style: context.textStyles.textPoppinsSemiBold
+                                              .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text(
+                                          'CPF: ${members[index].cpf}',
+                                          style: context.textStyles.textPoppinsSemiBold
+                                              .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                secondChild: GestureDetector(
+                  onTap: () => isFlipped.value = false,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(color: context.colorsApp.greenDark2, borderRadius: BorderRadius.circular(40)),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 20),
+                      child: StoreBuilder<List<FamilyPaymnetModel>>(
+                          store: paymnetsStore,
+                          validateDefaultStates: false,
+                          builder: (context, payments, _) {
+                            final payment = paymnetsStore.actualPendingPayment(payments);
+                            return Center(
+                              child: RMConfig.instance.pixQrCode?.isNotEmpty == true
+                                  ? Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.network(
+                                          RMConfig.instance.pixQrCode!,
+                                          height: 200,
+                                          width: 200,
+                                        ),
+                                        if (payment != null) ...{
+                                          const SizedBox(height: 20),
+                                          Text(
+                                            'Pagamento pendente: ${payment.payDate.formatted}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        },
+                                      ],
+                                    )
+                                  : Column(
+                                      children: [
+                                        const Text('Nenhum QR Code cadastrado, entre em contato com o administrador.'),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Levar pro whatsapp
+                                          },
+                                          child: const Text('Falar com o administrador'),
+                                        ),
+                                      ],
+                                    ),
+                            );
+                          }),
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

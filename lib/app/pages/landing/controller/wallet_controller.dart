@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/common/form/inputs.dart';
 
 @injectable
 class WalletController {
-  final TextEditingController cpfControlller = TextEditingController();
+  final TextEditingController cpfControlller = TextEditingController(text: '085.355.554-04');
 
   // Form
   final ValueNotifier<WalletForm> form = ValueNotifier(WalletForm());

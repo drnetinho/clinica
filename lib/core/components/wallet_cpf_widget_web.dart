@@ -125,8 +125,8 @@ class _WalletCPFWidgetWebState extends State<WalletCPFWidgetWeb> with SnackBarMi
         Padding(
           padding: const EdgeInsets.only(right: 100),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.4,
-            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.height * 0.36,
+            width: MediaQuery.of(context).size.height * 0.6,
             child: StoreBuilder<FamilyGroupModel>(
               store: _getGroupByCpfStore,
               validateDefaultStates: false,

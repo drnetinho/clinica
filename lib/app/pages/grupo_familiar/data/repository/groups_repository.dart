@@ -12,7 +12,7 @@ import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
-import '../types.dart/group_types.dart';
+import '../types/group_types.dart';
 
 abstract class GroupsRepository {
   UnitOrError updateField({
@@ -40,12 +40,21 @@ abstract class GroupsRepository {
 
 @Injectable(as: GroupsRepository)
 class GroupsRepositoryImpl implements GroupsRepository {
+  final idKey = 'id';
   @override
   FamilyGroupsOrError getGroups() async {
     try {
       final response = await FirestoreService.fire.collection(Collections.groups).get();
-      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      
+      final docs = response.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.groups, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
+
       final data = docs.map((e) => FamilyGroupModel.fromJson(e)).toList();
+
       Logger.prettyPrint('LISTA DE GRUPOS', Logger.greenColor, 'getGroups');
       return (error: null, groups: data);
     } on FirebaseException {

@@ -73,7 +73,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 const SizedBox(height: 20),
                 IconButton(
                   onPressed: () {
-                    getIt<AuthService>().isLogged.value = false;
+                    getIt<AuthService>().signOut();
                   },
                   icon: Icon(
                     Icons.logout,

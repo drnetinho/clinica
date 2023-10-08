@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
@@ -55,35 +56,42 @@ class ClispWallet extends StatelessWidget {
                     )
                   ],
                 ),
-                const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SingleChildScrollView(
-                    child: Wrap(
-                      direction: Axis.horizontal,
-                      spacing: 100,
-                      runSpacing: 20,
-                      children: List.generate(
-                        members.length,
-                        (index) => Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              members[index].name,
-                              style: context.textStyles.textPoppinsSemiBold
-                                  .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
-                            ),
-                            Text(
-                              members[index].cpf,
-                              style: context.textStyles.textPoppinsSemiBold
-                                  .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
-                            ),
-                          ],
+                Spacing.xs.verticalGap,
+                Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: GridView.builder(
+                        itemCount: members.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 0.5,
+                          childAspectRatio: 16 / 7,
                         ),
-                      ),
-                    ),
-                  ),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                members[index].name,
+                                style: context.textStyles.textPoppinsSemiBold
+                                    .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                'CPF: ${members[index].cpf}',
+                                style: context.textStyles.textPoppinsSemiBold
+                                    .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
+                          );
+                        },
+                      )),
                 ),
               ],
             ),

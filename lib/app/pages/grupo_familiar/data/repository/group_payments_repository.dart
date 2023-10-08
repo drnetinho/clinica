@@ -10,9 +10,14 @@ import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 
 import '../../domain/model/family_payment_model.dart';
-import '../types.dart/group_types.dart';
+import '../types/group_types.dart';
 
 abstract class GroupPaymentsRepository {
+  UnitOrError updateField({
+    required String collection,
+    required Map<String, dynamic> map,
+    required String docId,
+  });
   FamilyGroupPaymentsOrError getGroupPayments({required String id});
   FamilyGroupPaymentsOrError getAllPayments();
   FamilyGroupPaymentsOrError getAllPendingPayments();
@@ -23,13 +28,19 @@ abstract class GroupPaymentsRepository {
 
 @Injectable(as: GroupPaymentsRepository)
 class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
+  final idKey = 'id';
   @override
   FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
     try {
       final res =
           await FirestoreService.fire.collection(Collections.payments).where('familyGroupId', isEqualTo: id).get();
 
-      final docs = res.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final docs = res.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.payments, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
       Logger.prettyPrint('LISTA DE PAGAMENTOS', Logger.greenColor, 'getGroupPayments');
       data.sort((a, b) => b.payDate.compareTo(a.payDate));
@@ -45,7 +56,12 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
   FamilyGroupPaymentsOrError getAllPayments() async {
     try {
       final response = await FirestoreService.fire.collection(Collections.payments).get();
-      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final docs = response.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.payments, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
       Logger.prettyPrint('', Logger.greenColor, 'getAllPayments');
       return (error: null, payments: data);
@@ -100,7 +116,12 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
     try {
       final response =
           await FirestoreService.fire.collection(Collections.payments).where('pending', isEqualTo: true).get();
-      final docs = response.docs.map((e) => addMapId(e.data(), e.id)).toList();
+      final docs = response.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.payments, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
       Logger.prettyPrint('LISTA DE PAGAMENTOS PENDENTES', Logger.greenColor, 'getAllPendingPayments');
       return (error: null, payments: data);
@@ -108,6 +129,22 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: RemoteError(), payments: null);
     } catch (e) {
       return (error: UndefiniedError(), payments: null);
+    }
+  }
+
+  @override
+  UnitOrError updateField({
+    required String collection,
+    required String docId,
+    required Map<String, dynamic> map,
+  }) async {
+    try {
+      await FirestoreService.fire.collection(collection).doc(docId).update(map);
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: DomainError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
     }
   }
 }

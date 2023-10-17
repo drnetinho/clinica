@@ -26,10 +26,10 @@ class _GroupsCardState extends State<GroupsCard> with AutomaticKeepAliveClientMi
     return SizedBox(
       height: MediaQuery.of(context).size.height * .8,
       width: MediaQuery.of(context).size.width * .28,
-      child: Card(
-        color: context.colorsApp.backgroundCardColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: PhysicalModel(
         elevation: 1,
+        color: context.colorsApp.backgroundCardColor,
+        borderRadius: BorderRadius.circular(20),
         child: Column(
           children: [
             Row(
@@ -53,7 +53,6 @@ class _GroupsCardState extends State<GroupsCard> with AutomaticKeepAliveClientMi
             SizedBox(
               height: MediaQuery.of(context).size.height * .72,
               width: MediaQuery.of(context).size.width * .28,
-             
               child: SingleChildScrollView(
                 child: Column(
                   children: widget.groups

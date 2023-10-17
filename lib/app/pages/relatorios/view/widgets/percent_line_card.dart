@@ -33,10 +33,10 @@ class _PercentLineCardState extends State<PercentLineCard> {
   @override
   Widget build(BuildContext context) {
     return AnimatedResize(
-      child: Card(
-        color: context.colorsApp.backgroundCardColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: PhysicalModel(
         elevation: 1,
+        color: context.colorsApp.backgroundCardColor,
+        borderRadius: BorderRadius.circular(20),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(

@@ -152,10 +152,10 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
           valueListenable: editMode,
           builder: (context, isEditing, _) {
             final state = isEditing ? CrossFadeState.showSecond : CrossFadeState.showFirst;
-            return Card(
-              color: context.colorsApp.backgroundCardColor,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            return PhysicalModel(
               elevation: 10,
+              color: context.colorsApp.backgroundCardColor,
+              borderRadius: BorderRadius.circular(20),
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
                 child: Column(
@@ -433,7 +433,6 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                             onTap: () => showDialog(
                               useSafeArea: true,
                               context: context,
-                         
                               builder: (_) => ClispWallet(
                                 groupName: widget.group.name,
                                 members: members,

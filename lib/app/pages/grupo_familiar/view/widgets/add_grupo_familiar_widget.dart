@@ -88,10 +88,10 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: context.colorsApp.backgroundCardColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    return PhysicalModel(
       elevation: 10,
+      color: context.colorsApp.backgroundCardColor,
+      borderRadius: BorderRadius.circular(20),
       child: ValueListenableBuilder<NewGroupForm>(
           valueListenable: addGroupController.form,
           builder: (context, form, _) {

@@ -20,10 +20,10 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedResize(
-      child: Card(
-        color: context.colorsApp.backgroundCardColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: PhysicalModel(
         elevation: 1,
+        color: context.colorsApp.backgroundCardColor,
+        borderRadius: BorderRadius.circular(20),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 25),
           child: Column(

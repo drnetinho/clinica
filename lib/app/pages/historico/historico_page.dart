@@ -89,10 +89,10 @@ class _HistoricoPageState extends State<HistoricoPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * .7,
                       width: MediaQuery.of(context).size.width * .32,
-                      child: Card(
-                        color: context.colorsApp.backgroundCardColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      child: PhysicalModel(
                         elevation: 1,
+                        color: context.colorsApp.backgroundCardColor,
+                        borderRadius: BorderRadius.circular(20),
                         child: ListView.builder(
                           itemCount: names.length,
                           itemBuilder: (context, index) {
@@ -144,10 +144,10 @@ class _HistoricoPageState extends State<HistoricoPage> {
                   width: MediaQuery.of(context).size.width * .42,
                   child: Stack(
                     children: [
-                      Card(
-                        color: context.colorsApp.backgroundCardColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      PhysicalModel(
                         elevation: 10,
+                        color: context.colorsApp.backgroundCardColor,
+                        borderRadius: BorderRadius.circular(20),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(34, 28, 34, 22),
                           child: Column(

@@ -149,6 +149,7 @@ class _DropFilterState extends State<DropFilter> {
   Widget buildRadio({required String value}) => Row(
         children: [
           Radio(
+            activeColor: ColorsApp.instance.primary,
             value: value,
             groupValue: selectedFilter.value,
             onChanged: (value) => selectedFilter.value = value.toString(),

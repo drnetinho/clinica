@@ -59,7 +59,7 @@ class CardCategoriasWidget extends StatelessWidget {
                         child: Text(
                           title,
                           style: context.textStyles.textPoppinsBold.copyWith(
-                            fontSize: 20,
+                            fontSize: 18,
                             color: context.colorsApp.success,
                           ),
                           maxLines: 3,

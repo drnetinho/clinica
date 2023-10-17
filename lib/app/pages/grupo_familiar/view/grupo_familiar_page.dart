@@ -137,10 +137,10 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * .7,
                       width: MediaQuery.of(context).size.width * .32,
-                      child: Card(
-                        color: context.colorsApp.backgroundCardColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                      child: PhysicalModel(
                         elevation: 1,
+                        color: context.colorsApp.backgroundCardColor,
+                        borderRadius: BorderRadius.circular(20),
                         child: StoreBuilder<List<PatientModel>>(
                             store: managePatientsStore,
                             validateDefaultStates: true,

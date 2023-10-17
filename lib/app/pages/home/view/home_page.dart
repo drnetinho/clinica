@@ -40,7 +40,6 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Row(
-              //Appbar + cards Pacientes
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Column(
@@ -96,8 +95,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-
-                //Escala Medica + cards Pagamentos
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

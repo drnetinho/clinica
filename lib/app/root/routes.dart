@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/home/view/home_page.dart';
-import 'package:netinhoappclinica/app/pages/doctors/doctors_page.dart';
 import 'package:netinhoappclinica/app/pages/settings/settings_page.dart';
 import 'package:netinhoappclinica/app/root/root_navigator.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
 import '../../common/services/auth/auth_service.dart';
 import '../pages/avaliacoes/avaliacoes_page.dart';
-import '../pages/edit_medical_scale/edit_medical_scale.dart';
+import '../pages/doctors/view/doctors_page.dart';
 import '../pages/formas_pagamento/formas_de_pagamento_page.dart';
 import '../pages/gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../pages/grupo_familiar/view/grupo_familiar_page.dart';
 import '../pages/historico/historico_page.dart';
 import '../pages/landing/landing_page.dart';
 import '../pages/relatorios/view/relatorios_page.dart';
+import '../pages/scale/view/edit_medical_scale.dart';
 import '../pages/sigin/sign_page.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/edit_medical_scale/widgets/new_scale_buttom.dart';
+import 'package:netinhoappclinica/app/pages/scale/view/widgets/new_scale_buttom.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 

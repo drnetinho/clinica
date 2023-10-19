@@ -38,10 +38,10 @@ class _AppBarLandingPageMobileState extends State<AppBarLandingPageMobile> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.3,
+          width: MediaQuery.of(context).size.width * 0.5,
           child: Image.asset('assets/images/clinica_image.png'),
         ),
-        SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+        const SizedBox(width: 10),
         StoreBuilder<AppDetailsModel>(
             store: _detailsStore,
             validateDefaultStates: false,
@@ -52,23 +52,23 @@ class _AppBarLandingPageMobileState extends State<AppBarLandingPageMobile> {
                   Text(
                     appDetails.name,
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 14),
+                        .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 22),
                   ),
                   Text(
                     appDetails.address,
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.greyColor, fontSize: 10),
+                        .copyWith(color: context.colorsApp.greyColor, fontSize: 12),
                   ),
                   Text(
                     'Telefone: ${appDetails.phone1}',
                     style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.greyColor2, fontSize: 10),
+                        .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
                   ),
                   if (appDetails.phone2?.isNotEmpty == true)
                     Text(
                       'Telefone secundário: ${appDetails.phone2!}',
                       style: context.textStyles.textPoppinsSemiBold
-                          .copyWith(color: context.colorsApp.greyColor2, fontSize: 10),
+                          .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
                     ),
                 ],
               );

@@ -15,7 +15,7 @@ class MedicalScaleCardWidgetWeb extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Escala médica da Semana',
+          Text('Escala médica do dia',
               style: context.textStyles.textPoppinsSemiBold
                   .copyWith(color: context.colorsApp.blackColor, fontSize: 32 * unitHeight)),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),

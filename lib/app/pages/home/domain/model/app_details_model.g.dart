@@ -10,7 +10,7 @@ AppDetailsModel _$AppDetailsModelFromJson(Map json) => AppDetailsModel(
       address: json['address'] as String,
       name: json['name'] as String,
       phone1: json['phone1'] as String,
-      phone2: json['phone2'] as String,
+      phone2: json['phone2'] as String?,
     );
 
 Map<String, dynamic> _$AppDetailsModelToJson(AppDetailsModel instance) =>

@@ -7,6 +7,7 @@ import 'package:netinhoappclinica/common/services/firestore/firestore_collection
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';
+import '../../../../../common/mixin/firebase_update_field.dart';
 import '../../../../../common/services/logger.dart';
 import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
@@ -15,11 +16,6 @@ import '../../../../../common/services/firestore/firestore_service.dart';
 import '../types/group_types.dart';
 
 abstract class GroupsRepository {
-  UnitOrError updateField({
-    required String collection,
-    required Map<String, dynamic> map,
-    required String docId,
-  });
   FamilyGroupsOrError getGroups();
   FamilyGroupOrError getGroupByCpf({required String cpf});
   FamilyGroupMembersOrError getGroupMembers({required List<String> ids});
@@ -39,13 +35,13 @@ abstract class GroupsRepository {
 }
 
 @Injectable(as: GroupsRepository)
-class GroupsRepositoryImpl implements GroupsRepository {
+class GroupsRepositoryImpl with UpdateFirebaseDocField implements GroupsRepository {
   final idKey = 'id';
   @override
   FamilyGroupsOrError getGroups() async {
     try {
       final response = await FirestoreService.fire.collection(Collections.groups).get();
-      
+
       final docs = response.docs.map((e) {
         if (mapContainsEmptyKey(e.data(), idKey)) {
           updateField(collection: Collections.groups, docId: e.id, map: {idKey: e.id});
@@ -194,22 +190,6 @@ class GroupsRepositoryImpl implements GroupsRepository {
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
-    } catch (e) {
-      return (error: UndefiniedError(), unit: null);
-    }
-  }
-
-  @override
-  UnitOrError updateField({
-    required String collection,
-    required String docId,
-    required Map<String, dynamic> map,
-  }) async {
-    try {
-      await FirestoreService.fire.collection(collection).doc(docId).update(map);
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: DomainError(), unit: null);
     } catch (e) {
       return (error: UndefiniedError(), unit: null);
     }

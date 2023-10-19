@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/doctors/widgets/doctor_widget.dart';
-import 'package:netinhoappclinica/app/pages/doctors/widgets/new_doctors_buttom_widget.dart';
+import 'package:netinhoappclinica/app/pages/doctors/view/widgets/doctor_widget.dart';
+import 'package:netinhoappclinica/app/pages/doctors/view/widgets/new_doctors_buttom_widget.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
 class DoctorsPage extends StatefulWidget {

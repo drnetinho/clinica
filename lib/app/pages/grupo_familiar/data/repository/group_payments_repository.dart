@@ -4,6 +4,7 @@ import 'package:netinhoappclinica/common/services/firestore/firestore_collection
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';
+import '../../../../../common/mixin/firebase_update_field.dart';
 import '../../../../../common/services/logger.dart';
 import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
@@ -13,11 +14,6 @@ import '../../domain/model/family_payment_model.dart';
 import '../types/group_types.dart';
 
 abstract class GroupPaymentsRepository {
-  UnitOrError updateField({
-    required String collection,
-    required Map<String, dynamic> map,
-    required String docId,
-  });
   FamilyGroupPaymentsOrError getGroupPayments({required String id});
   FamilyGroupPaymentsOrError getAllPayments();
   FamilyGroupPaymentsOrError getAllPendingPayments();
@@ -27,7 +23,7 @@ abstract class GroupPaymentsRepository {
 }
 
 @Injectable(as: GroupPaymentsRepository)
-class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
+class GroupPaymentsRepositoryImpl with UpdateFirebaseDocField implements GroupPaymentsRepository {
   final idKey = 'id';
   @override
   FamilyGroupPaymentsOrError getGroupPayments({required String id}) async {
@@ -129,22 +125,6 @@ class GroupPaymentsRepositoryImpl implements GroupPaymentsRepository {
       return (error: RemoteError(), payments: null);
     } catch (e) {
       return (error: UndefiniedError(), payments: null);
-    }
-  }
-
-  @override
-  UnitOrError updateField({
-    required String collection,
-    required String docId,
-    required Map<String, dynamic> map,
-  }) async {
-    try {
-      await FirestoreService.fire.collection(collection).doc(docId).update(map);
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: DomainError(), unit: null);
-    } catch (e) {
-      return (error: UndefiniedError(), unit: null);
     }
   }
 }

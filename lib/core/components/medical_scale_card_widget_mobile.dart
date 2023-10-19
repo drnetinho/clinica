@@ -11,14 +11,17 @@ class MedicalScaleCardWidgetMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column( 
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Escala médica da Semana',
-            style: context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.blackColor, fontSize: 14),
+            'Escala médica do dia',
+            style: context.textStyles.textPoppinsSemiBold.copyWith(
+              color: context.colorsApp.blackColor,
+              fontSize: 20,
+            ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+          const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: SizedBox(

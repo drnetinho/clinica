@@ -4,6 +4,7 @@ import 'package:netinhoappclinica/common/services/firestore/firestore_collection
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';
+import '../../../../../common/mixin/firebase_update_field.dart';
 import '../../../../../common/types/types.dart';
 import '../../../../../core/helps/map_utils.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
@@ -13,11 +14,7 @@ import '../../domain/model/patient_model.dart';
 import '../types/home_types.dart';
 
 abstract class GetPatientsRepository {
-  UnitOrError updateField({
-    required String collection,
-    required Map<String, dynamic> map,
-    required String docId,
-  });
+
   GetPatientsOrError getPatients();
   UnitOrError deletePatient({required String id});
   UnitOrError addPatient({required PatientModel patient});
@@ -25,7 +22,7 @@ abstract class GetPatientsRepository {
 }
 
 @Injectable(as: GetPatientsRepository)
-class GetPatientsRepositoryImpl implements GetPatientsRepository {
+class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatientsRepository {
   final idKey = 'id';
   @override
   GetPatientsOrError getPatients() async {
@@ -86,19 +83,4 @@ class GetPatientsRepositoryImpl implements GetPatientsRepository {
     }
   }
 
-  @override
-  UnitOrError updateField({
-    required String collection,
-    required String docId,
-    required Map<String, dynamic> map,
-  }) async {
-    try {
-      await FirestoreService.fire.collection(collection).doc(docId).update(map);
-      return (error: null, unit: unit);
-    } on FirebaseException {
-      return (error: DomainError(), unit: null);
-    } catch (e) {
-      return (error: UndefiniedError(), unit: null);
-    }
-  }
 }

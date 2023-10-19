@@ -17,10 +17,12 @@ import '../helps/spacing.dart';
 
 class WalletDetails extends StatefulWidget {
   final FamilyGroupModel group;
+  final bool fromMobile;
 
   const WalletDetails({
     super.key,
     required this.group,
+    this.fromMobile = false,
   });
 
   @override
@@ -74,10 +76,8 @@ class _WalletDetailsState extends State<WalletDetails> {
                     decoration:
                         BoxDecoration(color: context.colorsApp.greenDark2, borderRadius: BorderRadius.circular(40)),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 20),
+                      padding: const EdgeInsets.all(20),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -91,13 +91,13 @@ class _WalletDetailsState extends State<WalletDetails> {
                                 children: [
                                   Text(
                                     'Carteira Clisp',
-                                    style: context.textStyles.textPoppinsBold
-                                        .copyWith(fontSize: 24, color: context.colorsApp.dartWhite),
+                                    style: context.textStyles.textPoppinsBold.copyWith(
+                                        fontSize: widget.fromMobile ? 20 : 24, color: context.colorsApp.dartWhite),
                                   ),
                                   Text(
                                     widget.group.name,
-                                    style: context.textStyles.textPoppinsBold
-                                        .copyWith(fontSize: 18, color: context.colorsApp.greenDark),
+                                    style: context.textStyles.textPoppinsBold.copyWith(
+                                        fontSize: widget.fromMobile ? 16 : 18, color: context.colorsApp.greenDark),
                                   ),
                                 ],
                               )
@@ -108,6 +108,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 10),
                                 child: GridView.builder(
+                                  shrinkWrap: true,
                                   itemCount: members.length,
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -123,15 +124,17 @@ class _WalletDetailsState extends State<WalletDetails> {
                                       children: [
                                         Text(
                                           members[index].name,
-                                          style: context.textStyles.textPoppinsSemiBold
-                                              .copyWith(fontSize: 16, color: context.colorsApp.dartWhite),
+                                          style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                              fontSize: widget.fromMobile ? 14 : 16,
+                                              color: context.colorsApp.dartWhite),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         Text(
                                           'CPF: ${members[index].cpf}',
-                                          style: context.textStyles.textPoppinsSemiBold
-                                              .copyWith(fontSize: 12, color: context.colorsApp.greenDark),
+                                          style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                              fontSize: widget.fromMobile ? 11 : 12,
+                                              color: context.colorsApp.greenDark),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -148,49 +151,52 @@ class _WalletDetailsState extends State<WalletDetails> {
                 secondChild: GestureDetector(
                   onTap: () => isFlipped.value = false,
                   child: Container(
-                    decoration:
-                        BoxDecoration(color: context.colorsApp.greenDark2, borderRadius: BorderRadius.circular(40)),
+                    decoration: BoxDecoration(
+                      color: context.colorsApp.greenDark2,
+                      borderRadius: BorderRadius.circular(40),
+                    ),
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(36, 36, 36, 20),
+                      padding: const EdgeInsets.all(20),
                       child: StoreBuilder<List<FamilyPaymnetModel>>(
-                          store: paymnetsStore,
-                          validateDefaultStates: false,
-                          builder: (context, payments, _) {
-                            final payment = paymnetsStore.actualPendingPayment(payments);
-                            return Center(
-                              child: RMConfig.instance.pixQrCode?.isNotEmpty == true
-                                  ? Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Image.network(
-                                          RMConfig.instance.pixQrCode!,
-                                          height: 200,
-                                          width: 200,
-                                        ),
-                                        if (payment != null) ...{
-                                          const SizedBox(height: 20),
-                                          Text(
-                                            'Pagamento pendente: ${payment.payDate.formatted}',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
+                        store: paymnetsStore,
+                        validateDefaultStates: false,
+                        builder: (context, payments, _) {
+                          final payment = paymnetsStore.actualPendingPayment(payments);
+                          return Center(
+                            child: RMConfig.instance.pixQrCode?.isNotEmpty == true
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Image.network(
+                                        RMConfig.instance.pixQrCode!,
+                                        height: widget.fromMobile ? 150 : 200,
+                                        width: widget.fromMobile ? 150 : 200,
+                                      ),
+                                      if (payment != null) ...{
+                                        SizedBox(height: widget.fromMobile ? 10 : 20),
+                                        Text(
+                                          'Pagamento pendente: ${payment.payDate.formatted}',
+                                          style: const TextStyle(
+                                            color: Colors.white,
                                           ),
-                                        },
-                                      ],
-                                    )
-                                  : Column(
-                                      children: [
-                                        const Text('Nenhum QR Code cadastrado, entre em contato com o administrador.'),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            // Levar pro whatsapp
-                                          },
-                                          child: const Text('Falar com o administrador'),
                                         ),
-                                      ],
-                                    ),
-                            );
-                          }),
+                                      },
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      const Text('Nenhum QR Code cadastrado, entre em contato com o administrador.'),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          // Levar pro whatsapp
+                                        },
+                                        child: const Text('Falar com o administrador'),
+                                      ),
+                                    ],
+                                  ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),

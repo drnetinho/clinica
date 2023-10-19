@@ -11,9 +11,9 @@ import 'package:netinhoappclinica/app/pages/relatorios/view/relatorios_page.dart
 
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';
-import '../../edit_medical_scale/edit_medical_scale.dart';
 import '../../gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
 import '../../historico/historico_page.dart';
+import '../../scale/view/edit_medical_scale.dart';
 
 class HomePage extends StatefulWidget {
   static const String routeName = '/home';

@@ -21,6 +21,8 @@ class EditPixController {
 
   final ValueNotifier<PixModel> pixEdited = ValueNotifier(const PixModel.initial());
 
+  final List<String> typeKeys = ['CPF', 'CNPJ', 'E-mail', 'Telefone', 'Chave aleatória'];
+
   set setTypeKey(String key) {
     selectedTipeKey.value = key;
     typeKey.text = selectedTipeKey.value;

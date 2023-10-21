@@ -9,7 +9,6 @@ import '../../../../../core/components/app_form_field.dart';
 import '../../../../../di/get_it.dart';
 import '../../../gerenciar_pacientes/view/widgets/editar_buttons.dart';
 import '../controller/edit_pix_controller.dart';
-
 import '../controller/formas_pagamento_controller.dart';
 import '../forms/edit_pix_form.dart';
 import '../store/get_pix_store.dart';
@@ -65,11 +64,15 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> with Snac
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ValueListenableBuilder(
-          valueListenable: controller.form,
-          builder: (context, form, _) {
-            return Column(
+    return ValueListenableBuilder(
+        valueListenable: controller.form,
+        builder: (context, form, _) {
+          return PhysicalModel(
+            elevation: 10,
+            color: context.colorsApp.backgroundCardColor,
+            borderRadius: BorderRadius.circular(20),
+            shadowColor: context.colorsApp.blackColor,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
@@ -152,66 +155,134 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> with Snac
                 Padding(
                   padding: const EdgeInsets.fromLTRB(100, 10, 300, 0),
                   child: ValueListenableBuilder<EditPixForm>(
-                      valueListenable: controller.form,
-                      builder: (context, form, _) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppFormField(
-                                  padding: EdgeInsets.zero,
-                                  margin: EdgeInsets.zero,
-                                  labelText: 'Nome:',
-                                  controller: controller.name,
-                                  isValid: form.name.isValid,
-                                  validator: (_) => form.name.error?.exists,
-                                  errorText: form.name.displayError?.message,
-                                ),
-                                AppFormField(
-                                  padding: EdgeInsets.zero,
-                                  margin: EdgeInsets.zero,
-                                  labelText: 'Banco:',
-                                  controller: controller.bank,
-                                  isValid: form.bank.isValid,
-                                  validator: (_) => form.bank.error?.exists,
-                                  errorText: form.bank.displayError?.message,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppFormField(
-                                  padding: EdgeInsets.zero,
-                                  margin: EdgeInsets.zero,
-                                  labelText: 'Chave Pix:',
-                                  controller: controller.pixKey,
-                                  isValid: form.pixKey.isValid,
-                                  validator: (_) => form.pixKey.error?.exists,
-                                  errorText: form.pixKey.displayError?.message,
-                                ),
-                                AppFormField(
-                                  padding: EdgeInsets.zero,
-                                  margin: EdgeInsets.zero,
-                                  labelText: 'Tipo da Chave:',
-                                  controller: controller.typeKey,
-                                  isValid: form.typeKey.isValid,
-                                  validator: (_) => form.typeKey.error?.exists,
-                                  errorText: form.typeKey.displayError?.message,
-                                ),
-                              ],
-                            ),
-                          ],
-                        );
-                      }),
+                    valueListenable: controller.form,
+                    builder: (context, form, _) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppFormField(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                labelText: 'Nome:',
+                                controller: controller.name,
+                                isValid: form.name.isValid,
+                                validator: (_) => form.name.error?.exists,
+                                errorText: form.name.displayError?.message,
+                              ),
+                              AppFormField(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                labelText: 'Banco:',
+                                controller: controller.bank,
+                                isValid: form.bank.isValid,
+                                validator: (_) => form.bank.error?.exists,
+                                errorText: form.bank.displayError?.message,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppFormField(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                labelText: 'Chave Pix:',
+                                controller: controller.pixKey,
+                                isValid: form.pixKey.isValid,
+                                validator: (_) => form.pixKey.error?.exists,
+                                errorText: form.pixKey.displayError?.message,
+                              ),
+                              // Column(
+                              //   mainAxisAlignment: MainAxisAlignment.start,
+                              //   crossAxisAlignment: CrossAxisAlignment.start,
+                              //   children: [
+                              //     Text(
+                              //       'Tipo da Chave:',
+                              //       style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                              //     ),
+                              //     Spacing.s.verticalGap,
+                              //     Container(
+                              //       height: 45,
+                              //       width: 200,
+                              //       decoration: BoxDecoration(
+                              //         borderRadius: BorderRadius.circular(Spacing.m),
+                              //         border: Border.all(color: context.colorsApp.primary),
+                              //       ),
+                              //       child: InkWell(
+                              //         onTap: () {
+                              //           showDialog(
+                              //             context: context,
+                              //             builder: (context) {
+                              //               return Dialog(
+                              //                   child: SizedBox(
+                              //                 height: 200,
+                              //                 width: 200,
+                              //                 child: ListView.builder(
+                              //                   itemCount: controller.typeKeys.length,
+                              //                   itemBuilder: (context, index) {
+                              //                     return ListTile(
+                              //                       title: Text(
+                              //                         controller.typeKeys[index],
+                              //                         style: context.textStyles.textPoppinsMedium.copyWith(
+                              //                           fontSize: 14,
+                              //                           color: context.colorsApp.primary,
+                              //                         ),
+                              //                       ),
+                              //                       onTap: () {
+                              //                         controller.typeKey.text = controller.typeKeys[index];
+                              //                         Navigator.pop(context);
+                              //                       },
+                              //                     );
+                              //                   },
+                              //                 ),
+                              //               ));
+                              //             },
+                              //           );
+                              //         },
+                              //         child: Padding(
+                              //           padding: const EdgeInsets.symmetric(horizontal: 10),
+                              //           child: Row(
+                              //             children: [
+                              //               Text(
+                              //                 controller.typeKey.text,
+                              //                 style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                              //               ),
+                              //               const Spacer(),
+                              //               Icon(Icons.keyboard_arrow_down_rounded,
+                              //                   color: context.colorsApp.primary, size: 30)
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     )
+                              //   ],
+                              // )
+
+                              AppFormField(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
+                                labelText: 'Tipo da Chave:',
+                                controller: controller.typeKey,
+                                isValid: form.typeKey.isValid,
+                                validator: (_) => form.typeKey.error?.exists,
+                                errorText: form.typeKey.displayError?.message,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 }

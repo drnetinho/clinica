@@ -12,7 +12,7 @@ class DoctorStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getDetails() async {
+  Future<void> getDoctors() async {
     value = AppStateLoading();
     final result = await _repository.getDoctors();
 

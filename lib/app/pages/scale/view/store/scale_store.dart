@@ -12,7 +12,7 @@ class ScaleStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getDetails() async {
+  Future<void> getScale() async {
     value = AppStateLoading();
     final result = await _repository.getScales();
 

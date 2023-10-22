@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:netinhoappclinica/app/pages/home/domain/model/app_details_model.dart';
+import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
@@ -66,7 +67,9 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.15,
-                child: Image.asset('assets/images/clinica_image.png'),
+                child: RMConfig.instance.clispImage?.isNotEmpty == true
+                    ? Image.network(RMConfig.instance.clispImage!)
+                    : Image.asset('assets/images/clinica_image.png'),
               ),
               StoreBuilder<AppDetailsModel>(
                   store: _detailsStore,
@@ -78,7 +81,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                         Text(
                           appDetails.name,
                           style: context.textStyles.textPoppinsSemiBold
-                              .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 16),
+                              .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 22),
                         ),
                         Text(
                           appDetails.address,

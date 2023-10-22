@@ -17,6 +17,7 @@ class RMConfig {
   // Values
   String get appName => _remoteConfig.getString(RemoteConfigValues.appName);
   String? get pixQrCode => _remoteConfig.getString(RemoteConfigValues.pix);
+  String? get clispImage => _remoteConfig.getString(RemoteConfigValues.clisp);
 
   // Configs
   Future<void> initialize() async {

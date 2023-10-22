@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../common/services/remote_config/remote_config_service.dart';
 import '../../../../core/components/store_builder.dart';
 import '../../../../di/get_it.dart';
 import '../../home/domain/model/app_details_model.dart';
@@ -40,7 +41,9 @@ class _AppBarLandingPageWebState extends State<AppBarLandingPageWeb> {
       children: [
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.2,
-          child: Image.asset('assets/images/clinica_image.png'),
+          child: RMConfig.instance.clispImage?.isNotEmpty == true
+              ? Image.network(RMConfig.instance.clispImage!)
+              : Image.asset('assets/images/clinica_image.png'),
         ),
         StoreBuilder<AppDetailsModel>(
           store: _detailsStore,

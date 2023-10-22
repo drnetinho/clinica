@@ -11,7 +11,8 @@ extension StringValidators on String {
   bool get containsLowercase => contains(RegExp(r'[a-z]'));
   bool get containsNumber => contains(RegExp(r'[0-9]'));
 
-  DateTime get toDateTime => DateFormat('dd/MM/yyyy').parse(this);
+  DateTime get toDateTimeFormatted => DateFormat('dd/MM/yyyy').parse(this);
+  DateTime get toDateTime => DateTime.parse(this);
 
   String formatPlural(int value) {
     if (value > 1) {

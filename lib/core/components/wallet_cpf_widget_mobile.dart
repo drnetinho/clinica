@@ -131,7 +131,7 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
                 store: _getGroupByCpfStore,
                 validateDefaultStates: false,
                 builder: (context, group, _) => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.28,
+                  height: MediaQuery.of(context).size.height * 0.35,
                   width: MediaQuery.of(context).size.height * 0.6,
                   child: WalletDetails(
                     group: group,

@@ -65,6 +65,7 @@ class _FormasDePagamentoPageState extends State<FormasDePagamentoPage> {
                   elevation: 10,
                   color: context.colorsApp.backgroundCardColor,
                   borderRadius: BorderRadius.circular(20),
+                  shadowColor: context.colorsApp.blackColor,
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * .42,
                     width: MediaQuery.of(context).size.width * .7,

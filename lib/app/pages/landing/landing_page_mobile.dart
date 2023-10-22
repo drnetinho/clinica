@@ -37,23 +37,29 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      child: SafeArea(
-        child: SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppBarLandingPageMobile(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              const GoLoginAdminMobile(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              const WalletCpfWidgetMobile(),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              const MedicalScaleCardWidgetMobile()
-            ],
-          ),
+    return SafeArea(
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+              child: AppBarLandingPageMobile(),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: GoLoginAdminMobile(),
+            ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            const WalletCpfWidgetMobile(),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            const Padding(
+              padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+              child: MedicalScaleCardWidgetMobile(),
+            )
+          ],
         ),
       ),
     );

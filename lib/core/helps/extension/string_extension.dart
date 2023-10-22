@@ -5,6 +5,7 @@ import '../../../common/form/formatters/app_formatters.dart';
 extension StringValidators on String {
   bool get hasMinimumLength => length >= 6;
   bool get isMoreThanOne => isNotEmpty && length > 0;
+  bool get moreThanOndeAndHasMinimumLength => isMoreThanOne && hasMinimumLength;
   String get lower => toLowerCase();
   String get extractCurreency => replaceAll(AppRegExp.chars, '');
   bool get containsUppercase => contains(RegExp(r'[A-Z]'));

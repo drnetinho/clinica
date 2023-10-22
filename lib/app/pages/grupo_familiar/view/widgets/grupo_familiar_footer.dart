@@ -104,19 +104,58 @@ class GrupoFamiliarFooter extends StatelessWidget {
           elevation: 2,
           itemBuilder: (context) {
             return [
-              const PopupMenuItem(
+              PopupMenuItem(
                 value: 0,
-                child: Text('Deletar'),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.delete_outline,
+                      color: context.colorsApp.danger,
+                    ),
+                    Text(
+                      'Deletar',
+                      style: TextStyle(
+                        color: context.colorsApp.danger,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               if (lastPayment.pending) ...{
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 1,
-                  child: Text('Confirmar'),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: context.colorsApp.success,
+                      ),
+                      Text(
+                        'Confirmar',
+                        style: TextStyle(
+                          color: context.colorsApp.success,
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               } else ...{
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 2,
-                  child: Text('Reverter'),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.refresh,
+                        color: context.colorsApp.warning,
+                      ),
+                      Text(
+                        'Reverter',
+                        style: TextStyle(
+                          color: context.colorsApp.warning,
+                        ),
+                      ),
+                    ],
+                  ),
                 )
               },
             ];

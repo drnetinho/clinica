@@ -58,7 +58,7 @@ class AddGroupController {
   FamilyPaymnetModel updatePayment() {
     firstGroupPayment.value = firstGroupPayment.value.copyWith(
       monthlyFee: (double.tryParse(monthlyFee.text.extractCurreency) ?? 0).toCurrency,
-      payDate: payDateCt.text.toDateTime,
+      payDate: payDateCt.text.toDateTimeFormatted,
       pending: true,
     );
     return firstGroupPayment.value;

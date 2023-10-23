@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:netinhoappclinica/app/pages/doctors/data/repository/doctors_repository.dart';
+import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
 import 'package:netinhoappclinica/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
@@ -12,7 +14,7 @@ class DoctorStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getDetails() async {
+  Future<void> getDoctors() async {
     value = AppStateLoading();
     final result = await _repository.getDoctors();
 
@@ -21,5 +23,10 @@ class DoctorStore extends ValueNotifier<AppState> {
     } else if (result.error.exists) {
       value = AppStateError(message: result.error?.message ?? 'Erro ao buscar médicos cadastrados');
     }
+  }
+
+  Doctor? getDoctorById(String? id, List<Doctor> doctors) {
+    if (id == null) return null;
+    return doctors.firstWhereOrNull((element) => element.id == id);
   }
 }

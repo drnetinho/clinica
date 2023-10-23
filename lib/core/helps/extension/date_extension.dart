@@ -16,6 +16,10 @@ extension DateTimeExtension on DateTime {
     }
   }
 
+  bool isTheSameDay(DateTime other) {
+    return year == other.year && month == other.month && day == other.day;
+  }
+
   String dayOfWeek() {
     switch (weekday) {
       case 1:

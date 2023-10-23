@@ -5,13 +5,15 @@ import '../../../common/form/formatters/app_formatters.dart';
 extension StringValidators on String {
   bool get hasMinimumLength => length >= 6;
   bool get isMoreThanOne => isNotEmpty && length > 0;
+  bool get moreThanOndeAndHasMinimumLength => isMoreThanOne && hasMinimumLength;
   String get lower => toLowerCase();
   String get extractCurreency => replaceAll(AppRegExp.chars, '');
   bool get containsUppercase => contains(RegExp(r'[A-Z]'));
   bool get containsLowercase => contains(RegExp(r'[a-z]'));
   bool get containsNumber => contains(RegExp(r'[0-9]'));
 
-  DateTime get toDateTime => DateFormat('dd/MM/yyyy').parse(this);
+  DateTime get toDateTimeFormatted => DateFormat('dd/MM/yyyy').parse(this);
+  DateTime get toDateTime => DateTime.parse(this);
 
   String formatPlural(int value) {
     if (value > 1) {

@@ -2,7 +2,6 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
 import 'package:netinhoappclinica/common/services/remote_config/remote_config_default_values.dart';
 
-
 //App Info
 
 class RMConfig {
@@ -17,6 +16,8 @@ class RMConfig {
   // Values
   String get appName => _remoteConfig.getString(RemoteConfigValues.appName);
   String? get pixQrCode => _remoteConfig.getString(RemoteConfigValues.pix);
+  String? get clispImage => _remoteConfig.getString(RemoteConfigValues.clisp);
+  String get emptyAvatar => _remoteConfig.getString(RemoteConfigValues.emptyAvatar);
 
   // Configs
   Future<void> initialize() async {

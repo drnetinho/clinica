@@ -27,7 +27,7 @@ class NewScaleButtom extends StatelessWidget {
           children: [
             Icon(Icons.add, size: 16, color: context.colorsApp.greenColor2),
             const SizedBox(width: 10),
-            Text('Novo escala',
+            Text('Nova Escala',
                 style: context.textStyles.textPoppinsSemiBold
                     .copyWith(fontSize: 18, color: context.colorsApp.greenColor2)),
           ],

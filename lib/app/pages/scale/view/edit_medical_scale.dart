@@ -1,10 +1,25 @@
+import 'dart:developer';
+
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+
+import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
+import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
+import 'package:netinhoappclinica/app/pages/scale/domain/model/doctor_scale.dart';
+import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
+import 'package:netinhoappclinica/app/pages/scale/view/widgets/doctor_scale_card.dart';
+import 'package:netinhoappclinica/app/pages/scale/view/widgets/doctor_selector_dialog.dart';
 import 'package:netinhoappclinica/app/pages/scale/view/widgets/new_scale_buttom.dart';
+import 'package:netinhoappclinica/core/components/store_builder.dart';
+import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../di/get_it.dart';
+
 class EditMedicalScale extends StatefulWidget {
-  static const String routeName = '/edit_medical_scale';
+  static const String routeName = 'edit_medical_scale';
   const EditMedicalScale({super.key});
 
   @override
@@ -12,133 +27,103 @@ class EditMedicalScale extends StatefulWidget {
 }
 
 class _EditMedicalScaleState extends State<EditMedicalScale> {
+  late final ScaleStore _scaleStore;
+  late final DoctorStore _doctorStore;
+
+  late final ValueNotifier<Doctor?> selectedDoctor;
+
   @override
-  Widget build(BuildContext context) {
-    // TODO - FALTA IMPLEMENTAR A API
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 80),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Editar Escala Médica',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 36),
-            ),
-            const SizedBox(height: 20),
-            NewScaleButtom(
-              onPressed: () {},
-            ),
-            const SizedBox(height: 60),
-            const DoctorCardScale(
-                name: 'Dr. Netinho',
-                specialty: 'Cardiologista',
-                photo: 'https://avatars.githubusercontent.com/u/60005589?v=4'),
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    selectedDoctor = ValueNotifier(null);
+    _scaleStore = getIt<ScaleStore>()..getScale();
+    _doctorStore = getIt<DoctorStore>()..getDoctors();
+
+    selectedDoctor.addListener(() {
+      log(selectedDoctor.value?.name ?? '');
+    });
   }
-}
-
-
-// TODO - FALTA IMPLEMENTAR O HORÁRIO E DATA
-class DoctorCardScale extends StatelessWidget {
-  final String name;
-  final String specialty;
-  final String photo;
-
-  const DoctorCardScale({
-    super.key,
-    required this.name,
-    required this.specialty,
-    required this.photo,
-  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 440,
-      height: 190,
-      child: PhysicalModel(
-        color: ColorsApp.instance.dartMedium,
-        borderRadius: BorderRadius.circular(20),
-        elevation: 5,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Visibility(
-                    visible: photo.isNotEmpty,
-                    replacement: const CircleAvatar(radius: 40),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundImage: NetworkImage(photo),
-                    ),
-                  ),
-                  const SizedBox(width: 40),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: context.textStyles.textPoppinsSemiBold
-                            .copyWith(color: context.colorsApp.blackColor)
-                            .copyWith(fontSize: 18),
-                      ),
-                      Text(
-                        specialty,
-                        style: context.textStyles.textPoppinsRegular
-                            .copyWith(color: context.colorsApp.greyColor2)
-                            .copyWith(fontSize: 16),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.more_vert),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: context.colorsApp.dartWhite,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      body: StoreBuilder<List<DoctorScale>>(
+        store: _scaleStore,
+        validateDefaultStates: true,
+        builder: (context, scales, _) {
+          return StoreBuilder<List<Doctor>>(
+            store: _doctorStore,
+            validateDefaultStates: true,
+            builder: (context, doctors, _) {
+              var groupedDoctorScales = scales.groupListsBy((e) => e.date.toDateTime.formatted);
+              return Padding(
+                padding: const EdgeInsets.only(left: 100, right: 50, top: 50, bottom: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.calendar_today, color: context.colorsApp.greyColor2, size: 20),
-                    const SizedBox(width: 10),
                     Text(
-                      'Quinta, 13 junho',
-                      style: context.textStyles.textPoppinsSemiBold
-                          .copyWith(color: context.colorsApp.greyColor2, fontSize: 14),
+                      'Editar Escala Médica',
+                      style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 36),
                     ),
-                    const SizedBox(width: 30),
-                    Icon(Icons.access_alarm, color: context.colorsApp.greyColor2, size: 20),
-                    const SizedBox(width: 10),
-                    Text(
-                      '10:00' ' - ' '11:00',
-                      style: context.textStyles.textPoppinsSemiBold
-                          .copyWith(color: context.colorsApp.greyColor2, fontSize: 14),
+                    const SizedBox(height: 20),
+                    NewScaleButtom(
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (context) => DoctorSelectorDialog(
+                          doctors: doctors,
+                          scaleStore: _scaleStore,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    Expanded(
+                      child: ListView(
+                        children: groupedDoctorScales.entries.map(
+                          (scaleDate) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    scaleDate.key,
+                                    style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                      color: context.colorsApp.greenColor2,
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15),
+                                  Wrap(
+                                    children: scaleDate.value.map(
+                                      (scale) {
+                                        final doctor = doctors.firstWhereOrNull((e) => e.id == scale.doctorId);
+                                        if (doctor != null) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(right: 20, bottom: 20),
+                                            child: DoctorCardScale(
+                                              doctorScale: scale,
+                                              doctor: doctor,
+                                            ),
+                                          );
+                                        } else {
+                                          return const SizedBox.shrink();
+                                        }
+                                      },
+                                    ).toList(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
-        ),
+              );
+            },
+          );
+        },
       ),
     );
   }

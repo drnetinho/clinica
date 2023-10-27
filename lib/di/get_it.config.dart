@@ -136,6 +136,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i32.EditPaymentsStore(gh<_i19.GroupPaymentsRepository>()));
     gh.factory<_i33.EditPixStore>(
         () => _i33.EditPixStore(gh<_i16.GetPixRepository>()));
+    gh.factory<_i26.EditScaleStore>(
+        () => _i26.EditScaleStore(gh<_i25.ScaleRepository>()));
     gh.factory<_i34.GetGroupByCpfStore>(
         () => _i34.GetGroupByCpfStore(gh<_i20.GroupsRepository>()));
     gh.factory<_i35.GetGroupMembersStore>(

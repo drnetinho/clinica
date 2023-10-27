@@ -11,6 +11,12 @@ class AppFormatters {
       '#': RegExp(r'[0-9]'),
     },
   );
+  static MaskTextInputFormatter hourFormatter = MaskTextInputFormatter(
+    mask: '##:##',
+    filter: <String, RegExp>{
+      '#': RegExp(r'[0-9]'),
+    },
+  );
 
   static TextInputFormatter onlyNumber = FilteringTextInputFormatter.allow(AppRegExp.onlyNumberRegEx);
   static CurrencyInputFormatter currency = CurrencyInputFormatter();

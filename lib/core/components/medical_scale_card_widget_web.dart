@@ -48,7 +48,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Escala médica do dia',
+            'Próxima escala médica',
             style: context.textStyles.textPoppinsSemiBold.copyWith(
               color: context.colorsApp.blackColor,
               fontSize: 32 * unitHeight,
@@ -118,7 +118,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Icon(Icons.calendar_today,
-                                              color: context.colorsApp.greyColor2, size: 40 * unitHeight),
+                                              color: context.colorsApp.primary, size: 40 * unitHeight),
                                           const SizedBox(width: 30),
                                           Text(
                                             scale.date.toDateTime.formatted,
@@ -127,7 +127,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                                           ),
                                           const Spacer(),
                                           Icon(Icons.access_alarm,
-                                              color: context.colorsApp.greyColor2, size: 40 * unitHeight),
+                                              color: context.colorsApp.primary, size: 40 * unitHeight),
                                           const SizedBox(width: 30),
                                           Text(
                                             '${scale.start}' ' - ' '${scale.end}',

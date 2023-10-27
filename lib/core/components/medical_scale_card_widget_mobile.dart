@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
@@ -48,7 +47,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Escala médica do dia',
+            'Próxima escala médica',
             style: context.textStyles.textPoppinsSemiBold.copyWith(
               color: context.colorsApp.blackColor,
               fontSize: 20,
@@ -122,16 +121,15 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                 children: [
                                                   Icon(Icons.calendar_today,
-                                                      color: context.colorsApp.greyColor2, size: 14),
+                                                      color: context.colorsApp.primary, size: 14),
                                                   const SizedBox(width: 30),
                                                   Text(
-                                                    scale.date.toDateTime.formatted,
+                                                    scale.dateTime.formatted,
                                                     style: context.textStyles.textPoppinsBold
                                                         .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
                                                   ),
                                                   const Spacer(),
-                                                  Icon(Icons.access_alarm,
-                                                      color: context.colorsApp.greyColor2, size: 14),
+                                                  Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 14),
                                                   const SizedBox(width: 30),
                                                   Text(
                                                     '${scale.start}' ' - ' '${scale.end}',

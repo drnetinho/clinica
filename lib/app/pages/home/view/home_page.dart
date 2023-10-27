@@ -99,7 +99,11 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    EscalaMedica(onPressedEdit: () => context.go(EditMedicalScale.routeName)),
+                    EscalaMedica(
+                      onPressedEdit: () => context.go(
+                        subRoute(HomePage.routeName, EditMedicalScale.routeName),
+                      ),
+                    ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

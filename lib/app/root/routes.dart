@@ -98,6 +98,10 @@ final goRouter = GoRouter(
                   builder: (context, state) => const RelatoriosPage(),
                   routes: const [],
                 ),
+                GoRoute(
+                  path: EditMedicalScale.routeName,
+                  builder: (context, state) => const EditMedicalScale(),
+                ),
               ],
             ),
           ],
@@ -133,10 +137,6 @@ final goRouter = GoRouter(
     GoRoute(
       path: SignPage.routeName,
       builder: (context, state) => const SignPage(),
-    ),
-    GoRoute(
-      path: EditMedicalScale.routeName,
-      builder: (context, state) => const EditMedicalScale(),
     ),
   ],
 );

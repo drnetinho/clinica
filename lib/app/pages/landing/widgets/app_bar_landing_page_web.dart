@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
@@ -42,7 +43,7 @@ class _AppBarLandingPageWebState extends State<AppBarLandingPageWeb> {
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.2,
           child: RMConfig.instance.clispImage?.isNotEmpty == true
-              ? Image.network(RMConfig.instance.clispImage!)
+              ? CachedNetworkImage(imageUrl: RMConfig.instance.clispImage!)
               : Image.asset('assets/images/clinica_image.png'),
         ),
         StoreBuilder<AppDetailsModel>(

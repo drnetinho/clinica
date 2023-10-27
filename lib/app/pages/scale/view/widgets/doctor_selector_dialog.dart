@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
@@ -71,7 +72,7 @@ class _DoctorSelectorDialogState extends State<DoctorSelectorDialog> {
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     image: DecorationImage(
-                                      image: NetworkImage(doctor.image),
+                                      image: CachedNetworkImageProvider(doctor.image),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

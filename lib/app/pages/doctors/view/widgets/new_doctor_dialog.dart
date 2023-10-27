@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -68,7 +69,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                           CircleAvatar(
                             radius: 75,
                             backgroundColor: context.colorsApp.greenColor,
-                            backgroundImage: NetworkImage(avatarUrl),
+                            backgroundImage: CachedNetworkImageProvider(avatarUrl),
                           ),
                           CupertinoButton(
                             onPressed: () async {

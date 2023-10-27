@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
 import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
@@ -83,7 +84,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                                 children: [
                                   CircleAvatar(
                                     radius: 40 * unitHeight,
-                                    backgroundImage: NetworkImage(doctor.image),
+                                    backgroundImage: CachedNetworkImageProvider(doctor.image),
                                   ),
                                   const SizedBox(width: 60),
                                   Column(

@@ -43,7 +43,7 @@ class EditDoctorStore extends ValueNotifier<AppState> {
     value = AppStateLoading();
 
     if (doctor.image.isEmpty) {
-      newDoctor = doctor.copyWith(image: RMConfig.instance.emptyAvatar ?? '');
+      newDoctor = doctor.copyWith(image: RMConfig.instance.emptyAvatar);
     }
     final result = await _repository.addDoctor(doctor: newDoctor);
 

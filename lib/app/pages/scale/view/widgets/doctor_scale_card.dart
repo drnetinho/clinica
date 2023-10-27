@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
@@ -46,7 +47,7 @@ class _DoctorCardScaleState extends State<DoctorCardScale> {
                       replacement: const CircleAvatar(radius: 40),
                       child: CircleAvatar(
                         radius: 40,
-                        backgroundImage: NetworkImage(widget.doctor.image),
+                        backgroundImage: CachedNetworkImageProvider(widget.doctor.image),
                       ),
                     ),
                     const SizedBox(width: 40),
@@ -87,7 +88,7 @@ class _DoctorCardScaleState extends State<DoctorCardScale> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.calendar_today, color: context.colorsApp.greyColor2, size: 20),
+                      Icon(Icons.calendar_today, color: context.colorsApp.primary, size: 20),
                       const SizedBox(width: 10),
                       Text(
                         widget.doctorScale.date.toDateTime.formatted,
@@ -95,7 +96,7 @@ class _DoctorCardScaleState extends State<DoctorCardScale> {
                             .copyWith(color: context.colorsApp.greyColor2, fontSize: 14),
                       ),
                       const SizedBox(width: 30),
-                      Icon(Icons.access_alarm, color: context.colorsApp.greyColor2, size: 20),
+                      Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 20),
                       const SizedBox(width: 10),
                       Text(
                         '${widget.doctorScale.start} - ${widget.doctorScale.end}',

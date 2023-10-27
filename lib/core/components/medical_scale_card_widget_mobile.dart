@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
@@ -84,7 +85,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                                         children: [
                                           CircleAvatar(
                                             radius: 26,
-                                            backgroundImage: NetworkImage(doctor.image),
+                                            backgroundImage: CachedNetworkImageProvider(doctor.image),
                                           ),
                                           const SizedBox(width: 20),
                                           Column(

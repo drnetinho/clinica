@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
 import 'package:netinhoappclinica/core/components/snackbar.dart';
@@ -98,7 +99,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   CircleAvatar(
-                                    backgroundImage: NetworkImage(doctor.image),
+                                    backgroundImage: CachedNetworkImageProvider(doctor.image),
                                   ),
                                   const SizedBox(width: 20),
                                   Column(

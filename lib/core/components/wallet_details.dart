@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/app/pages/landing/controller/wallet_controller.dart';
@@ -195,8 +196,8 @@ class _WalletDetailsState extends State<WalletDetails> {
                                     ? Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Image.network(
-                                            RMConfig.instance.pixQrCode!,
+                                          CachedNetworkImage(
+                                            imageUrl: RMConfig.instance.pixQrCode!,
                                             height: widget.fromMobile ? 150 : 200,
                                             width: widget.fromMobile ? 150 : 200,
                                           ),

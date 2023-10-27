@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -106,13 +107,12 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(12),
-                          color: context.colorsApp.greyColor,
                           child: Row(
                             children: [
                               CircleAvatar(
                                 radius: 75,
                                 backgroundColor: context.colorsApp.greenColor,
-                                backgroundImage: NetworkImage(widget.doctor.image),
+                                backgroundImage: CachedNetworkImageProvider(widget.doctor.image),
                               ),
                               const SizedBox(width: 15),
                               Column(

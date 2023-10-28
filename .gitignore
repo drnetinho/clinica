@@ -1,0 +1,32 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.old
+*.iws
+.idea/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/.dart_tool/chrome-device/Default
+**/build/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.dart_tool/chrome-device/Default
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/

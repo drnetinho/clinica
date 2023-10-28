@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/core/styles/colors_app.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
+
+import '../../clinica_icons_icons.dart';
+import '../../common/services/auth/auth_service.dart';
+import '../../di/get_it.dart';
+import '../pages/doctors/view/doctors_page.dart';
+import '../pages/home/view/home_page.dart';
+import '../pages/scale/view/edit_medical_scale.dart';
 
 class RootNavigator extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -12,17 +19,13 @@ class RootNavigator extends StatefulWidget {
 }
 
 class _RootNavigatorState extends State<RootNavigator> {
-  late final PageController _pageController;
-
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -40,42 +43,42 @@ class _RootNavigatorState extends State<RootNavigator> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(0);
-                  },
+                  onPressed: () => context.go(HomePage.routeName),
                   icon: Icon(
-                    Icons.home_outlined,
-                    color: widget.navigationShell.currentIndex == 0 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    ClinicaIcons.house,
+                    color: widget.navigationShell.currentIndex == 0
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(1);
-                  },
+                  onPressed: () => context.go(DoctorsPage.routeName),
                   icon: Icon(
-                    Icons.person,
-                    color: widget.navigationShell.currentIndex == 1 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    ClinicaIcons.healthiconsDoctor,
+                    color: widget.navigationShell.currentIndex == 1
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () {
-                    widget.navigationShell.goBranch(2);
-                  },
+                  onPressed: () => context.go(EditMedicalScale.routeName),
                   icon: Icon(
-                    Icons.settings,
-                    color: widget.navigationShell.currentIndex == 2 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    Icons.more_time_rounded,
+                    color: widget.navigationShell.currentIndex == 2
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
                 const SizedBox(height: 20),
                 IconButton(
-                  onPressed: () {
-                    //TODO Fazer logout aqui
-                  },
+                  onPressed: () => getIt<AuthService>().signOut(),
                   icon: Icon(
-                    Icons.logout,
-                    color: widget.navigationShell.currentIndex == 3 ? ColorsApp.instance.primaryColorGrean : ColorsApp.instance.greyColor2,
+                    ClinicaIcons.signout,
+                    color: widget.navigationShell.currentIndex == 3
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
                   ),
                 ),
               ],
@@ -84,96 +87,6 @@ class _RootNavigatorState extends State<RootNavigator> {
           Expanded(child: widget.navigationShell),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: widget.navigationShell.currentIndex,
-      //   backgroundColor: Colors.blueAccent,
-      //   onTap: (index) {
-      //     if (index == 3) {
-      //     } else {
-      //       widget.navigationShell.goBranch(
-      //         index,
-      //         initialLocation: index == widget.navigationShell.currentIndex,
-      //       );
-      //     }
-      //   },
-      //   elevation: 0,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: const Icon(Icons.home_outlined),
-      //       activeIcon: NavIcon(
-      //         iconData: Icons.home_outlined,
-      //         isSelected: widget.navigationShell.currentIndex == 0,
-      //       ),
-      //       label: 'Início',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: const Icon(Icons.person),
-      //       activeIcon: NavIcon(
-      //         iconData: Icons.person,
-      //         isSelected: widget.navigationShell.currentIndex == 1,
-      //       ),
-      //       label: 'Perfil',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: const Icon(Icons.settings),
-      //       activeIcon: NavIcon(
-      //         iconData: Icons.settings,
-      //         isSelected: widget.navigationShell.currentIndex == 2,
-      //       ),
-      //       label: 'Ajustes',
-      //     ),
-      //     const BottomNavigationBarItem(
-      //       icon: Icon(Icons.logout),
-      //       activeIcon: NavIcon(
-      //         iconData: Icons.logout,
-      //         isSelected: false,
-      //       ),
-      //       label: 'Sair',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
-
-// class NavIcon extends StatelessWidget {
-//   final IconData iconData;
-//   final bool isSelected;
-
-//   const NavIcon({
-//     Key? key,
-//     required this.iconData,
-//     required this.isSelected,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Stack(
-//       children: [
-//         Padding(
-//           padding: const EdgeInsets.only(top: 5),
-//           child: Icon(
-//             iconData,
-//           ),
-//         ),
-//         if (isSelected)
-//           Positioned(
-//             top: 1,
-//             right: 2,
-//             left: 2,
-//             child: Center(
-//               child: Container(
-//                 width: 24,
-//                 height: 2,
-//                 decoration: BoxDecoration(
-//                   color: Colors.white,
-//                   borderRadius: BorderRadius.circular(8),
-//                   // shape: BoxShape.circle,
-//                 ),
-//               ),
-//             ),
-//           ),
-//       ],
-//     );
-//   }
-// }

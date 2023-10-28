@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'app/core/styles/colors_app.dart';
-import 'app/di/get_it.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'app/root/routes.dart';
+import 'common/services/remote_config/remote_config_service.dart';
+import 'core/styles/colors_app.dart';
+import 'di/get_it.dart';
 import 'firebase/prod/firebase_options.dart' as prd;
 import 'firebase/dev/firebase_options.dart' as dev;
 
@@ -16,8 +18,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: dimension != Flavor.prd.name ? dev.DefaultFirebaseOptions.currentPlatform : prd.DefaultFirebaseOptions.currentPlatform,
+    options: dimension != Flavor.prd.name
+        ? dev.DefaultFirebaseOptions.currentPlatform
+        : prd.DefaultFirebaseOptions.currentPlatform,
   );
+  await RMConfig.instance.initialize();
   await configureDependencies();
 
   runApp(const ClispApp());
@@ -33,14 +38,25 @@ class ClispApp extends StatelessWidget {
       routerDelegate: goRouter.routerDelegate,
       routeInformationProvider: goRouter.routeInformationProvider,
       routeInformationParser: goRouter.routeInformationParser,
-      // TODO Ver depois
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [Locale('pt', 'BR')],
       theme: ThemeData(
+        primaryColor: ColorsApp.instance.primary,
+        dialogBackgroundColor: ColorsApp.instance.backgroundCardColor,
+        scaffoldBackgroundColor: ColorsApp.instance.whiteColor,
+        dialogTheme: DialogTheme(
+          surfaceTintColor: ColorsApp.instance.backgroundCardColor,
+          backgroundColor: ColorsApp.instance.backgroundCardColor,
+        ),
+        popupMenuTheme: PopupMenuThemeData(
+          color: ColorsApp.instance.backgroundCardColor,
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            foregroundColor:ColorsApp.instance.whiteColor,
-            backgroundColor: ColorsApp.instance.primaryColorGrean,
+            foregroundColor: ColorsApp.instance.whiteColor,
+            backgroundColor: ColorsApp.instance.success,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),
@@ -67,6 +83,39 @@ class ClispApp extends StatelessWidget {
           showUnselectedLabels: true,
           unselectedItemColor: Colors.white,
           showSelectedLabels: true,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.greyColor2,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.danger,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(
+              color: context.colorsApp.danger,
+            ),
+          ),
+          // isDense: true,
         ),
       ),
     );

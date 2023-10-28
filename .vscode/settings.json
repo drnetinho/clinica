@@ -1,0 +1,14 @@
+{
+ "dart.lineLength": 120,
+ "[dart]": {
+  "editor.rulers": [
+   120
+  ],
+ },
+ "files.exclude": {
+  "**/*.g.dart": true,
+  "**/*.freezed.dart": true,
+  "**/*.mocks.dart": true
+ },
+ "java.configuration.updateBuildConfiguration": "interactive",
+}

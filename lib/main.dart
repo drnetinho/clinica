@@ -48,6 +48,9 @@ class ClispApp extends StatelessWidget {
           surfaceTintColor: ColorsApp.instance.backgroundCardColor,
           backgroundColor: ColorsApp.instance.backgroundCardColor,
         ),
+        popupMenuTheme: PopupMenuThemeData(
+          color: ColorsApp.instance.backgroundCardColor,
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorsApp.instance.whiteColor,

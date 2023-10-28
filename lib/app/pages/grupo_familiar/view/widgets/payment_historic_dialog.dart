@@ -62,9 +62,6 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
     return Dialog(
       child: Container(
         padding: Padd.sh(Spacing.x),
-        decoration: BoxDecoration(
-          color: context.colorsApp.dartWhite,
-        ),
         height: MediaQuery.of(context).size.height * .8,
         width: MediaQuery.of(context).size.width * .4,
         child: StoreBuilder<List<FamilyPaymnetModel>>(

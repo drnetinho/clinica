@@ -41,6 +41,10 @@ class ClispApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [Locale('pt', 'BR')],
       theme: ThemeData(
+        primaryColor: ColorsApp.instance.primary,
+        dialogBackgroundColor: Colors.red,
+        scaffoldBackgroundColor: Colors.blueAccent,
+        dialogTheme: const DialogTheme(),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorsApp.instance.whiteColor,

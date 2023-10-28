@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
@@ -43,7 +44,7 @@ class _DoctorWidgetState extends State<DoctorWidget> {
                 replacement: const CircleAvatar(radius: 40),
                 child: CircleAvatar(
                   radius: 40,
-                  backgroundImage: NetworkImage(widget.photo!),
+                  backgroundImage: CachedNetworkImageProvider(widget.photo!),
                 ),
               ),
               const SizedBox(width: 60),

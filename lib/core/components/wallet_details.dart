@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:netinhoappclinica/app/pages/formas_pagamento/domain/model/pix_model.dart';
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:netinhoappclinica/app/pages/landing/controller/wallet_controller.dart';
 import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
@@ -9,6 +11,7 @@ import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../app/pages/formas_pagamento/view/store/get_pix_store.dart';
 import '../../app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import '../../app/pages/grupo_familiar/domain/model/family_payment_model.dart';
 import '../../app/pages/grupo_familiar/view/store/get_group_members_store.dart';
@@ -34,6 +37,7 @@ class _WalletDetailsState extends State<WalletDetails> {
   late final GetGroupMembersStore _getGroupMembersStore;
   late final GetGroupPaymentsStore paymnetsStore;
   late final WalletController walletController;
+  late final GetPixStore getPixStore;
 
   @override
   void initState() {
@@ -41,6 +45,9 @@ class _WalletDetailsState extends State<WalletDetails> {
     paymnetsStore = getIt<GetGroupPaymentsStore>();
     _getGroupMembersStore = getIt<GetGroupMembersStore>();
     walletController = getIt<WalletController>();
+    getPixStore = getIt<GetPixStore>();
+    getPixStore.getPix();
+
     _getGroupMembersStore.getGroupMembers(
       ids: widget.group.members,
     );
@@ -89,10 +96,10 @@ class _WalletDetailsState extends State<WalletDetails> {
                         onTap: () => walletController.isFlipped.value = true,
                         child: Container(
                           height: widget.fromMobile
-                              ? MediaQuery.of(context).size.height * 0.28
+                              ? MediaQuery.of(context).size.height * 0.32
                               : MediaQuery.of(context).size.height * 0.36,
                           width: widget.fromMobile
-                              ? MediaQuery.of(context).size.width * 0.8
+                              ? MediaQuery.of(context).size.width * 0.83
                               : MediaQuery.of(context).size.height * 0.6,
                           padding: EdgeInsets.all(widget.fromMobile ? 15 : 20),
                           decoration: BoxDecoration(
@@ -175,10 +182,10 @@ class _WalletDetailsState extends State<WalletDetails> {
                         onTap: () => walletController.isFlipped.value = false,
                         child: Container(
                           height: widget.fromMobile
-                              ? MediaQuery.of(context).size.height * 0.28
+                              ? MediaQuery.of(context).size.height * 0.32
                               : MediaQuery.of(context).size.height * 0.36,
                           width: widget.fromMobile
-                              ? MediaQuery.of(context).size.width * 0.8
+                              ? MediaQuery.of(context).size.width * 0.83
                               : MediaQuery.of(context).size.height * 0.6,
                           decoration: BoxDecoration(
                             color: context.colorsApp.greenDark2,
@@ -190,41 +197,58 @@ class _WalletDetailsState extends State<WalletDetails> {
                             validateDefaultStates: false,
                             builder: (context, payments, _) {
                               final payment = paymnetsStore.actualPendingPayment(payments);
-                              return Center(
-                                child: RMConfig.instance.pixQrCode?.isNotEmpty == true
-                                    ? Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Image.network(
-                                            RMConfig.instance.pixQrCode!,
-                                            height: widget.fromMobile ? 150 : 200,
-                                            width: widget.fromMobile ? 150 : 200,
-                                          ),
-                                          if (payment != null) ...{
-                                            SizedBox(height: widget.fromMobile ? 10 : 20),
-                                            Text(
-                                              'Pagamento pendente: ${payment.payDate.formatted}',
-                                              style: TextStyle(
-                                                fontSize: widget.fromMobile ? 10 : 12,
-                                                color: Colors.white,
-                                              ),
+
+                              return StoreBuilder<PixModel>(
+                                  store: getPixStore,
+                                  validateDefaultStates: false,
+                                  builder: (context, pix, _) {
+                                    return Center(
+                                      child: pix.urlImage?.isNotEmpty == true
+                                          ? Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                CachedNetworkImage(
+                                                  imageUrl: pix.urlImage ?? RMConfig.instance.pixQrCode ?? '',
+                                                  height: widget.fromMobile ? 150 : 200,
+                                                  width: widget.fromMobile ? 150 : 200,
+                                                ),
+                                                SizedBox(height: widget.fromMobile ? 10 : 20),
+                                                Text(
+                                                  'Chave Pix: ${pix.pixKey}',
+                                                  style: TextStyle(
+                                                    fontSize: widget.fromMobile ? 12 : 14,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                                if (payment != null) ...{
+                                                  SizedBox(height: widget.fromMobile ? 10 : 20),
+                                                  Text(
+                                                    'Pagamento pendente: ${payment.payDate.formatted}',
+                                                    style: TextStyle(
+                                                      fontSize: widget.fromMobile ? 10 : 12,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                },
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                const Text(
+                                                    'Nenhum QR Code cadastrado, entre em contato com o administrador.'),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Levar pro whatsapp
+                                                  },
+                                                  child: const Text('Falar com o administrador'),
+                                                ),
+                                              ],
                                             ),
-                                          },
-                                        ],
-                                      )
-                                    : Column(
-                                        children: [
-                                          const Text(
-                                              'Nenhum QR Code cadastrado, entre em contato com o administrador.'),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              // Levar pro whatsapp
-                                            },
-                                            child: const Text('Falar com o administrador'),
-                                          ),
-                                        ],
-                                      ),
-                              );
+                                    );
+                                  });
                             },
                           ),
                         ),

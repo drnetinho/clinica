@@ -10,6 +10,9 @@ class DoctorScale {
   final String date;
   final String id;
 
+  DateTime get dateTime => DateTime.parse(date);
+  bool get isOlder =>dateTime.isBefore(DateTime.now());
+
   DoctorScale(
     this.doctorId,
     this.end,
@@ -20,6 +23,8 @@ class DoctorScale {
 
   factory DoctorScale.fromJson(Map<String, dynamic> json) => _$DoctorScaleFromJson(json);
   Map<String, dynamic> toJson() => _$DoctorScaleToJson(this);
+
+  static DoctorScale empty() => DoctorScale('', '', '', '', '');
 
   DoctorScale copyWith({
     String? doctorId,

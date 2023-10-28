@@ -10,6 +10,7 @@ class PixModel extends Equatable {
   final String bank;
   final String pixKey;
   final String typeKey;
+  final String? urlImage;
 
   const PixModel(
     this.id,
@@ -17,6 +18,7 @@ class PixModel extends Equatable {
     this.bank,
     this.pixKey,
     this.typeKey,
+    this.urlImage,
   );
 
   const PixModel.initial({
@@ -25,6 +27,7 @@ class PixModel extends Equatable {
     this.bank = '',
     this.pixKey = '',
     this.typeKey = '',
+    this.urlImage = '',
   });
 
   factory PixModel.fromJson(Map<String, dynamic> json) => _$PixModelFromJson(json);
@@ -37,21 +40,24 @@ class PixModel extends Equatable {
         bank,
         pixKey,
         typeKey,
+        urlImage,
       ];
 
   PixModel copyWith({
     String? id,
     String? name,
     String? bank,
-    String? key,
+    String? pixKey,
     String? typeKey,
+    String? urlImage,
   }) {
     return PixModel(
       id ?? this.id,
       name ?? this.name,
       bank ?? this.bank,
-      key ?? pixKey,
+      pixKey ?? this.pixKey,
       typeKey ?? this.typeKey,
+      urlImage ?? this.urlImage,
     );
   }
 }

@@ -9,9 +9,11 @@ class InfoCard extends StatelessWidget {
   final String title;
   final String info;
   final bool isLoading;
+  final IconData icon;
 
   const InfoCard({
     Key? key,
+    required this.icon,
     required this.title,
     required this.info,
     this.isLoading = false,
@@ -38,7 +40,11 @@ class InfoCard extends StatelessWidget {
                         .copyWith(fontSize: 16, color: context.colorsApp.greyColor2),
                   ),
                   const SizedBox(width: 60),
-                  Icon(Icons.family_restroom, color: context.colorsApp.greyColor2, size: 20)
+                  Icon(
+                    icon,
+                    color: context.colorsApp.primary,
+                    size: 20, 
+                  )
                 ],
               ),
               const SizedBox(height: 16),

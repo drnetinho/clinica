@@ -69,7 +69,7 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(100, 10, 300, 0),
+                  padding: const EdgeInsets.fromLTRB(100, 10, 300, 60),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -81,7 +81,7 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                             'Nome',
                             style: context.textStyles.textPoppinsRegular.copyWith(
                               fontSize: 22,
-                              color: context.colorsApp.greyColor2,
+                              color: context.colorsApp.greenColor2,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -97,7 +97,7 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                             'Banco',
                             style: context.textStyles.textPoppinsRegular.copyWith(
                               fontSize: 22,
-                              color: context.colorsApp.greyColor2,
+                              color: context.colorsApp.greenColor2,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -118,7 +118,7 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                             'Chave Pix',
                             style: context.textStyles.textPoppinsRegular.copyWith(
                               fontSize: 22,
-                              color: context.colorsApp.greyColor2,
+                              color: context.colorsApp.greenColor2,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -134,7 +134,7 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                             'Tipo da chave',
                             style: context.textStyles.textPoppinsRegular.copyWith(
                               fontSize: 22,
-                              color: context.colorsApp.greyColor2,
+                              color: context.colorsApp.greenColor2,
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -147,6 +147,16 @@ class _CardDadosBancariosState extends State<CardDadosBancarios> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: widget.pix.urlImage!.isNotEmpty
+                            ? Image.network(
+                                widget.pix.urlImage!,
+                                fit: BoxFit.cover,
+                              )
+                            : const SizedBox.shrink(),
+                      )
                     ],
                   ),
                 ),

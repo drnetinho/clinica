@@ -4,6 +4,8 @@ import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_g
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../../clinica_icons_icons.dart';
+
 class FamilyGroupTile extends StatefulWidget {
   final FamilyGroupModel group;
   final bool isSelected;
@@ -28,6 +30,7 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
+            selectedColor: context.colorsApp.primary,
             subtitle: Text(
               membersText(widget.group.members),
               style: context.textStyles.textPoppinsRegular.copyWith(fontSize: 15),
@@ -45,7 +48,7 @@ class _FamilyGroupTileState extends State<FamilyGroupTile> {
                 borderRadius: BorderRadius.circular(50),
                 border: Border.all(color: context.colorsApp.primary, width: 2),
               ),
-              child: Icon(Icons.family_restroom, color: context.colorsApp.primary, size: 20),
+              child: Icon(ClinicaIcons.family, color: context.colorsApp.primary, size: 26),
             ),
           ),
           SizedBox(

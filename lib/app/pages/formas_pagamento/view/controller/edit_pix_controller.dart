@@ -11,6 +11,7 @@ class EditPixController {
   final TextEditingController bank = TextEditingController();
   final TextEditingController pixKey = TextEditingController();
   final TextEditingController typeKey = TextEditingController();
+  final TextEditingController urlImage = TextEditingController();
 
   final ValueNotifier<String> selectedTipeKey = ValueNotifier('');
 
@@ -36,8 +37,9 @@ class EditPixController {
     pixEdited.value = pixEdited.value.copyWith(
       typeKey: typeKey.text,
       bank: bank.text,
-      key: pixKey.text,
+      pixKey: pixKey.text,
       name: name.text,
+      urlImage: urlImage.text,
     );
     return pixEdited.value;
   }
@@ -47,6 +49,7 @@ class EditPixController {
     bank.addListener(() => form.value = form.value.copyWith(bank: StringInput.dirty(bank.text)));
     pixKey.addListener(() => form.value = form.value.copyWith(pixKey: StringInput.dirty(pixKey.text)));
     name.addListener(() => form.value = form.value.copyWith(name: StringInput.dirty(name.text)));
+    urlImage.addListener(() => form.value = form.value.copyWith(urlImage: StringInput.dirty(urlImage.text)));
   }
 
   void resetValues() {
@@ -55,6 +58,7 @@ class EditPixController {
     bank.clear();
     pixKey.clear();
     name.clear();
+    urlImage.clear();
   }
 
   void initControllers() {
@@ -62,5 +66,6 @@ class EditPixController {
     bank.text = pixEdited.value.bank;
     pixKey.text = pixEdited.value.pixKey;
     name.text = pixEdited.value.name;
+    urlImage.text = pixEdited.value.urlImage ?? '';
   }
 }

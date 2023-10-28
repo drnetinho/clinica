@@ -9,6 +9,7 @@ import '../../../../../common/error/app_error.dart';
 import '../../../../../common/mixin/firebase_update_field.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';
 import '../../../../../core/helps/map_utils.dart';
+import '../../../scale/data/repository/scale_repository.dart';
 import '../types/doctors_types.dart';
 
 abstract class DoctorRepository {
@@ -20,6 +21,9 @@ abstract class DoctorRepository {
 
 @Injectable(as: DoctorRepository)
 class DoctorRepositoryImpl with UpdateFirebaseDocField implements DoctorRepository {
+  final ScaleRepository _scaleRepository;
+
+  DoctorRepositoryImpl(this._scaleRepository);
   final idKey = 'id';
 
   @override
@@ -45,6 +49,7 @@ class DoctorRepositoryImpl with UpdateFirebaseDocField implements DoctorReposito
   UnitOrError deleteDoctor({required String id}) async {
     try {
       await FirestoreService.fire.collection(Collections.doctors).doc(id).delete();
+      await _scaleRepository.deleteScalesFromDoctorId(doctorId: id);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);

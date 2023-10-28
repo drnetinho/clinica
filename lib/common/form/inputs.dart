@@ -92,7 +92,7 @@ enum EmailInputError {
 // CPF INPUT
 
 enum CpfInputError {
-  empty(message: 'O campo CPF é obrigatório', exists: '');
+  empty(message: 'Campo obrigatório', exists: '');
 
   final String exists;
   final String message;

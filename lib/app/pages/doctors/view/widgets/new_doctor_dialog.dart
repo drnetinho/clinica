@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -68,7 +69,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                           CircleAvatar(
                             radius: 75,
                             backgroundColor: context.colorsApp.greenColor,
-                            backgroundImage: NetworkImage(avatarUrl),
+                            backgroundImage: CachedNetworkImageProvider(avatarUrl),
                           ),
                           CupertinoButton(
                             onPressed: () async {
@@ -99,13 +100,10 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                   controller: nameController,
                                   maxWidth: 400,
                                   onChanged: (p0) => doctor.value = doctor.value.copyWith(name: p0),
-                                  isValid: nameController.text.hasMinimumLength,
-                                  helperText: "Digite pelo menos 6 caracteres",
-                                  errorText: nameController.text.isEmpty || nameController.text.hasMinimumLength
-                                      ? null
-                                      : "Campo inválido",
+                                  isValid: nameController.text.isNotEmpty,
+                                  errorText: nameController.text.isNotEmpty ? null : "Campo inválido",
                                   validator: (p0) {
-                                    if (p0 != null && (p0.isEmpty || !p0.hasMinimumLength)) {
+                                    if (p0 != null && (p0.isEmpty)) {
                                       return "";
                                     }
                                     return null;
@@ -120,14 +118,10 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                   controller: specialtyController,
                                   maxWidth: 400,
                                   onChanged: (p0) => doctor.value = doctor.value.copyWith(specialization: p0),
-                                  helperText: "Digite pelo menos 6 caracteres",
-                                  isValid: specialtyController.text.hasMinimumLength,
-                                  errorText:
-                                      specialtyController.text.isEmpty || specialtyController.text.hasMinimumLength
-                                          ? null
-                                          : "Campo inválido",
+                                  isValid: specialtyController.text.isNotEmpty,
+                                  errorText: specialtyController.text.isNotEmpty ? null : "Campo inválido",
                                   validator: (p0) {
-                                    if (p0?.hasMinimumLength == false) {
+                                    if (p0 != null && (p0.isEmpty)) {
                                       return "";
                                     }
                                     return null;
@@ -142,6 +136,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                       children: [
                         actionButton(
                           text: "Cancelar",
+                          context: context,
                           icon: Icons.cancel,
                           color: context.colorsApp.whiteColor,
                           onPressed: () async {
@@ -156,6 +151,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                             animation: Listenable.merge([nameController, specialtyController]),
                             builder: (context, _) {
                               return actionButton(
+                                context: context,
                                 text: "Confirmar",
                                 icon: Icons.check,
                                 color: context.colorsApp.primary,
@@ -163,7 +159,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                     nameController.text.hasMinimumLength && specialtyController.text.hasMinimumLength
                                         ? () async {
                                             Doctor editedDoctor = doctor.value;
-                                            
+
                                             if (pickedImageuRL.value?.isNotEmpty == true) {
                                               editedDoctor = editedDoctor.copyWith(
                                                 image: pickedImageuRL.value!,
@@ -192,34 +188,35 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
             ? doctor.value.image
             : RMConfig.instance.emptyAvatar;
   }
+}
 
-  Widget actionButton({
-    VoidCallback? onPressed,
-    required String text,
-    required Color color,
-    required IconData icon,
-  }) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+Widget actionButton({
+  VoidCallback? onPressed,
+  required String text,
+  required Color color,
+  required IconData icon,
+  required BuildContext context,
+}) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      backgroundColor: color,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Icon(icon, color: context.colorsApp.greyColor2, size: 16),
-          const SizedBox(width: 6),
-          Text(
-            text,
-            style: context.textStyles.textPoppinsSemiBold.copyWith(
-              color: context.colorsApp.softBlack,
-            ),
+    ),
+    onPressed: onPressed,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Icon(icon, color: context.colorsApp.greyColor2, size: 16),
+        const SizedBox(width: 6),
+        Text(
+          text,
+          style: context.textStyles.textPoppinsSemiBold.copyWith(
+            color: context.colorsApp.softBlack,
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
 }

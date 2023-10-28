@@ -6,7 +6,9 @@ import 'package:netinhoappclinica/app/pages/doctors/view/widgets/doctor_widget.d
 import 'package:netinhoappclinica/app/pages/doctors/view/widgets/new_doctor_dialog.dart';
 import 'package:netinhoappclinica/app/pages/doctors/view/widgets/new_doctors_buttom_widget.dart';
 import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:netinhoappclinica/core/components/snackbar.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
+import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import '../../../../../di/get_it.dart';
 
@@ -18,7 +20,7 @@ class DoctorsPage extends StatefulWidget {
   State<DoctorsPage> createState() => _DoctorsPageState();
 }
 
-class _DoctorsPageState extends State<DoctorsPage> {
+class _DoctorsPageState extends State<DoctorsPage> with SnackBarMixin {
   late final DoctorStore doctorStore;
   late final EditDoctorStore editDoctorStore;
 
@@ -43,6 +45,11 @@ class _DoctorsPageState extends State<DoctorsPage> {
   void editDoctorStoreListener() {
     if (editDoctorStore.value.isSuccess) {
       doctorStore.getDoctors();
+    } else if (editDoctorStore.value.isError) {
+      showError(
+        context: context,
+        text: editDoctorStore.value.error.message,
+      );
     }
   }
 
@@ -54,9 +61,22 @@ class _DoctorsPageState extends State<DoctorsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Gerenciar Médicos',
-              style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 36),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Gerenciar Médicos',
+                  style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 36),
+                ),
+                IconButton(
+                  onPressed: () => doctorStore.getDoctors(),
+                  tooltip: 'Recarregar Médicos',
+                  icon: Icon(
+                    Icons.refresh,
+                    color: context.colorsApp.primary,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             NewDoctorsButtom(
@@ -82,20 +102,21 @@ class _DoctorsPageState extends State<DoctorsPage> {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: DoctorWidget(
-                            name: doctor.name,
-                            specialty: doctor.specialization,
-                            photo: doctor.image,
-                            onDeleteDoctor: () => editDoctorStore.deleteDoctor(doctor),
-                            onEditDoctor: () {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (context) => NewDoctorDialog(
-                                  doctor: doctor,
-                                  onConfirm: (doctor) => editDoctorStore.editDoctor(doctor),
-                                ),
-                              );
-                            }),
+                          name: doctor.name,
+                          specialty: doctor.specialization,
+                          photo: doctor.image,
+                          onDeleteDoctor: () => editDoctorStore.deleteDoctor(doctor),
+                          onEditDoctor: () {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) => NewDoctorDialog(
+                                doctor: doctor,
+                                onConfirm: (doctor) => editDoctorStore.editDoctor(doctor),
+                              ),
+                            );
+                          },
+                        ),
                       );
                     },
                   ),

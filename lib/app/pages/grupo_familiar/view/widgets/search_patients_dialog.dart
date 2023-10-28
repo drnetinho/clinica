@@ -12,6 +12,7 @@ import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../../clinica_icons_icons.dart';
 import '../controller/group_page_controller.dart';
 
 class SearchPatientsDialog extends StatefulWidget {
@@ -137,7 +138,17 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                                               },
                                             ),
                                             const SizedBox(width: 6),
-                                            Icon(Icons.family_restroom, size: 30, color: context.colorsApp.primary),
+                                            Container(
+                                              height: 40,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: context.colorsApp.whiteColor,
+                                                borderRadius: BorderRadius.circular(50),
+                                                border: Border.all(color: context.colorsApp.primary, width: 2),
+                                              ),
+                                              child:
+                                                  Icon(ClinicaIcons.family, color: context.colorsApp.primary, size: 26),
+                                            ),
                                           ],
                                         ),
                                       ),
@@ -207,7 +218,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                                               },
                                             ),
                                             const SizedBox(width: 6),
-                                            Icon(Icons.person, size: 40, color: context.colorsApp.primary),
+                                            Icon(ClinicaIcons.profile, size: 40, color: context.colorsApp.primary),
                                           ],
                                         ),
                                       ),

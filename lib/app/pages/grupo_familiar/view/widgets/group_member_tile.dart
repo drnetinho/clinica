@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../../clinica_icons_icons.dart';
 import '../../../../../core/styles/colors_app.dart';
 
 class GroupMemberTile extends StatelessWidget {
@@ -25,8 +26,8 @@ class GroupMemberTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(Icons.person, size: 30, color: ColorsApp.instance.success),
-              const SizedBox(width: 1),
+              Icon(ClinicaIcons.profile, size: 30, color: ColorsApp.instance.success),
+              const SizedBox(width: 8),
               Text(
                 member.name,
                 style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),

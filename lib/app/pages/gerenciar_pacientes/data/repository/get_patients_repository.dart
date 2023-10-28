@@ -34,8 +34,11 @@ class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatien
         }
         return addMapId(e.data(), e.id);
       }).toList();
+
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
+
       Logger.prettyPrint('LISTA DE PACIENTES', Logger.greenColor, 'getPatients');
+      
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);

@@ -1,5 +1,5 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as Path;
+import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
 
 class StorageService {
@@ -18,7 +18,7 @@ class StorageService {
   }
 
   static Future<String?> uploadImage(XFile xfile) async {
-    Reference reference = _storage.ref().child('images/${Path.basename(xfile.path)}');
+    Reference reference = _storage.ref().child('images/${path.basename(xfile.path)}');
 
     final data = await xfile.readAsBytes();
     UploadTask uploadTask = reference.putData(
@@ -31,7 +31,7 @@ class StorageService {
   }
 
   static Future<void> deleteImage(String imageFileUrl) async {
-    var fileUrl = Uri.decodeFull(Path.basename(imageFileUrl)).replaceAll(RegExp(r'(\?alt).*'), '');
+    var fileUrl = Uri.decodeFull(path.basename(imageFileUrl)).replaceAll(RegExp(r'(\?alt).*'), '');
 
     final Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(fileUrl);
     await firebaseStorageRef.delete();

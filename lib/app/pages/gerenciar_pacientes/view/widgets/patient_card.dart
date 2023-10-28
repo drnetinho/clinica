@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../../clinica_icons_icons.dart';
 import '../../../../../core/styles/colors_app.dart';
 
 class PatientCard extends StatefulWidget {
@@ -57,7 +58,7 @@ class PatientCardState extends State<PatientCard> {
               children: [
                 Row(
                   children: [
-                    Icon(Icons.person, size: 30, color: ColorsApp.instance.primary),
+                    Icon(ClinicaIcons.profile, size: 30, color: ColorsApp.instance.primary),
                     const SizedBox(width: 10),
                     Text(
                       widget.patient.name,

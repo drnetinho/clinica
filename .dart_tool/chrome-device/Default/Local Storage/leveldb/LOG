@@ -1,5 +1,2 @@
-2023/10/16-18:15:35.655 2854 Reusing MANIFEST C:\Users\thiago\AppData\Local\Temp\flutter_tools.75374fce\flutter_tools_chrome_device.5783f852\Default\Local Storage\leveldb/MANIFEST-000001
-2023/10/16-18:15:35.658 2854 Recovering log #8
-2023/10/16-18:15:35.667 2854 Reusing old log C:\Users\thiago\AppData\Local\Temp\flutter_tools.75374fce\flutter_tools_chrome_device.5783f852\Default\Local Storage\leveldb/000008.log 
-2023/10/16-18:15:35.669 2854 Delete type=0 #3
-2023/10/16-18:15:35.669 2854 Delete type=0 #4
+2023/10/24-20:07:26.961 1bb4 Creating DB C:\Users\thiago\AppData\Local\Temp\flutter_tools.2803b050\flutter_tools_chrome_device.131d1e4f\Default\Local Storage\leveldb since it was missing.
+2023/10/24-20:07:27.010 1bb4 Reusing MANIFEST C:\Users\thiago\AppData\Local\Temp\flutter_tools.2803b050\flutter_tools_chrome_device.131d1e4f\Default\Local Storage\leveldb/MANIFEST-000001

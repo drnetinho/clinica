@@ -12,6 +12,7 @@ PixModel _$PixModelFromJson(Map json) => PixModel(
       json['bank'] as String,
       json['pixKey'] as String,
       json['typeKey'] as String,
+      json['urlImage'] as String?,
     );
 
 Map<String, dynamic> _$PixModelToJson(PixModel instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$PixModelToJson(PixModel instance) => <String, dynamic>{
       'bank': instance.bank,
       'pixKey': instance.pixKey,
       'typeKey': instance.typeKey,
+      'urlImage': instance.urlImage,
     };

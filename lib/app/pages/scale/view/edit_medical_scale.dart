@@ -94,6 +94,7 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                         ),
                         IconButton(
                           onPressed: () => _scaleStore.getScales(),
+                          tooltip: 'Recarregar Escalas',
                           icon: Icon(
                             Icons.refresh,
                             color: context.colorsApp.primary,

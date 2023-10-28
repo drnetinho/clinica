@@ -193,7 +193,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                 ),
                               ],
                             ),
-                            const SizedBox(width: 100),
+                            const SizedBox(height: 10),
                             Text(
                               'Dados Pessoais',
                               style: context.textStyles.textPoppinsSemiBold

@@ -15,6 +15,7 @@ class LandingPageMobile extends StatefulWidget {
 
 class _LandingPageMobileState extends State<LandingPageMobile> {
   late final ScrollController _scrollController;
+  
 
   @override
   void initState() {

@@ -70,6 +70,7 @@ class _DoctorsPageState extends State<DoctorsPage> with SnackBarMixin {
                 ),
                 IconButton(
                   onPressed: () => doctorStore.getDoctors(),
+                  tooltip: 'Recarregar Médicos',
                   icon: Icon(
                     Icons.refresh,
                     color: context.colorsApp.primary,

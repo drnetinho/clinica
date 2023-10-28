@@ -58,7 +58,6 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 20),
               Text(
                 'Acessar Carteirinha do Grupo Familiar',
                 style:
@@ -126,13 +125,9 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
               StoreBuilder<FamilyGroupModel>(
                 store: _getGroupByCpfStore,
                 validateDefaultStates: false,
-                builder: (context, group, _) => SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  width: MediaQuery.of(context).size.height * 0.6,
-                  child: WalletDetails(
-                    group: group,
-                    fromMobile: true,
-                  ),
+                builder: (context, group, _) => WalletDetails(
+                  group: group,
+                  fromMobile: true,
                 ),
               )
             ],

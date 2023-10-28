@@ -76,9 +76,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                   onPressed: () => getIt<AuthService>().signOut(),
                   icon: Icon(
                     ClinicaIcons.signout,
-                    color: widget.navigationShell.currentIndex == 3
-                        ? ColorsApp.instance.success
-                        : ColorsApp.instance.greyColor2,
+                    color: ColorsApp.instance.danger,
                   ),
                 ),
               ],

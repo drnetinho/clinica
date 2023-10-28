@@ -44,7 +44,10 @@ class ClispApp extends StatelessWidget {
         primaryColor: ColorsApp.instance.primary,
         dialogBackgroundColor: ColorsApp.instance.backgroundCardColor,
         scaffoldBackgroundColor: ColorsApp.instance.whiteColor,
-        dialogTheme: const DialogTheme(),
+        dialogTheme: DialogTheme(
+          surfaceTintColor: ColorsApp.instance.backgroundCardColor,
+          backgroundColor: ColorsApp.instance.backgroundCardColor,
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             foregroundColor: ColorsApp.instance.whiteColor,

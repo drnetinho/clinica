@@ -16,6 +16,7 @@ abstract class ScaleRepository {
   UnitOrError editScale({required DoctorScale scale});
   UnitOrError deleteScale({required String id});
   UnitOrError addScale({required DoctorScale scale});
+  UnitOrError deleteScalesFromDoctorId({required String doctorId});
 }
 
 @Injectable(as: ScaleRepository)
@@ -69,6 +70,33 @@ class ScaleRepositoryImpl with UpdateFirebaseDocField implements ScaleRepository
   UnitOrError addScale({required DoctorScale scale}) async {
     try {
       await FirestoreService.fire.collection(Collections.scales).add(scale.toJson());
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: null, unit: unit);
+    } catch (e) {
+      return (error: null, unit: unit);
+    }
+  }
+
+  @override
+  UnitOrError deleteScalesFromDoctorId({required String doctorId}) async {
+    try {
+      final affected =
+          await FirestoreService.fire.collection(Collections.scales).where('doctorId', isEqualTo: doctorId).get();
+
+      final docs = affected.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.scales, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
+
+      final data = docs.map((e) => DoctorScale.fromJson(e)).toList();
+
+      for (var scale in data) {
+        await deleteScale(id: scale.id);
+      }
+
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);

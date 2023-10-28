@@ -41,7 +41,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
     scaleStore = getIt<ScaleStore>();
     doctorStore = getIt<DoctorStore>();
     doctorStore.getDoctors();
-    scaleStore.getScale();
+    scaleStore.getScales();
     scaleStore.addListener(scaleStoreListener);
   }
 
@@ -155,7 +155,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.calendar_today, color: context.colorsApp.greyColor2, size: 20),
+                                    Icon(Icons.calendar_today, color: context.colorsApp.primary, size: 20),
                                     const SizedBox(width: 10),
                                     Text(
                                       scale.date.toDateTime.formatted,
@@ -163,7 +163,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
                                           .copyWith(color: context.colorsApp.greyColor2, fontSize: 14),
                                     ),
                                     const SizedBox(width: 30),
-                                    Icon(Icons.access_alarm, color: context.colorsApp.greyColor2, size: 20),
+                                    Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 20),
                                     const SizedBox(width: 10),
                                     Text(
                                       '${scale.start}' ' - ' '${scale.end}',

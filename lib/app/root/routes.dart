@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:netinhoappclinica/app/pages/home/view/home_page.dart';
-import 'package:netinhoappclinica/app/pages/settings/settings_page.dart';
 import 'package:netinhoappclinica/app/root/root_navigator.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
@@ -99,7 +98,7 @@ final goRouter = GoRouter(
                   routes: const [],
                 ),
                 GoRoute(
-                  path: EditMedicalScale.routeName,
+                  path: EditMedicalScale.subRoute,
                   builder: (context, state) => const EditMedicalScale(),
                 ),
               ],
@@ -120,10 +119,10 @@ final goRouter = GoRouter(
         StatefulShellBranch(
           navigatorKey: _thirdNestedNavKey,
           routes: [
-            //* SETTINGS
+            //*DOCTOR SCALE
             GoRoute(
-              path: SettingsPage.routeName,
-              builder: (context, state) => const SettingsPage(),
+              path: EditMedicalScale.routeName,
+              builder: (context, state) => const EditMedicalScale(),
               routes: const [],
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
@@ -11,11 +12,15 @@ import '../../domain/model/doctor_scale.dart';
 class DoctorCardScale extends StatefulWidget {
   final DoctorScale doctorScale;
   final Doctor doctor;
+  final VoidCallback? onDeleteScale;
+  final VoidCallback? onEditScale;
 
   const DoctorCardScale({
     Key? key,
     required this.doctorScale,
     required this.doctor,
+    this.onDeleteScale,
+    this.onEditScale,
   }) : super(key: key);
 
   @override
@@ -70,9 +75,56 @@ class _DoctorCardScaleState extends State<DoctorCardScale> {
                       ],
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.more_vert),
+                    PopupMenuButton<int>(
+                      icon: Icon(Icons.more_vert_outlined, color: context.colorsApp.primary),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      elevation: 2,
+                      itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            value: 0,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.delete_outline,
+                                  color: context.colorsApp.danger,
+                                ),
+                                Text(
+                                  'Deletar',
+                                  style: TextStyle(
+                                    color: context.colorsApp.danger,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 1,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.edit_outlined,
+                                  color: context.colorsApp.success,
+                                ),
+                                Text(
+                                  'Editar',
+                                  style: TextStyle(
+                                    color: context.colorsApp.success,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ];
+                      },
+                      onSelected: (value) {
+                        if (value == 0) {
+                          widget.onDeleteScale?.call();
+                        }
+                        if (value == 1) {
+                          widget.onEditScale?.call();
+                        }
+                      },
                     ),
                   ],
                 ),

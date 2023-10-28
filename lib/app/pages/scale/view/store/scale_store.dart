@@ -16,7 +16,7 @@ class ScaleStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getScale() async {
+  Future<void> getScales() async {
     value = AppStateLoading();
     final result = await _repository.getScales();
 
@@ -32,7 +32,7 @@ class ScaleStore extends ValueNotifier<AppState> {
 
       // Order scales by date
       orderScales.sort(
-        (a, b) => b.dateTime.compareTo(a.dateTime),
+        (a, b) => a.dateTime.compareTo(b.dateTime),
       );
       value = AppStateSuccess(data: orderScales);
     } else if (result.error.exists) {
@@ -78,6 +78,28 @@ class EditScaleStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
       value = AppStateError(message: result.error?.message ?? 'Erro ao cadastrar escala médica');
+    }
+  }
+
+  Future<void> editScale({required DoctorScale scale}) async {
+    value = AppStateLoading();
+    final result = await _repository.editScale(scale: scale);
+
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    } else if (result.error.exists) {
+      value = AppStateError(message: result.error?.message ?? 'Erro ao atualizar escala médica');
+    }
+  }
+
+  Future<void> deleteScale({required DoctorScale scale}) async {
+    value = AppStateLoading();
+    final result = await _repository.deleteScale(id: scale.id);
+
+    if (result.unit != null) {
+      value = AppStateSuccess(data: null);
+    } else if (result.error.exists) {
+      value = AppStateError(message: result.error?.message ?? 'Erro ao deletar escala médica');
     }
   }
 }

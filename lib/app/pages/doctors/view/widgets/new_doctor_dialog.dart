@@ -101,8 +101,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                   maxWidth: 400,
                                   onChanged: (p0) => doctor.value = doctor.value.copyWith(name: p0),
                                   isValid: nameController.text.isNotEmpty,
-                                  helperText: "Digite pelo menos 6 caracteres",
-                                  errorText: nameController.text.isEmpty ? null : "Campo inválido",
+                                  errorText: nameController.text.isNotEmpty ? null : "Campo inválido",
                                   validator: (p0) {
                                     if (p0 != null && (p0.isEmpty)) {
                                       return "";
@@ -119,14 +118,10 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                   controller: specialtyController,
                                   maxWidth: 400,
                                   onChanged: (p0) => doctor.value = doctor.value.copyWith(specialization: p0),
-                                  helperText: "Digite pelo menos 6 caracteres",
-                                  isValid: specialtyController.text.hasMinimumLength,
-                                  errorText:
-                                      specialtyController.text.isEmpty || specialtyController.text.hasMinimumLength
-                                          ? null
-                                          : "Campo inválido",
+                                  isValid: specialtyController.text.isNotEmpty,
+                                  errorText: specialtyController.text.isNotEmpty ? null : "Campo inválido",
                                   validator: (p0) {
-                                    if (p0?.hasMinimumLength == false) {
+                                    if (p0 != null && (p0.isEmpty)) {
                                       return "";
                                     }
                                     return null;

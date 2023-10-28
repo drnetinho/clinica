@@ -6,6 +6,7 @@ import '../../common/services/auth/auth_service.dart';
 import '../../di/get_it.dart';
 import '../pages/doctors/view/doctors_page.dart';
 import '../pages/home/view/home_page.dart';
+import '../pages/scale/view/edit_medical_scale.dart';
 
 class RootNavigator extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
@@ -60,16 +61,16 @@ class _RootNavigatorState extends State<RootNavigator> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // IconButton(
-                //   onPressed: () => context.go(SettingsPage.routeName),
-                //   icon: Icon(
-                //     Icons.settings,
-                //     color: widget.navigationShell.currentIndex == 2
-                //         ? ColorsApp.instance.success
-                //         : ColorsApp.instance.greyColor2,
-                //   ),
-                // ),
-                // const SizedBox(height: 20),
+                IconButton(
+                  onPressed: () => context.go(EditMedicalScale.routeName),
+                  icon: Icon(
+                    Icons.more_time_rounded,
+                    color: widget.navigationShell.currentIndex == 2
+                        ? ColorsApp.instance.success
+                        : ColorsApp.instance.greyColor2,
+                  ),
+                ),
+                const SizedBox(height: 20),
                 IconButton(
                   onPressed: () => getIt<AuthService>().signOut(),
                   icon: Icon(

@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     EscalaMedica(
                       onPressedEdit: () => context.go(
-                        subRoute(HomePage.routeName, EditMedicalScale.routeName),
+                        subRoute(HomePage.routeName, EditMedicalScale.subRoute),
                       ),
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),

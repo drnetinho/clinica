@@ -54,9 +54,9 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
 
     _editScaleStore.addListener(editScaleListener);
 
-    dateCtrl = TextEditingController();
-    startCtrl = TextEditingController();
-    endCtrl = TextEditingController();
+    dateCtrl = TextEditingController(text: widget.scale?.dateTime.formatted);
+    startCtrl = TextEditingController(text: widget.scale?.start);
+    endCtrl = TextEditingController(text: widget.scale?.end);
   }
 
   @override
@@ -68,10 +68,10 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
   void editScaleListener() {
     if (_editScaleStore.value.isSuccess) {
       context.pop();
-      widget.scaleStore.getScale();
+      widget.scaleStore.getScales();
       showSuccess(
         context: context,
-        text: 'Escala cadastrada com sucesso',
+        text: 'Ação realizada com sucesso',
       );
     } else if (_editScaleStore.value.isError) {
       showError(
@@ -83,6 +83,16 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
 
   String get hourErrorMessage => "Informe um horário válido";
   String get dateErrorMessage => "Informe uma data";
+  bool get editMode => widget.scale != null;
+  TimeOfDay get startTime => TimeOfDay(
+        hour: int.tryParse((widget.scale?.start ?? '00:00').split(":")[0]) ?? 00,
+        minute: int.tryParse((widget.scale?.start ?? '00:00').split(":")[1]) ?? 00,
+      );
+  TimeOfDay get endTime => TimeOfDay(
+        hour: int.tryParse((widget.scale?.end ?? '00:00').split(":")[0]) ?? 00,
+        minute: int.tryParse((widget.scale?.end ?? '00:00').split(":")[1]) ?? 00,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -180,7 +190,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                                     showTimePicker(
                                       context: context,
                                       initialEntryMode: TimePickerEntryMode.dial,
-                                      initialTime: const TimeOfDay(hour: 0, minute: 0),
+                                      initialTime: startTime,
                                       builder: (context, child) => WrapTheme(child: child!),
                                     ).then((value) {
                                       if (value != null) {
@@ -219,7 +229,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                                   onTap: () => showTimePicker(
                                     context: context,
                                     initialEntryMode: TimePickerEntryMode.dial,
-                                    initialTime: const TimeOfDay(hour: 0, minute: 0),
+                                    initialTime: endTime,
                                     builder: (context, child) => WrapTheme(child: child!),
                                   ).then((value) {
                                     if (value != null) {
@@ -255,14 +265,20 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                             icon: Icons.check,
                             color: context.colorsApp.primary,
                             onPressed: isValidForm
-                                ? () => _editScaleStore.createScale(
-                                      scale: scale.value.copyWith(
-                                        doctorId: widget.doctor.id,
-                                        date: dateCtrl.text.toDateTimeFormatted.toIso8601String(),
-                                        start: startCtrl.text,
-                                        end: endCtrl.text,
-                                      ),
-                                    )
+                                ? () {
+                                    final doctorScale = scale.value.copyWith(
+                                      doctorId: widget.doctor.id,
+                                      date: dateCtrl.text.toDateTimeFormatted.toIso8601String(),
+                                      start: startCtrl.text,
+                                      end: endCtrl.text,
+                                    );
+
+                                    if (editMode) {
+                                      _editScaleStore.editScale(scale: doctorScale);
+                                    } else {
+                                      _editScaleStore.createScale(scale: doctorScale);
+                                    }
+                                  }
                                 : null,
                           );
                         },

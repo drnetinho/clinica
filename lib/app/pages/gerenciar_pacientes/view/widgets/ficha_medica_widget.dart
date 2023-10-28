@@ -10,6 +10,7 @@ import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 import 'package:netinhoappclinica/di/get_it.dart';
 
+import '../../../../../clinica_icons_icons.dart';
 import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
@@ -520,10 +521,16 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                               .copyWith(fontSize: 22, color: context.colorsApp.success),
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          widget.patient.familyGroup,
-                                          style: context.textStyles.textPoppinsMedium
-                                              .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                        Row(
+                                          children: [
+                                            Icon(ClinicaIcons.family, color: context.colorsApp.primary),
+                                            Spacing.s.horizotalGap,
+                                            Text(
+                                              widget.patient.familyGroup,
+                                              style: context.textStyles.textPoppinsMedium
+                                                  .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

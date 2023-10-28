@@ -9,6 +9,7 @@ import 'package:netinhoappclinica/app/pages/home/view/widgets/app_bar_widget.dar
 import 'package:netinhoappclinica/app/pages/home/view/widgets/escala_medica.dart';
 import 'package:netinhoappclinica/app/pages/relatorios/view/relatorios_page.dart';
 
+import '../../../../clinica_icons_icons.dart';
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';
 import '../../gerenciar_pacientes/view/gerenciar_pacientes_page.dart';
@@ -55,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: Icons.person,
+                          icon: ClinicaIcons.userConfig,
                           title: 'Gerenciar Paciente',
                           subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
                           onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: Icons.person,
+                          icon: ClinicaIcons.clockbaselinehistory,
                           title: 'Histórico do Pacinte',
                           subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: Icons.person,
+                          icon: ClinicaIcons.family,
                           title: 'Grupo Familiar',
                           subTitle: 'Ver membros e acessar\ndetalhes do grupo familiar.',
                           onTap: () => context.go(subRoute(HomePage.routeName, GrupoFamiliarPage.routeName)),
@@ -86,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: Icons.person,
+                          icon: ClinicaIcons.medicalRecord,
                           title: 'Avaliações do Paciente',
                           subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
                           onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),
@@ -115,8 +116,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             CardCategoriasWidget(
                               background: context.colorsApp.dartMedium,
-                              width: 290,
-                              icon: Icons.person,
+                              width: 350,
                               title: 'Dados de Pagamento',
                               subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
                               onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
@@ -124,8 +124,7 @@ class _HomePageState extends State<HomePage> {
                             SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                             CardCategoriasWidget(
                               background: context.colorsApp.dartMedium,
-                              width: 290,
-                              icon: Icons.person,
+                              width: 350,
                               title: 'Relatórios de Faturamento',
                               subTitle: 'Acessar relatórios de faturamento.\n     ',
                               onTap: () => context.go(subRoute(HomePage.routeName, RelatoriosPage.routeName)),

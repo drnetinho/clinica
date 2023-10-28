@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
 import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:netinhoappclinica/core/helps/spacing.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
-
 import '../../../../../core/components/animated_resize.dart';
 
 class ClispWallet extends StatelessWidget {
@@ -18,7 +16,6 @@ class ClispWallet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO Thiago finalizar carteira clisp ( Alinhamento dos pacientes), HELP ARTUR
     return AnimatedResize(
       child: Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

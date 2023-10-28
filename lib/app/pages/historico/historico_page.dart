@@ -3,6 +3,8 @@ import 'package:netinhoappclinica/core/components/drop_filter.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../clinica_icons_icons.dart';
+
 class HistoricoPage extends StatefulWidget {
   static const String routeName = 'historico';
   const HistoricoPage({super.key});
@@ -115,8 +117,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                         borderRadius: BorderRadius.circular(50),
                                         border: Border.all(color: context.colorsApp.primary, width: 2),
                                       ),
-                                      child: Icon(Icons.person_outline_outlined,
-                                          color: context.colorsApp.primary, size: 35),
+                                      child: Icon(ClinicaIcons.profile, color: context.colorsApp.primary, size: 35),
                                     ),
                                     trailing: Icon(Icons.arrow_forward_ios, color: context.colorsApp.greyColor2),
                                   ),
@@ -190,7 +191,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Icon(Icons.calendar_today_outlined,
+                                                      Icon(ClinicaIcons.medicalRecord,
                                                           color: context.colorsApp.primary),
                                                       const SizedBox(width: 10),
                                                       Text(

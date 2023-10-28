@@ -106,6 +106,9 @@ flutter:
         - asset: assets/fonts/Poppins-ThinItalic.ttf
           weight: 100
           style: italic
+    - family: ClinicaIcons
+      fonts:
+        - asset: assets/icons/fonts/ClinicaIcons.ttf
 
 
 

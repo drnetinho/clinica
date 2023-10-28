@@ -13,6 +13,7 @@ import 'package:netinhoappclinica/core/helps/actual_date.dart';
 import 'package:netinhoappclinica/core/helps/padding.dart';
 import 'package:netinhoappclinica/core/styles/text_app.dart';
 
+import '../../../../clinica_icons_icons.dart';
 import '../../../../core/components/drop_filter.dart';
 import '../../../../core/helps/filter.dart';
 import '../../../../di/get_it.dart';
@@ -114,16 +115,19 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   InfoCard(
+                                                    icon: ClinicaIcons.family,
                                                     title: 'Total',
                                                     info: total.toString(),
                                                     isLoading: getGroupsStore.value.isLoading,
                                                   ),
                                                   InfoCard(
+                                                    icon: ClinicaIcons.money,
                                                     title: 'Pagos',
                                                     info: '$receive/$total',
                                                     isLoading: getGroupsStore.value.isLoading,
                                                   ),
                                                   InfoCard(
+                                                    icon: ClinicaIcons.clockbaselinehistory,
                                                     title: 'Pendentes',
                                                     info: '$pending/$total',
                                                     isLoading: getGroupsStore.value.isLoading,

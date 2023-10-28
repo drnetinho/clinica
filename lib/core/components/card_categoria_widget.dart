@@ -5,7 +5,7 @@ import 'package:netinhoappclinica/core/styles/text_app.dart';
 class CardCategoriasWidget extends StatelessWidget {
   final String title;
   final String subTitle;
-  final IconData icon;
+  final IconData? icon;
   final VoidCallback onTap;
   final double? width;
   final double? height;
@@ -16,7 +16,7 @@ class CardCategoriasWidget extends StatelessWidget {
     required this.title,
     required this.subTitle,
     required this.onTap,
-    required this.icon,
+    this.icon,
     this.width,
     this.height,
     this.background,

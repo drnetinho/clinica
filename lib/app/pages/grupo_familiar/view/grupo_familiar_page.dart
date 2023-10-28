@@ -47,6 +47,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
     managePatientsStore.getPatients();
     if (!groupStore.value.isSuccess) {
       groupStore.getGroups();
+      //
     }
   }
 

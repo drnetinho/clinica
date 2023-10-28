@@ -41,7 +41,6 @@ class ClispApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [Locale('pt', 'BR')],
       theme: ThemeData(
-        primaryColor: ColorsApp.instance.primary,
         dialogBackgroundColor: ColorsApp.instance.backgroundCardColor,
         scaffoldBackgroundColor: ColorsApp.instance.whiteColor,
         dialogTheme: DialogTheme(
@@ -49,6 +48,7 @@ class ClispApp extends StatelessWidget {
           backgroundColor: ColorsApp.instance.backgroundCardColor,
         ),
         popupMenuTheme: PopupMenuThemeData(
+          surfaceTintColor: ColorsApp.instance.backgroundCardColor,
           color: ColorsApp.instance.backgroundCardColor,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

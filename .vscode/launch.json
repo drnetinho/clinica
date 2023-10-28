@@ -11,6 +11,8 @@
             "args": [
                 "--dart-define",
                 "dimension=dev",
+                "--web-renderer",
+                "html",
             ]
         },
         {
@@ -20,6 +22,8 @@
             "args": [
                 "--dart-define",
                 "dimension=stg",
+                "--web-renderer",
+                "html",
             ]
         },
         {
@@ -30,6 +34,8 @@
             "args": [
                 "--dart-define",
                 "dimension=prd",
+                "--web-renderer",
+                "html",
             ]
         }
     ]

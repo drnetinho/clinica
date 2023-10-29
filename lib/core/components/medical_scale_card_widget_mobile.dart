@@ -11,7 +11,6 @@ import '../../app/pages/doctors/view/store/doctor_store.dart';
 import '../../app/pages/scale/domain/model/doctor_scale.dart';
 import '../../app/pages/scale/view/store/scale_store.dart';
 import '../../di/get_it.dart';
-import 'animated_resize.dart';
 
 class MedicalScaleCardWidgetMobile extends StatefulWidget {
   const MedicalScaleCardWidgetMobile({
@@ -138,82 +137,80 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
     required DoctorScale scale,
     required Doctor doctor,
   }) {
-    return AnimatedResize(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 10),
-        child: SizedBox(
-          height: 130,
-          width: MediaQuery.of(context).size.width,
-          child: PhysicalModel(
-            borderRadius: BorderRadius.circular(10),
-            color: context.colorsApp.dartMedium,
-            elevation: 5,
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 26,
-                          backgroundImage: CachedNetworkImageProvider(doctor.image),
-                        ),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              doctor.name,
-                              style: context.textStyles.textPoppinsSemiBold
-                                  .copyWith(color: context.colorsApp.blackColor)
-                                  .copyWith(fontSize: 11),
-                            ),
-                            Text(
-                              doctor.specialization,
-                              style: context.textStyles.textPoppinsRegular
-                                  .copyWith(color: context.colorsApp.blackColor)
-                                  .copyWith(fontSize: 10),
-                            ),
-                          ],
-                        ),
-                      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: SizedBox(
+        height: 130,
+        width: MediaQuery.of(context).size.width,
+        child: PhysicalModel(
+          borderRadius: BorderRadius.circular(10),
+          color: context.colorsApp.dartMedium,
+          elevation: 5,
+          child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 26,
+                        backgroundImage: CachedNetworkImageProvider(doctor.image),
+                      ),
+                      const SizedBox(width: 20),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            doctor.name,
+                            style: context.textStyles.textPoppinsSemiBold
+                                .copyWith(color: context.colorsApp.blackColor)
+                                .copyWith(fontSize: 11),
+                          ),
+                          Text(
+                            doctor.specialization,
+                            style: context.textStyles.textPoppinsRegular
+                                .copyWith(color: context.colorsApp.blackColor)
+                                .copyWith(fontSize: 10),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  Container(
+                    width: double.infinity,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: context.colorsApp.dartWhite,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    const Spacer(),
-                    Container(
-                      width: double.infinity,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: context.colorsApp.dartWhite,
-                        borderRadius: BorderRadius.circular(10),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.calendar_today, color: context.colorsApp.primary, size: 14),
+                          const SizedBox(width: 15),
+                          Text(
+                            scale.dateTime.formatted,
+                            style: context.textStyles.textPoppinsBold
+                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
+                          ),
+                          const SizedBox(width: 40),
+                          Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 14),
+                          const SizedBox(width: 15),
+                          Text(
+                            '${scale.start}' ' - ' '${scale.end}',
+                            style: context.textStyles.textPoppinsBold
+                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
+                          ),
+                        ],
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.calendar_today, color: context.colorsApp.primary, size: 14),
-                            const SizedBox(width: 15),
-                            Text(
-                              scale.dateTime.formatted,
-                              style: context.textStyles.textPoppinsBold
-                                  .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
-                            ),
-                            const SizedBox(width: 40),
-                            Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 14),
-                            const SizedBox(width: 15),
-                            Text(
-                              '${scale.start}' ' - ' '${scale.end}',
-                              style: context.textStyles.textPoppinsBold
-                                  .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          ),
+                    ),
+                  )
+                ],
+              )),
         ),
       ),
     );

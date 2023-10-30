@@ -1,5 +1,6 @@
+// ignore_for_file: empty_catches
+
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,6 @@ class AuthService {
       );
       return (userCredential: result, error: null);
     } on FirebaseAuthException catch (e) {
-      log(e.message ?? '');
       return (userCredential: null, error: 'Erro ao realizar login: ${e.code}');
     }
   }
@@ -56,17 +56,14 @@ class AuthService {
         email: email,
         password: password,
       );
-    } on FirebaseAuthException catch (e) {
-      log(e.message ?? '');
-    }
+    } on FirebaseAuthException {}
   }
 
   // SignOut or Error
   Future<void> signOut() async {
     try {
       await firebaseAuth.signOut();
-    } on FirebaseAuthException catch (e) {
-      log(e.message ?? '');
+    } on FirebaseAuthException {
     } finally {
       isLogged.value = false;
     }

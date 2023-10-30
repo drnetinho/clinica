@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/get_pix_repository.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 @injectable
 class GetPixStore extends ValueNotifier<AppState> {

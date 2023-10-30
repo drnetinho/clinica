@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/widgets/editar_buttons.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_dialog.dart';

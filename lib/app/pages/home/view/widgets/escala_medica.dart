@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/components/store_builder.dart';
 import '../../../../../di/get_it.dart';

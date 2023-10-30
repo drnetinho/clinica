@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/get_patients_repository.dart';
@@ -19,7 +19,7 @@ class EditPatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message:result.error?.message ?? 'Erro ao deletar paciente');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao deletar paciente');
     }
   }
 
@@ -43,7 +43,7 @@ class EditPatientsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message:result.error?.message ?? 'Erro ao adicionar paciente');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao adicionar paciente');
     }
   }
 }

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
+import 'package:clisp/common/services/firestore/firestore_collections.dart';
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/helps/spacing.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 class SearchDialogFilterButtons extends StatelessWidget {
   final bool groupIsSelected;

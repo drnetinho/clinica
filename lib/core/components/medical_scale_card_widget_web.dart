@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
-import 'package:netinhoappclinica/app/pages/scale/domain/model/doctor_scale.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
-import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/app/pages/doctors/view/store/doctor_store.dart';
+import 'package:clisp/app/pages/scale/domain/model/doctor_scale.dart';
+import 'package:clisp/app/pages/scale/view/store/scale_store.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 class MedicalScaleCardWidgetWeb extends StatefulWidget {
   const MedicalScaleCardWidgetWeb({

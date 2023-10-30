@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/money_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
 
 import '../../../../../core/helps/actual_date.dart';
 import '../../../../../common/form/inputs.dart';

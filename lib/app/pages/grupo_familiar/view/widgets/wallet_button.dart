@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/styles/colors_app.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/data/repository/get_pix_repository.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/app/pages/formas_pagamento/data/repository/get_pix_repository.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../domain/model/pix_model.dart';
@@ -22,6 +22,4 @@ class EditPixStore extends ValueNotifier<AppState> {
       value = AppStateError(message: 'Erro ao atualizar dados do pix');
     }
   }
-
-
 }

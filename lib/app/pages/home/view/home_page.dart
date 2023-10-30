@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/app/pages/avaliacoes/avaliacoes_page.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/formas_de_pagamento_page.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/grupo_familiar_page.dart';
-import 'package:netinhoappclinica/app/pages/home/view/widgets/app_bar_widget.dart';
-import 'package:netinhoappclinica/app/pages/home/view/widgets/escala_medica.dart';
-import 'package:netinhoappclinica/app/pages/relatorios/view/relatorios_page.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/app/pages/avaliacoes/avaliacoes_page.dart';
+import 'package:clisp/app/pages/formas_pagamento/formas_de_pagamento_page.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/grupo_familiar_page.dart';
+import 'package:clisp/app/pages/home/view/widgets/app_bar_widget.dart';
+import 'package:clisp/app/pages/home/view/widgets/escala_medica.dart';
+import 'package:clisp/app/pages/relatorios/view/relatorios_page.dart';
 
 import '../../../../clinica_icons_icons.dart';
 import '../../../../core/components/card_categoria_widget.dart';
@@ -17,7 +17,7 @@ import '../../historico/historico_page.dart';
 import '../../scale/view/edit_medical_scale.dart';
 
 class HomePage extends StatefulWidget {
-  static const String routeName = '/home';
+  static const String routeName = '/inicio';
   const HomePage({super.key});
 
   @override

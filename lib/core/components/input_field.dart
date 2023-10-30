@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 // ignore: must_be_immutable
 class InputField extends StatefulWidget {
@@ -126,9 +126,13 @@ class _InputFieldState extends State<InputField> {
             suffixIcon: widget.suffixIcon != null
                 ? InkWell(
                     borderRadius: BorderRadius.circular(25),
-                    onTap: widget.passwordMode ? () => passwordVisible.value = !passwordVisible.value : widget.suffixIconFunction ?? () {},
+                    onTap: widget.passwordMode
+                        ? () => passwordVisible.value = !passwordVisible.value
+                        : widget.suffixIconFunction ?? () {},
                     child: Icon(
-                      widget.passwordMode ? (passwordVisible.value ? Icons.visibility_outlined : Icons.visibility_off_outlined) : widget.suffixIcon,
+                      widget.passwordMode
+                          ? (passwordVisible.value ? Icons.visibility_outlined : Icons.visibility_off_outlined)
+                          : widget.suffixIcon,
                       color: const Color(0xFFB4B4B4),
                     ),
                   )
@@ -154,7 +158,8 @@ class _InputFieldState extends State<InputField> {
               fontFamily: context.textStyles.textPoppinsMedium.fontFamily,
             ),
             filled: true,
-            fillColor: const Color(0xFFFFFFFF).withOpacity(Theme.of(context).brightness == Brightness.dark ? 0.1 : 0.25),
+            fillColor:
+                const Color(0xFFFFFFFF).withOpacity(Theme.of(context).brightness == Brightness.dark ? 0.1 : 0.25),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(
                 Radius.circular(widget.borderRadius),

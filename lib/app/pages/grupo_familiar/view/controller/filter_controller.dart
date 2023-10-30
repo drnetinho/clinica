@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/helps/filter.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/helps/filter.dart';
 
 @injectable
 class FilterController {

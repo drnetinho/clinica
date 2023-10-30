@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
 
@@ -30,6 +30,4 @@ class GroupPageController {
   }
 
   void resetSelectedGroup() => groupSelected.value = null;
-
-  
 }

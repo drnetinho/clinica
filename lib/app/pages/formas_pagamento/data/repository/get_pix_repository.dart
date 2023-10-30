@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/either/either.dart';
+import 'package:clisp/common/either/either.dart';
 
 import '../../../../../common/error/app_error.dart';
 import '../../../../../common/services/firestore/firestore_collections.dart';
@@ -44,7 +44,7 @@ class GetPixRepositoryImpl implements GetPixRepository {
   EditPixOrError updatePix({required PixModel pix}) async {
     try {
       await FirestoreService.fire.collection(Collections.pix).doc(pix.id).update(pix.toJson());
-      Logger.prettyPrint(pix, Logger.greenColor,Collections.pix);
+      Logger.prettyPrint(pix, Logger.greenColor, Collections.pix);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);

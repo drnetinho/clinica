@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/payment_tile.dart';
-import 'package:netinhoappclinica/core/components/drop_filter.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/payment_tile.dart';
+import 'package:clisp/core/components/drop_filter.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/store_builder.dart';

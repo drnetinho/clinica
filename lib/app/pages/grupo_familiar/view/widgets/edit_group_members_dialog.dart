@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
-import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/core/helps/extension/list_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';

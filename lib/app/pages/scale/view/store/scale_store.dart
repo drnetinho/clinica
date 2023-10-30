@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
-import 'package:netinhoappclinica/core/helps/actual_date.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:clisp/common/error/app_error.dart';
+import 'package:clisp/core/helps/actual_date.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/scale_repository.dart';

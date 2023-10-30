@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/core/components/drop_filter.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/components/drop_filter.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../clinica_icons_icons.dart';
 
 class HistoricoPage extends StatefulWidget {
-  static const String routeName = 'historico';
+  static const String routeName = 'historicopaciente';
   const HistoricoPage({super.key});
 
   @override

@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/app/pages/scale/view/store/scale_store.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';

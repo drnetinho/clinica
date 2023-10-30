@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/forms/ficha_medica_form.dart';
-import 'package:netinhoappclinica/common/form/inputs.dart';
-import 'package:netinhoappclinica/common/model/address_model.dart';
-import 'package:netinhoappclinica/core/helps/actual_date.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/forms/ficha_medica_form.dart';
+import 'package:clisp/common/form/inputs.dart';
+import 'package:clisp/common/model/address_model.dart';
+import 'package:clisp/core/helps/actual_date.dart';
 
 @injectable
 class FichaMedicaController {

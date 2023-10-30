@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
 
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../../../../core/components/store_builder.dart';
 import '../../../../../core/helps/actual_date.dart';

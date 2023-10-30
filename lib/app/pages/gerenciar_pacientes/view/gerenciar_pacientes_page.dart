@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/new_patient_form_widget.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/view/widgets/search_header.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/store/manage_patient_store.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/widgets/ficha_medica_widget.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/widgets/new_patient_form_widget.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/widgets/patient_card.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/view/widgets/search_header.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/core/helps/extension/value_notifier_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../../../core/components/store_builder.dart';
 import 'controller/gerenciar_pacientes_controller.dart';
 import 'store/edit_patient_store.dart';
 
 class GerenciarPacientesPage extends StatefulWidget {
-  static const routeName = 'gerenciar_pacientes';
+  static const routeName = 'pacientes';
   const GerenciarPacientesPage({super.key});
 
   @override

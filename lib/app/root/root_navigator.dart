@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 import '../../clinica_icons_icons.dart';
 import '../../common/services/auth/auth_service.dart';

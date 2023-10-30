@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:netinhoappclinica/core/helps/actual_date.dart';
+import 'package:clisp/core/helps/actual_date.dart';
 
 part 'doctor_scale.g.dart';
 

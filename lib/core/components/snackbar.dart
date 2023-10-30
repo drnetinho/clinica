@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 mixin SnackBarMixin {
   void showSnack({required BuildContext context, required String text}) {

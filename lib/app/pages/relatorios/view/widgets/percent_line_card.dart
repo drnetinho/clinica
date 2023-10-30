@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/relatorios/view/widgets/percent_info_text.dart';
-import 'package:netinhoappclinica/core/helps/extension/double_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/relatorios/view/widgets/percent_info_text.dart';
+import 'package:clisp/core/helps/extension/double_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/components/animated_resize.dart';
 import 'line_progress_indicator.dart';

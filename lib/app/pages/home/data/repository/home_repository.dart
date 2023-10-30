@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/home/data/types/home_types.dart';
-import 'package:netinhoappclinica/app/pages/home/domain/model/app_details_model.dart';
-import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
+import 'package:clisp/app/pages/home/data/types/home_types.dart';
+import 'package:clisp/app/pages/home/domain/model/app_details_model.dart';
+import 'package:clisp/common/services/firestore/firestore_collections.dart';
 
 import '../../../../../common/error/app_error.dart';
 import '../../../../../common/services/firestore/firestore_service.dart';

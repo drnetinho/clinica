@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
+import 'package:clisp/common/services/firestore/firestore_collections.dart';
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';
@@ -14,7 +14,6 @@ import '../../domain/model/patient_model.dart';
 import '../types/home_types.dart';
 
 abstract class GetPatientsRepository {
-
   GetPatientsOrError getPatients();
   UnitOrError deletePatient({required String id});
   UnitOrError addPatient({required PatientModel patient});
@@ -38,7 +37,7 @@ class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatien
       final data = docs.map((e) => PatientModel.fromJson(e)).toList();
 
       Logger.prettyPrint('LISTA DE PACIENTES', Logger.greenColor, 'getPatients');
-      
+
       return (error: null, patients: data);
     } on FirebaseException {
       return (error: RemoteError(), patients: null);
@@ -85,5 +84,4 @@ class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatien
       return (error: UndefiniedError(), unit: null);
     }
   }
-
 }

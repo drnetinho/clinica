@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/helps/padding.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/core/helps/padding.dart';
+import 'package:clisp/core/helps/spacing.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../common/form/formatters/app_formatters.dart';
 import '../../../../../core/components/app_form_field.dart';

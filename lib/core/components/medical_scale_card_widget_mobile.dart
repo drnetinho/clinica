@@ -1,10 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/core/components/state_widget.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../app/pages/doctors/domain/model/doctor.dart';
 import '../../app/pages/doctors/view/store/doctor_store.dart';

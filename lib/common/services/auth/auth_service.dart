@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/root/routes.dart';
+import 'package:clisp/app/root/routes.dart';
 
 import '../../../app/pages/home/view/home_page.dart';
 import '../../../app/pages/sigin/sign_page.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/landing/landing_page_mobile.dart';
-import 'package:netinhoappclinica/app/pages/landing/landing_page_web.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-
+import 'package:clisp/app/pages/landing/landing_page_mobile.dart';
+import 'package:clisp/app/pages/landing/landing_page_web.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 class LandingPage extends StatefulWidget {
   static const String routeName = '/landing';

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../gerenciar_pacientes/domain/model/patient_model.dart';
@@ -23,7 +23,7 @@ class GetGroupMembersStore extends ValueNotifier<AppState> {
         value = AppStateSuccess(data: result.members);
       }
       if (result.error.exists) {
-        value = AppStateError(message:result.error?.message ?? 'Erro ao buscar membros do grupo');
+        value = AppStateError(message: result.error?.message ?? 'Erro ao buscar membros do grupo');
       }
     }
   }

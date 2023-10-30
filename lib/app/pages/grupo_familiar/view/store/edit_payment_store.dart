@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../../../core/helps/actual_date.dart';
@@ -30,7 +30,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       }
     }
     if (result.error.exists) {
-      value = AppStateError(message:result.error?.message ?? 'Erro ao confirmar pagamento');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao confirmar pagamento');
     }
   }
 
@@ -48,7 +48,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message: result.error?.message ??'Erro ao confirmar pagamento');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao confirmar pagamento');
     }
   }
 
@@ -60,7 +60,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(message: result.error?.message ??'Erro ao deletar pagamento');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao deletar pagamento');
     }
   }
 
@@ -76,13 +76,13 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
         monthlyFee: payment.monthlyFee,
         pending: true,
         receiveDate: null,
-          createdAt: KCurrentDate,
+        createdAt: KCurrentDate,
       ),
     );
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(message:result.error?.message ?? 'Erro ao reverter pagamento');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao reverter pagamento');
     }
   }
 
@@ -95,7 +95,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
         payDate: oldPaymenteBase.payDate.copyWith(
           month: oldPaymenteBase.payDate.month + 1,
         ),
-          createdAt: KCurrentDate,
+        createdAt: KCurrentDate,
       ),
     );
 
@@ -103,7 +103,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
       value = AppStateSuccess(data: null);
     }
     if (result.error.exists) {
-      value = AppStateError(message:result.error?.message ?? 'Erro ao gerar novo pagamento');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao gerar novo pagamento');
     }
   }
 }

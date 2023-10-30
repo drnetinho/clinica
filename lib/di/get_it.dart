@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/di/get_it.config.dart';
+import 'package:clisp/di/get_it.config.dart';
 
 final getIt = GetIt.instance;
 

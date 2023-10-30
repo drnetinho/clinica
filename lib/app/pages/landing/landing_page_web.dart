@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/landing/widgets/app_bar_landing_page_web.dart';
-import 'package:netinhoappclinica/app/pages/landing/widgets/go_login_admin_web.dart';
+import 'package:clisp/app/pages/landing/widgets/app_bar_landing_page_web.dart';
+import 'package:clisp/app/pages/landing/widgets/go_login_admin_web.dart';
 
 import '../../../core/components/medical_scale_card_widget_web.dart';
 import '../../../core/components/wallet_cpf_widget_web.dart';

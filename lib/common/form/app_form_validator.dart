@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
 
 import '../../core/helps/actual_date.dart';
 

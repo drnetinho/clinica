@@ -1,4 +1,4 @@
-import 'package:netinhoappclinica/common/state/app_state.dart';
+import 'package:clisp/common/state/app_state.dart';
 
 import '../../core/enum/widget_state.dart';
 

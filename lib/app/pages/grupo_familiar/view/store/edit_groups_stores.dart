@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:netinhoappclinica/common/error/app_error.dart';
+import 'package:clisp/common/error/app_error.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/groups_repository.dart';

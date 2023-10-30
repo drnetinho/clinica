@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/core/helps/spacing.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 import '../../../../../core/components/animated_resize.dart';
 
 class ClispWallet extends StatelessWidget {

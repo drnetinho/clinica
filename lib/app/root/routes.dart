@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/app/pages/home/view/home_page.dart';
-import 'package:netinhoappclinica/app/root/root_navigator.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/home/view/home_page.dart';
+import 'package:clisp/app/root/root_navigator.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../../common/services/auth/auth_service.dart';
 import '../pages/avaliacoes/avaliacoes_page.dart';

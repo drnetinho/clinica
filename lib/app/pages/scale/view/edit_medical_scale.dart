@@ -147,9 +147,10 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                                       scaleDateGroup.key,
                                       style: context.textStyles.textPoppinsSemiBold.copyWith(
                                         color: context.colorsApp.greenColor2,
-                                        fontSize: 28,
+                                        fontSize: 20,
                                       ),
                                     ),
+                                    const Divider(),
                                     const SizedBox(height: 15),
                                     if (scaleDateGroup.value.isNotEmpty) ...{
                                       Wrap(

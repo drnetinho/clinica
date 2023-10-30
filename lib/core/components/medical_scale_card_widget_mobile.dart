@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/styles/colors_app.dart';
@@ -65,7 +66,10 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                 validateDefaultStates: true,
                 builder: (context, scales, _) {
                   final DoctorScale? recentScale = scaleStore.getDoctorOfTheDay(scales);
-                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(recentScale?.doctorId, doctors);
+                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(
+                    recentScale?.doctorId,
+                    doctors,
+                  );
 
                   return Column(
                     children: [
@@ -92,36 +96,42 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                         ),
                       },
                       const SizedBox(height: 20),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Todas',
-                            style: context.textStyles.textPoppinsSemiBold.copyWith(
-                              color: context.colorsApp.primary,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
+                      if (scales.isEmpty)
+                        const StateEmptyWidget(
+                          message: 'Nenhuma escala encontrada',
+                          icon: Icons.calendar_today,
+                        ),
+                      if (scales.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Todas',
+                              style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                color: context.colorsApp.primary,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          ...scales.map(
-                            (e) {
-                              final other = doctors.firstWhereOrNull((element) => element.id == e.doctorId);
-                              if (other == null) {
-                                return const SizedBox.shrink();
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: scaleCard(
-                                    doctor: other,
-                                    scale: e,
-                                  ),
-                                );
-                              }
-                            },
-                          ).toList()
-                        ],
-                      ),
+                            const SizedBox(height: 15),
+                            ...scales.map(
+                              (e) {
+                                final other = doctors.firstWhereOrNull((element) => element.id == e.doctorId);
+                                if (other == null) {
+                                  return const SizedBox.shrink();
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: scaleCard(
+                                      doctor: other,
+                                      scale: e,
+                                    ),
+                                  );
+                                }
+                              },
+                            ).toList()
+                          ],
+                        ),
                     ],
                   );
                 },

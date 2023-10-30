@@ -41,24 +41,28 @@ class ScaleStore extends ValueNotifier<AppState> {
   }
 
   DoctorScale? getDoctorOfTheDay(List<DoctorScale> scales) {
-    final currentDate = scales.firstWhereOrNull(
-      (element) => element.dateTime.isTheSameDay(KCurrentDate),
-    );
+    try {
+      final currentDate = scales.firstWhereOrNull(
+        (element) => element.dateTime.isTheSameDay(KCurrentDate),
+      );
 
-    if (currentDate != null) {
-      return currentDate;
-    } else {
-      var recentScale = scales.firstWhereOrNull((e) => e.dateTime.isAfter(KCurrentDate));
+      if (currentDate != null) {
+        return currentDate;
+      } else {
+        var recentScale = scales.firstWhereOrNull((e) => e.dateTime.isAfter(KCurrentDate));
 
-      if (recentScale != null) {
-        for (var scale in scales) {
-          if (scale.dateTime.isAfter(KCurrentDate) && scale.dateTime.isBefore(recentScale!.dateTime)) {
-            recentScale = scale;
+        if (recentScale != null) {
+          for (var scale in scales) {
+            if (scale.dateTime.isAfter(KCurrentDate) && scale.dateTime.isBefore(recentScale!.dateTime)) {
+              recentScale = scale;
+            }
           }
         }
-      }
 
-      return recentScale;
+        return recentScale;
+      }
+    } catch (e) {
+      return null;
     }
   }
 }

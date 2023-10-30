@@ -18,6 +18,7 @@ class LandingPageWeb extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const AppBarLandingPageWeb(),
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),

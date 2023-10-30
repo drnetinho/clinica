@@ -5,6 +5,7 @@ import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
 import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
 import 'package:netinhoappclinica/app/pages/scale/domain/model/doctor_scale.dart';
 import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
+import 'package:netinhoappclinica/core/components/state_widget.dart';
 import 'package:netinhoappclinica/core/components/store_builder.dart';
 import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
 import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
@@ -95,37 +96,43 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                         ),
                       },
                       const SizedBox(height: 40),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Todas',
-                            style: context.textStyles.textPoppinsSemiBold.copyWith(
-                              color: context.colorsApp.primary,
-                              fontSize: 18 * unitHeight,
-                              fontWeight: FontWeight.bold,
+                      if (scales.isEmpty)
+                        const StateEmptyWidget(
+                          message: 'Nenhuma escala encontrada',
+                          icon: Icons.calendar_today,
+                        ),
+                      if (scales.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Todas',
+                              style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                color: context.colorsApp.primary,
+                                fontSize: 18 * unitHeight,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 15),
-                          ...scales.map(
-                            (e) {
-                              final other = doctors.firstWhereOrNull((element) => element.id == e.doctorId);
-                              if (other == null) {
-                                return const SizedBox.shrink();
-                              } else {
-                                return Padding(
-                                  padding: const EdgeInsets.only(bottom: 15),
-                                  child: scaleCard(
-                                    doctor: other,
-                                    scale: e,
-                                    unitHeight: unitHeight,
-                                  ),
-                                );
-                              }
-                            },
-                          ).toList()
-                        ],
-                      ),
+                            const SizedBox(height: 15),
+                            ...scales.map(
+                              (e) {
+                                final other = doctors.firstWhereOrNull((element) => element.id == e.doctorId);
+                                if (other == null) {
+                                  return const SizedBox.shrink();
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(bottom: 15),
+                                    child: scaleCard(
+                                      doctor: other,
+                                      scale: e,
+                                      unitHeight: unitHeight,
+                                    ),
+                                  );
+                                }
+                              },
+                            ).toList()
+                          ],
+                        ),
                     ],
                   );
                 },

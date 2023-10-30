@@ -75,7 +75,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                       width: MediaQuery.of(context).size.width * .32,
                       child: TextFormField(
                         decoration: InputDecoration(
-                          hintText: 'Buscar Pacientes ou Grupos',
+                          hintText: 'Busque por nome dou grupo ou do paciente',
                           hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),

@@ -5,7 +5,7 @@ import 'package:clisp/app/root/root_navigator.dart';
 import 'package:clisp/di/get_it.dart';
 
 import '../../common/services/auth/auth_service.dart';
-import '../pages/avaliacoes/avaliacoes_page.dart';
+import '../pages/avaliacoes/view/avaliacoes_page.dart';
 import '../pages/doctors/view/doctors_page.dart';
 import '../pages/formas_pagamento/formas_de_pagamento_page.dart';
 import '../pages/gerenciar_pacientes/view/gerenciar_pacientes_page.dart';

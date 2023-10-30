@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:clisp/core/styles/text_app.dart';
 
-import '../../../../core/styles/colors_app.dart';
+import '../../../../../core/styles/colors_app.dart';
 
 class FichaExameFisicoWidget extends StatelessWidget {
   const FichaExameFisicoWidget({super.key});
@@ -47,8 +47,11 @@ class FichaExameFisicoWidget extends StatelessWidget {
           style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14, color: ColorsApp.instance.greyColor2),
         ),
         SizedBox(
-          width: 46,
+          width: 70,
           child: TextFormField(
+            style: TextStyle(
+              color: ColorsApp.instance.primary,
+            ),
             decoration: const InputDecoration(
               hintText: "______",
               border: InputBorder.none,

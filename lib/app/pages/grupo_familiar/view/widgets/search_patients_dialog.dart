@@ -60,6 +60,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           child: Container(
+            color: context.colorsApp.backgroundCardColor,
             padding: Padd.sh(Spacing.x),
             height: MediaQuery.of(context).size.height * .8,
             width: MediaQuery.of(context).size.width * .4,
@@ -105,6 +106,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                         builder: (context, search, _) {
                           List<FamilyGroupModel> groups = search ?? widget.groups;
                           return ListView.builder(
+                            padding: const EdgeInsets.only(top: 10),
                             itemCount: groups.length,
                             itemBuilder: (context, index) {
                               final group = groups[index];

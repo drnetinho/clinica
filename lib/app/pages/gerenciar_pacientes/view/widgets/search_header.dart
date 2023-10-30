@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:clisp/core/helps/extension/string_extension.dart';
 import 'package:clisp/core/styles/text_app.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/colors_app.dart';
 
@@ -9,15 +9,15 @@ class SearchHeader extends StatefulWidget {
   final List<PatientModel> patients;
   final TextEditingController controller;
   final Function(List<PatientModel>?) findedPatients;
-  final Function(bool) addPatient;
+  final Function(bool)? addPatient;
 
   const SearchHeader({
-    super.key,
+    Key? key,
     required this.patients,
     required this.controller,
     required this.findedPatients,
-    required this.addPatient,
-  });
+    this.addPatient,
+  }) : super(key: key);
 
   @override
   State<SearchHeader> createState() => _SearchHeaderState();
@@ -112,7 +112,7 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
                 height: 50,
                 width: 180,
                 child: ElevatedButton(
-                  onPressed: () => widget.addPatient(true),
+                  onPressed: () => widget.addPatient?.call(true),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

@@ -22,7 +22,7 @@ class EditDoctorStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
     } else if (result.error.exists) {
-      value = AppStateError(message: result.error?.message ?? 'Erro aoe editar médico');
+      value = AppStateError(message: result.error?.message ?? 'Erro ao editar médico');
     }
   }
 

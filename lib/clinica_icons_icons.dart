@@ -12,6 +12,14 @@
 ///       - asset: fonts/ClinicaIcons.ttf
 ///
 /// 
+/// * Material Design Icons, Copyright (C) Google, Inc
+///         Author:    Google
+///         License:   Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+///         Homepage:  https://design.google.com/icons/
+/// * Font Awesome 5, Copyright (C) 2016 by Dave Gandy
+///         Author:    Dave Gandy
+///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
+///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 ///
 import 'package:flutter/widgets.dart';
 
@@ -21,15 +29,15 @@ class ClinicaIcons {
   static const _kFontFam = 'ClinicaIcons';
   static const String? _kFontPkg = null;
 
-  static const IconData medicalRecord = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData healthiconsDoctor = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData healthicons_doctor = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData signout = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData house = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData profile = IconData(0xe804, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData money = IconData(0xe805, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData clockbaselinehistory = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData userConfig = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData clock_baseline_history = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData user_config = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData seach = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData notification = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData family = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData account_circle = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData notes_medical = IconData(0xf481, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

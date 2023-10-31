@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.userConfig,
+                          icon: ClinicaIcons.user_config,
                           title: 'Gerenciar Paciente',
                           subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
                           onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.clockbaselinehistory,
+                          icon: ClinicaIcons.clock_baseline_history,
                           title: 'Histórico do Pacinte',
                           subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                         CardCategoriasWidget(
                           width: 290,
                           background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.medicalRecord,
+                          icon: ClinicaIcons.notes_medical,
                           title: 'Avaliações do Paciente',
                           subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
                           onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),

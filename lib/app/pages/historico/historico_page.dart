@@ -117,7 +117,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                         borderRadius: BorderRadius.circular(50),
                                         border: Border.all(color: context.colorsApp.primary, width: 2),
                                       ),
-                                      child: Icon(ClinicaIcons.profile, color: context.colorsApp.primary, size: 35),
+                                      child: Icon(ClinicaIcons.account_circle, color: context.colorsApp.primary, size: 35),
                                     ),
                                     trailing: Icon(Icons.arrow_forward_ios, color: context.colorsApp.greyColor2),
                                   ),
@@ -191,7 +191,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                                                 children: [
                                                   Row(
                                                     children: [
-                                                      Icon(ClinicaIcons.medicalRecord,
+                                                      Icon(ClinicaIcons.healthicons_doctor,
                                                           color: context.colorsApp.primary),
                                                       const SizedBox(width: 10),
                                                       Text(

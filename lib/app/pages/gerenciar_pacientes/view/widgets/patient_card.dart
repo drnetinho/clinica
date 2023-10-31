@@ -58,7 +58,7 @@ class PatientCardState extends State<PatientCard> {
               children: [
                 Row(
                   children: [
-                    Icon(ClinicaIcons.profile, size: 30, color: ColorsApp.instance.primary),
+                    Icon(ClinicaIcons.account_circle, size: 30, color: ColorsApp.instance.primary),
                     const SizedBox(width: 10),
                     Text(
                       widget.patient.name,

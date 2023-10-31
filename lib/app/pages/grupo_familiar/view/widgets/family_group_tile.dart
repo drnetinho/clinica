@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
@@ -9,11 +10,13 @@ import '../../../../../clinica_icons_icons.dart';
 class FamilyGroupTile extends StatefulWidget {
   final FamilyGroupModel group;
   final bool isSelected;
+  final bool isSelecting;
 
   const FamilyGroupTile({
     Key? key,
     required this.group,
     required this.isSelected,
+    required this.isSelecting,
   }) : super(key: key);
 
   @override
@@ -21,41 +24,81 @@ class FamilyGroupTile extends StatefulWidget {
 }
 
 class _FamilyGroupTileState extends State<FamilyGroupTile> {
+  bool isHovered = false;
+
+  Color getCollor() {
+    if (widget.isSelected) {
+      return ColorsApp.instance.greyColor.withOpacity(0.2);
+    } else if (isHovered) {
+      return ColorsApp.instance.greyColor.withOpacity(0.1);
+    } else {
+      return ColorsApp.instance.transparentColor;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          isHovered = false;
+        });
+      },
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            selectedColor: context.colorsApp.primary,
-            subtitle: Text(
-              membersText(widget.group.members),
-              style: context.textStyles.textPoppinsRegular.copyWith(fontSize: 15),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: getCollor(),
             ),
-            title: Text(
-              widget.group.name,
-              style: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
-            ),
-            selected: widget.isSelected,
-            leading: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                color: context.colorsApp.whiteColor,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(color: context.colorsApp.primary, width: 2),
-              ),
-              child: Icon(ClinicaIcons.family, color: context.colorsApp.primary, size: 26),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(ClinicaIcons.family, size: 30, color: ColorsApp.instance.primary),
+                    const SizedBox(width: 10),
+                    Text(
+                      widget.group.name,
+                      style: context.textStyles.textPoppinsMedium.copyWith(
+                        fontSize: 18,
+                        color: widget.isSelected ? ColorsApp.instance.primary : null,
+                      ),
+                    ),
+                    if (kDebugMode) ...{
+                      const SizedBox(width: 4),
+                      Text(
+                        widget.group.id,
+                        style: context.textStyles.textPoppinsMedium.copyWith(
+                          fontSize: 14,
+                          color: ColorsApp.instance.primary,
+                        ),
+                      ),
+                    },
+                    const Spacer(),
+                    if (isHovered)
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 20,
+                        color: widget.isSelecting ? ColorsApp.instance.greyColor : ColorsApp.instance.greyColor,
+                      ),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+              ],
             ),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * .28,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Divider(thickness: 1, color: context.colorsApp.greyColor),
+          Visibility(
+            visible: !widget.isSelected,
+            child: Divider(
+              color: ColorsApp.instance.greyColor.withOpacity(0.4),
             ),
           ),
         ],

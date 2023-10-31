@@ -127,7 +127,7 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                                                     isLoading: getGroupsStore.value.isLoading,
                                                   ),
                                                   InfoCard(
-                                                    icon: ClinicaIcons.clockbaselinehistory,
+                                                    icon: ClinicaIcons.clock_baseline_history,
                                                     title: 'Pendentes',
                                                     info: '$pending/$total',
                                                     isLoading: getGroupsStore.value.isLoading,

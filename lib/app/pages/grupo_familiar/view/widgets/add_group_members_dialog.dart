@@ -5,6 +5,7 @@ import 'package:clisp/core/helps/extension/list_extension.dart';
 import 'package:clisp/core/styles/colors_app.dart';
 import 'package:clisp/di/get_it.dart';
 
+import '../../../../../clinica_icons_icons.dart';
 import '../../../../../core/components/state_widget.dart';
 import '../../../../../core/helps/padding.dart';
 import '../../../../../core/helps/spacing.dart';
@@ -96,7 +97,7 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
                                       onChanged: (v) => v == true ? addMember(patient) : removeMember(patient),
                                     ),
                                     title: Text(patient.name),
-                                    leading: const Icon(Icons.person),
+                                    leading: const Icon(ClinicaIcons.account_circle),
                                     selectedTileColor: context.colorsApp.greenColor,
                                     selectedColor: context.colorsApp.blackColor,
                                     onTap: () {

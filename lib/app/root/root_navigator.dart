@@ -55,7 +55,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                 IconButton(
                   onPressed: () => context.go(DoctorsPage.routeName),
                   icon: Icon(
-                    ClinicaIcons.healthiconsDoctor,
+                    ClinicaIcons.healthicons_doctor,
                     color: widget.navigationShell.currentIndex == 1
                         ? ColorsApp.instance.success
                         : ColorsApp.instance.greyColor2,

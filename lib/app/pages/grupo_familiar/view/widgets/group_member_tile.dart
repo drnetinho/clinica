@@ -26,7 +26,7 @@ class GroupMemberTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(ClinicaIcons.profile, size: 30, color: ColorsApp.instance.success),
+              Icon(ClinicaIcons.account_circle, size: 30, color: ColorsApp.instance.success),
               const SizedBox(width: 8),
               Text(
                 member.name,

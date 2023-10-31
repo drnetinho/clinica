@@ -139,7 +139,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                       height: MediaQuery.of(context).size.height * .7,
                       width: MediaQuery.of(context).size.width * .32,
                       child: PhysicalModel(
-                        elevation: 1,
+                        elevation: 10,
                         color: context.colorsApp.backgroundCardColor,
                         borderRadius: BorderRadius.circular(20),
                         child: StoreBuilder<List<PatientModel>>(
@@ -173,6 +173,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                             child: FamilyGroupTile(
                                               group: group,
                                               isSelected: group == groupSelected,
+                                              isSelecting: controller.addNewPatient.value,
                                             ),
                                           );
                                         },

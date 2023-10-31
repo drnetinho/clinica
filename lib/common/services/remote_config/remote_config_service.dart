@@ -1,6 +1,6 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/services.dart';
-import 'package:netinhoappclinica/common/services/remote_config/remote_config_default_values.dart';
+import 'package:clisp/common/services/remote_config/remote_config_default_values.dart';
 
 //App Info
 

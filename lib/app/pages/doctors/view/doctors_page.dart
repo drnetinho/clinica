@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/store/edit_doctor_store.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/widgets/doctor_widget.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/widgets/new_doctor_dialog.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/widgets/new_doctors_buttom_widget.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/app/pages/doctors/view/store/doctor_store.dart';
+import 'package:clisp/app/pages/doctors/view/store/edit_doctor_store.dart';
+import 'package:clisp/app/pages/doctors/view/widgets/doctor_widget.dart';
+import 'package:clisp/app/pages/doctors/view/widgets/new_doctor_dialog.dart';
+import 'package:clisp/app/pages/doctors/view/widgets/new_doctors_buttom_widget.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 import '../../../../../di/get_it.dart';
 
 class DoctorsPage extends StatefulWidget {
-  static const String routeName = '/doctors';
+  static const String routeName = '/medicos';
   const DoctorsPage({super.key});
 
   @override

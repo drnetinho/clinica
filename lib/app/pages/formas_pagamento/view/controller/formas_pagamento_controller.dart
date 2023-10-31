@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/domain/model/pix_model.dart';
+import 'package:clisp/app/pages/formas_pagamento/domain/model/pix_model.dart';
 
 @injectable
 class FormasPagamentoController extends ChangeNotifier {

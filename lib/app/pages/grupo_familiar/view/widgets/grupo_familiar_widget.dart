@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/clisp_wallet.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/grupo_familiar_footer.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/historic_button.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/wallet_button.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/list_extension.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/clisp_wallet.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/grupo_familiar_footer.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/historic_button.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/wallet_button.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/helps/extension/list_extension.dart';
+import 'package:clisp/core/helps/spacing.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';

@@ -39,10 +39,7 @@ class _AnimatedResizeState extends State<AnimatedResize> with TickerProviderStat
       child: widget.child,
       builder: (context, child) => Transform.scale(
         scale: _sizeAnimation.value,
-        child: InkWell(
-          onTap: animate,
-          child: child,
-        ),
+        child: child,
       ),
     );
   }

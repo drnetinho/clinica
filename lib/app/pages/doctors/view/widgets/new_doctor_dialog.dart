@@ -5,13 +5,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
-import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
-import 'package:netinhoappclinica/core/components/app_form_field.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/common/services/remote_config/remote_config_service.dart';
+import 'package:clisp/core/components/app_form_field.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../common/services/storage/firebase_storage.dart';
 import '../../../../../core/helps/padding.dart';

@@ -1,5 +1,5 @@
 import 'package:formz/formz.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
 
 import 'app_form_validator.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/doctors/data/repository/doctors_repository.dart';
-import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
-import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
-import 'package:netinhoappclinica/common/services/storage/firebase_storage.dart';
+import 'package:clisp/app/pages/doctors/data/repository/doctors_repository.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/common/error/app_error.dart';
+import 'package:clisp/common/services/remote_config/remote_config_service.dart';
+import 'package:clisp/common/services/storage/firebase_storage.dart';
 
 import '../../../../../common/state/app_state.dart';
 

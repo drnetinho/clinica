@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
-import 'package:netinhoappclinica/app/pages/home/domain/model/app_details_model.dart';
-import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/home/domain/model/app_details_model.dart';
+import 'package:clisp/common/services/remote_config/remote_config_service.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 import '../store/app_details_store.dart';
 
@@ -69,9 +69,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.15,
                 child: RMConfig.instance.clispImage?.isNotEmpty == true
-                    ? CachedNetworkImage(
-                        imageUrl: RMConfig.instance.clispImage!
-                      )
+                    ? CachedNetworkImage(imageUrl: RMConfig.instance.clispImage!)
                     : Image.asset('assets/images/clinica_image.png'),
               ),
               StoreBuilder<AppDetailsModel>(

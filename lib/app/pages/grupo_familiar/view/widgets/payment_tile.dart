@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/money_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_payment_model.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/money_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 class PaymentTile extends StatelessWidget {
   final FamilyPaymnetModel paymnet;

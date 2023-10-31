@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:clisp/core/helps/actual_date.dart';
 
 part 'doctor_scale.g.dart';
 
@@ -11,7 +12,8 @@ class DoctorScale {
   final String id;
 
   DateTime get dateTime => DateTime.parse(date);
-  bool get isOlder =>dateTime.isBefore(DateTime.now());
+  bool get isOlder =>
+      dateTime.day < KCurrentDate.day || dateTime.month < KCurrentDate.month || dateTime.year < KCurrentDate.year;
 
   DoctorScale(
     this.doctorId,

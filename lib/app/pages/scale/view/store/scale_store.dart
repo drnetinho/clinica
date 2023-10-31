@@ -1,9 +1,9 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
-import 'package:netinhoappclinica/core/helps/actual_date.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
+import 'package:clisp/common/error/app_error.dart';
+import 'package:clisp/core/helps/actual_date.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../data/repository/scale_repository.dart';
@@ -41,24 +41,28 @@ class ScaleStore extends ValueNotifier<AppState> {
   }
 
   DoctorScale? getDoctorOfTheDay(List<DoctorScale> scales) {
-    final currentDate = scales.firstWhereOrNull(
-      (element) => element.dateTime.isTheSameDay(KCurrentDate),
-    );
+    try {
+      final currentDate = scales.firstWhereOrNull(
+        (element) => element.dateTime.isTheSameDay(KCurrentDate),
+      );
 
-    if (currentDate != null) {
-      return currentDate;
-    } else {
-      var recentScale = scales.firstWhereOrNull((e) => e.dateTime.isAfter(KCurrentDate));
+      if (currentDate != null) {
+        return currentDate;
+      } else {
+        var recentScale = scales.firstWhereOrNull((e) => e.dateTime.isAfter(KCurrentDate));
 
-      if (recentScale != null) {
-        for (var scale in scales) {
-          if (scale.dateTime.isAfter(KCurrentDate) && scale.dateTime.isBefore(recentScale!.dateTime)) {
-            recentScale = scale;
+        if (recentScale != null) {
+          for (var scale in scales) {
+            if (scale.dateTime.isAfter(KCurrentDate) && scale.dateTime.isBefore(recentScale!.dateTime)) {
+              recentScale = scale;
+            }
           }
         }
-      }
 
-      return recentScale;
+        return recentScale;
+      }
+    } catch (e) {
+      return null;
     }
   }
 }

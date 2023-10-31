@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/components/animated_resize.dart';
 
@@ -43,7 +43,7 @@ class InfoCard extends StatelessWidget {
                   Icon(
                     icon,
                     color: context.colorsApp.primary,
-                    size: 20, 
+                    size: 20,
                   )
                 ],
               ),

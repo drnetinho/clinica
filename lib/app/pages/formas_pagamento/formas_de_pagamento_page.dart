@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/domain/model/pix_model.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/controller/formas_pagamento_controller.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/store/get_pix_store.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/widgets/card_dados_bancarios.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/widgets/editting_pix_form_widget.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
-import 'package:netinhoappclinica/di/get_it.dart';
+import 'package:clisp/app/pages/formas_pagamento/domain/model/pix_model.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/controller/formas_pagamento_controller.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/store/get_pix_store.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/widgets/card_dados_bancarios.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/widgets/editting_pix_form_widget.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
+import 'package:clisp/di/get_it.dart';
 
 class FormasDePagamentoPage extends StatefulWidget {
-  static const String routeName = 'formas_de_pagamento';
+  static const String routeName = 'pagamento';
   const FormasDePagamentoPage({super.key});
 
   @override
@@ -63,7 +63,6 @@ class _FormasDePagamentoPageState extends State<FormasDePagamentoPage> {
               builder: (context, pix, _) {
                 return PhysicalModel(
                   elevation: 10,
-                  
                   color: context.colorsApp.backgroundCardColor,
                   borderRadius: BorderRadius.circular(20),
                   shadowColor: context.colorsApp.blackColor,

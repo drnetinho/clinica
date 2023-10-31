@@ -3,27 +3,27 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/doctors/domain/model/doctor.dart';
-import 'package:netinhoappclinica/app/pages/doctors/view/store/doctor_store.dart';
-import 'package:netinhoappclinica/app/pages/scale/domain/model/doctor_scale.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/store/scale_store.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/widgets/doctor_scale_card.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/widgets/doctor_selector_dialog.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/widgets/new_scale_buttom.dart';
-import 'package:netinhoappclinica/app/pages/scale/view/widgets/new_scale_dialog.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/app/pages/doctors/view/store/doctor_store.dart';
+import 'package:clisp/app/pages/scale/domain/model/doctor_scale.dart';
+import 'package:clisp/app/pages/scale/view/store/scale_store.dart';
+import 'package:clisp/app/pages/scale/view/widgets/doctor_scale_card.dart';
+import 'package:clisp/app/pages/scale/view/widgets/doctor_selector_dialog.dart';
+import 'package:clisp/app/pages/scale/view/widgets/new_scale_buttom.dart';
+import 'package:clisp/app/pages/scale/view/widgets/new_scale_dialog.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../core/components/snackbar.dart';
 import '../../../../di/get_it.dart';
 
 class EditMedicalScale extends StatefulWidget {
-  static const String routeName = '/edit_medical_scale';
-  static const String subRoute = 'edit_medical_scale';
+  static const String routeName = '/escalamedica';
+  static const String subRoute = 'escalamedica';
   const EditMedicalScale({super.key});
 
   @override
@@ -147,9 +147,10 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                                       scaleDateGroup.key,
                                       style: context.textStyles.textPoppinsSemiBold.copyWith(
                                         color: context.colorsApp.greenColor2,
-                                        fontSize: 28,
+                                        fontSize: 20,
                                       ),
                                     ),
+                                    const Divider(),
                                     const SizedBox(height: 15),
                                     if (scaleDateGroup.value.isNotEmpty) ...{
                                       Wrap(

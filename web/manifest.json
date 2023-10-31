@@ -1,6 +1,6 @@
 {
-    "name": "netinhoappclinica",
-    "short_name": "netinhoappclinica",
+    "name": "clisp",
+    "short_name": "clisp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

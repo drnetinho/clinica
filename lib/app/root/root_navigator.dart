@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 import '../../clinica_icons_icons.dart';
 import '../../common/services/auth/auth_service.dart';
@@ -76,9 +76,7 @@ class _RootNavigatorState extends State<RootNavigator> {
                   onPressed: () => getIt<AuthService>().signOut(),
                   icon: Icon(
                     ClinicaIcons.signout,
-                    color: widget.navigationShell.currentIndex == 3
-                        ? ColorsApp.instance.success
-                        : ColorsApp.instance.greyColor2,
+                    color: ColorsApp.instance.danger,
                   ),
                 ),
               ],

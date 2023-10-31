@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
-import 'package:netinhoappclinica/common/state/app_state_extension.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/formas_pagamento/view/store/edit_pix_store.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 import '../../../../../core/components/app_dialog.dart';
 import '../../../../../core/components/app_form_field.dart';
 import '../../../../../di/get_it.dart';

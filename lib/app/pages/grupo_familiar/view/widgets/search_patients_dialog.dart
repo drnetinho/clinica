@@ -2,15 +2,15 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:netinhoappclinica/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_dialog_filter_buttons.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
-import 'package:netinhoappclinica/core/helps/extension/value_notifier_extension.dart';
-import 'package:netinhoappclinica/core/helps/padding.dart';
-import 'package:netinhoappclinica/core/helps/spacing.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/search_dialog_filter_buttons.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/search_group_patients.dart';
+import 'package:clisp/core/helps/extension/value_notifier_extension.dart';
+import 'package:clisp/core/helps/padding.dart';
+import 'package:clisp/core/helps/spacing.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../clinica_icons_icons.dart';
 import '../controller/group_page_controller.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/relatorios/view/widgets/group_tile.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/relatorios/view/widgets/group_tile.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 class GroupsCard extends StatefulWidget {
   final List<FamilyGroupModel> groups;

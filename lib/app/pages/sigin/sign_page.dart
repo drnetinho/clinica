@@ -1,19 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/common/form/inputs.dart';
-import 'package:netinhoappclinica/core/components/app_form_field.dart';
-import 'package:netinhoappclinica/core/components/snackbar.dart';
-import 'package:netinhoappclinica/core/helps/duration.dart';
-import 'package:netinhoappclinica/core/helps/extension/string_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/common/form/inputs.dart';
+import 'package:clisp/core/components/app_form_field.dart';
+import 'package:clisp/core/components/snackbar.dart';
+import 'package:clisp/core/helps/duration.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../common/services/auth/auth_service.dart';
 import '../../../di/get_it.dart';
 
 class SignPage extends StatefulWidget {
-  static const String routeName = '/sign';
+  static const String routeName = '/login';
   const SignPage({super.key});
 
   @override

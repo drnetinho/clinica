@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/avaliacoes/widgets/exames_solicitados_dialog.dart';
-import 'package:netinhoappclinica/app/pages/avaliacoes/widgets/ficha_exames_fisicos_widget.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/avaliacoes/widgets/exames_solicitados_dialog.dart';
+import 'package:clisp/app/pages/avaliacoes/widgets/ficha_exames_fisicos_widget.dart';
+import 'package:clisp/core/styles/text_app.dart';
 import '../../../core/styles/colors_app.dart';
 
 class AvaliacoesPage extends StatefulWidget {

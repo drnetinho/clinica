@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/app/pages/scale/data/types/scale_types.dart';
-import 'package:netinhoappclinica/app/pages/scale/domain/model/doctor_scale.dart';
-import 'package:netinhoappclinica/common/services/firestore/firestore_collections.dart';
-import 'package:netinhoappclinica/common/types/types.dart';
+import 'package:clisp/app/pages/scale/data/types/scale_types.dart';
+import 'package:clisp/app/pages/scale/domain/model/doctor_scale.dart';
+import 'package:clisp/common/services/firestore/firestore_collections.dart';
+import 'package:clisp/common/types/types.dart';
 
 import '../../../../../common/either/either.dart';
 import '../../../../../common/error/app_error.dart';

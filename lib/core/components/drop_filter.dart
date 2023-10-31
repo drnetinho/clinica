@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:netinhoappclinica/core/helps/extension/int_extension.dart';
-import 'package:netinhoappclinica/core/helps/filter.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
+import 'package:clisp/core/helps/extension/int_extension.dart';
+import 'package:clisp/core/helps/filter.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 
 class DropFilter extends StatefulWidget {
   final Function(String) selectedValue;

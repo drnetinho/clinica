@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import 'package:netinhoappclinica/common/error/app_error.dart';
-import 'package:netinhoappclinica/core/helps/duration.dart';
+import 'package:clisp/common/error/app_error.dart';
+import 'package:clisp/core/helps/duration.dart';
 
 import '../../../../../common/state/app_state.dart';
 import '../../../../../core/helps/filter.dart';

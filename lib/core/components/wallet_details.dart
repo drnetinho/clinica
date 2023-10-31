@@ -1,15 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:netinhoappclinica/app/pages/formas_pagamento/domain/model/pix_model.dart';
-import 'package:netinhoappclinica/app/pages/grupo_familiar/domain/model/family_group_model.dart';
-import 'package:netinhoappclinica/app/pages/landing/controller/wallet_controller.dart';
-import 'package:netinhoappclinica/common/services/remote_config/remote_config_service.dart';
-import 'package:netinhoappclinica/core/components/app_loader.dart';
-import 'package:netinhoappclinica/core/components/store_builder.dart';
-import 'package:netinhoappclinica/core/helps/duration.dart';
-import 'package:netinhoappclinica/core/helps/extension/date_extension.dart';
-import 'package:netinhoappclinica/core/styles/colors_app.dart';
-import 'package:netinhoappclinica/core/styles/text_app.dart';
+import 'package:clisp/app/pages/formas_pagamento/domain/model/pix_model.dart';
+import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
+import 'package:clisp/app/pages/landing/controller/wallet_controller.dart';
+import 'package:clisp/common/services/remote_config/remote_config_service.dart';
+import 'package:clisp/core/components/app_loader.dart';
+import 'package:clisp/core/components/store_builder.dart';
+import 'package:clisp/core/helps/duration.dart';
+import 'package:clisp/core/helps/extension/date_extension.dart';
+import 'package:clisp/core/styles/colors_app.dart';
+import 'package:clisp/core/styles/text_app.dart';
 
 import '../../app/pages/formas_pagamento/view/store/get_pix_store.dart';
 import '../../app/pages/gerenciar_pacientes/domain/model/patient_model.dart';

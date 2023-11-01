@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           width: 290,
                           background: context.colorsApp.dartMedium,
                           icon: ClinicaIcons.clock_baseline_history,
-                          title: 'Histórico do Pacinte',
+                          title: 'Histórico do Paciente',
                           subTitle: 'Acessar histórico de\nconsultas de um paciente.',
                           onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
                         ),

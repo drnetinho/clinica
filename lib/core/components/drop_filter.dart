@@ -35,7 +35,6 @@ class _DropFilterState extends State<DropFilter> {
     super.initState();
     setup(false);
     selectedFilter = ValueNotifier(widget.currentFilter ?? FilterStrings.todos);
-
     selectedFilter.addListener(() {
       widget.selectedValue.call(selectedFilter.value);
     });

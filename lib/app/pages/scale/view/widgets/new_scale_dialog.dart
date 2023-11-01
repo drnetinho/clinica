@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clisp/core/styles/text_app.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -97,7 +98,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: AnimatedBuilder(
         animation: Listenable.merge(
@@ -106,8 +107,8 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
         builder: (context, _) {
           return Container(
             padding: Padd.sh(Spacing.x),
-            height: MediaQuery.of(context).size.height * .4,
-            width: MediaQuery.of(context).size.width * .3,
+            height: 320,
+            width: 540,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
@@ -120,15 +121,29 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                           child: Row(
                             children: [
                               CircleAvatar(
-                                radius: 75,
+                                radius: 50,
                                 backgroundColor: context.colorsApp.greenColor,
                                 backgroundImage: CachedNetworkImageProvider(widget.doctor.image),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 16),
                               Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(widget.doctor.name),
-                                  Text(widget.doctor.specialization),
+                                  Text(
+                                    widget.doctor.name,
+                                    style: context.textStyles.textPoppinsSemiBold.copyWith(
+                                      color: context.colorsApp.softBlack,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.doctor.specialization,
+                                    style: context.textStyles.textPoppinsMedium.copyWith(
+                                      color: context.colorsApp.greyColor2,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ],
                               )
                             ],
@@ -251,7 +266,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                       actionButton(
                         text: "Cancelar",
                         context: context,
-                        icon: Icons.cancel,
+                        icon: Icons.close,
                         color: context.colorsApp.whiteColor,
                         onPressed: context.pop,
                       ),
@@ -263,6 +278,8 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                             text: "Confirmar",
                             context: context,
                             icon: Icons.check,
+                            iconColor: context.colorsApp.whiteColor,
+                            textColor: context.colorsApp.whiteColor,
                             color: context.colorsApp.primary,
                             onPressed: isValidForm
                                 ? () {

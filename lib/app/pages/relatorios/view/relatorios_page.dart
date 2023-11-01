@@ -64,138 +64,140 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(110, 30, 110, 10),
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                Text(
-                  'Relatórios de Fatuamento',
-                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
-                ),
-              ],
-            ),
-            Container(
-              margin: Padd.only(t: 80),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+      body: InkWell(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(110, 30, 110, 10),
+          child: Stack(
+            children: [
+              Row(
                 children: [
-                  StoreBuilder<List<FamilyGroupModel>>(
-                    store: getGroupsStore,
-                    validateDefaultStates: false,
-                    builder: (context, List<FamilyGroupModel> groups, _) {
-                      return AnimatedBuilder(
-                          animation: Listenable.merge(
-                            [currentFilter],
-                          ),
-                          builder: (context, _) {
-                            return StoreBuilder(
-                                store: getPaymentsStore,
-                                validateDefaultStates: false,
-                                builder: (context, List<FamilyPaymnetModel> pendigPayments, _) {
-                                  final total = groups.length;
-                                  final pending = getPaymentsStore.getPending(groups, currentFilter.value);
-                                  final receive = total - pending - getPaymentsStore.undefiniedGroupsPerFilter.value;
-
-                                  bool isInvalid = pending == 0 && receive == 0;
-
-                                  return SizedBox(
-                                    height: MediaQuery.of(context).size.height * .8,
-                                    width: MediaQuery.of(context).size.width * .42,
-                                    child: isInvalid
-                                        ? const StateEmptyWidget(
-                                            icon: Icons.payment,
-                                            message: 'Nenhum pagamento encontrado. Altere o valor do filtro!',
-                                          )
-                                        : Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  InfoCard(
-                                                    icon: ClinicaIcons.family,
-                                                    title: 'Total',
-                                                    info: total.toString(),
-                                                    isLoading: getGroupsStore.value.isLoading,
-                                                  ),
-                                                  InfoCard(
-                                                    icon: ClinicaIcons.money,
-                                                    title: 'Pagos',
-                                                    info: '$receive/$total',
-                                                    isLoading: getGroupsStore.value.isLoading,
-                                                  ),
-                                                  InfoCard(
-                                                    icon: ClinicaIcons.clock_baseline_history,
-                                                    title: 'Pendentes',
-                                                    info: '$pending/$total',
-                                                    isLoading: getGroupsStore.value.isLoading,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: MediaQuery.of(context).size.height * .1),
-                                              PercentLineCard(
-                                                isLoading: getGroupsStore.value.isLoading,
-                                                pending: pending,
-                                                receive: receive,
-                                                total: total - getPaymentsStore.undefiniedGroupsPerFilter.value,
-                                              ),
-                                            ],
-                                          ),
-                                  );
-                                });
-                          });
-                    },
-                  ),
-                  const Spacer(),
-                  //*** LISTA DE GRUPOS
-                  StoreBuilder<List<FamilyGroupModel>>(
-                    store: getGroupsStore,
-                    validateDefaultStates: false,
-                    builder: (context, List<FamilyGroupModel> groups, _) => AnimatedBuilder(
-                      animation: currentFilter,
-                      builder: (context, _) => GroupsCard(
-                        groups: groups,
-                        filter: currentFilter.value,
-                      ),
-                    ),
+                  Text(
+                    'Relatórios de Faturamento',
+                    style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Spacer(),
-                AnimatedBuilder(
-                  animation: getPaymentsStore.allPendingPayments,
-                  builder: (context, _) {
-                    return AnimatedBuilder(
-                      animation: currentFilter,
-                      builder: (context, _) {
-                        return DropFilter(
-                          currentFilter: currentFilter.value,
-                          selectedValue: (filterValue) {
-                            // Para cada filtro aplicado, reseta-se o número de grupos Indefinidos até que
-                            // os pagamentos filtrados sejam processados novamente
-                            getPaymentsStore.undefiniedGroupsPerFilter.value = 0;
-                            currentFilter.value = filterValue;
-                            final list = filterController.filter(
-                              getPaymentsStore.allPendingPayments.value,
-                              filterValue,
-                              KCurrentDate,
-                            );
-                            getPaymentsStore.emmitFilteredPayments(list);
-                          },
-                        );
+              Container(
+                margin: Padd.only(t: 80),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    StoreBuilder<List<FamilyGroupModel>>(
+                      store: getGroupsStore,
+                      validateDefaultStates: false,
+                      builder: (context, List<FamilyGroupModel> groups, _) {
+                        return AnimatedBuilder(
+                            animation: Listenable.merge(
+                              [currentFilter],
+                            ),
+                            builder: (context, _) {
+                              return StoreBuilder(
+                                  store: getPaymentsStore,
+                                  validateDefaultStates: false,
+                                  builder: (context, List<FamilyPaymnetModel> pendigPayments, _) {
+                                    final total = groups.length;
+                                    final pending = getPaymentsStore.getPending(groups, currentFilter.value);
+                                    final receive = total - pending - getPaymentsStore.undefiniedGroupsPerFilter.value;
+
+                                    bool isInvalid = pending == 0 && receive == 0;
+
+                                    return SizedBox(
+                                      height: MediaQuery.of(context).size.height * .8,
+                                      width: MediaQuery.of(context).size.width * .42,
+                                      child: isInvalid
+                                          ? const StateEmptyWidget(
+                                              icon: Icons.payment,
+                                              message: 'Nenhum pagamento encontrado. Altere o valor do filtro!',
+                                            )
+                                          : Column(
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    InfoCard(
+                                                      icon: ClinicaIcons.family,
+                                                      title: 'Total',
+                                                      info: total.toString(),
+                                                      isLoading: getGroupsStore.value.isLoading,
+                                                    ),
+                                                    InfoCard(
+                                                      icon: ClinicaIcons.money,
+                                                      title: 'Pagos',
+                                                      info: '$receive/$total',
+                                                      isLoading: getGroupsStore.value.isLoading,
+                                                    ),
+                                                    InfoCard(
+                                                      icon: ClinicaIcons.clock_baseline_history,
+                                                      title: 'Pendentes',
+                                                      info: '$pending/$total',
+                                                      isLoading: getGroupsStore.value.isLoading,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(height: MediaQuery.of(context).size.height * .1),
+                                                PercentLineCard(
+                                                  isLoading: getGroupsStore.value.isLoading,
+                                                  pending: pending,
+                                                  receive: receive,
+                                                  total: total - getPaymentsStore.undefiniedGroupsPerFilter.value,
+                                                ),
+                                              ],
+                                            ),
+                                    );
+                                  });
+                            });
                       },
-                    );
-                  },
+                    ),
+                    const Spacer(),
+                    //*** LISTA DE GRUPOS
+                    StoreBuilder<List<FamilyGroupModel>>(
+                      store: getGroupsStore,
+                      validateDefaultStates: false,
+                      builder: (context, List<FamilyGroupModel> groups, _) => AnimatedBuilder(
+                        animation: currentFilter,
+                        builder: (context, _) => GroupsCard(
+                          groups: groups,
+                          filter: currentFilter.value,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            )
-          ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Spacer(),
+                  AnimatedBuilder(
+                    animation: getPaymentsStore.allPendingPayments,
+                    builder: (context, _) {
+                      return AnimatedBuilder(
+                        animation: currentFilter,
+                        builder: (context, _) {
+                          return DropFilter(
+                            currentFilter: currentFilter.value,
+                            selectedValue: (filterValue) {
+                              // Para cada filtro aplicado, reseta-se o número de grupos Indefinidos até que
+                              // os pagamentos filtrados sejam processados novamente
+                              getPaymentsStore.undefiniedGroupsPerFilter.value = 0;
+                              currentFilter.value = filterValue;
+                              final list = filterController.filter(
+                                getPaymentsStore.allPendingPayments.value,
+                                filterValue,
+                                KCurrentDate,
+                              );
+                              getPaymentsStore.emmitFilteredPayments(list);
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

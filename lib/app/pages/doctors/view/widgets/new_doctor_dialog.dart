@@ -50,15 +50,15 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: AnimatedBuilder(
           animation: Listenable.merge([doctor, pickedImageuRL]),
           builder: (context, _) {
             return Container(
               padding: Padd.sh(Spacing.x),
-              height: MediaQuery.of(context).size.height * .6,
-              width: MediaQuery.of(context).size.width * .3,
+              height: 530,
+              width: 450,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
@@ -137,7 +137,7 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                         actionButton(
                           text: "Cancelar",
                           context: context,
-                          icon: Icons.cancel,
+                          icon: Icons.close,
                           color: context.colorsApp.whiteColor,
                           onPressed: () async {
                             if (pickedImageuRL.value?.isNotEmpty == true) {
@@ -154,6 +154,8 @@ class _NewDoctorDialogState extends State<NewDoctorDialog> with SnackBarMixin {
                                 context: context,
                                 text: "Confirmar",
                                 icon: Icons.check,
+                                iconColor: context.colorsApp.whiteColor,
+                                textColor: context.colorsApp.whiteColor,
                                 color: context.colorsApp.primary,
                                 onPressed:
                                     nameController.text.hasMinimumLength && specialtyController.text.hasMinimumLength
@@ -196,6 +198,8 @@ Widget actionButton({
   required Color color,
   required IconData icon,
   required BuildContext context,
+  Color? textColor,
+  Color? iconColor,
 }) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
@@ -208,12 +212,12 @@ Widget actionButton({
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Icon(icon, color: context.colorsApp.greyColor2, size: 16),
+        Icon(icon, color: iconColor ?? context.colorsApp.greyColor2, size: 16),
         const SizedBox(width: 6),
         Text(
           text,
           style: context.textStyles.textPoppinsSemiBold.copyWith(
-            color: context.colorsApp.softBlack,
+            color: textColor ?? context.colorsApp.softBlack,
           ),
         ),
       ],

@@ -32,6 +32,7 @@ class _GroupsCardState extends State<GroupsCard> with AutomaticKeepAliveClientMi
         borderRadius: BorderRadius.circular(20),
         child: Column(
           children: [
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

@@ -16,6 +16,9 @@ class _ExamesSolicitadosDialogState extends State<ExamesSolicitadosDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: Container(
         padding: Padd.sh(Spacing.x),
         height: MediaQuery.of(context).size.height * .8,

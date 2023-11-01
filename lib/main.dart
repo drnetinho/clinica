@@ -44,6 +44,9 @@ class ClispApp extends StatelessWidget {
         dialogBackgroundColor: ColorsApp.instance.backgroundCardColor,
         scaffoldBackgroundColor: ColorsApp.instance.whiteColor,
         dialogTheme: DialogTheme(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           surfaceTintColor: ColorsApp.instance.backgroundCardColor,
           backgroundColor: ColorsApp.instance.backgroundCardColor,
         ),

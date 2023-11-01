@@ -48,7 +48,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
 
   @override
   void dispose() {
-    _detailsStore.dispose();
     super.dispose();
   }
 

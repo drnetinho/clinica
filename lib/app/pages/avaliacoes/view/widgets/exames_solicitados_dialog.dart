@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:clisp/core/styles/colors_app.dart';
 import 'package:clisp/core/styles/text_app.dart';
 
-import '../../../../core/helps/padding.dart';
-import '../../../../core/helps/spacing.dart';
+import '../../../../../core/helps/padding.dart';
+import '../../../../../core/helps/spacing.dart';
 
 class ExamesSolicitadosDialog extends StatefulWidget {
   const ExamesSolicitadosDialog({super.key});

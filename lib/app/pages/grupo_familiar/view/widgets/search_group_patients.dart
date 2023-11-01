@@ -65,7 +65,7 @@ class _SearchGroupPatientsState extends State<SearchGroupPatients> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search, color: context.colorsApp.greyColor2),
           prefixIconColor: context.colorsApp.greyColor2,
-          hintText: 'Buscar Pacientes ou Grupos',
+          hintText: 'Busque por nome dou grupo ou do paciente',
           hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 16, color: context.colorsApp.greyColor),
           border: border,
           errorBorder: border,

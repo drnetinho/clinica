@@ -54,7 +54,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
   }
 
   void scaleStoreListener() {
-    if (doctorStore.value.isError) {
+    if (scaleStore.value.isError) {
       showWarning(context: context, text: "Nenhuma escala recente foi encontrada. Revise as escalas cadastradas");
     }
   }

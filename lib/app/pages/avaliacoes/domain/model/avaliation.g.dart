@@ -7,18 +7,18 @@ part of 'avaliation.dart';
 // **************************************************************************
 
 Avaliation _$AvaliationFromJson(Map json) => Avaliation(
-      json['id'] as String,
-      json['alterado'] as bool,
-      json['data'] as String,
-      json['altura'] as String,
-      json['peso'] as String,
-      json['doctorId'] as String,
-      json['patientId'] as String,
-      json['frequenciaCardiaca'] as String,
-      json['frequenciaRespiratoria'] as String,
-      json['observacoes'] as String,
-      json['pressaoArterial'] as String,
-      (json['examesSolicitados'] as List<dynamic>)
+      id: json['id'] as String,
+      alterado: json['alterado'] as bool,
+      data: json['data'] as String,
+      altura: json['altura'] as String?,
+      peso: json['peso'] as String?,
+      doctorId: json['doctorId'] as String,
+      patientId: json['patientId'] as String,
+      frequenciaCardiaca: json['frequenciaCardiaca'] as String?,
+      frequenciaRespiratoria: json['frequenciaRespiratoria'] as String?,
+      observacoes: json['observacoes'] as String?,
+      pressaoArterial: json['pressaoArterial'] as String?,
+      examesSolicitados: (json['examesSolicitados'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );

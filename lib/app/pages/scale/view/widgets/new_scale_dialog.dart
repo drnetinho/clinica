@@ -85,10 +85,12 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
   String get hourErrorMessage => "Informe um horário válido";
   String get dateErrorMessage => "Informe uma data";
   bool get editMode => widget.scale != null;
+
   TimeOfDay get startTime => TimeOfDay(
         hour: int.tryParse((widget.scale?.start ?? '00:00').split(":")[0]) ?? 00,
         minute: int.tryParse((widget.scale?.start ?? '00:00').split(":")[1]) ?? 00,
       );
+
   TimeOfDay get endTime => TimeOfDay(
         hour: int.tryParse((widget.scale?.end ?? '00:00').split(":")[0]) ?? 00,
         minute: int.tryParse((widget.scale?.end ?? '00:00').split(":")[1]) ?? 00,

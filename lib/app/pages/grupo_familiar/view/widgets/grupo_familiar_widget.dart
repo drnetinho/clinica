@@ -1,9 +1,8 @@
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/imprimir_carteira.dart';
 import 'package:flutter/material.dart';
-
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/controller/edit_group_controller.dart';
-import 'package:clisp/app/pages/grupo_familiar/view/widgets/clisp_wallet.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/widgets/group_member_tile.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/widgets/grupo_familiar_footer.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/widgets/historic_button.dart';
@@ -32,6 +31,7 @@ import '../store/get_group_payments_store.dart';
 import '../store/get_groups_store.dart';
 import '../store/edit_groups_stores.dart';
 import 'edit_group_members_dialog.dart';
+import 'gerar_carne_widget.dart';
 import 'payment_historic_dialog.dart';
 
 class GrupoFamiliarWidget extends StatefulWidget {
@@ -408,20 +408,28 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                         return Column(
                           children: [
                             const SizedBox(height: 20),
-                            HistoricButton(
-                              onTap: () => showDialog(
-                                useSafeArea: true,
-                                context: context,
-                                builder: (_) => PaymentHistoricDialog(
-                                  paymentsStore: paymentsStore,
-                                  onRefresh: getPayments,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                HistoricButton(
+                                  onTap: () => showDialog(
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (_) => PaymentHistoricDialog(
+                                      paymentsStore: paymentsStore,
+                                      onRefresh: getPayments,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                const ImprimirCarteirinhaWidget(),
+                                const GerarCarneWidget(),
+                              ],
                             ),
                           ],
                         );
                       },
                     ),
+                    const SizedBox(height: 20),
                     const SizedBox(height: 20),
                     StoreBuilder<List<PatientModel>>(
                       store: widget.membersStore,
@@ -430,14 +438,13 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                         return Center(
                           child: WalletButton(
                             enabled: members.exists,
-                            onTap: () => showDialog(
-                              useSafeArea: true,
-                              context: context,
-                              builder: (_) => ClispWallet(
-                                groupName: widget.group.name,
-                                members: members,
-                              ),
-                            ),
+                            onTap: () {
+                              showDialog(
+                                useSafeArea: true,
+                                context: context,
+                                builder: (context) => const ImprimirCarteirinhaWidget(),
+                              );
+                            },
                           ),
                         );
                       },

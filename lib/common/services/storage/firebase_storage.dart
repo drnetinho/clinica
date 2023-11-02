@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path/path.dart' as path;
 import 'package:image_picker/image_picker.dart';
@@ -21,6 +23,19 @@ class StorageService {
     Reference reference = _storage.ref().child('images/${path.basename(xfile.path)}');
 
     final data = await xfile.readAsBytes();
+    UploadTask uploadTask = reference.putData(
+      data,
+      SettableMetadata(contentType: 'image/jpeg'),
+    );
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  static Future<String?> uploadToFirebase(Uint8List uint8List) async {
+    Reference reference = _storage.ref().child('images/test.jpg');
+
+    final data = uint8List;
     UploadTask uploadTask = reference.putData(
       data,
       SettableMetadata(contentType: 'image/jpeg'),

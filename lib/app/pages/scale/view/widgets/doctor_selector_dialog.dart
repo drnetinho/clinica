@@ -51,7 +51,13 @@ class _DoctorSelectorDialogState extends State<DoctorSelectorDialog> {
               color: context.colorsApp.backgroundCardColor,
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  'Médicos cadastrados',
+                  style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 26),
+                ),
+                const SizedBox(height: 15),
                 Expanded(
                   child: ListView(
                     children: widget.doctors.map(

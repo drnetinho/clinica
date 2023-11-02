@@ -1,3 +1,4 @@
+import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

@@ -5,16 +5,15 @@ import 'package:clisp/core/styles/text_app.dart';
 
 import '../../../../../core/styles/colors_app.dart';
 import '../controller/new_avaliation_controller.dart';
-import '../store/avaliations_store.dart';
 import 'avaliation_label.dart';
 
 class PhysicalAvaliation extends StatefulWidget {
-  final GetAvaliationsStore store;
+  final bool isReadyMode;
   final NewAvaliationController controller;
   const PhysicalAvaliation({
     Key? key,
-    required this.store,
     required this.controller,
+    this.isReadyMode = false,
   }) : super(key: key);
 
   @override

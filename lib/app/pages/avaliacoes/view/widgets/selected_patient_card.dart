@@ -10,7 +10,7 @@ import '../../../../../core/styles/colors_app.dart';
 class SelectedPatientCard extends StatefulWidget {
   final PatientModel? patient;
   final Doctor? doctor;
-  final VoidCallback onEdit;
+  final VoidCallback? onEdit;
 
   const SelectedPatientCard({
     Key? key,
@@ -87,7 +87,8 @@ class SelectedPatientCardState extends State<SelectedPatientCard> {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 20),
+                 if(widget.onEdit != null)...{
+                   const SizedBox(width: 20),
                   IconButton(
                     onPressed: widget.onEdit,
                     splashColor: context.colorsApp.primary,
@@ -98,6 +99,7 @@ class SelectedPatientCardState extends State<SelectedPatientCard> {
                     ),
                   ),
                   const SizedBox(width: 10),
+                 },
                 ],
               ),
             ),

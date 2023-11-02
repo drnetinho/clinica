@@ -13,9 +13,9 @@ class GetAvaliationsStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getAvaliations() async {
+  Future<void> getPatientAvaliations({required String patientId}) async {
     value = AppStateLoading();
-    final result = await _repository.getAvaliations();
+    final result = await _repository.getPatientAvaliations(patientId: patientId);
 
     if (result.avaliations != null) {
       value = AppStateSuccess(data: result.avaliations);

@@ -65,7 +65,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                 validateDefaultStates: true,
                 builder: (context, scales, _) {
                   final DoctorScale? recentScale = scaleStore.getDoctorOfTheDay(scales);
-                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(
+                  final Doctor? recentScaleDoctor = doctorStore.getDoctorFromList(
                     recentScale?.doctorId,
                     doctors,
                   );

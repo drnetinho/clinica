@@ -152,6 +152,8 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i24.EditScaleStore(gh<_i23.ScaleRepository>()));
     gh.factory<_i32.GetAvaliationsStore>(
         () => _i32.GetAvaliationsStore(gh<_i29.AvaliationsRepository>()));
+    gh.factory<_i31.GetDoctorStore>(
+        () => _i31.GetDoctorStore(gh<_i30.DoctorRepository>()));
     gh.factory<_i37.GetGroupByCpfStore>(
         () => _i37.GetGroupByCpfStore(gh<_i17.GroupsRepository>()));
     gh.factory<_i38.GetGroupMembersStore>(

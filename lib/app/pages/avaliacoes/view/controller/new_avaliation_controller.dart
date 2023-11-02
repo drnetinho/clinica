@@ -116,4 +116,21 @@ class NewAvaliationController {
     isNormal.dispose();
     form.dispose();
   }
+
+  void setupFields({
+    required Avaliation avaliation,
+    required Doctor doctor,
+    required PatientModel patient,
+  }) {
+    obsCtrl.text = avaliation.observacoes ?? '';
+    pressaoArterialCtrl.text = avaliation.pressaoArterial ?? '';
+    pesoCtrl.text = avaliation.peso ?? '';
+    freqCardiacaCtrl.text = avaliation.frequenciaCardiaca ?? '';
+    freqRespiratoriaCtrl.text = avaliation.frequenciaRespiratoria ?? '';
+    alturaCtrl.text = avaliation.altura ?? '';
+    this.doctor.value = doctor;
+    this.patient.value = patient;
+    exames.value = avaliation.examesSolicitados ?? [];
+    isNormal.value = !avaliation.alterado;
+  }
 }

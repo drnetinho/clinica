@@ -18,6 +18,8 @@ abstract class GetPatientsRepository {
   UnitOrError deletePatient({required String id});
   UnitOrError addPatient({required PatientModel patient});
   UnitOrError updatePatient({required PatientModel patient});
+  UnitOrError addPatientAvaliation({required String avaliationId, required String patientId});
+  UnitOrError replacePatientAvaliations({required List<String> avaliations, required String patientId});
 }
 
 @Injectable(as: GetPatientsRepository)
@@ -50,7 +52,7 @@ class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatien
   UnitOrError deletePatient({required String id}) async {
     try {
       await FirestoreService.fire.collection(Collections.patients).doc(id).delete();
-      Logger.prettyPrint(id, Logger.redColor, 'deletePatient');
+      Logger.prettyPrint('DELETANDO PACIENTE', Logger.redColor, 'deletePatient');
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);
@@ -77,6 +79,37 @@ class GetPatientsRepositoryImpl with UpdateFirebaseDocField implements GetPatien
     try {
       await FirestoreService.fire.collection(Collections.patients).doc(patient.id).update(patient.toJson());
       Logger.prettyPrint(patient, Logger.greenColor, 'updatePatient');
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError addPatientAvaliation({
+    required String avaliationId,
+    required String patientId,
+  }) async {
+    try {
+      await FirestoreService.fire.collection(Collections.patients).doc(patientId).update({'avaliations': avaliationId});
+
+      return (error: null, unit: unit);
+    } on FirebaseException {
+      return (error: RemoteError(), unit: null);
+    } catch (e) {
+      return (error: UndefiniedError(), unit: null);
+    }
+  }
+
+  @override
+  UnitOrError replacePatientAvaliations({required List<String> avaliations, required String patientId}) async {
+    try {
+      await FirestoreService.fire.collection(Collections.patients).doc(patientId).set(
+        {'avaliations': avaliations},
+      );
+
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: RemoteError(), unit: null);

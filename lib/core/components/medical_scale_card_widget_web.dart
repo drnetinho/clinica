@@ -67,7 +67,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                 validateDefaultStates: true,
                 builder: (context, scales, _) {
                   final DoctorScale? recentScale = scaleStore.getDoctorOfTheDay(scales);
-                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(recentScale?.doctorId, doctors);
+                  final Doctor? recentScaleDoctor = doctorStore.getDoctorFromList(recentScale?.doctorId, doctors);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

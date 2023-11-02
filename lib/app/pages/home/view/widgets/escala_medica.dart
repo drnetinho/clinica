@@ -73,7 +73,7 @@ class _EscalaMedicaState extends State<EscalaMedica> with SnackBarMixin {
             validateDefaultStates: false,
             builder: (context, scales, _) {
               final DoctorScale? scale = scaleStore.getDoctorOfTheDay(scales);
-              final Doctor? doctor = doctorStore.getDoctorById(scale?.doctorId, doctors);
+              final Doctor? doctor = doctorStore.getDoctorFromList(scale?.doctorId, doctors);
               if (scale == null || doctor == null) {
                 return const SizedBox();
               } else {

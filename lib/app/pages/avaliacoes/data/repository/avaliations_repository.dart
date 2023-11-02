@@ -13,7 +13,7 @@ import '../../../../../core/helps/map_utils.dart';
 import '../types/avaliations_types.dart';
 
 abstract class AvaliationsRepository {
-  AvaliationsOrError getAvaliations();
+  AvaliationsOrError getPatientAvaliations({required String patientId});
   UnitOrError editAvaliation({required Avaliation avaliation});
   UnitOrError deleteAvaliation({required String id});
   UnitOrError addAvaliation({required Avaliation avaliation});
@@ -27,9 +27,12 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   final idKey = 'id';
 
   @override
-  AvaliationsOrError getAvaliations() async {
+  AvaliationsOrError getPatientAvaliations({required String patientId}) async {
     try {
-      final res = await FirestoreService.fire.collection(Collections.avaliations).get();
+      final res = await FirestoreService.fire
+          .collection(Collections.avaliations)
+          .where('patientId', isEqualTo: patientId)
+          .get();
       final docs = res.docs.map((e) {
         if (mapContainsEmptyKey(e.data(), idKey)) {
           updateField(collection: Collections.avaliations, docId: e.id, map: {idKey: e.id});
@@ -74,7 +77,8 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   @override
   UnitOrError addAvaliation({required Avaliation avaliation}) async {
     try {
-      await FirestoreService.fire.collection(Collections.avaliations).add(avaliation.toJson());
+      final newAvaliation = await FirestoreService.fire.collection(Collections.avaliations).add(avaliation.toJson());
+      await _patientRepository.addPatientAvaliation(avaliationId: newAvaliation.id, patientId: avaliation.patientId);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);

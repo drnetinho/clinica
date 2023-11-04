@@ -106,7 +106,7 @@ class _SearchPatientsState extends State<SearchPatients> {
                                         },
                                       ),
                                       const SizedBox(width: 6),
-                                      Icon(ClinicaIcons.profile, size: 40, color: context.colorsApp.primary),
+                                      Icon(ClinicaIcons.account_circle, size: 40, color: context.colorsApp.primary),
                                     ],
                                   ),
                                 ),

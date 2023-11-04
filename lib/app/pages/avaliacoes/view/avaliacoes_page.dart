@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:clisp/app/pages/avaliacoes/view/widgets/avaliation_label.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/avaliation_selector_card.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/save_avaliation_button.dart';

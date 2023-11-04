@@ -31,6 +31,16 @@ class ColorsApp {
   Color get greenDark => const Color(0xFF1A4014);
   Color get greenDark2 => const Color(0xFF77A755);
   Color get softBlack => const Color(0xFF1E211D);
+
+    get greenGradient => const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          Color(0xFF527736),
+          Color(0xFF77A755),
+          Color(0xFF527736),
+        ],
+      );
 }
 
 extension ColorsAppExtension on BuildContext {

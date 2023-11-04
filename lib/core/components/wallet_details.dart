@@ -63,6 +63,11 @@ class _WalletDetailsState extends State<WalletDetails> {
     super.dispose();
   }
 
+  String getNameAndSurname(String name) {
+    final names = name.split(' ');
+    return '${names[0]} ${names[names.length - 1]}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -103,12 +108,15 @@ class _WalletDetailsState extends State<WalletDetails> {
                               : MediaQuery.of(context).size.height * 0.6,
                           padding: EdgeInsets.all(widget.fromMobile ? 15 : 20),
                           decoration: BoxDecoration(
-                              color: context.colorsApp.greenDark2, borderRadius: BorderRadius.circular(40)),
+                            color: context.colorsApp.greenDark2,
+                            borderRadius: BorderRadius.circular(12),
+                            gradient: context.colorsApp.greenGradient,
+                          ),
                           child: Column(
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Icon(
                                     Icons.family_restroom,
@@ -126,7 +134,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                             fontSize: widget.fromMobile ? 18 : 24, color: context.colorsApp.dartWhite),
                                       ),
                                       Text(
-                                        widget.group.name,
+                                        getNameAndSurname(widget.group.name),
                                         style: context.textStyles.textPoppinsBold.copyWith(
                                             fontSize: widget.fromMobile ? 14 : 18, color: context.colorsApp.greenDark),
                                       ),
@@ -142,10 +150,10 @@ class _WalletDetailsState extends State<WalletDetails> {
                                       shrinkWrap: true,
                                       itemCount: members.length,
                                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 10,
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: 5,
                                         mainAxisSpacing: 0.5,
-                                        childAspectRatio: 16 / 7,
+                                        childAspectRatio: 16 / 5,
                                       ),
                                       itemBuilder: (context, index) {
                                         return Column(
@@ -156,7 +164,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                             Text(
                                               members[index].name,
                                               style: context.textStyles.textPoppinsSemiBold.copyWith(
-                                                  fontSize: widget.fromMobile ? 12 : 16,
+                                                  fontSize: widget.fromMobile ? 10 : 14,
                                                   color: context.colorsApp.dartWhite),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
@@ -164,7 +172,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                                             Text(
                                               'CPF: ${members[index].cpf}',
                                               style: context.textStyles.textPoppinsSemiBold.copyWith(
-                                                  fontSize: widget.fromMobile ? 10 : 12,
+                                                  fontSize: widget.fromMobile ? 8 : 10,
                                                   color: context.colorsApp.greenDark),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
@@ -189,7 +197,8 @@ class _WalletDetailsState extends State<WalletDetails> {
                               : MediaQuery.of(context).size.height * 0.6,
                           decoration: BoxDecoration(
                             color: context.colorsApp.greenDark2,
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(12),
+                            gradient: context.colorsApp.greenGradient,
                           ),
                           padding: EdgeInsets.all(widget.fromMobile ? 8 : 20),
                           child: StoreBuilder<List<FamilyPaymnetModel>>(
@@ -209,8 +218,8 @@ class _WalletDetailsState extends State<WalletDetails> {
                                               children: [
                                                 CachedNetworkImage(
                                                   imageUrl: pix.urlImage ?? RMConfig.instance.pixQrCode ?? '',
-                                                  height: widget.fromMobile ? 150 : 200,
-                                                  width: widget.fromMobile ? 150 : 200,
+                                                  height: widget.fromMobile ? 100 : 150,
+                                                  width: widget.fromMobile ? 100 : 150,
                                                 ),
                                                 SizedBox(height: widget.fromMobile ? 10 : 20),
                                                 Text(

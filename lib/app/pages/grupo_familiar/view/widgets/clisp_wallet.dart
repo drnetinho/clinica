@@ -33,6 +33,11 @@ class ClispWallet extends StatelessWidget {
     }
   }
 
+  String getNameAndSurname(String name) {
+    final names = name.split(' ');
+    return '${names[0]} ${names[names.length - 1]}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedResize(
@@ -61,6 +66,7 @@ class ClispWallet extends StatelessWidget {
               width: 500,
               height: 300,
               decoration: BoxDecoration(
+                gradient: context.colorsApp.greenGradient,
                 color: context.colorsApp.greenDark2,
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -113,7 +119,7 @@ class ClispWallet extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Text(
-                                    members[index].name,
+                                    getNameAndSurname(members[index].name),
                                     style: context.textStyles.textPoppinsSemiBold
                                         .copyWith(fontSize: 14, color: context.colorsApp.dartWhite),
                                     maxLines: 2,

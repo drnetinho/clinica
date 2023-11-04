@@ -7,7 +7,6 @@ import 'package:clisp/app/pages/grupo_familiar/view/grupo_familiar_page.dart';
 import 'package:clisp/app/pages/home/view/widgets/app_bar_widget.dart';
 import 'package:clisp/app/pages/home/view/widgets/escala_medica.dart';
 import 'package:clisp/app/pages/relatorios/view/relatorios_page.dart';
-
 import '../../../../clinica_icons_icons.dart';
 import '../../../../core/components/card_categoria_widget.dart';
 import '../../../root/router_controller.dart';

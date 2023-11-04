@@ -1,6 +1,5 @@
 import 'package:clisp/app/pages/grupo_familiar/view/widgets/clisp_wallet.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/widgets/imprimir_carteira.dart';
-import 'package:clisp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:clisp/app/pages/grupo_familiar/domain/model/family_group_model.dart';

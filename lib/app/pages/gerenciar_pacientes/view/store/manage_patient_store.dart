@@ -17,7 +17,7 @@ class ManagePatientsStore extends ValueNotifier<AppState> {
     value = AppStateLoading();
     final result = await _repository.getPatients();
 
-    if (result.patients.exists) {
+    if (result.patients.noNull) {
       value = AppStateSuccess(data: result.patients!);
       final undefinied =
           result.patients!.where((p) => p.familyGroup.isEmpty || p.familyGroup.lower == 'a definir').toList();

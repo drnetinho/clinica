@@ -16,7 +16,7 @@ extension StringValidators on String {
   DateTime get toDateTime => DateTime.parse(this);
 
   String formatPlural(int value) {
-    if (value > 1) {
+    if (value > 1 || value == 0) {
       return '$value ${this}s';
     } else {
       return '$value $this';

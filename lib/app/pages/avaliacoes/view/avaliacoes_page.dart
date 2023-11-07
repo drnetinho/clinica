@@ -154,6 +154,7 @@ class _AvaliacoesPageState extends State<AvaliacoesPage> with SnackBarMixin {
                                       const SizedBox(height: 10),
                                       SelectExameSection(
                                         controller: controller,
+                                        store: _getAvaliationsStore,
                                       ),
                                     ],
                                   ),

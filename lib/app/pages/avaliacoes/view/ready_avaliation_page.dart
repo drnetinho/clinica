@@ -9,6 +9,7 @@ import 'package:clisp/core/components/snackbar.dart';
 import 'package:clisp/core/components/store_builder.dart';
 import 'package:clisp/core/styles/text_app.dart';
 import 'package:clisp/di/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 import 'controller/new_avaliation_controller.dart';
 import 'package:universal_html/html.dart' as html;
@@ -46,7 +47,8 @@ class _ReadyAvaliationPageState extends State<ReadyAvaliationPage> with SnackBar
     super.initState();
     html.window.addEventListener('beforeunload', (event) {
       event.preventDefault();
-      return 'Are you sure you want to leave?';
+      context.pop();
+      return 'Você será redirecionado para a página antes caso continue.';
     });
     controller = getIt<NewAvaliationController>();
     _getDoctorStore = getIt<GetDoctorStore>();

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/avaliation_label.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/physical_avaliation.dart';
-import 'package:clisp/app/pages/avaliacoes/view/widgets/save_avaliation_button.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/select_exame_section.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/selected_patient_card.dart';
 import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
@@ -11,7 +10,6 @@ import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.d
 import 'package:clisp/core/components/app_form_field.dart';
 import 'package:clisp/core/components/snackbar.dart';
 import 'package:clisp/core/styles/text_app.dart';
-import 'package:go_router/go_router.dart';
 
 import '../controller/new_avaliation_controller.dart';
 
@@ -78,6 +76,7 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
                     const SizedBox(height: 10),
                     SelectExameSection(
                       controller: widget.controller,
+                      store: null,
                     ),
                   ],
                 ),
@@ -113,10 +112,6 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
                     SelectedPatientCard(
                       doctor: widget.doctor,
                       onEdit: null,
-                    ),
-                    const SizedBox(height: 10),
-                    SaveAvaliationButton(
-                      onPressed: () => context.pop(),
                     ),
                   ],
                 ),

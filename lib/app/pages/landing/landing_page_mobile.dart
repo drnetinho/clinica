@@ -47,7 +47,7 @@ class _LandingPageMobileState extends State<LandingPageMobile> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.only(left: 10, right: 10, top: 15),
               child: AppBarLandingPageMobile(),
             ),
             const SizedBox(height: 30),

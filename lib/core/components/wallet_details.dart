@@ -215,10 +215,11 @@ class _WalletDetailsState extends State<WalletDetails> {
                                                 SizedBox(height: widget.fromMobile ? 10 : 20),
                                                 Text(
                                                   'Chave Pix: ${pix.pixKey}',
-                                                  style: TextStyle(
-                                                    fontSize: widget.fromMobile ? 12 : 14,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
                                                     color: Colors.white,
                                                     fontWeight: FontWeight.bold,
+                                                    letterSpacing: 1.75,
                                                   ),
                                                   maxLines: 2,
                                                   overflow: TextOverflow.ellipsis,

@@ -12,10 +12,8 @@ class GerarRelatorioWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        pdfViewer(context);
-      },
+    return TextButton(
+      onPressed: () => pdfViewer(context),
       child: Row(
         children: [
           Icon(

@@ -40,7 +40,7 @@ class _AppBarLandingPageMobileState extends State<AppBarLandingPageMobile> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.5,
+          width: MediaQuery.of(context).size.width * 0.3,
           child: RMConfig.instance.clispImage?.isNotEmpty == true
               ? CachedNetworkImage(imageUrl: RMConfig.instance.clispImage!)
               : Image.asset('assets/images/clinica_image.png'),
@@ -55,8 +55,11 @@ class _AppBarLandingPageMobileState extends State<AppBarLandingPageMobile> {
                 children: [
                   Text(
                     appDetails.name,
-                    style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.secondaryColorRed, fontSize: 22),
+                    style: context.textStyles.textPoppinsSemiBold.copyWith(
+                      color: context.colorsApp.secondaryColorRed,
+                      fontSize: 20,
+                    ),
+                    maxLines: 2,
                   ),
                   Text(
                     appDetails.address,

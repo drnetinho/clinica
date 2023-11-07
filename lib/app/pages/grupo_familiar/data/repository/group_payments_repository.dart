@@ -119,6 +119,7 @@ class GroupPaymentsRepositoryImpl with UpdateFirebaseDocField implements GroupPa
         return addMapId(e.data(), e.id);
       }).toList();
       final data = docs.map((e) => FamilyPaymnetModel.fromJson(e)).toList();
+      
       Logger.prettyPrint('LISTA DE PAGAMENTOS PENDENTES', Logger.greenColor, 'getAllPendingPayments');
       return (error: null, payments: data);
     } on FirebaseException {

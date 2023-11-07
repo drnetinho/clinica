@@ -14,6 +14,7 @@ class PatientModel extends Equatable {
   final String age;
   final String phone;
   final List<String>? previousIlnesses;
+  final List<String>? avaliations;
   final String id;
   final String cpf;
   final DateTime createdAt;
@@ -26,6 +27,7 @@ class PatientModel extends Equatable {
     this.age,
     this.phone,
     this.previousIlnesses,
+    this.avaliations,
     this.id,
     this.cpf,
     this.createdAt,
@@ -39,6 +41,7 @@ class PatientModel extends Equatable {
     this.age = '',
     this.phone = '',
     this.previousIlnesses,
+    this.avaliations,
     this.id = '',
     this.cpf = '',
     required this.createdAt,
@@ -59,6 +62,7 @@ class PatientModel extends Equatable {
         id,
         cpf,
         createdAt,
+        avaliations,
       ];
 
   PatientModel copyWith({
@@ -69,6 +73,7 @@ class PatientModel extends Equatable {
     String? age,
     String? phone,
     List<String>? previousIlnesses,
+    List<String>? avaliations,
     String? id,
     String? cpf,
     DateTime? createdAt,
@@ -81,6 +86,7 @@ class PatientModel extends Equatable {
       age ?? this.age,
       phone ?? this.phone,
       previousIlnesses ?? this.previousIlnesses,
+      avaliations ?? this.avaliations,
       id ?? this.id,
       cpf ?? this.cpf,
       createdAt ?? this.createdAt,

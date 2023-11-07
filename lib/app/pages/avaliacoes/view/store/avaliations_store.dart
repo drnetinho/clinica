@@ -1,4 +1,4 @@
-import 'package:clisp/app/pages/avaliacoes/data/repository/doctors_repository.dart';
+import 'package:clisp/app/pages/avaliacoes/data/repository/avaliations_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:clisp/common/error/app_error.dart';
@@ -13,9 +13,9 @@ class GetAvaliationsStore extends ValueNotifier<AppState> {
     this._repository,
   ) : super(AppStateInitial());
 
-  Future<void> getAvaliations() async {
+  Future<void> getPatientAvaliations({required String patientId}) async {
     value = AppStateLoading();
-    final result = await _repository.getAvaliations();
+    final result = await _repository.getPatientAvaliations(patientId: patientId);
 
     if (result.avaliations != null) {
       value = AppStateSuccess(data: result.avaliations);
@@ -25,6 +25,23 @@ class GetAvaliationsStore extends ValueNotifier<AppState> {
       );
     }
   }
+
+  List<String> get exames => [
+        'Hemograma Completo',
+        'Glicemia de Jejum',
+        'Colesterol Total e Frações',
+        'Triglicerídeos',
+        'Ureia',
+        'Creatinina',
+        'Ácido Úrico',
+        'TGO',
+        'TGP',
+        'Fosfatase Alcalina',
+        'GGT',
+        'Bilirrubinas',
+        'Proteínas Totais e Frações',
+        'Albumina',
+      ];
 }
 
 @injectable

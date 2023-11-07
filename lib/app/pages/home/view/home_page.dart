@@ -1,3 +1,4 @@
+import 'package:clisp/app/pages/grupo_familiar/view/widgets/gerar_carne_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:clisp/core/styles/colors_app.dart';
@@ -52,14 +53,15 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     Row(
                       children: [
-                        CardCategoriasWidget(
-                          width: 290,
-                          background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.user_config,
-                          title: 'Gerenciar Paciente',
-                          subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
-                          onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
-                        ),
+                        // CardCategoriasWidget(
+                        //   width: 290,
+                        //   background: context.colorsApp.dartMedium,
+                        //   icon: ClinicaIcons.user_config,
+                        //   title: 'Gerenciar Paciente',
+                        //   subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
+                        //   onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
+                        // ),
+                        GerarCarneWidget(),
                         SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                         CardCategoriasWidget(
                           width: 290,

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-
 import 'package:clisp/core/styles/text_app.dart';
-
 import '../../../../../core/styles/colors_app.dart';
 
 class GerarRelatorioWidget extends StatelessWidget {

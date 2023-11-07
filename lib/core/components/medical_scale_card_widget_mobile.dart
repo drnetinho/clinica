@@ -49,7 +49,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Próximas escalas médicas',
+            'Próximos atendimentos',
             style: context.textStyles.textPoppinsSemiBold.copyWith(
               color: context.colorsApp.blackColor,
               fontSize: 20,
@@ -65,7 +65,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                 validateDefaultStates: true,
                 builder: (context, scales, _) {
                   final DoctorScale? recentScale = scaleStore.getDoctorOfTheDay(scales);
-                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(
+                  final Doctor? recentScaleDoctor = doctorStore.getDoctorFromList(
                     recentScale?.doctorId,
                     doctors,
                   );
@@ -79,7 +79,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Mais próxima',
+                              'Mais próximo',
                               style: context.textStyles.textPoppinsSemiBold.copyWith(
                                 color: context.colorsApp.primary,
                                 fontSize: 14,
@@ -105,7 +105,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Todas',
+                              'Todos',
                               style: context.textStyles.textPoppinsSemiBold.copyWith(
                                 color: context.colorsApp.primary,
                                 fontSize: 14,

@@ -2,7 +2,6 @@ import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
 import 'package:clisp/app/pages/gerenciar_pacientes/data/repository/get_patients_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:injectable/injectable.dart';
-import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
 import 'package:clisp/common/services/firestore/firestore_collections.dart';
 import 'package:clisp/common/types/types.dart';
 
@@ -14,7 +13,7 @@ import '../../../../../core/helps/map_utils.dart';
 import '../types/avaliations_types.dart';
 
 abstract class AvaliationsRepository {
-  AvaliationsOrError getAvaliations();
+  AvaliationsOrError getPatientAvaliations({required String patientId});
   UnitOrError editAvaliation({required Avaliation avaliation});
   UnitOrError deleteAvaliation({required String id});
   UnitOrError addAvaliation({required Avaliation avaliation});
@@ -28,16 +27,19 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   final idKey = 'id';
 
   @override
-  AvaliationsOrError getAvaliations() async {
+  AvaliationsOrError getPatientAvaliations({required String patientId}) async {
     try {
-      final res = await FirestoreService.fire.collection(Collections.doctors).get();
+      final res = await FirestoreService.fire
+          .collection(Collections.avaliations)
+          .where('patientId', isEqualTo: patientId)
+          .get();
       final docs = res.docs.map((e) {
         if (mapContainsEmptyKey(e.data(), idKey)) {
-          updateField(collection: Collections.doctors, docId: e.id, map: {idKey: e.id});
+          updateField(collection: Collections.avaliations, docId: e.id, map: {idKey: e.id});
         }
         return addMapId(e.data(), e.id);
       }).toList();
-      final data = docs.map((e) => Doctor.fromJson(e)).toList();
+      final data = docs.map((e) => Avaliation.fromJson(e)).toList();
       return (error: null, avaliations: data);
     } on FirebaseException {
       return (error: DomainError(), avaliations: null);
@@ -49,7 +51,7 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   @override
   UnitOrError deleteAvaliation({required String id}) async {
     try {
-      await FirestoreService.fire.collection(Collections.doctors).doc(id).delete();
+      await FirestoreService.fire.collection(Collections.avaliations).doc(id).delete();
       // TODO remover avaliacao do paciente
       // await _patientRepository.deleteScalesFromDoctorId(doctorId: id);
       return (error: null, unit: unit);
@@ -75,7 +77,8 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   @override
   UnitOrError addAvaliation({required Avaliation avaliation}) async {
     try {
-      await FirestoreService.fire.collection(Collections.doctors).add(avaliation.toJson());
+      final newAvaliation = await FirestoreService.fire.collection(Collections.avaliations).add(avaliation.toJson());
+      await _patientRepository.addPatientAvaliation(avaliationId: newAvaliation.id, patientId: avaliation.patientId);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);

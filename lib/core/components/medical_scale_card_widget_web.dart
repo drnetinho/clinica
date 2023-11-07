@@ -51,7 +51,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Próximas escalas médicas',
+            'Próximos atendimentos',
             style: context.textStyles.textPoppinsSemiBold.copyWith(
               color: context.colorsApp.blackColor,
               fontSize: 32 * unitHeight,
@@ -67,7 +67,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                 validateDefaultStates: true,
                 builder: (context, scales, _) {
                   final DoctorScale? recentScale = scaleStore.getDoctorOfTheDay(scales);
-                  final Doctor? recentScaleDoctor = doctorStore.getDoctorById(recentScale?.doctorId, doctors);
+                  final Doctor? recentScaleDoctor = doctorStore.getDoctorFromList(recentScale?.doctorId, doctors);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Mais próxima',
+                              'Mais próximo',
                               style: context.textStyles.textPoppinsSemiBold.copyWith(
                                 color: context.colorsApp.primary,
                                 fontSize: 18 * unitHeight,
@@ -106,7 +106,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Todas',
+                              'Todos',
                               style: context.textStyles.textPoppinsSemiBold.copyWith(
                                 color: context.colorsApp.primary,
                                 fontSize: 18 * unitHeight,

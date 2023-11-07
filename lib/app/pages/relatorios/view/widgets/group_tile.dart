@@ -92,15 +92,13 @@ class _GroupTileState extends State<GroupTile> {
                 builder: (context, List<FamilyPaymnetModel> payments, _) {
                   return Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: getColorStatus(payments),
-                      borderRadius: BorderRadius.circular(50),
-                    ),
                     child: Text(
-                      getTextStatus(payments),
+                      getTextStatus(payments).toUpperCase(),
                       style: context.textStyles.textPoppinsRegular.copyWith(
                         fontSize: 14,
-                        color: context.colorsApp.blackColor,
+                        fontWeight: FontWeight.bold,
+                        color: getColorStatus(payments),
+                        letterSpacing: 1.5,
                       ),
                     ),
                   );

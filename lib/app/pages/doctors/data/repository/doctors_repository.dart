@@ -14,6 +14,7 @@ import '../types/doctors_types.dart';
 
 abstract class DoctorRepository {
   DoctorsOrError getDoctors();
+  DoctorByIdOrError getDoctorById({required String id});
   UnitOrError editDoctor({required Doctor doctor});
   UnitOrError deleteDoctor({required String id});
   UnitOrError addDoctor({required Doctor doctor});
@@ -79,6 +80,25 @@ class DoctorRepositoryImpl with UpdateFirebaseDocField implements DoctorReposito
       return (error: null, unit: unit);
     } catch (e) {
       return (error: null, unit: unit);
+    }
+  }
+
+  @override
+  DoctorByIdOrError getDoctorById({required String id}) async {
+    try {
+      final res = await FirestoreService.fire.collection(Collections.doctors).where('id', isEqualTo: id).get();
+      final docs = res.docs.map((e) {
+        if (mapContainsEmptyKey(e.data(), idKey)) {
+          updateField(collection: Collections.doctors, docId: e.id, map: {idKey: e.id});
+        }
+        return addMapId(e.data(), e.id);
+      }).toList();
+      final data = docs.map((e) => Doctor.fromJson(e)).toList();
+      return (error: null, doctor: data.firstOrNull);
+    } on FirebaseException {
+      return (error: DomainError(), doctor: null);
+    } catch (e) {
+      return (error: UndefiniedError(), doctor: null);
     }
   }
 }

@@ -25,8 +25,26 @@ class DoctorStore extends ValueNotifier<AppState> {
     }
   }
 
-  Doctor? getDoctorById(String? id, List<Doctor> doctors) {
+  Doctor? getDoctorFromList(String? id, List<Doctor> doctors) {
     if (id == null) return null;
     return doctors.firstWhereOrNull((element) => element.id == id);
+  }
+}
+@injectable
+class GetDoctorStore extends ValueNotifier<AppState> {
+  final DoctorRepository _repository;
+  GetDoctorStore(
+    this._repository,
+  ) : super(AppStateInitial());
+
+  Future<void> getDoctorById(String id) async {
+    value = AppStateLoading();
+    final result = await _repository.getDoctorById(id: id);
+
+    if (result.doctor != null) {
+      value = AppStateSuccess(data: result.doctor);
+    } else if (result.error.exists) {
+      value = AppStateError(message: result.error?.message ?? 'Erro ao buscar médicos cadastrados');
+    }
   }
 }

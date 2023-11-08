@@ -14,6 +14,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
   final VoidCallback? onConfirmReceive;
   final VoidCallback? onConfirmRevert;
   final VoidCallback? onConfirmDelete;
+  final VoidCallback? onCreate;
 
   const GrupoFamiliarFooter({
     Key? key,
@@ -22,6 +23,7 @@ class GrupoFamiliarFooter extends StatelessWidget {
     this.onConfirmReceive,
     this.onConfirmRevert,
     this.onConfirmDelete,
+    this.onCreate,
   }) : super(key: key);
 
   @override
@@ -158,6 +160,23 @@ class GrupoFamiliarFooter extends StatelessWidget {
                   ),
                 )
               },
+              const PopupMenuItem(
+                value: 3,
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.add,
+                      color: Colors.blue,
+                    ),
+                    Text(
+                      'Criar',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ];
           },
           onSelected: (value) {
@@ -169,6 +188,9 @@ class GrupoFamiliarFooter extends StatelessWidget {
             }
             if (value == 2) {
               onConfirmRevert?.call();
+            }
+            if (value == 3) {
+              onCreate?.call();
             }
           },
         ),

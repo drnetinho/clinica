@@ -9,6 +9,7 @@ class PaymentTile extends StatelessWidget {
   final VoidCallback? onConfirmPayment;
   final VoidCallback? onRevertPayment;
   final VoidCallback? onDeletePayment;
+  final VoidCallback? onCreate;
 
   const PaymentTile({
     Key? key,
@@ -16,6 +17,7 @@ class PaymentTile extends StatelessWidget {
     this.onConfirmPayment,
     this.onRevertPayment,
     this.onDeletePayment,
+    this.onCreate,
   }) : super(key: key);
 
   @override
@@ -24,31 +26,105 @@ class PaymentTile extends StatelessWidget {
       children: [
         Expanded(flex: 2, child: Text(paymnet.monthlyFee.toReal)),
         Expanded(flex: 2, child: Text(paymnet.payDate.formatted)),
-        Expanded(flex: 2, child: Text(paymnet.pending ? 'Pendente' : 'Pago')),
-        Expanded(flex: 2, child: Text(paymnet.receiveDate?.formatted ?? 'Pendente')),
+        Expanded(
+          flex: 2,
+          child: Text(
+            paymnet.pending ? 'Pendente' : 'Pago',
+            style: TextStyle(
+              color: paymnet.pending ? context.colorsApp.danger : context.colorsApp.success,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Text(
+            paymnet.receiveDate?.formatted ?? 'Aguardando',
+            style: TextStyle(
+              color: paymnet.pending ? context.colorsApp.warning : context.colorsApp.success,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         Expanded(
           flex: 1,
           child: PopupMenuButton<int>(
-            icon: Icon(Icons.more_vert_outlined, color: context.colorsApp.primary),
+            icon: Icon(Icons.more_vert_outlined, color: context.colorsApp.blackColor),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 2,
             itemBuilder: (context) {
               return [
-                const PopupMenuItem(
+                PopupMenuItem(
                   value: 0,
-                  child: Text('Deletar'),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_outline,
+                        color: context.colorsApp.danger,
+                      ),
+                      Text(
+                        'Deletar',
+                        style: TextStyle(
+                          color: context.colorsApp.danger,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 if (paymnet.pending) ...{
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 1,
-                    child: Text('Confirmar'),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.check,
+                          color: context.colorsApp.success,
+                        ),
+                        Text(
+                          'Confirmar',
+                          style: TextStyle(
+                            color: context.colorsApp.success,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 } else ...{
-                  const PopupMenuItem(
+                  PopupMenuItem(
                     value: 2,
-                    child: Text('Reverter'),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.refresh,
+                          color: context.colorsApp.warning,
+                        ),
+                        Text(
+                          'Reverter',
+                          style: TextStyle(
+                            color: context.colorsApp.warning,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 },
+                const PopupMenuItem(
+                  value: 3,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.add,
+                        color: Colors.blue,
+                      ),
+                      Text(
+                        'Criar',
+                        style: TextStyle(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ];
             },
             onSelected: (value) {
@@ -60,6 +136,9 @@ class PaymentTile extends StatelessWidget {
               }
               if (value == 2) {
                 onRevertPayment?.call();
+              }
+              if (value == 3) {
+                onCreate?.call();
               }
             },
           ),

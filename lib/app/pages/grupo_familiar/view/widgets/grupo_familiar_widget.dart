@@ -382,6 +382,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                                 ),
                               ),
                             ),
+                            onCreate: () => editPaymentsStore.generateNextPayment(oldPaymenteBase: lastPayment),
                           );
                         } else {
                           return const SizedBox.shrink();
@@ -472,7 +473,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
     if (payments.isEmpty) {
       return 'A definir';
     } else {
-      return paymentsStore.isPending(payments) ? 'Pendende' : 'Pago';
+      return paymentsStore.isPending(payments) ? 'Pendente' : 'Pago';
     }
   }
 

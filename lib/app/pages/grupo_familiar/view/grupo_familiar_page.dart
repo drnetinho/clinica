@@ -164,6 +164,7 @@ class _GrupoFamiliarPageState extends State<GrupoFamiliarPage> {
                                     valueListenable: controller.groupSelected,
                                     builder: (context, groupSelected, _) {
                                       return ListView.builder(
+                                        padding: const EdgeInsets.all(8),
                                         itemCount: groups.length,
                                         itemBuilder: (context, index) {
                                           final group = groups[index];

@@ -75,24 +75,72 @@ class _HistoricoPageState extends State<HistoricoPage> {
                     /// SECTION 1 - LISTA DE PACIENTES ---------------------
                     Column(
                       children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * .1,
-                          width: MediaQuery.of(context).size.width * .32,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              hintText: 'Busque por nome dou grupo ou do paciente',
-                              hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
+                        PhysicalModel(
+                          elevation: 1,
+                          color: context.colorsApp.backgroundCardColor,
+                          borderRadius: BorderRadius.circular(12),
+                          child: SizedBox(
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.search, size: 30, color: ColorsApp.instance.greyColor2),
+                                  const SizedBox(width: 10),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height * .1,
+                                    width: MediaQuery.of(context).size.width * .28,
+                                    child: Center(
+                                      child: TextFormField(
+                                        decoration: InputDecoration(
+                                          labelStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
+                                          hintText: 'Busque por nome dou grupo ou do paciente',
+                                          hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          errorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          focusedErrorBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                            borderSide: const BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          counterStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
+                                          isDense: true,
+                                          filled: true,
+                                          fillColor: context.colorsApp.backgroundCardColor,
+                                          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              icon: Icon(Icons.search, color: context.colorsApp.greyColor2),
-                              filled: true,
-                              fillColor: context.colorsApp.backgroundCardColor,
-                              contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                             ),
                           ),
                         ),
+                        const SizedBox(height: 20),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * .7,
                           width: MediaQuery.of(context).size.width * .32,

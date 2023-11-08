@@ -130,7 +130,7 @@ class NewAvaliationController {
     alturaCtrl.text = avaliation.altura ?? '';
     this.doctor.value = doctor;
     this.patient.value = patient;
-    exames.value = avaliation.examesSolicitados ?? [];
+    exames.value = avaliation.examesSolicitados;
     isNormal.value = !avaliation.alterado;
   }
 }

@@ -1,3 +1,6 @@
+import 'package:clisp/app/pages/historico/historico_page.dart';
+import 'package:clisp/app/pages/home/view/home_page.dart';
+import 'package:clisp/app/root/router_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
@@ -47,7 +50,7 @@ class _ReadyAvaliationPageState extends State<ReadyAvaliationPage> with SnackBar
     super.initState();
     html.window.addEventListener('beforeunload', (event) {
       event.preventDefault();
-      context.pop();
+      context.go(subRoute(HomePage.routeName, HistoricoPage.routeName));
       return 'Você será redirecionado para a página antes caso continue.';
     });
     controller = getIt<NewAvaliationController>();

@@ -108,7 +108,7 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                                       child: isInvalid
                                           ? const StateEmptyWidget(
                                               icon: Icons.payment,
-                                              message: 'Nenhum pagamento encontrado. Altere o valor do filtro!',
+                                              message: 'Nenhum pagamento encontrado.',
                                             )
                                           : Column(
                                               children: [

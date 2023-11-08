@@ -120,7 +120,7 @@ class _GroupTileState extends State<GroupTile> {
     if (payments.isEmpty) {
       return 'A definir';
     } else {
-      return getGroupPaymentsStore.isPending(payments) ? 'Pendende' : 'Pago';
+      return getGroupPaymentsStore.isPending(payments) ? 'Pendente' : 'Pago';
     }
   }
 

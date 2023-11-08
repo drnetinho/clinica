@@ -26,7 +26,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
     if (result.unit != null) {
       value = AppStateSuccess(data: null);
       if (generateNext) {
-        await _generateNext(oldPaymenteBase: payment);
+        await generateNextPayment(oldPaymenteBase: payment);
       }
     }
     if (result.error.exists) {
@@ -86,7 +86,7 @@ class EditPaymentsStore extends ValueNotifier<AppState> {
     }
   }
 
-  Future<void> _generateNext({required FamilyPaymnetModel oldPaymenteBase}) async {
+  Future<void> generateNextPayment({required FamilyPaymnetModel oldPaymenteBase}) async {
     value = AppStateLoading();
     final result = await _repository.generatePayment(
       newPayment: FamilyPaymnetModel.empty(

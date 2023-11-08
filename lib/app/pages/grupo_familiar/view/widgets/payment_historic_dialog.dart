@@ -57,6 +57,11 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
     });
   }
 
+  TextStyle get _textStyle => TextStyle(
+        color: context.colorsApp.blackColor,
+        fontWeight: FontWeight.bold,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -77,13 +82,13 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                     children: [
                       Container(
                         margin: Padd.only(t: 150),
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Expanded(flex: 2, child: Text('Valor')),
-                            Expanded(flex: 2, child: Text('Vencimento')),
-                            Expanded(flex: 2, child: Text('Status da Parcela')),
-                            Expanded(flex: 2, child: Text('Pagamento')),
-                            Expanded(flex: 1, child: Text('')),
+                            Expanded(flex: 2, child: Text('Valor', style: _textStyle)),
+                            Expanded(flex: 2, child: Text('Vencimento', style: _textStyle)),
+                            Expanded(flex: 2, child: Text('Status da Parcela', style: _textStyle)),
+                            Expanded(flex: 2, child: Text('Recebimento', style: _textStyle)),
+                            const Expanded(flex: 1, child: Text('')),
                           ],
                         ),
                       ),
@@ -101,6 +106,9 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                                   final payment = filteredList[index];
                                   return PaymentTile(
                                     paymnet: payment,
+                                    onCreate: () => editPaymentsStore.generateNextPayment(
+                                      oldPaymenteBase: payment,
+                                    ),
                                     onConfirmPayment: () => showDialog(
                                       useSafeArea: true,
                                       context: context,
@@ -190,7 +198,7 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                             alignment: Alignment.topRight,
                             child: IconButton(
                               onPressed: context.pop,
-                              icon: const Icon(Icons.cancel_outlined),
+                              icon: const Icon(Icons.close),
                             ),
                           ),
                         ],

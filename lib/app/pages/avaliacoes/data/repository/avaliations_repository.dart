@@ -52,8 +52,8 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   UnitOrError deleteAvaliation({required String id}) async {
     try {
       await FirestoreService.fire.collection(Collections.avaliations).doc(id).delete();
-      // TODO remover avaliacao do paciente
-      // await _patientRepository.deleteScalesFromDoctorId(doctorId: id);
+
+      // await remover avaliação do paciente
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);
@@ -78,7 +78,7 @@ class AvaliationsRepositoryImpl with UpdateFirebaseDocField implements Avaliatio
   UnitOrError addAvaliation({required Avaliation avaliation}) async {
     try {
       final newAvaliation = await FirestoreService.fire.collection(Collections.avaliations).add(avaliation.toJson());
-      await _patientRepository.addPatientAvaliation(avaliationId: newAvaliation.id, patientId: avaliation.patientId);
+      // await _patientRepository.addPatientAvaliation(avaliationId: newAvaliation.id, patientId: avaliation.patientId);
       return (error: null, unit: unit);
     } on FirebaseException {
       return (error: null, unit: unit);

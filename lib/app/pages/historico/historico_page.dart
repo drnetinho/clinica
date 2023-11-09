@@ -14,7 +14,7 @@ import '../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../gerenciar_pacientes/view/store/manage_patient_store.dart';
 
 class HistoricoPage extends StatefulWidget {
-  static const String routeName = 'historicopa';
+  static const String routeName = 'historico';
   const HistoricoPage({super.key});
 
   @override
@@ -150,6 +150,7 @@ class _HistoricoPageState extends State<HistoricoPage> {
                             borderRadius: BorderRadius.circular(20),
                             child: ListView.separated(
                               itemCount: patients.length,
+                              padding: const EdgeInsets.all(8),
                               separatorBuilder: (_, __) => const Divider(),
                               itemBuilder: (context, index) {
                                 final patient = patients[index];

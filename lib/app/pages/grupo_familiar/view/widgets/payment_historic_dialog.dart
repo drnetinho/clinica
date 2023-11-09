@@ -187,7 +187,7 @@ class _PaymentHistoricDialogState extends State<PaymentHistoricDialog> {
                           Align(
                             alignment: Alignment.topLeft,
                             child: DropFilter(
-                              selectedValue: (filter) => filteredPayments.value = filterController.filter(
+                              selectedValue: (filter) => filteredPayments.value = filterController.filterPayments(
                                 payments,
                                 filter,
                                 KCurrentDate,

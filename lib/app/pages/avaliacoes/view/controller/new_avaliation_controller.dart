@@ -33,6 +33,7 @@ class NewAvaliationController {
       alterado: !isNormal.value,
       data: DateTime.now().toIso8601String(),
       doctorId: doctor.value?.id ?? '',
+      doctorName: doctor.value?.name ?? '',
       patientId: patient.value?.id ?? '',
       altura: alturaCtrl.text,
       peso: pesoCtrl.text,

@@ -1,4 +1,5 @@
 import 'package:clisp/app/pages/avaliacoes/data/repository/avaliations_repository.dart';
+import 'package:clisp/core/helps/extension/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:clisp/common/error/app_error.dart';
@@ -18,7 +19,12 @@ class GetAvaliationsStore extends ValueNotifier<AppState> {
     final result = await _repository.getPatientAvaliations(patientId: patientId);
 
     if (result.avaliations != null) {
-      value = AppStateSuccess(data: result.avaliations);
+      final avaliations = result.avaliations!;
+      // Order avaliations by date
+      avaliations.sort(
+        (a, b) => b.data.toDateTime.compareTo(a.data.toDateTime),
+      );
+      value = AppStateSuccess(data: avaliations);
     } else if (result.error.exists) {
       value = AppStateError(
         message: result.error?.message ?? 'Erro ao buscar avaliações cadastradas',

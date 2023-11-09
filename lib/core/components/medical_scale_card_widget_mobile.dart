@@ -97,7 +97,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                       const SizedBox(height: 20),
                       if (scales.isEmpty)
                         const StateEmptyWidget(
-                          message: 'Nenhuma escala encontrada',
+                          message: 'Nenhuma atendimento encontrado',
                           icon: Icons.calendar_today,
                         ),
                       if (scales.isNotEmpty)

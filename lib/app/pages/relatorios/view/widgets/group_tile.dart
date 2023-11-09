@@ -44,7 +44,7 @@ class _GroupTileState extends State<GroupTile> {
     super.didUpdateWidget(oldWidget);
     if (getGroupPaymentsStore.value.isSuccess) {
       getGroupPaymentsStore.emmitFilteredPayments(
-        filterController.filter(
+        filterController.filterPayments(
           getGroupPaymentsStore.allGroupPayments.value,
           widget.filter,
           KCurrentDate,

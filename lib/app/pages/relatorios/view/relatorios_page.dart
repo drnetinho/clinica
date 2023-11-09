@@ -77,7 +77,10 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                     'Relatórios de Faturamento',
                     style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
                   ),
-                  const GerarRelatorioWidget(),
+                  const Visibility(
+                    visible: false,
+                    child: GerarRelatorioWidget(),
+                  ),
                 ],
               ),
               Container(
@@ -185,7 +188,7 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
                               // os pagamentos filtrados sejam processados novamente
                               getPaymentsStore.undefiniedGroupsPerFilter.value = 0;
                               currentFilter.value = filterValue;
-                              final list = filterController.filter(
+                              final list = filterController.filterPayments(
                                 getPaymentsStore.allPendingPayments.value,
                                 filterValue,
                                 KCurrentDate,

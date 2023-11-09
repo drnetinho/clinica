@@ -12,9 +12,10 @@ import '../avaliacoes/view/store/avaliations_store.dart';
 import '../doctors/view/store/doctor_store.dart';
 import '../gerenciar_pacientes/domain/model/patient_model.dart';
 import '../gerenciar_pacientes/view/store/manage_patient_store.dart';
+import '../gerenciar_pacientes/view/widgets/search_header.dart';
 
 class HistoricoPage extends StatefulWidget {
-  static const String routeName = 'historicopa';
+  static const String routeName = 'historico';
   const HistoricoPage({super.key});
 
   @override
@@ -38,10 +39,15 @@ class _HistoricoPageState extends State<HistoricoPage> {
     _getAvaliationsStore = getIt<GetAvaliationsStore>();
 
     selectedPatient = ValueNotifier(null);
+    searchCt = TextEditingController();
+    searchPatients = ValueNotifier(null);
 
     if (!_managePatientsStore.value.isSuccess) {
       _managePatientsStore.getPatients();
     }
+    searchCt.addListener(() {
+      selectedPatient.value = null;
+    });
   }
 
   @override
@@ -50,6 +56,16 @@ class _HistoricoPageState extends State<HistoricoPage> {
     _doctorStore.dispose();
     _getAvaliationsStore.dispose();
     super.dispose();
+  }
+
+  late final TextEditingController searchCt;
+  late final ValueNotifier<List<PatientModel>?> searchPatients;
+
+  set addSearchPatients(List<PatientModel> patients) => searchPatients.value = [...patients];
+
+  void resetSearch() {
+    searchPatients.value = null;
+    searchCt.clear();
   }
 
   @override
@@ -65,133 +81,84 @@ class _HistoricoPageState extends State<HistoricoPage> {
               style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
             ),
             const SizedBox(height: 40),
-            StoreBuilder<List<PatientModel>>(
-              store: _managePatientsStore,
-              validateDefaultStates: true,
-              builder: (context, patients, _) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    /// SECTION 1 - LISTA DE PACIENTES ---------------------
-                    Column(
-                      children: [
-                        PhysicalModel(
-                          elevation: 1,
-                          color: context.colorsApp.backgroundCardColor,
-                          borderRadius: BorderRadius.circular(12),
-                          child: SizedBox(
-                            height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.search, size: 30, color: ColorsApp.instance.greyColor2),
-                                  const SizedBox(width: 10),
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height * .1,
-                                    width: MediaQuery.of(context).size.width * .28,
-                                    child: Center(
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                          labelStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14),
-                                          hintText: 'Busque por nome dou grupo ou do paciente',
-                                          hintStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                            ),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                            ),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                            ),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                            ),
-                                          ),
-                                          focusedErrorBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(8),
-                                            borderSide: const BorderSide(
-                                              color: Colors.transparent,
-                                            ),
-                                          ),
-                                          counterStyle: context.textStyles.textPoppinsRegular.copyWith(fontSize: 20),
-                                          isDense: true,
-                                          filled: true,
-                                          fillColor: context.colorsApp.backgroundCardColor,
-                                          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+            ValueListenableBuilder(
+                valueListenable: searchPatients,
+                builder: (context, search, _) {
+                  return StoreBuilder<List<PatientModel>>(
+                    store: _managePatientsStore,
+                    validateDefaultStates: true,
+                    builder: (context, list, _) {
+                      List<PatientModel> patients = search ?? list;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          /// SECTION 1 - LISTA DE PACIENTES ---------------------
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * .1,
+                                width: MediaQuery.of(context).size.width * .32,
+                                child: SearchHeader(
+                                  patients: patients,
+                                  controller: searchCt,
+                                  findedPatients: (p) => p != null ? addSearchPatients = p : resetSearch(),
+                                  isAddPatient: false,
+                                ),
                               ),
-                            ),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * .7,
+                                width: MediaQuery.of(context).size.width * .32,
+                                child: PhysicalModel(
+                                  elevation: 1,
+                                  color: context.colorsApp.backgroundCardColor,
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: ListView.separated(
+                                    itemCount: patients.length,
+                                    padding: const EdgeInsets.all(8),
+                                    separatorBuilder: (_, __) => const Divider(),
+                                    itemBuilder: (context, index) {
+                                      final patient = patients[index];
+                                      return AnimatedBuilder(
+                                          animation: selectedPatient,
+                                          builder: (context, _) {
+                                            return HistoricPatientCard(
+                                              onTap: () {
+                                                if (selectedPatient.value?.id == patient.id) {
+                                                  selectedPatient.value = null;
+                                                } else {
+                                                  selectedPatient.value = patient;
+                                                }
+                                              },
+                                              isSelected: selectedPatient.value?.id == patient.id,
+                                              patient: patient,
+                                            );
+                                          });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * .7,
-                          width: MediaQuery.of(context).size.width * .32,
-                          child: PhysicalModel(
-                            elevation: 1,
-                            color: context.colorsApp.backgroundCardColor,
-                            borderRadius: BorderRadius.circular(20),
-                            child: ListView.separated(
-                              itemCount: patients.length,
-                              separatorBuilder: (_, __) => const Divider(),
-                              itemBuilder: (context, index) {
-                                final patient = patients[index];
-                                return AnimatedBuilder(
-                                    animation: selectedPatient,
-                                    builder: (context, _) {
-                                      return HistoricPatientCard(
-                                        onTap: () {
-                                          if (selectedPatient.value?.id == patient.id) {
-                                            selectedPatient.value = null;
-                                          } else {
-                                            selectedPatient.value = patient;
-                                          }
-                                        },
-                                        isSelected: selectedPatient.value?.id == patient.id,
-                                        patient: patient,
-                                      );
-                                    });
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
 
-                    /// SECTION 2 - LISTA DE CONSULTAS ---------------------
-                    const Spacer(),
-                    ValueListenableBuilder(
-                      valueListenable: selectedPatient,
-                      builder: (context, patient, _) {
-                        return selectedPatient.exists
-                            ? HistoricPatientCardList(
-                                store: _getAvaliationsStore,
-                                patient: patient!,
-                              )
-                            : const SizedBox.shrink();
-                      },
-                    )
-                  ],
-                );
-              },
-            ),
+                          /// SECTION 2 - LISTA DE CONSULTAS ---------------------
+                          const Spacer(),
+                          ValueListenableBuilder(
+                            valueListenable: selectedPatient,
+                            builder: (context, patient, _) {
+                              return selectedPatient.exists
+                                  ? HistoricPatientCardList(
+                                      store: _getAvaliationsStore,
+                                      patient: patient!,
+                                    )
+                                  : const SizedBox.shrink();
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  );
+                }),
           ],
         ),
       ),

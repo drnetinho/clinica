@@ -38,16 +38,7 @@ class HistoricPatientCard extends StatelessWidget {
                 ),
                 selected: isSelected,
                 selectedColor: context.colorsApp.primary,
-                leading: Container(
-                  height: 40,
-                  width: 40,
-                  decoration: BoxDecoration(
-                    color: context.colorsApp.whiteColor,
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(color: context.colorsApp.primary, width: 2),
-                  ),
-                  child: Icon(ClinicaIcons.account_circle, color: context.colorsApp.primary, size: 35),
-                ),
+                leading: Icon(ClinicaIcons.account_circle, color: context.colorsApp.primary, size: 40),
                 trailing: Icon(
                   Icons.arrow_forward_ios,
                   color: isSelected ? context.colorsApp.primary : context.colorsApp.greyColor2,

@@ -245,16 +245,23 @@ class _WalletDetailsState extends State<WalletDetails> {
                                                 },
                                               ],
                                             )
-                                          : Column(
+                                          : const Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
-                                                const Text(
-                                                    'Nenhum QR Code cadastrado, entre em contato com o administrador.'),
-                                                ElevatedButton(
-                                                  onPressed: () {
-                                                    // Levar pro whatsapp
-                                                  },
-                                                  child: const Text('Falar com o administrador'),
+                                                Text(
+                                                  'Nenhum QR Code cadastrado!\nEntre em contato com o administrador para obter informações de pagamento.',
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 3,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(color: Colors.white),
                                                 ),
+                                                // SizedBox(height: widget.fromMobile ? 10 : 20),
+                                                // ElevatedButton(
+                                                //   onPressed: () {
+                                                //     // Levar pro whatsapp
+                                                //   },
+                                                //   child: const Text('Falar com o administrador'),
+                                                // ),
                                               ],
                                             ),
                                     );

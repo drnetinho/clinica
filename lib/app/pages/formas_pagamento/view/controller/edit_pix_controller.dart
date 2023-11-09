@@ -49,7 +49,7 @@ class EditPixController {
     bank.addListener(() => form.value = form.value.copyWith(bank: StringInput.dirty(bank.text)));
     pixKey.addListener(() => form.value = form.value.copyWith(pixKey: StringInput.dirty(pixKey.text)));
     name.addListener(() => form.value = form.value.copyWith(name: StringInput.dirty(name.text)));
-    urlImage.addListener(() => form.value = form.value.copyWith(urlImage: StringInput.dirty(urlImage.text)));
+    urlImage.addListener(() => form.value = form.value.copyWith(urlImage: EmtpyInput.dirty(urlImage.text)));
   }
 
   void resetValues() {

@@ -65,7 +65,7 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
               ),
               const SizedBox(height: 10),
               Text(
-                'Insira o CPF de  algum participante do seu grupo familiar',
+                'Insira o seu CPF ou de algum participante do seu grupo familiar',
                 style:
                     context.textStyles.textPoppinsRegular.copyWith(color: context.colorsApp.blackColor, fontSize: 10),
               ),

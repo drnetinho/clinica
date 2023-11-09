@@ -1,8 +1,11 @@
 import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
 import 'package:clisp/app/pages/avaliacoes/view/ready_avaliation_page.dart';
+import 'package:clisp/app/pages/grupo_familiar/view/controller/filter_controller.dart';
 import 'package:clisp/app/pages/historico/widgets/historic_avaliation_card.dart';
 import 'package:clisp/app/pages/home/view/home_page.dart';
 import 'package:clisp/app/root/router_controller.dart';
+import 'package:clisp/core/components/state_widget.dart';
+import 'package:clisp/di/get_it.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
@@ -12,6 +15,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/components/drop_filter.dart';
 import '../../../../core/components/store_builder.dart';
+import '../../../../core/helps/actual_date.dart';
 import '../../avaliacoes/view/store/avaliations_store.dart';
 
 class HistoricPatientCardList extends StatefulWidget {
@@ -28,10 +32,15 @@ class HistoricPatientCardList extends StatefulWidget {
 }
 
 class _HistoricPatientCardListState extends State<HistoricPatientCardList> {
+  late final FilterController filterController;
+  late final ValueNotifier<List<Avaliation>?> filteredAvaliations;
+
   @override
   void initState() {
     super.initState();
- 
+    filterController = getIt<FilterController>();
+    filteredAvaliations = ValueNotifier(null);
+
     widget.store.getPatientAvaliations(patientId: widget.patient.id);
   }
 
@@ -84,28 +93,38 @@ class _HistoricPatientCardListState extends State<HistoricPatientCardList> {
                           store: widget.store,
                           validateEmptyList: true,
                           validateDefaultStates: true,
-                          builder: (context, avaliations, _) {
-                            return ListView.builder(
-                              itemCount: avaliations.length,
-                              itemBuilder: (context, index) {
-                                final Avaliation avaliation = avaliations[index];
-                                return HistoricAvaliationCard(
-                                  avaliation: avaliation,
-                                  onDetailPressed: () {
-                                    context.go(
-                                      subRoute(
-                                        HomePage.routeName,
-                                        ReadyAvaliationPage.routeName,
-                                      ),
-                                      extra: ReadyAvaliationPageArgs(
+                          builder: (context, listAvaliations, _) {
+                            return ValueListenableBuilder(
+                                valueListenable: filteredAvaliations,
+                                builder: (context, filtered, _) {
+                                  final avaliations = filtered ?? listAvaliations;
+
+                                  if (avaliations.isEmpty) {
+                                    return const StateEmptyWidget();
+                                  }
+
+                                  return ListView.builder(
+                                    itemCount: avaliations.length,
+                                    itemBuilder: (context, index) {
+                                      final Avaliation avaliation = avaliations[index];
+                                      return HistoricAvaliationCard(
                                         avaliation: avaliation,
-                                        patient: widget.patient,
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            );
+                                        onDetailPressed: () {
+                                          context.go(
+                                            subRoute(
+                                              HomePage.routeName,
+                                              ReadyAvaliationPage.routeName,
+                                            ),
+                                            extra: ReadyAvaliationPageArgs(
+                                              avaliation: avaliation,
+                                              patient: widget.patient,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                });
                           },
                         ),
                       ),
@@ -118,8 +137,20 @@ class _HistoricPatientCardListState extends State<HistoricPatientCardList> {
           Positioned(
             top: 25,
             right: 20,
-            child: DropFilter(
-              selectedValue: (p0) {},
+            child: StoreBuilder<List<Avaliation>>(
+              store: widget.store,
+              validateDefaultStates: false,
+              builder: (context, listAvaliations, _) {
+                return DropFilter(
+                  selectedValue: (filter) {
+                    return filteredAvaliations.value = filterController.filterAvaliations(
+                      listAvaliations,
+                      filter,
+                      KCurrentDate,
+                    );
+                  },
+                );
+              },
             ),
           ),
         ],

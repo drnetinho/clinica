@@ -206,7 +206,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                                   onTap: () {
                                     showTimePicker(
                                       context: context,
-                                      initialEntryMode: TimePickerEntryMode.dial,
+                                      initialEntryMode: TimePickerEntryMode.inputOnly,
                                       initialTime: startTime,
                                       builder: (context, child) => WrapTheme(child: child!),
                                     ).then((value) {
@@ -245,7 +245,7 @@ class _NewScaleDialogState extends State<NewScaleDialog> with SnackBarMixin {
                                   readOnly: true,
                                   onTap: () => showTimePicker(
                                     context: context,
-                                    initialEntryMode: TimePickerEntryMode.dial,
+                                    initialEntryMode: TimePickerEntryMode.inputOnly,
                                     initialTime: endTime,
                                     builder: (context, child) => WrapTheme(child: child!),
                                   ).then((value) {
@@ -338,11 +338,6 @@ class WrapTheme extends StatelessWidget {
       data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
       child: Theme(
         data: Theme.of(context).copyWith(
-          colorScheme: ColorScheme.light(
-            primary: context.colorsApp.primary,
-            onPrimary: date ? context.colorsApp.whiteColor : context.colorsApp.primary,
-            onSurface: context.colorsApp.blackColor,
-          ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(foregroundColor: Colors.black),
           ),

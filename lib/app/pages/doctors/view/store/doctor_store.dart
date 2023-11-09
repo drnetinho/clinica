@@ -30,6 +30,7 @@ class DoctorStore extends ValueNotifier<AppState> {
     return doctors.firstWhereOrNull((element) => element.id == id);
   }
 }
+
 @injectable
 class GetDoctorStore extends ValueNotifier<AppState> {
   final DoctorRepository _repository;
@@ -43,7 +44,7 @@ class GetDoctorStore extends ValueNotifier<AppState> {
 
     if (result.doctor != null) {
       value = AppStateSuccess(data: result.doctor);
-    } else if (result.error.exists) {
+    } else {
       value = AppStateError(message: result.error?.message ?? 'Erro ao buscar médicos cadastrados');
     }
   }

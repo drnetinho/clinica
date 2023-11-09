@@ -148,7 +148,9 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                                         fontSize: 20,
                                       ),
                                     ),
-                                    const Divider(),
+                                    Divider(
+                                      endIndent: MediaQuery.of(context).size.width * .25,
+                                    ),
                                     const SizedBox(height: 15),
                                     if (scaleDateGroup.value.isNotEmpty) ...{
                                       Wrap(

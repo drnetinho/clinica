@@ -1,6 +1,7 @@
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:clisp/core/helps/extension/string_extension.dart';
 import 'package:clisp/core/styles/text_app.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/colors_app.dart';
@@ -10,6 +11,7 @@ class SearchHeader extends StatefulWidget {
   final TextEditingController controller;
   final Function(List<PatientModel>?) findedPatients;
   final Function(bool)? addPatient;
+  final bool isAddPatient;
 
   const SearchHeader({
     Key? key,
@@ -17,6 +19,7 @@ class SearchHeader extends StatefulWidget {
     required this.controller,
     required this.findedPatients,
     this.addPatient,
+    this.isAddPatient = true,
   }) : super(key: key);
 
   @override
@@ -50,6 +53,7 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
                           flex: 1,
                           child: TextField(
                             controller: widget.controller,
+                            cursorColor: context.colorsApp.primary,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -97,6 +101,15 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
                             },
                           ),
                         ),
+                        const SizedBox(width: 10),
+                        CupertinoButton(
+                          onPressed: () {
+                            widget.controller.clear();
+                            widget.findedPatients(null);
+                          },
+                          padding: EdgeInsets.zero,
+                          child: Icon(Icons.clear, size: 30, color: ColorsApp.instance.greyColor2),
+                        ),
                       ],
                     ),
                   ),
@@ -104,22 +117,25 @@ class _SearchHeaderState extends State<SearchHeader> with SingleTickerProviderSt
               ),
             ),
             const SizedBox(width: 20),
-            PhysicalModel(
-              elevation: 1,
-              color: context.colorsApp.backgroundCardColor,
-              borderRadius: BorderRadius.circular(12),
-              child: SizedBox(
-                height: 50,
-                width: 180,
-                child: ElevatedButton(
-                  onPressed: () => widget.addPatient?.call(true),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
-                      const SizedBox(width: 8),
-                      Text('Novo Paciente', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
-                    ],
+            Visibility(
+              visible: widget.isAddPatient,
+              child: PhysicalModel(
+                elevation: 1,
+                color: context.colorsApp.backgroundCardColor,
+                borderRadius: BorderRadius.circular(12),
+                child: SizedBox(
+                  height: 50,
+                  width: 180,
+                  child: ElevatedButton(
+                    onPressed: () => widget.addPatient?.call(true),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add, size: 16, color: ColorsApp.instance.whiteColor),
+                        const SizedBox(width: 8),
+                        Text('Novo Paciente', style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 14)),
+                      ],
+                    ),
                   ),
                 ),
               ),

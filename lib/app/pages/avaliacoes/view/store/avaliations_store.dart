@@ -27,20 +27,23 @@ class GetAvaliationsStore extends ValueNotifier<AppState> {
   }
 
   List<String> get exames => [
-        'Hemograma Completo',
-        'Glicemia de Jejum',
-        'Colesterol Total e Frações',
-        'Triglicerídeos',
-        'Ureia',
-        'Creatinina',
-        'Ácido Úrico',
-        'TGO',
-        'TGP',
-        'Fosfatase Alcalina',
-        'GGT',
-        'Bilirrubinas',
-        'Proteínas Totais e Frações',
-        'Albumina',
+        'Ultrassonografia de Abdomen Total',
+        'Ultrassonografia Obstétrica',
+        'Ultrassonografia de Próstata',
+        'Ultrassonografia de Vias Urinárias',
+        'Ultrassonografia Pélvica',
+        'Ultrassonografia da Tireoide',
+        'Ultrassonografia Cervical',
+        'Ultrassonografia Mamária',
+        'Ultrassonografia Morfológica',
+        'Ultrassonografia de Parede Abdominal',
+        'Ultrassonografia de Bolsa Escrotal',
+        'Ultrassonografia Transvaginal',
+        'Eletrocardiograma',
+        'Risco Cirúrgico',
+        'Exames Laboratoriais',
+        'Endoscopia Digestiva Alta',
+        'Papanicolau (Preventivo)',
       ];
 }
 

@@ -98,7 +98,7 @@ class _MedicalScaleCardWidgetWebState extends State<MedicalScaleCardWidgetWeb> {
                       const SizedBox(height: 40),
                       if (scales.isEmpty)
                         const StateEmptyWidget(
-                          message: 'Nenhuma escala encontrada',
+                          message: 'Nenhuma atendimento encontrado',
                           icon: Icons.calendar_today,
                         ),
                       if (scales.isNotEmpty)

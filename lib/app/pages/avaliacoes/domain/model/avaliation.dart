@@ -10,6 +10,7 @@ class Avaliation extends Equatable {
   final String data;
   final String? altura;
   final String? peso;
+  final String doctorName;
   final String doctorId;
   final String patientId;
   final String? frequenciaCardiaca;
@@ -25,6 +26,7 @@ class Avaliation extends Equatable {
     this.altura,
     this.peso,
     required this.doctorId,
+    required this.doctorName,
     required this.patientId,
     this.frequenciaCardiaca,
     this.frequenciaRespiratoria,
@@ -50,6 +52,7 @@ class Avaliation extends Equatable {
         observacoes,
         pressaoArterial,
         examesSolicitados,
+        doctorName,
       ];
 
   Avaliation copyWith({
@@ -59,12 +62,14 @@ class Avaliation extends Equatable {
     String? altura,
     String? peso,
     String? doctorId,
+    String? doctorName,
     String? patientId,
     String? frequenciaCardiaca,
     String? frequenciaRespiratoria,
     String? observacoes,
     String? pressaoArterial,
     List<String>? examesSolicitados,
+
   }) {
     return Avaliation(
       id: id ?? this.id,
@@ -73,6 +78,7 @@ class Avaliation extends Equatable {
       altura: altura ?? this.altura,
       peso: peso ?? this.peso,
       doctorId: doctorId ?? this.doctorId,
+      doctorName: doctorName ?? this.doctorName,
       patientId: patientId ?? this.patientId,
       frequenciaCardiaca: frequenciaCardiaca ?? this.frequenciaCardiaca,
       frequenciaRespiratoria: frequenciaRespiratoria ?? this.frequenciaRespiratoria,

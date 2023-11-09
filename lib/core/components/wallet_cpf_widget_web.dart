@@ -66,7 +66,7 @@ class _WalletCPFWidgetWebState extends State<WalletCPFWidgetWeb> with SnackBarMi
             ),
             const SizedBox(height: 60),
             Text(
-              'Insira o CPF de  algum participante do seu\ngrupo familiar',
+              'Insira o seu CPF ou de algum participante do seu\ngrupo familiar',
               style: context.textStyles.textPoppinsSemiBold
                   .copyWith(color: context.colorsApp.blackColor, fontSize: 22 * unitHeight),
             ),

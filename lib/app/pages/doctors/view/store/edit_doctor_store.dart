@@ -28,7 +28,9 @@ class EditDoctorStore extends ValueNotifier<AppState> {
 
   Future<void> deleteDoctor(Doctor doctor) async {
     value = AppStateLoading();
-    StorageService.deleteImage(doctor.image);
+    if (doctor.image != RMConfig.instance.emptyAvatar) {
+      StorageService.deleteImage(doctor.image);
+    }
     final result = await _repository.deleteDoctor(id: doctor.id);
 
     if (result.unit != null) {

@@ -87,19 +87,19 @@ class SelectedPatientCardState extends State<SelectedPatientCard> {
                       ],
                     ),
                   ),
-                 if(widget.onEdit != null)...{
-                   const SizedBox(width: 20),
-                  IconButton(
-                    onPressed: widget.onEdit,
-                    splashColor: context.colorsApp.primary,
-                    icon: Icon(
-                      Icons.edit,
-                      size: 20,
-                      color: ColorsApp.instance.primary,
+                  if (widget.onEdit != null) ...{
+                    const SizedBox(width: 20),
+                    IconButton(
+                      onPressed: widget.onEdit,
+                      splashColor: context.colorsApp.primary,
+                      icon: Icon(
+                        Icons.edit,
+                        size: 20,
+                        color: ColorsApp.instance.primary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                 },
+                    const SizedBox(width: 10),
+                  },
                 ],
               ),
             ),

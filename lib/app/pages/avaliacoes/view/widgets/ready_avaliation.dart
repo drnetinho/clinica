@@ -44,82 +44,84 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // SECTION 1 ----------------------------------------
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 40, 30, 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const AvaliationLabel(title: 'Paciente'),
-                    const SizedBox(height: 10),
-                    SelectedPatientCard(
-                      patient: widget.patient,
-                      onEdit: null,
-                    ),
-                    const SizedBox(height: 40),
-                    const AvaliationLabel(title: 'Exame Físico'),
-                    const SizedBox(height: 10),
-                    PhysicalAvaliation(
-                      controller: widget.controller,
-                      isReadyMode: true,
-                    ),
-                    const SizedBox(height: 40),
-                    const AvaliationLabel(title: 'Exames Solicitados'),
-                    const SizedBox(height: 10),
-                    SelectExameSection(
-                      controller: widget.controller,
-                      store: null,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            // SECTION 2 ----------------------------------------
-            Expanded(
-              flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(30, 40, 100, 50),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const AvaliationLabel(title: 'Observações'),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.4,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: AppFormField(
-                        textStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16),
-                        maxLines: 12,
-                        hint: widget.controller.obsCtrl.text.isEmpty
-                            ? 'Nenhuma observação'
-                            : widget.controller.obsCtrl.text,
-                        controller: widget.controller.obsCtrl,
-                        readOnly: true,
-                        isValid: true,
+    return IgnorePointer(
+      child: Column(
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // SECTION 1 ----------------------------------------
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 40, 30, 50),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const AvaliationLabel(title: 'Paciente'),
+                      const SizedBox(height: 10),
+                      SelectedPatientCard(
+                        patient: widget.patient,
+                        onEdit: null,
                       ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-                    const AvaliationLabel(title: 'Médico Responsável'),
-                    const SizedBox(height: 10),
-                    SelectedPatientCard(
-                      doctor: widget.doctor,
-                      onEdit: null,
-                    ),
-                  ],
+                      const SizedBox(height: 40),
+                      const AvaliationLabel(title: 'Exame Físico'),
+                      const SizedBox(height: 10),
+                      PhysicalAvaliation(
+                        controller: widget.controller,
+                        isReadyMode: true,
+                      ),
+                      const SizedBox(height: 40),
+                      const AvaliationLabel(title: 'Exames Solicitados'),
+                      const SizedBox(height: 10),
+                      SelectExameSection(
+                        controller: widget.controller,
+                        store: null,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+              // SECTION 2 ----------------------------------------
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 40, 100, 50),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const AvaliationLabel(title: 'Observações'),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: AppFormField(
+                          textStyle: context.textStyles.textPoppinsMedium.copyWith(fontSize: 16),
+                          maxLines: 12,
+                          hint: widget.controller.obsCtrl.text.isEmpty
+                              ? 'Nenhuma observação'
+                              : widget.controller.obsCtrl.text,
+                          controller: widget.controller.obsCtrl,
+                          readOnly: true,
+                          isValid: true,
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                      const AvaliationLabel(title: 'Médico Responsável'),
+                      const SizedBox(height: 10),
+                      SelectedPatientCard(
+                        doctor: widget.doctor,
+                        onEdit: null,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

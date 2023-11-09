@@ -10,6 +10,6 @@ class RemoteConfigValues {
     pix: null,
     clisp: null,
     emptyAvatar:
-        "https://firebasestorage.googleapis.com/v0/b/devwebclinica.appspot.com/o/empty_avatar.jpg?alt=media&token=79efc5d3-56e7-4407-b3fd-da6e26b8beaf&_gl=1*yp8q2i*_ga*MzUyMzMyNDgwLjE2OTEzNDE3MTY.*_ga_CW55HF8NVT*MTY5ODAxMTUyMS44My4xLjE2OTgwMTE2MzEuMzcuMC4w",
+        "https://firebasestorage.googleapis.com/v0/b/webclinicanetinho.appspot.com/o/avatar%2F360_F_408244382_Ex6k7k8XYzTbiXLNJgIL8gssebpLLBZQ.jpg?alt=media&token=590e412e-9ebe-4de0-a458-c70f0d2d39fe",
   };
 }

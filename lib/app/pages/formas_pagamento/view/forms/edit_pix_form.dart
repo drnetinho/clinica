@@ -7,14 +7,14 @@ class EditPixForm with FormzMixin {
   final StringInput typeKey;
   final StringInput bank;
   final StringInput pixKey;
-  final StringInput urlImage;
+  final EmtpyInput urlImage;
 
   EditPixForm({
     this.name = const StringInput.pure(),
     this.typeKey = const StringInput.pure(),
     this.bank = const StringInput.pure(),
     this.pixKey = const StringInput.pure(),
-   this.urlImage = const StringInput.pure(),
+    this.urlImage = const EmtpyInput.pure(),
   });
 
   @override
@@ -31,7 +31,7 @@ class EditPixForm with FormzMixin {
     StringInput? typeKey,
     StringInput? bank,
     StringInput? pixKey,
-    StringInput? urlImage,
+    EmtpyInput? urlImage,
   }) {
     return EditPixForm(
       name: name ?? this.name,

@@ -114,10 +114,9 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                     ),
                     const SizedBox(height: 40),
                     if (scales.isEmpty) ...{
-                      const Spacer(),
+                      const SizedBox(height: 50),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           const Icon(
                             Icons.timer_off_outlined,
@@ -132,7 +131,6 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                           ),
                         ],
                       ),
-                      const Spacer(),
                     } else ...{
                       Expanded(
                         child: ListView(
@@ -150,7 +148,9 @@ class _EditMedicalScaleState extends State<EditMedicalScale> with SnackBarMixin,
                                         fontSize: 20,
                                       ),
                                     ),
-                                    const Divider(),
+                                    Divider(
+                                      endIndent: MediaQuery.of(context).size.width * .25,
+                                    ),
                                     const SizedBox(height: 15),
                                     if (scaleDateGroup.value.isNotEmpty) ...{
                                       Wrap(

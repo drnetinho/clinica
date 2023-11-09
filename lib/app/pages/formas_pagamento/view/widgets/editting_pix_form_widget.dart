@@ -144,8 +144,6 @@ class _EdittingPixFormWidgetState extends State<EdittingPixFormWidget> with Snac
                                 );
                               },
                             );
-
-                            widget.formasPagamentoController.editPix.value = false;
                           },
                         ),
                       ),

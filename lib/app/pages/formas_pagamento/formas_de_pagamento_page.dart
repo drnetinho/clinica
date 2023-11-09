@@ -59,11 +59,6 @@ class _FormasDePagamentoPageState extends State<FormasDePagamentoPage> {
           const SizedBox(height: 75),
           StoreBuilder<PixModel>(
               store: getPixStore,
-              error: EdittingPixFormWidget(
-                editPixStore: editPixStore,
-                getPixStore: getPixStore,
-                formasPagamentoController: controller,
-              ),
               validateDefaultStates: true,
               builder: (context, pix, _) {
                 return PhysicalModel(

@@ -1,21 +1,18 @@
-import 'package:clisp/app/pages/historico/historico_page.dart';
-import 'package:clisp/app/pages/home/view/home_page.dart';
-import 'package:clisp/app/root/router_controller.dart';
+import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
+import 'package:clisp/common/services/remote_config/remote_config_service.dart';
+import 'package:clisp/common/state/app_state_extension.dart';
+import 'package:clisp/core/components/app_loader.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clisp/app/pages/avaliacoes/domain/model/avaliation.dart';
 import 'package:clisp/app/pages/avaliacoes/view/widgets/ready_avaliation.dart';
-import 'package:clisp/app/pages/doctors/domain/model/doctor.dart';
 import 'package:clisp/app/pages/doctors/view/store/doctor_store.dart';
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
 import 'package:clisp/core/components/snackbar.dart';
-import 'package:clisp/core/components/store_builder.dart';
 import 'package:clisp/core/styles/text_app.dart';
 import 'package:clisp/di/get_it.dart';
-import 'package:go_router/go_router.dart';
 
 import 'controller/new_avaliation_controller.dart';
-import 'package:universal_html/html.dart' as html;
 
 class ReadyAvaliationPageArgs {
   final Avaliation avaliation;
@@ -48,11 +45,7 @@ class _ReadyAvaliationPageState extends State<ReadyAvaliationPage> with SnackBar
   @override
   void initState() {
     super.initState();
-    html.window.addEventListener('beforeunload', (event) {
-      event.preventDefault();
-      context.go(subRoute(HomePage.routeName, HistoricoPage.routeName));
-      return 'Você será redirecionado para a página antes caso continue.';
-    });
+
     controller = getIt<NewAvaliationController>();
     _getDoctorStore = getIt<GetDoctorStore>();
     _getDoctorStore.getDoctorById(
@@ -83,15 +76,32 @@ class _ReadyAvaliationPageState extends State<ReadyAvaliationPage> with SnackBar
               ),
             ),
             const SizedBox(height: 50),
-            StoreBuilder<Doctor>(
-              store: _getDoctorStore,
-              validateDefaultStates: true,
-              builder: (context, doctor, _) => ReadyAvaliation(
-                doctor: doctor,
-                avaliation: widget.args!.avaliation,
-                patient: widget.args!.patient,
-                controller: controller,
-              ),
+            ValueListenableBuilder(
+              valueListenable: _getDoctorStore,
+              builder: (context, state, _) {
+                if (state.isSuccess) {
+                  return ReadyAvaliation(
+                    doctor: _getDoctorStore.value.success.data as Doctor,
+                    avaliation: widget.args!.avaliation,
+                    patient: widget.args!.patient,
+                    controller: controller,
+                  );
+                }
+                if (state.isError) {
+                  return ReadyAvaliation(
+                    doctor: Doctor(
+                      widget.args!.avaliation.doctorName,
+                      'Médico Excluído',
+                      RMConfig.instance.emptyAvatar,
+                      '',
+                    ),
+                    avaliation: widget.args!.avaliation,
+                    patient: widget.args!.patient,
+                    controller: controller,
+                  );
+                }
+                return const Center(child: AppLoader());
+              },
             ),
           ],
         ),

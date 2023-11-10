@@ -65,7 +65,7 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
               ),
               const SizedBox(height: 10),
               Text(
-                'Insira o seu CPF ou de algum participante do seu grupo familiar',
+                'Insira seu CPF ou de algum participante do seu grupo familiar',
                 style:
                     context.textStyles.textPoppinsRegular.copyWith(color: context.colorsApp.blackColor, fontSize: 10),
               ),
@@ -77,6 +77,7 @@ class _WalletCpfWidgetMobileState extends State<WalletCpfWidgetMobile> with Snac
                     maxWidth: MediaQuery.of(context).size.width * 0.8,
                     controller: walletController.cpfControlller,
                     isValid: form.cpf.isValid,
+                    keyboardType: TextInputType.number,
                     onSubmit: (p0) {
                       if (form.isValid) {
                         _getGroupByCpfStore.getGroupByCpf(cpf: walletController.cpfControlller.text);

@@ -21,9 +21,9 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> with SnackBarMixin {
-  final TextEditingController emailCtrl = TextEditingController(text: 'drnetinhoclisp@gmail.com');
+  final TextEditingController emailCtrl = TextEditingController();
 
-  final TextEditingController passCtrl = TextEditingController(text: 'Appclinica1');
+  final TextEditingController passCtrl = TextEditingController();
 
   late final AuthService authService;
 

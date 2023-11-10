@@ -29,117 +29,119 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorsApp.whiteColor,
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 30.0,
-          bottom: 20,
-          left: 100,
-          right: 30,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const AppBarWidget(),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Row(
-                      children: [
-                        CardCategoriasWidget(
-                          width: 290,
-                          background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.user_config,
-                          title: 'Gerenciar Paciente',
-                          subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
-                          onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                        CardCategoriasWidget(
-                          width: 290,
-                          background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.clock_baseline_history,
-                          title: 'Histórico do Paciente',
-                          subTitle: 'Acessar histórico de\nconsultas de um paciente.',
-                          onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                    Row(
-                      children: [
-                        CardCategoriasWidget(
-                          width: 290,
-                          background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.family,
-                          title: 'Grupo Familiar',
-                          subTitle: 'Ver membros e acessar\ndetalhes do grupo familiar.',
-                          onTap: () => context.go(subRoute(HomePage.routeName, GrupoFamiliarPage.routeName)),
-                        ),
-                        SizedBox(width: MediaQuery.of(context).size.width * 0.02),
-                        CardCategoriasWidget(
-                          width: 290,
-                          background: context.colorsApp.dartMedium,
-                          icon: ClinicaIcons.notes_medical,
-                          title: 'Avaliações do Paciente',
-                          subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
-                          onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    EscalaMedica(
-                      onPressedEdit: () => context.go(
-                        subRoute(HomePage.routeName, EditMedicalScale.subRoute),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            top: 30.0,
+            bottom: 20,
+            left: 100,
+            right: 30,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const AppBarWidget(),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      Row(
+                        children: [
+                          CardCategoriasWidget(
+                            width: 290,
+                            background: context.colorsApp.dartMedium,
+                            icon: ClinicaIcons.user_config,
+                            title: 'Gerenciar Paciente',
+                            subTitle: 'Adicionar novos pacientes\n e gerenciar os existentes',
+                            onTap: () => context.go(subRoute(HomePage.routeName, GerenciarPacientesPage.routeName)),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                          CardCategoriasWidget(
+                            width: 290,
+                            background: context.colorsApp.dartMedium,
+                            icon: ClinicaIcons.clock_baseline_history,
+                            title: 'Histórico do Paciente',
+                            subTitle: 'Acessar histórico de\nconsultas de um paciente.',
+                            onTap: () => context.go(subRoute(HomePage.routeName, HistoricoPage.routeName)),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                        Column(
-                          children: [
-                            CardCategoriasWidget(
-                              background: context.colorsApp.dartMedium,
-                              width: 350,
-                              title: 'Dados de Pagamento',
-                              subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
-                              onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                            CardCategoriasWidget(
-                              background: context.colorsApp.dartMedium,
-                              width: 350,
-                              title: 'Relatórios de Faturamento',
-                              subTitle: 'Acessar relatórios de faturamento.\n     ',
-                              onTap: () => context.go(subRoute(HomePage.routeName, RelatoriosPage.routeName)),
-                            ),
-                          ],
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                      Row(
+                        children: [
+                          CardCategoriasWidget(
+                            width: 290,
+                            background: context.colorsApp.dartMedium,
+                            icon: ClinicaIcons.family,
+                            title: 'Grupo Familiar',
+                            subTitle: 'Ver membros e acessar\ndetalhes do grupo familiar.',
+                            onTap: () => context.go(subRoute(HomePage.routeName, GrupoFamiliarPage.routeName)),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                          CardCategoriasWidget(
+                            width: 290,
+                            background: context.colorsApp.dartMedium,
+                            icon: ClinicaIcons.notes_medical,
+                            title: 'Avaliações do Paciente',
+                            subTitle: 'Adicionar avaliações\n(Receitas, solicitações de exames)',
+                            onTap: () => context.go(subRoute(HomePage.routeName, AvaliacoesPage.routeName)),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      EscalaMedica(
+                        onPressedEdit: () => context.go(
+                          subRoute(HomePage.routeName, EditMedicalScale.subRoute),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                          Column(
+                            children: [
+                              CardCategoriasWidget(
+                                background: context.colorsApp.dartMedium,
+                                width: 350,
+                                title: 'Dados de Pagamento',
+                                subTitle: 'Alterar informações de pagamento\n(Dados bancários, QR Code, etc.)',
+                                onTap: () => context.go(subRoute(HomePage.routeName, FormasDePagamentoPage.routeName)),
+                              ),
+                              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                              CardCategoriasWidget(
+                                background: context.colorsApp.dartMedium,
+                                width: 350,
+                                title: 'Relatórios de Faturamento',
+                                subTitle: 'Acessar relatórios de faturamento.\n     ',
+                                onTap: () => context.go(subRoute(HomePage.routeName, RelatoriosPage.routeName)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

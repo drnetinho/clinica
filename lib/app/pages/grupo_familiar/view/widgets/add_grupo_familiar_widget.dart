@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clisp/app/pages/grupo_familiar/view/store/edit_payment_store.dart';
@@ -133,13 +134,6 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                       )
                     ],
                   ),
-                  Text(
-                    'Gerenciar Pagamentos',
-                    style: context.textStyles.textPoppinsMedium.copyWith(
-                      fontSize: 24,
-                      color: ColorsApp.instance.success,
-                    ),
-                  ),
                   Expanded(
                     child: ValueListenableBuilder(
                       valueListenable: addGroupController.newGroupMembers,
@@ -168,23 +162,35 @@ class _AddGrupoFamiliarWidgetState extends State<AddGrupoFamiliarWidget> with Sn
                     ),
                   ),
                   const SizedBox(height: 20),
-                  InkWell(
-                    child: Text(
-                      '+ Adicionar paciente',
-                      style: context.textStyles.textPoppinsMedium.copyWith(
-                        fontSize: 18,
-                        color: ColorsApp.instance.success,
-                      ),
-                    ),
-                    onTap: () => showDialog(
+                  CupertinoButton(
+                    onPressed: () => showDialog(
                       useSafeArea: true,
                       context: context,
                       builder: (_) => AddGroupMembersDialog(
                         addController: addGroupController,
                       ),
                     ),
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: context.colorsApp.greenColor2,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'ADICIONAR MEMBRO',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: context.colorsApp.greenColor2,
+                          letterSpacing: 2.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                  const Spacer(),
+                  const SizedBox(height: 20),
                   Text(
                     'Gerenciar Pagamentos',
                     style: context.textStyles.textPoppinsMedium.copyWith(

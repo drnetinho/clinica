@@ -1,4 +1,5 @@
 import 'package:clisp/app/pages/relatorios/view/widgets/gerar_relatorio_widget.dart';
+import 'package:clisp/core/styles/colors_app.dart';
 import 'package:flutter/material.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/controller/filter_controller.dart';
 import 'package:clisp/app/pages/grupo_familiar/view/store/get_groups_store.dart';
@@ -73,9 +74,21 @@ class _RelatoriosPageState extends State<RelatoriosPage> with SnackBarMixin {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Relatórios de Faturamento',
-                    style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
+                  Row(
+                    children: [
+                      Text(
+                        'Relatórios de Faturamento',
+                        style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30),
+                      ),
+                      const SizedBox(width: 10),
+                      IconButton(
+                        onPressed: fetchData,
+                        icon: Icon(
+                          Icons.refresh,
+                          color: context.colorsApp.primary,
+                        ),
+                      ),
+                    ],
                   ),
                   const Visibility(
                     visible: false,

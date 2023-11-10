@@ -251,6 +251,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                 Container(
                   alignment: Alignment.bottomRight,
                   padding: Padd.all(Spacing.m),
+                  margin: Padd.all(Spacing.m),
                   child: AnimatedBuilder(
                     animation: selectedGroup,
                     builder: (context, _) {
@@ -265,7 +266,7 @@ class _SearchPatientsDialogState extends State<SearchPatientsDialog> {
                             },
                             child: Row(
                               children: [
-                                Icon(Icons.close, color: context.colorsApp.greenColor2),
+                                Icon(Icons.close, color: context.colorsApp.blackColor),
                                 const SizedBox(height: 10),
                                 Text('Cancelar',
                                     style: context.textStyles.textPoppinsSemiBold

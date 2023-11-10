@@ -41,7 +41,10 @@ class GroupMemberTile extends StatelessWidget {
               },
             ],
           ),
-          Divider(color: ColorsApp.instance.greyColor),
+          Divider(
+            color: ColorsApp.instance.greyColor,
+            endIndent: 200,
+          ),
         ],
       ),
     );

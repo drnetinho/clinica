@@ -23,9 +23,11 @@ class FichaMedicaWidget extends StatefulWidget {
   final PatientModel patient;
   final EditPatientsStore editStore;
   final ManagePatientsStore manageStore;
+  final bool readyOndly;
 
   const FichaMedicaWidget({
     Key? key,
+    this.readyOndly = false,
     required this.patient,
     required this.editStore,
     required this.manageStore,
@@ -57,6 +59,14 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
     controller = getIt<FichaMedicaController>();
     gerenciarController = getIt<GerenciarPacientesController>();
     editMode = ValueNotifier(false);
+    controller.setupConfig(widget.patient);
+
+    editMode.addListener(() {
+      if (editMode.value) {
+        controller.resetValues();
+        controller.setupConfig(widget.patient);
+      }
+    });
   }
 
   @override
@@ -113,7 +123,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                     style: context.textStyles.textPoppinsMedium.copyWith(fontSize: 30)),
                                 const Spacer(),
                                 Visibility(
-                                  visible: isEditing,
+                                  visible: isEditing && !widget.readyOndly,
                                   child: ExcluirButton(
                                     discardMode: true,
                                     onPressed: () {
@@ -125,7 +135,7 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                 ),
                                 const SizedBox(width: 10),
                                 Visibility(
-                                  visible: !isEditing,
+                                  visible: !isEditing && !widget.readyOndly,
                                   child: ExcluirButton(
                                     onPressed: () {
                                       showDialog(
@@ -152,45 +162,48 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                   ),
                                 ),
                                 const SizedBox(width: 10),
-                                EditarButton(
-                                  isEditing: editMode.value,
-                                  isLoading: widget.editStore.value.isLoading,
-                                  onPressed: () {
-                                    if (isEditing) {
-                                      if (form.isValid) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AppDialog(
-                                              title: 'Deseja realmente salvar as alterações?',
-                                              firstButtonText: 'Cancelar',
-                                              secondButtonText: 'Salvar',
-                                              firstButtonIcon: Icons.cancel,
-                                              secondButtonIcon: Icons.check,
-                                              store: widget.editStore,
-                                              onPressedSecond: () {
-                                                widget.editStore.updatePatient(
-                                                  patient: controller.updatePatient(),
-                                                );
-                                              },
-                                              actionOnSuccess: () {
-                                                widget.manageStore.getPatients();
-                                                controller.resetValues();
-                                                gerenciarController.resetSearch();
-                                                gerenciarController.resetPatient();
-                                                editMode.value = false;
-                                              },
-                                            );
-                                          },
-                                        );
+                                Visibility(
+                                  visible: !widget.readyOndly,
+                                  child: EditarButton(
+                                    isEditing: editMode.value,
+                                    isLoading: widget.editStore.value.isLoading,
+                                    onPressed: () {
+                                      if (isEditing) {
+                                        if (form.isValid) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AppDialog(
+                                                title: 'Deseja realmente salvar as alterações?',
+                                                firstButtonText: 'Cancelar',
+                                                secondButtonText: 'Salvar',
+                                                firstButtonIcon: Icons.cancel,
+                                                secondButtonIcon: Icons.check,
+                                                store: widget.editStore,
+                                                onPressedSecond: () {
+                                                  widget.editStore.updatePatient(
+                                                    patient: controller.updatePatient(),
+                                                  );
+                                                },
+                                                actionOnSuccess: () {
+                                                  widget.manageStore.getPatients();
+                                                  controller.resetValues();
+                                                  gerenciarController.resetSearch();
+                                                  gerenciarController.resetPatient();
+                                                  editMode.value = false;
+                                                },
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          showError(context: context, text: 'Preencha os campos corretamente');
+                                        }
                                       } else {
-                                        showError(context: context, text: 'Preencha os campos corretamente');
+                                        editMode.value = true;
+                                        controller.setupConfig(widget.patient);
                                       }
-                                    } else {
-                                      editMode.value = true;
-                                      controller.setupConfig(widget.patient);
-                                    }
-                                  },
+                                    },
+                                  ),
                                 ),
                               ],
                             ),
@@ -400,7 +413,6 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                                 }
                                                 return ListView.builder(
                                                   itemCount: value.length,
-                                                  // shrinkWrap: true,
                                                   itemBuilder: (context, index) {
                                                     final illness = value[index];
 
@@ -527,8 +539,8 @@ class _FichaMedicaWidgetState extends State<FichaMedicaWidget> with SnackBarMixi
                                             Spacing.s.horizotalGap,
                                             Text(
                                               widget.patient.familyGroup,
-                                              style: context.textStyles.textPoppinsMedium
-                                                  .copyWith(fontSize: 14, color: context.colorsApp.greyColor),
+                                              style: context.textStyles.textPoppinsMedium.copyWith(
+                                                  fontSize: 14, color: context.colorsApp.greyColor, height: -0.25),
                                             ),
                                           ],
                                         ),

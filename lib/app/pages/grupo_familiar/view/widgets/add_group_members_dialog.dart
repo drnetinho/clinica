@@ -120,6 +120,7 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
             Container(
               alignment: Alignment.bottomRight,
               padding: Padd.all(Spacing.m),
+              margin: Padd.all(Spacing.m),
               child: ValueListenableBuilder(
                 valueListenable: widget.addController.newGroupMembers,
                 builder: (context, newMembers, _) {
@@ -128,7 +129,13 @@ class _AddGroupMembersDialogState extends State<AddGroupMembersDialog> {
                     children: [
                       ElevatedButton(
                         onPressed: context.pop,
-                        child: const Text('Cancelar'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                        ),
+                        child: const Text(
+                          'Cancelar',
+                          style: TextStyle(color: Colors.black),
+                        ),
                       ),
                       Spacing.m.horizotalGap,
                       ElevatedButton(

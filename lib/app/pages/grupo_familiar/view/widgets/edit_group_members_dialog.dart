@@ -127,6 +127,7 @@ class _EditGroupMembersDialogState extends State<EditGroupMembersDialog> {
             Container(
               alignment: Alignment.bottomRight,
               padding: Padd.all(Spacing.m),
+              margin: Padd.all(Spacing.m),
               child: ValueListenableBuilder(
                 valueListenable: widget.editController.members,
                 builder: (context, newMembers, _) {

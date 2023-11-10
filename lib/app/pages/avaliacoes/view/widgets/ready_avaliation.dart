@@ -44,47 +44,51 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
 
   @override
   Widget build(BuildContext context) {
-    return IgnorePointer(
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // SECTION 1 ----------------------------------------
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(30, 40, 30, 50),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const AvaliationLabel(title: 'Paciente'),
-                      const SizedBox(height: 10),
-                      SelectedPatientCard(
-                        patient: widget.patient,
-                        onEdit: null,
-                      ),
-                      const SizedBox(height: 40),
-                      const AvaliationLabel(title: 'Exame Físico'),
-                      const SizedBox(height: 10),
-                      PhysicalAvaliation(
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SECTION 1 ----------------------------------------
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 40, 30, 50),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const AvaliationLabel(title: 'Paciente'),
+                    const SizedBox(height: 10),
+                    SelectedPatientCard(
+                      patient: widget.patient,
+                      onEdit: null,
+                    ),
+                    const SizedBox(height: 40),
+                    const AvaliationLabel(title: 'Exame Físico'),
+                    const SizedBox(height: 10),
+                    IgnorePointer(
+                      child: PhysicalAvaliation(
                         controller: widget.controller,
                         isReadyMode: true,
                       ),
-                      const SizedBox(height: 40),
-                      const AvaliationLabel(title: 'Exames Solicitados'),
-                      const SizedBox(height: 10),
-                      SelectExameSection(
+                    ),
+                    const SizedBox(height: 40),
+                    const AvaliationLabel(title: 'Exames Solicitados'),
+                    const SizedBox(height: 10),
+                    IgnorePointer(
+                      child: SelectExameSection(
                         controller: widget.controller,
                         store: null,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              // SECTION 2 ----------------------------------------
-              Expanded(
+            ),
+            // SECTION 2 ----------------------------------------
+            IgnorePointer(
+              child: Expanded(
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(30, 40, 100, 50),
@@ -118,10 +122,10 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
                   ),
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

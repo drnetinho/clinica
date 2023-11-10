@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                       const AppBarWidget(),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       Text('Pacientes', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                      // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                       Row(
                         children: [
                           CardCategoriasWidget(
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                       Row(
                         children: [
                           CardCategoriasWidget(
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                     ],
                   ),
                   Column(
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text('Pagamentos', style: context.textStyles.textPoppinsSemiBold.copyWith(fontSize: 22)),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                          // SizedBox(height: MediaQuery.of(context).size.height * 0.03),
                           Column(
                             children: [
                               CardCategoriasWidget(
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.07),
                         ],
                       ),
                     ],

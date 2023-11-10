@@ -32,16 +32,16 @@ class _ExamesSolicitadosDialogState extends State<ExamesSolicitadosDialog> {
       child: AnimatedBuilder(
         animation: widget.controller.exames,
         builder: (context, _) {
-          return SingleChildScrollView(
-            child: Container(
-              padding: Padd.sh(Spacing.x),
-              height: MediaQuery.of(context).size.height * .8,
-              width: MediaQuery.of(context).size.width * .4,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          return Container(
+            padding: Padd.sh(Spacing.x),
+            height: MediaQuery.of(context).size.height * .8,
+            width: MediaQuery.of(context).size.width * .4,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
                     Text(

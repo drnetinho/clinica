@@ -53,7 +53,7 @@ class FichaMedicaController {
     patientEdited.value = patient;
     // Preselected Gender
     selectedGender.value = patient.gender;
-    ilnesses.value = patient.previousIlnesses ?? [];
+    ilnesses.value = patient.previousIlnesses != null ? [...patient.previousIlnesses!] : [];
     // Controllers
     nameCt.text = patient.name;
     ageCt.text = patient.age;

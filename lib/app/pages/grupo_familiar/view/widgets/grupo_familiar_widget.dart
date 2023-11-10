@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:clisp/app/pages/gerenciar_pacientes/domain/model/patient_model.dart';
@@ -223,7 +224,7 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 40),
                     Expanded(
                       child: ValueListenableBuilder(
                           valueListenable: editGroupController.members,
@@ -260,19 +261,31 @@ class _GrupoFamiliarWidgetState extends State<GrupoFamiliarWidget> with SnackBar
                           }),
                     ),
                     if (isEditing) ...{
-                      InkWell(
-                        child: Text(
-                          '+ Adicionar paciente',
-                          style: context.textStyles.textPoppinsMedium.copyWith(
-                            fontSize: 18,
-                            color: ColorsApp.instance.success,
-                          ),
-                        ),
-                        onTap: () => showDialog(
+                      CupertinoButton(
+                        onPressed: () => showDialog(
                           useSafeArea: true,
                           context: context,
                           builder: (_) => EditGroupMembersDialog(
                             editController: editGroupController,
+                          ),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: context.colorsApp.greenColor2,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            'ADICIONAR MEMBRO',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: context.colorsApp.greenColor2,
+                              letterSpacing: 2.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

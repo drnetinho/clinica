@@ -87,9 +87,9 @@ class _ReadyAvaliationState extends State<ReadyAvaliation> with SnackBarMixin {
               ),
             ),
             // SECTION 2 ----------------------------------------
-            IgnorePointer(
-              child: Expanded(
-                flex: 1,
+            Expanded(
+              flex: 1,
+              child: IgnorePointer(
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(30, 40, 100, 50),
                   child: Column(

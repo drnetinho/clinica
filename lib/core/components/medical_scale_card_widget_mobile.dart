@@ -174,13 +174,13 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                             doctor.name,
                             style: context.textStyles.textPoppinsSemiBold
                                 .copyWith(color: context.colorsApp.blackColor)
-                                .copyWith(fontSize: 11),
+                                .copyWith(fontSize: 12),
                           ),
                           Text(
                             doctor.specialization,
                             style: context.textStyles.textPoppinsRegular
                                 .copyWith(color: context.colorsApp.blackColor)
-                                .copyWith(fontSize: 10),
+                                .copyWith(fontSize: 12),
                           ),
                         ],
                       ),
@@ -204,7 +204,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                           Text(
                             scale.dateTime.formatted,
                             style: context.textStyles.textPoppinsBold
-                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
+                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
                           ),
                           const SizedBox(width: 40),
                           Icon(Icons.access_alarm, color: context.colorsApp.primary, size: 14),
@@ -212,7 +212,7 @@ class _MedicalScaleCardWidgetMobileState extends State<MedicalScaleCardWidgetMob
                           Text(
                             '${scale.start}' ' - ' '${scale.end}',
                             style: context.textStyles.textPoppinsBold
-                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 8),
+                                .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
                           ),
                         ],
                       ),

@@ -1,9 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:clisp/core/styles/colors_app.dart';
 import 'package:clisp/core/styles/text_app.dart';
 
-import '../../../../common/services/remote_config/remote_config_service.dart';
 import '../../../../core/components/store_builder.dart';
 import '../../../../di/get_it.dart';
 import '../../home/domain/model/app_details_model.dart';
@@ -36,51 +34,40 @@ class _AppBarLandingPageMobileState extends State<AppBarLandingPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.3,
-          child: RMConfig.instance.clispImage?.isNotEmpty == true
-              ? CachedNetworkImage(imageUrl: RMConfig.instance.clispImage!)
-              : Image.asset('assets/images/clinica_image.png'),
-        ),
-        const SizedBox(width: 10),
-        StoreBuilder<AppDetailsModel>(
-            store: _detailsStore,
-            validateDefaultStates: false,
-            builder: (context, appDetails, _) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    appDetails.name,
-                    style: context.textStyles.textPoppinsSemiBold.copyWith(
-                      color: context.colorsApp.secondaryColorRed,
-                      fontSize: 20,
-                    ),
-                    maxLines: 2,
-                  ),
-                  Text(
-                    appDetails.address,
-                    style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.greyColor, fontSize: 12),
-                  ),
-                  Text(
-                    'Telefone: ${appDetails.phone1}',
-                    style: context.textStyles.textPoppinsSemiBold
-                        .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
-                  ),
-                  if (appDetails.phone2?.isNotEmpty == true)
-                    Text(
-                      'Telefone secundário: ${appDetails.phone2!}',
-                      style: context.textStyles.textPoppinsSemiBold
-                          .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
-                    ),
-                ],
-              );
-            }),
-      ],
-    );
+    return StoreBuilder<AppDetailsModel>(
+        store: _detailsStore,
+        validateDefaultStates: false,
+        builder: (context, appDetails, _) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              Text(
+                appDetails.name,
+                style: context.textStyles.textPoppinsSemiBold.copyWith(
+                  color: context.colorsApp.secondaryColorRed,
+                  fontSize: 26,
+                ),
+                maxLines: 2,
+              ),
+              Text(
+                appDetails.address,
+                style:
+                    context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.greyColor, fontSize: 14),
+              ),
+              Text(
+                'Telefone: ${appDetails.phone1}',
+                style:
+                    context.textStyles.textPoppinsSemiBold.copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
+              ),
+              if (appDetails.phone2?.isNotEmpty == true)
+                Text(
+                  'Telefone secundário: ${appDetails.phone2!}',
+                  style: context.textStyles.textPoppinsSemiBold
+                      .copyWith(color: context.colorsApp.greyColor2, fontSize: 12),
+                ),
+            ],
+          );
+        });
   }
 }

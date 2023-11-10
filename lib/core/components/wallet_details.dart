@@ -101,7 +101,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                         onTap: () => walletController.isFlipped.value = true,
                         child: Container(
                           height: widget.fromMobile
-                              ? MediaQuery.of(context).size.height * 0.32
+                              ? MediaQuery.of(context).size.height * 0.28
                               : MediaQuery.of(context).size.height * 0.36,
                           width: widget.fromMobile
                               ? MediaQuery.of(context).size.width * 0.83
@@ -190,7 +190,7 @@ class _WalletDetailsState extends State<WalletDetails> {
                         onTap: () => walletController.isFlipped.value = false,
                         child: Container(
                           height: widget.fromMobile
-                              ? MediaQuery.of(context).size.height * 0.32
+                              ? MediaQuery.of(context).size.height * 0.28
                               : MediaQuery.of(context).size.height * 0.36,
                           width: widget.fromMobile
                               ? MediaQuery.of(context).size.width * 0.83
